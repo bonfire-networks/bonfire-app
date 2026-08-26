@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ tests [`b805f78`](https://github.com/bonfire-networks/bonfire-app/commit/b805f785ea59fa7cf237a2079b7b1000e74d4b68), [`7256db9`](https://github.com/bonfire-networks/bonfire-app/commit/7256db9adc603363f8131b27b85f4ebc076a3042), [`118a4b0`](https://github.com/bonfire-networks/bonfire-app/commit/118a4b0402605d07767107926af80afeb2d1f5ca), [`25beeda`](https://github.com/bonfire-networks/bonfire-app/commit/25beeda2a9d5ee491439512f38693c4aa989e464), [`87c7c7f`](https://github.com/bonfire-networks/bonfire-app/commit/87c7c7f0e7ecd3d2dfedf971be8a2683ceb033f9), [`6a4bcbf`](https://github.com/bonfire-networks/bonfire-app/commit/6a4bcbf0352dbb5e4ecd03d585e37922f38db33c) (thanks @mayel)
 
 ### Changed
+- 📝 editing a post does not federate with mastodon [#2218](https://github.com/bonfire-networks/bonfire-app/issues/2218) (thanks @ivanminutillo and @mayel)
 - 💅 when i like / boost a post, the OP preview shows the favicon, date of the boost/like [#2217](https://github.com/bonfire-networks/bonfire-app/issues/2217) (thanks @ivanminutillo)
 - 📝 when i reply to a post the composer does not include auomatically the mentions [#2216](https://github.com/bonfire-networks/bonfire-app/issues/2216) (thanks @ivanminutillo)
 - 📝 urls are not converted into links in DMs [#2195](https://github.com/bonfire-networks/bonfire-app/issues/2195) (thanks @ivanminutillo)
@@ -21,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ⚡ calm empowerement: instance performance/resource usage tuning [#2100](https://github.com/bonfire-networks/bonfire-app/issues/2100) (thanks @mayel)
 - 💅 When a profile is opened, below the bio there are 3 links: [number] posts (the profile opens showing these), [number] followers, [number] following. If you click on "[number] followers" or "[number] following", the "[number] posts" link disappears. [#1862](https://github.com/bonfire-networks/bonfire-app/issues/1862) (thanks @ivanminutillo)
 - 📝 Theme color picker dropdown closes immediately in admin settings [#1829](https://github.com/bonfire-networks/bonfire-app/issues/1829) (thanks @creatinglake and @ivanminutillo)
+- 📝 regex to avoid extra blank lines [PR #8](https://github.com/bonfire-networks/bonfire_social/pull/8) (thanks @ivanminutillo)
 - 📝 docs: fix typos in AGENTS, HACKING and topic docs [PR #2224](https://github.com/bonfire-networks/bonfire-app/pull/2224) (thanks @vaibhav8a)
 - 📝 .26 [`36c777d`](https://github.com/bonfire-networks/bonfire-app/commit/36c777d8232072afcc7eafdd0cbf22d3858e62d3) (thanks @ivanminutillo)
 - 📝 .27 [`c99023b`](https://github.com/bonfire-networks/bonfire-app/commit/c99023b1e910bd0e1daedefc7192acb324f5d184) (thanks @ivanminutillo)
@@ -33,6 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🚧 Switch Profile shows I have many notifications on each account, when I don't. [#2220](https://github.com/bonfire-networks/bonfire-app/issues/2220) [`5ccedc2`](https://github.com/bonfire-networks/bonfire-app/commit/5ccedc22d3632bba9a44e414be95b0a9d4bd5498) (thanks @mayel and @btfreeorg)
 - 📝 js paths [`94cc67b`](https://github.com/bonfire-networks/bonfire-app/commit/94cc67b35644ad010c02074ab84aad801a85d7d7) (thanks @mayel)
 - 📝 locale [`3c345ed`](https://github.com/bonfire-networks/bonfire-app/commit/3c345ed48b22fc36fed27bab5a16c6cbabbe2733) (thanks @mayel)
+- 📝 optimise [`e04531a`](https://github.com/bonfire-networks/bonfire-app/commit/e04531abdf8893bc59b6952b716e8677637c24c6) (thanks @mayel)
 - 📝 optimise ci [`4196e38`](https://github.com/bonfire-networks/bonfire-app/commit/4196e3848cb6fa2ca212fcad5b465827310f004a) (thanks @mayel)
 - 📝 private post boundaries interop [`8f2dba9`](https://github.com/bonfire-networks/bonfire-app/commit/8f2dba9d508c7f02415b3ce2c60f931738d862bf) (thanks @mayel)
 - 📝 rel 12 [`84095c0`](https://github.com/bonfire-networks/bonfire-app/commit/84095c053b249b68a9d011aeedb16c48e74fb6ee) (thanks @ivanminutillo)
