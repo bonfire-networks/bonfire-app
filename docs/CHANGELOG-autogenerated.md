@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 ### Added
+- ✨ list allowlisted instances/actors in about page [#2234](https://github.com/bonfire-networks/bonfire-app/issues/2234) (thanks @mayel)
 - ✨ Add scroll to refresh on PWA [#2196](https://github.com/bonfire-networks/bonfire-app/issues/2196) (thanks @ivanminutillo)
 - ✨ Feature Proposal: Disallow users customising their own theme [#2039](https://github.com/bonfire-networks/bonfire-app/issues/2039) (thanks @ccamara and @mayel)
 - ✅ Bonfire Load Test Results [#1789](https://github.com/bonfire-networks/bonfire-app/issues/1789) (thanks @ivanminutillo and @mayel)
