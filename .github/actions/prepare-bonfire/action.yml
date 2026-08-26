@@ -49,12 +49,8 @@ runs:
         elixir-version: ${{ inputs.elixir }}
 
     # ── Two DIFFERENT jobs, deliberately not sharing one cache ────────────────────────────────────
-    # 1. BETWEEN runs: reuse the expensive fetch+compile. A hit here can come from an older commit
-    #    (the key is mix.lock-based, and source changes without touching the lock), so it holds ONLY
-    #    lock-derived content — never tracked source. Caching e.g. `config/` or `lib/` here would let
-    #    a stale hit silently overwrite a checked-out change and test the wrong code.
-    # 2. WITHIN this run: hand prepare's finished workspace to the matrix jobs. Keyed to the run (and
-    #    attempt), so it's the same commit by construction and can safely contain everything.
+    # 1. BETWEEN runs: reuse the expensive fetch+compile. A hit here can come from an older commit (the key is mix.lock-based, and source changes without touching the lock), so it holds ONLY lock-derived content, never tracked source. Caching e.g. `config/` or `lib/` here would let a stale hit silently overwrite a checked-out change and test the wrong code.
+    # 2. WITHIN this run: hand prepare's finished workspace to the matrix jobs. Keyed to the run (and attempt), so it's the same commit by construction and can safely contain everything.
     - name: Restore deps + build cache (between runs)
       id: deps-cache
       if: inputs.setup == 'full'
@@ -69,8 +65,23 @@ runs:
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock') }}
         restore-keys: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-
 
+    - name: Install hex
+      shell: bash
+      run: mix local.hex --force
+    - name: Install rebar
+      shell: bash
+      run: mix local.rebar --force
+    - name: Configure Git authentication for GitHub
+      shell: bash
+      run: git config --global url."https://${{ inputs.github-token }}@github.com/".insteadOf "https://github.com/"
+    # generates config/*/.env. Couple of seconds.
+    - name: Prepare environment
+      shell: bash
+      run: just config
+
     # NOTE: keep comments OUT of the `path:` blocks below, that's a YAML literal block, so a `#` line is a literal glob pattern, not a comment.
     # NOTE: `mix.lock` is tracked but setup REWRITES it (`mix deps.get` resolves hex upgrades), so prepare's deps/ match prepare's lock rather than the one from checkout, without carrying it the matrix jobs die with "Unchecked dependencies … lock mismatch". Safe here (same run, same commit), and deliberately absent from the between-runs cache, where the lock is the key input.
+    # NOTE: this runs AFTER `just config` on purpose. `just config` -> `_config_flavour` -> `db-clean-migrations` does `rm -rf ./priv/repo/*`, so restoring first means the migrations get wiped right after being laid down (which `Set things up` used to quietly repair by re-copying them). Restoring last also means the .env prepare generated is used as-is, rather than regenerated and appended to.
     - name: Restore prepared workspace (this run)
       id: run-cache
       if: inputs.setup == 'restore'
@@ -89,25 +100,7 @@ runs:
         # exact key only: a partial (restore-keys) hit would be another run's workspace
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-workspace-${{ github.run_id }}-${{ github.run_attempt }}
 
-    - name: Install hex
-      shell: bash
-      run: mix local.hex --force
-    - name: Install rebar
-      shell: bash
-      run: mix local.rebar --force
-    - name: Configure Git authentication for GitHub
-      shell: bash
-      run: git config --global url."https://${{ inputs.github-token }}@github.com/".insteadOf "https://github.com/"
-    # regenerates config/*/.env, which is deliberately NOT carried over (`_config_flavour` appends a
-    # FLAVOUR= line each time, so a restored copy would accumulate them). Couple of seconds.
-    - name: Prepare environment
-      shell: bash
-      run: just config
-
-    # Skipped once prepare has done it: `deps-clean-*` plus the installer rewriting config invalidates
-    # the restored `_build`, and the next mix invocation (`ext-migrations-copy`) then recompiles ~420
-    # deps — ~6min per job, for work already paid for. Still runs if the handoff is missing, so a
-    # failed prepare degrades to a self-sufficient job rather than a confusing failure.
+    # Skipped once prepare has done it: `deps-clean-*` plus the installer rewriting config invalidates the restored `_build`, and the next mix invocation (`ext-migrations-copy`) then recompiles ~420 deps, about 6min per job, for work already paid for. Still runs if the handoff is missing, so a failed prepare degrades to a self-sufficient job rather than a confusing failure.
     - name: Set things up
       if: inputs.setup == 'full' || steps.run-cache.outputs.cache-hit != 'true'
       shell: bash
@@ -115,10 +108,8 @@ runs:
     - name: Prepare static assets
       if: inputs.setup == 'full' || steps.run-cache.outputs.cache-hit != 'true'
       shell: bash
-      # copy-only (no JS build): committed statics for Plug.Static + NextGenImage tests, plus
-      # content-less stubs for the built JS/CSS (the cache-header tests assert headers, not content).
-      # NextGen.variants/1 scans priv/static/images at COMPILE time, so force bonfire_ui_common to
-      # recompile in case setup already compiled it before the images were in place.
+      # copy-only (no JS build): committed statics for Plug.Static + NextGenImage tests, plus content-less stubs for the built JS/CSS (the cache-header tests assert headers, not content).
+      # NextGen.variants/1 scans priv/static/images at COMPILE time, so force bonfire_ui_common to recompile in case setup already compiled it before the images were in place.
       run: |
         UI_COMMON=$(test -d extensions/bonfire_ui_common && echo extensions/bonfire_ui_common || echo deps/bonfire_ui_common)
         (cd "$UI_COMMON/assets" && yarn prepare.static)
