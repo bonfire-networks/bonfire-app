@@ -3,11 +3,8 @@ on:
   workflow_call:
     outputs:
       build:
-        description: 'JSON array of flavours to build docker images for (per-arch)'
+        description: 'JSON array of flavours to build docker images for (per-arch), and to combine into multi-arch manifests'
         value: ${{ jobs.flavours.outputs.build }}
-      manifest:
-        description: 'JSON array of flavours that get multi-arch manifests (subset of build)'
-        value: ${{ jobs.flavours.outputs.manifest }}
       otp:
         description: 'JSON array of flavours that get OTP binary releases'
         value: ${{ jobs.flavours.outputs.otp }}
@@ -18,11 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       build: ${{ steps.set.outputs.build }}
-      manifest: ${{ steps.set.outputs.manifest }}
       otp: ${{ steps.set.outputs.otp }}
     steps:
       - id: set
         run: |
-          echo 'build=["social", "community", "open_science", "federated_archives", "bovenjan", "jacobin"]' >> $GITHUB_OUTPUT
-          echo 'manifest=["social", "open_science", "federated_archives", "bovenjan"]' >> $GITHUB_OUTPUT
+          echo 'build=["social", "community", "open_science", "bovenjan", "jacobin"]' >> $GITHUB_OUTPUT
           echo 'otp=["social", "open_science"]' >> $GITHUB_OUTPUT

@@ -55,8 +55,7 @@ jobs:
     with:
       platforms: linux/amd64
       arch: amd64
-      # Untested amd64 build: ONLY the `latest-unstable` tier. The version-named tag
-      # (e.g. 1.0.6-alpha.2-...) is minted during promotion in release-promote.yaml.
+      # Untested amd64 build: ONLY the `latest-unstable` tier. The version-named tag (e.g. 1.0.6-alpha.2-...) is minted during promotion in release-promote.yaml.
       tags: latest-unstable
       flavours: ${{ needs.flavours.outputs.build }}
 
@@ -66,4 +65,4 @@ jobs:
     secrets: inherit
     with:
       tags: latest-unstable
-      flavours: ${{ needs.flavours.outputs.manifest }}
+      flavours: ${{ needs.flavours.outputs.build }}
