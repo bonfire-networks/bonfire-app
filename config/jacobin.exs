@@ -10,6 +10,8 @@ config :bonfire, :ui,
   theme: [
     instance_theme_light: "jacobin",
     instance_theme: "jacobin",
+    # pinned so Jacobin stays typographic if Bonfire's default preset becomes "stream"
+    ui_preset: "typographic",
     # "powered by" credit in the footer
     powered_by: [name: "Jacobin.social + Bonfire", url: "https://jacobin.de/social"]
   ],

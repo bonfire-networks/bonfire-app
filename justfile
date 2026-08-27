@@ -896,7 +896,7 @@ update-dep dep: _pre-update-deps
 
 # always with WITH_ALL_FLAVOUR_DEPS: naming a dep explicitly means you want it found, and without it Mix answers "Unknown dependency" for anything outside the current flavour
 update-dep-simple dep:
-	just update-fork $dep pull
+	just update-clone $dep pull
 	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update $dep"
 
 # Pull the latest commits from all clones
@@ -904,15 +904,15 @@ update-dep-simple dep:
 	(just git-fetch-all && just update-clones-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-clones-all pull)
 
 update-clones-all cmd='pull' extra='' message='':
-	just update-fork-path $CLONES_EXTENSIONS_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
-	just update-fork-path $CLONES_EXTRA_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
+	just update-clone-path $CLONES_EXTENSIONS_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
+	just update-clone-path $CLONES_EXTRA_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
 
 # Pull the latest commits from all clones
-update-fork dep cmd='pull' extra='' mindepth='0' maxdepth='0':
-	-just update-fork-path $CLONES_EXTENSIONS_PATH/{{dep}} {{cmd}} {{mindepth}} {{maxdepth}} {{extra}}
-	-just update-fork-path $CLONES_EXTRA_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
+update-clone dep cmd='pull' extra='' mindepth='0' maxdepth='0':
+	-just update-clone-path $CLONES_EXTENSIONS_PATH/{{dep}} {{cmd}} {{mindepth}} {{maxdepth}} {{extra}}
+	-just update-clone-path $CLONES_EXTRA_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
 
-update-fork-path path cmd='pull' mindepth='0' maxdepth='1' extra='' message='':
+update-clone-path path cmd='pull' mindepth='0' maxdepth='1' extra='' message='':
 	@chmod +x git-publish.sh
 	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} "{{cmd}}" "{{extra}}" "{{message}}" \;
 
@@ -1095,15 +1095,15 @@ git-fetch-all:
   just escript_dep jungle
 # jungle git fetch || just escript_dep jungle # ^ experimental: replaced racket script with escript
 
-# Run the git add command on each fork
+# Run the git add command on each clone
 git-clones-add: deps-git-fix
 	find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
-# Run a git status on each fork
+# Run a git status on each clone
 git-clones-status:
 	@jungle git status || find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
 
-# Run a git command on each fork (eg. `just git-clones pull` pulls the latest version of all local deps from its git remote
+# Run a git command on each clone (eg. `just git-clones pull` pulls the latest version of all local deps from its git remote
 git-clones command:
 	@find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
 
