@@ -969,6 +969,9 @@ js-ext-build: (js-ext-deps "build.ext")
 # Watch each extension's own JS bundles (runs them in parallel and blocks, for `watchers:` in dev)
 js-ext-watch: (js-ext-deps "watch.ext")
 
+# Bump each cloned extension's yarn pin + lockfile to current stable (skips deps/; review & commit per extension)
+js-ext-yarn-bump: (js-ext-deps "yarn.bump")
+
 @js-ext-deps yrn_args='':
 	chmod +x ./config/current_flavour/deps.js.sh
 	just cmd ./config/current_flavour/deps.js.sh $yrn_args

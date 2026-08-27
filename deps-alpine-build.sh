@@ -10,4 +10,5 @@ chmod +x ./deps-alpine.sh
 apk add --update --no-cache just tar file mailcap make build-base libc-dev sqlite npm cargo gcc cmake
 # rust 
 
-npm install -g corepack && corepack enable || npm install -g yarn
+# corepack, not yarn: it reads each extension's `packageManager` pin and fetches that yarn. `npm install -g yarn` would give us 1.22.x, which js-deps-get.sh refuses to run.
+npm install -g corepack && corepack enable

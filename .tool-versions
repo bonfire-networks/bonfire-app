@@ -11,7 +11,8 @@ erlang      29.0.5
 elixir    1.20.3-otp-29 
 ####
 # yarn      1.22.22
-nodejs    latest
+# NOTE: pin node rather than tracking `latest`, to match the `node:24-alpine` stage in Dockerfile.release and to keep bare-metal release builds off prerelease node builds, which yarn 1 rejects (a prerelease version never satisfies a plain semver range like esbuild's `>=12`)
+nodejs    24.20.0
 # chromedriver latest
 # ^ we don't want this in CI
 # gh        latest
