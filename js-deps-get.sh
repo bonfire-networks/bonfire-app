@@ -50,8 +50,13 @@ run_tool() {
 		return 0
 	fi
 	refuse_yarn_1 $1 || return 1
+	# Under CI yarn defaults to an immutable install, failing outright rather than touching the lockfile. That is the right default for a working clone under extensions/ or forks/, where a lockfile change is real and reviewable, so those keep it. For a fetched copy under deps/ it is not actionable: we never commit there, and a published extension can simply lag (iconify_ex ships a pre-migration yarn 1 lockfile on hex), which would otherwise take down every build until its next release.
+	case "$SRC" in
+		deps) IMMUTABLE=--no-immutable ;;
+		*) IMMUTABLE= ;;
+	esac
 	if [ -z "$2" ]; then
-		$1 || return $?
+		$1 $IMMUTABLE || return $?
 	elif ! node -e "process.exit((require('./package.json').scripts||{})['$2'] ? 0 : 1)" 2>/dev/null ; then
 		echo "  (no '$2' script here, skipping)"
 	elif [ -n "$PARALLEL" ]; then
