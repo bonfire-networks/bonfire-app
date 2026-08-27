@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ tests [`b805f78`](https://github.com/bonfire-networks/bonfire-app/commit/b805f785ea59fa7cf237a2079b7b1000e74d4b68), [`7256db9`](https://github.com/bonfire-networks/bonfire-app/commit/7256db9adc603363f8131b27b85f4ebc076a3042), [`118a4b0`](https://github.com/bonfire-networks/bonfire-app/commit/118a4b0402605d07767107926af80afeb2d1f5ca), [`25beeda`](https://github.com/bonfire-networks/bonfire-app/commit/25beeda2a9d5ee491439512f38693c4aa989e464), [`87c7c7f`](https://github.com/bonfire-networks/bonfire-app/commit/87c7c7f0e7ecd3d2dfedf971be8a2683ceb033f9), [`6a4bcbf`](https://github.com/bonfire-networks/bonfire-app/commit/6a4bcbf0352dbb5e4ecd03d585e37922f38db33c) (thanks @mayel)
 
 ### Changed
+- 💅 UX/UI improve circles discoverability and management in dashboard [#2233](https://github.com/bonfire-networks/bonfire-app/issues/2233) (thanks @ivanminutillo)
 - 📝 editing a post does not federate with mastodon [#2218](https://github.com/bonfire-networks/bonfire-app/issues/2218) (thanks @ivanminutillo and @mayel)
 - 💅 when i like / boost a post, the OP preview shows the favicon, date of the boost/like [#2217](https://github.com/bonfire-networks/bonfire-app/issues/2217) (thanks @ivanminutillo)
 - 📝 when i reply to a post the composer does not include auomatically the mentions [#2216](https://github.com/bonfire-networks/bonfire-app/issues/2216) (thanks @ivanminutillo)
