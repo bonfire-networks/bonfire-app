@@ -95,7 +95,7 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_ai_deps =
     if(with_ai?,
       do: [
-        {:bumblebee, "~> 0.7"},
+        {:bumblebee, "~> 0.7.1", override: true},
         {:axon, "~> 0.8", override: true},
         {:table_rex, "~> 4.1", override: true},
         {:nx, "~> 0.13"},
@@ -105,6 +105,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
       ],
       else: [
+        {:bumblebee, "~> 0.7.1", override: true},
         {:axon, "~> 0.8", override: true},
         {:nx, "~> 0.13", override: true},
         {:table_rex, "~> 4.1", override: true}
