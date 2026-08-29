@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ✅ tests [`b805f78`](https://github.com/bonfire-networks/bonfire-app/commit/b805f785ea59fa7cf237a2079b7b1000e74d4b68), [`7256db9`](https://github.com/bonfire-networks/bonfire-app/commit/7256db9adc603363f8131b27b85f4ebc076a3042), [`118a4b0`](https://github.com/bonfire-networks/bonfire-app/commit/118a4b0402605d07767107926af80afeb2d1f5ca), [`25beeda`](https://github.com/bonfire-networks/bonfire-app/commit/25beeda2a9d5ee491439512f38693c4aa989e464), [`87c7c7f`](https://github.com/bonfire-networks/bonfire-app/commit/87c7c7f0e7ecd3d2dfedf971be8a2683ceb033f9), [`6a4bcbf`](https://github.com/bonfire-networks/bonfire-app/commit/6a4bcbf0352dbb5e4ecd03d585e37922f38db33c) (thanks @mayel)
 
 ### Changed
+- 📝 profile timeline misses activities between 2w and 2mo ago [#2245](https://github.com/bonfire-networks/bonfire-app/issues/2245) (thanks @ivanminutillo and @mayel)
 - 💅 UX/UI improve circles discoverability and management in dashboard [#2233](https://github.com/bonfire-networks/bonfire-app/issues/2233) (thanks @ivanminutillo)
 - 📝 editing a post does not federate with mastodon [#2218](https://github.com/bonfire-networks/bonfire-app/issues/2218) (thanks @ivanminutillo and @mayel)
 - 💅 when i like / boost a post, the OP preview shows the favicon, date of the boost/like [#2217](https://github.com/bonfire-networks/bonfire-app/issues/2217) (thanks @ivanminutillo)
@@ -32,6 +33,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 📝 alpha.24 [`9d40af9`](https://github.com/bonfire-networks/bonfire-app/commit/9d40af95255412479ad15d56c1f2253ce6a994d5) (thanks @ivanminutillo)
 - 📝 c2s [`fbafcd6`](https://github.com/bonfire-networks/bonfire-app/commit/fbafcd63d61520d10ff2fe37e12310f921290b17) (thanks @mayel)
 - 📝 docs: fix typos in AGENTS, HACKING and topic docs [`0936d84`](https://github.com/bonfire-networks/bonfire-app/commit/0936d8457b2dd03a5b6eaa0faeb7460e0ef6cb6c) (thanks @vaibhav8a)
+- 📝 embed [`019c717`](https://github.com/bonfire-networks/bonfire-app/commit/019c717eff746b9505be48768aabebc5df3d9ad3) (thanks @mayel)
 - 📝 fix [`f51c3df`](https://github.com/bonfire-networks/bonfire-app/commit/f51c3df248146aa011626cf8c7c6f25ccf2ea08f) (thanks @mayel)
 - 📝 fixes [`dff48ad`](https://github.com/bonfire-networks/bonfire-app/commit/dff48ad75582d5bdb63dc1297904edfa0e5b4960), [`749b238`](https://github.com/bonfire-networks/bonfire-app/commit/749b23839cc4562d7e7642a6a9ed03d4e4cf1b06), [`2ecd598`](https://github.com/bonfire-networks/bonfire-app/commit/2ecd5981fa868b9826f0e73e6c4444b80f687a6a) (thanks @mayel)
 - 📝 groups / characters federation boundaries [`0f549b5`](https://github.com/bonfire-networks/bonfire-app/commit/0f549b575232323c6ece3ee2768f0c568fa70a74) (thanks @mayel)
