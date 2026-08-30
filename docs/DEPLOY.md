@@ -410,6 +410,7 @@ WantedBy=default.target
 ```
 
 	2. sonic.service
+
 ```                                                                         
 **[Unit]**
 
@@ -431,7 +432,7 @@ Restart=on-failure
 
 WantedBy=default.target
 ```
-1. Run the following command`
+1. Run the following command
 
 ```bash
 systemctl --user start bonfire
