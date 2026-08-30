@@ -367,8 +367,8 @@ echo "Updated $env_file"
 4. Edit `.env`  (`nano bonfire/.env`) to introduce the remaining variables and credentials:
 	1. `HOSTNAME`
  	2. `POSTGRES_HOST`
-  	3. `POSTGRES_USER`
-   	4. `POSTGRES_DB`
+  3. `POSTGRES_USER`
+  4. `POSTGRES_DB`
 
 #### Run bonfire
 
@@ -388,8 +388,6 @@ After=network.target sonic.service
 
 Wants=sonic.service
 
-  
-
 **[Service]**
 
 WorkingDirectory=/home/<your_user>/bonfire
@@ -402,22 +400,19 @@ Restart=on-failure
 
 RestartSec=5
 
-  
-
 **[Install]**
 
 WantedBy=default.target
 ```
 
 	2. sonic.service
-```                                                                         
+
+```
 **[Unit]**
 
 Description=Sonic search backend
 
 After=network.target
-
-  
 
 **[Service]**
 
@@ -425,13 +420,11 @@ ExecStart=/home/<your_user>/sonic/sonic -c /home/<your_user>/sonic/config.cfg
 
 Restart=on-failure
 
-  
-
 **[Install]**
 
 WantedBy=default.target
 ```
-1. Run the following command`
+1. Run the following command
 
 ```bash
 systemctl --user start bonfire
