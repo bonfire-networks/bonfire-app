@@ -175,7 +175,7 @@ For production, we recommend to set up a CI workflow to automate this, for an ex
 Finally, try [running the app](#running-with-docker)!
 
 
-#### Running with Docker
+#### Running with Docker
 
 1. Before running the app for the first time, but after having [prepared the config](#preparing-the-config-in-env), you should get the instance ready:
    - If you're using **pre-built images** (easy mode), run `just setup-prod` which will pull the Docker images.
@@ -367,8 +367,8 @@ echo "Updated $env_file"
 4. Edit `.env`  (`nano bonfire/.env`) to introduce the remaining variables and credentials:
 	1. `HOSTNAME`
  	2. `POSTGRES_HOST`
-  	3. `POSTGRES_USER`
-   	4. `POSTGRES_DB`
+  3. `POSTGRES_USER`
+  4. `POSTGRES_DB`
 
 #### Run bonfire
 
@@ -388,8 +388,6 @@ After=network.target sonic.service
 
 Wants=sonic.service
 
-  
-
 **[Service]**
 
 WorkingDirectory=/home/<your_user>/bonfire
@@ -402,8 +400,6 @@ Restart=on-failure
 
 RestartSec=5
 
-  
-
 **[Install]**
 
 WantedBy=default.target
@@ -411,22 +407,18 @@ WantedBy=default.target
 
 	2. sonic.service
 
-```                                                                         
+```
 **[Unit]**
 
 Description=Sonic search backend
 
 After=network.target
 
-  
-
 **[Service]**
 
 ExecStart=/home/<your_user>/sonic/sonic -c /home/<your_user>/sonic/config.cfg
 
 Restart=on-failure
-
-  
 
 **[Install]**
 
@@ -859,7 +851,7 @@ The last piece to be able to access your instance from the Internet is a reverse
 <!-- tabs-close -->
 
 
-## Preparing the config (in .env)
+## Preparing the config (in .env)
 
 ### Config keys you should pay special attention to:
 The app needs these environment variables to be configured in order to work.
