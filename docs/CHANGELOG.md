@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: past releases
 
-## [Unreleased]
+## Bonfire [1.0.7 (2026-08-30)]
 
 ### Added
 - ✨ Added a new "Stream" interface preset: a flatter, content-first look for feeds, threads and widgets — selectable per user or instance in settings, together with the existing "typographic" preset remaining the default (thanks @ivanminutillo)
