@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.3">
+    <meta name="project" content="Bonfire v1.0.7-community-rc.7">
+
+
+    <title>Bonfire.UI.Console — Bonfire v1.0.7-community-rc.7</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-NHQLCD6Y.css" />
+
+    <script defer src="dist/sidebar_items-6E0252E7.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-Y2MUTVIN.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.7-community-rc.7
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Bonfire.UI.Console</h1>
+
+<a href="Bonfire.UI.Console.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire_ui_console/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>Gives an admin a live Elixir (IEx) shell inside the running instance, from a page in the browser, for a window that closes by itself. It exists so an operator can hand someone debugging access for a day without giving them SSH keys or a deploy account.</p><blockquote><p>WARNING: Only grant this to someone you'd trust with the server itself. See security details below.</p></blockquote><h2 id="granting-access-step-by-step" class="section-heading"><a href="#granting-access-step-by-step" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Granting access, step by step</span></h2><p>First include the extension in your build. Without this the console isn't available at all.</p><p>Then, each time you want to grant access:</p><ol><li><p><strong>Decide how long the door stays open</strong>, e.g. until tomorrow 17:00. Treat it like an invite link with an expiry which doubles as their deadline to finish: when the expiry time arrives, any open shell is cut off, unless they deliberately work around that.</p><p>Generate a UUIDv7 stamped with that moment, at <a rel="nofollow" href="https://uuidv7.org/">https://uuidv7.org/</a> or any generator that lets you set a custom timestamp. The timestamp inside the token <em>is</em> the expiry, there's no separate setting.</p></li><li><p><strong>Set it in <code class="inline">.env</code> and restart:</strong></p><pre><code class="makeup elixir" translate="no"><span class="nc">BONFIRE_CONSOLE_TOKEN</span><span class="o">=</span><span class="mi">0188</span><span class="n">a516</span><span class="o">-</span><span class="n">bc8c</span><span class="o">-</span><span class="mi">7</span><span class="n">c5a</span><span class="o">-</span><span class="mi">9</span><span class="n">b68</span><span class="o">-</span><span class="mi">12651</span><span class="n">f558b9e</span></code></pre><p>On boot you should see <code class="inline">console is armed until &lt;time&gt;, scheduling its purge for then</code> in the logs. If you instead see it disarm, the token is malformed or already past.</p></li><li><p><strong>Make sure their user account is an admin</strong> on the instance. The token alone gets nobody in.</p></li><li><p><strong>Send them the token</strong> out of band (eg. using end-to-end encrypted chat).</p></li><li><p><strong>They open</strong> <code class="inline">https://instance.tld/admin/console</code>, paste it into the form, and get a shell.</p></li><li><p><strong>Watch the transcript</strong> as they work: every line is logged at <code class="inline">warning</code>, prefixed <code class="inline">CONSOLE &lt;username&gt; from &lt;ip&gt;</code>. If the App Logs page is enabled it shows up at <code class="inline">/admin/system/logs</code>.</p></li></ol><p>To end it early, either of you can press <strong>Revoke console access</strong> on the page. That kills every open shell and stops any new session being opened until the app restarts — it is not &quot;close my tab&quot;, which ends only that person's own session and leaves the console armed.</p><p>Note that a restart re-arms it, since the token is still in the environment and still in date. To retire it for good, remove <code class="inline">BONFIRE_CONSOLE_TOKEN</code> and restart.</p><p>You don't need to remove token from env or restart when the window ends: the scheduled purge fires on its own.</p><h2 id="warning-only-grant-this-to-someone-you-d-trust-with-the-server-itself" class="section-heading"><a href="#warning-only-grant-this-to-someone-you-d-trust-with-the-server-itself" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">WARNING: Only grant this to someone you'd trust with the server itself</span></h2><p>A shell in the running app can read and change <strong>everything the app can</strong>: every private post and message, every email address, every credential in its environment, and the database it connects to. That includes content federated from people on other instances, who never agreed to your admin team seeing it. It is not a read-only or scoped view, and there is no way to make it one.</p><p>Concretely, it grants the privileges of the OS user the app runs as, inside whatever it runs in:</p><ul><li><strong>not root</strong>, unless the app is running as root (it shouldn't be), so it can't necessarily touch the host system or other services;</li><li><strong>in a container, that container</strong> — its filesystem, its network reach, its env vars, and not the host, unless the container is privileged or has the host mounted in or using an exploit to break out;</li><li><strong>but everything the app can reach</strong>, which usually means the database, object storage, mail credentials, and any API keys in its environment.</li></ul><p>No safeguard here changes that, and none can. Every one of them is ordinary Elixir code running in the same instance as the shell it guards, so the shell can call the same functions it does — a guard cannot hold a door from behind it. Someone who decides to keep access can load the purged modules back, cancel the job that would purge them, start a shell by another route, silence/purge their own audit trail, or write something to disk that runs again after a restart. None of it takes unusual skill; it is the same API the console itself uses.</p><p>The audit log is subject to that too: a session can switch off its own recording, or remove the log handler entirely. It is a record of what someone did, not evidence against someone who set out to avoid leaving one. Shipping logs off the machine as they are written is what makes it harder to rewrite history, so lines already sent cannot be unsent, even if no further ones arrive.</p><p>What the mechanisms below <em>do</em> buy: an instance that never includes the extension carries no console code at all; one that includes but doesn't arm it carries none of it loaded; a hijacked admin session without the token gets nothing; and a forgotten grant closes itself. The expiry is the window in which the door is open, not a limit on how long someone can stay once through it. It reliably stops new sessions, and ends one left running by someone who isn't resisting, but guarantees nothing against someone who decides to keep access.</p><p>So the bar is &quot;someone I'd trust with full access to this server&quot;, even though it is usually narrower than root SSH access. Everything below limits <em>when it is granted</em>, not <em>what it can do or for how long</em>, and the recourse afterwards (rotating the token, restarting, reading whatever the log did capture) assumes a cooperation you cannot enforce.</p><p><strong>This is deliberately a remote code execution endpoint.</strong> It is built to be absent by default and armed only on purpose:</p><ol><li><strong>Not in the build</strong> unless <code class="inline">bonfire_ui_console</code> is listed in the parent app's deps. Removing that line removes the console and all terminal machinery.</li><li><strong>Not armed</strong> unless a time-limited <code class="inline">BONFIRE_CONSOLE_TOKEN</code> token is set. On every boot without a non-expired token, the console's own modules and its dependencies are deleted and purged from the running VM.</li><li><strong>Not usable</strong> without both an admin session <em>and</em> the token.</li></ol><h2 id="how-it-works" class="section-heading"><a href="#how-it-works" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">How it works</span></h2><p><strong>At boot</strong> the extension reads <code class="inline">BONFIRE_CONSOLE_TOKEN</code>. If it's missing, malformed, or its timestamp has already passed, the console's own modules and the terminal library are deleted from the running app there and then, so on an unarmed instance there is nothing left to call, only a page that refuses. If the token is valid, a purging job is scheduled for the expiry date/time.</p><p><strong>The token</strong> is both the expiry and the bearer secret, which is why there's no second setting to keep in sync. A ULID works as well as a UUIDv7, since both carry a millisecond timestamp and enough randomness to be unguessable; UUID versions without one, such as v4, are refused.</p><p><strong>Opening a session</strong> needs an admin login <em>and</em> the token, pasted into a form. The token never appears in a URL, so it reaches no access log, no <code class="inline">Referer</code> header, and no browser history. The form looks the same whether or not the instance is armed, and every rejection (unarmed, wrong, expired, malformed) gives one identical message, with the real reason logged server-side, so the arming state is not observable.</p><p><strong>The shell itself</strong> runs on the server: an IEx session driven through a terminal emulator, one per open page. The browser only draws it, using a JS terminal UI fetched on demand so it isn't in the main asset bundle. Keystrokes go up over the existing socket, output comes back.</p><p><strong>The transcript</strong> is read from that output stream server-side. Because a terminal echoes what you type, the stream carries the commands as well as their results. Each completed line is logged with the admin's username and the IP address they connected from.</p><p>Be aware that this puts an admin's IP address into your logs, and wherever those are shipped and retained.</p><p><strong>At the expiry</strong> the scheduled job deletes those modules, killing any shell still open rather than merely refusing the next session.</p><p>That deletion only sticks where the VM preloads code (<code class="inline">embedded</code> mode), which is what a release usually does: <code class="inline">bin/bonfire start</code> defaults <code class="inline">RELEASE_MODE</code> to <code class="inline">embedded</code>. Under <code class="inline">interactive</code> (dev, or a release explicitly started with <code class="inline">RELEASE_MODE=interactive</code>) the modules simply reload the next time they're called, so revoking and expiry come down to the token check alone. </p><h2 id="copyright-and-license" class="section-heading"><a href="#copyright-and-license" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Copyright and License</span></h2><p>Copyright (c) 2026 Bonfire contributors</p><p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="Bonfire.UI.Topics.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Bonfire.UI.Topics
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="Bonfire.UI.Common.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Bonfire.UI.Common
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.3) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
