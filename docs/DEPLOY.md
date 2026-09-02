@@ -74,13 +74,18 @@ Install the [Bonfire recipe](https://recipes.coopcloud.tech/bonfire) for Co-op C
 
 1. `abra app new bonfire --secrets` (optionally with `--pass` if you'd like to save secrets in `pass`) and select your server from the list and enter the domain name you want Bonfire to be served from
 2. `abra app config YOUR_APP_DOMAIN_NAME` and check/edit the config keys, see [prepare the config](#preparing-the-config-in-env) for details about what to edit, for example you should add the email sending key:
-	```
+
+```
 MAIL_BACKEND=mailgun
 MAIL_DOMAIN=[yourdomain.net]
 MAIL_KEY=[your-mailgun-sending-key]
 MAIL_FROM=[from@yourdomain.net]
-	```
-	> You can also choose what version of Bonfire to use, by default `APP_VERSION=latest` means it will run the latest stable release (eg. 1.0.0), but if you're conformable testing newer features and improvements (and reporting issues and feedback, please!), you can set `APP_VERSION=latest-rc` for the latest release candidate, or `APP_VERSION=latest-beta`, or even `APP_VERSION=latest-alpha` for the most bleeding edge (and probably most buggy) version 
+```
+
+> You can also choose what version of Bonfire to use, by default `APP_VERSION=latest` means it will run the latest stable release (eg. 1.0.0), but if you're conformable testing newer features and improvements (and reporting issues and feedback, please!), you can set `APP_VERSION=latest-rc` for the latest release candidate, or `APP_VERSION=latest-beta`, or even `APP_VERSION=latest-alpha` for the most bleeding edge (and probably most buggy) version
+>
+> You can also choose a flavour (social is default) by setting e.g. `APP_FLAVOUR=community`
+
 3. `abra app deploy YOUR_APP_DOMAIN_NAME`
 6. Open the configured domain in your browser and sign up at at https://yourdomain.net/signup (the instance is invite-only by default, but the first person to sign up bypasses that, and is also automatically an instance admin).
 
