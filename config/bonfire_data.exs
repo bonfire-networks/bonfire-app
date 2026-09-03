@@ -1326,8 +1326,9 @@ config :bonfire_files, Media,
        # , :boost_count, :like_count
        # :replied + :tags so media can participate in reply threading and mention/tag people
        # (e.g. Feeds.target_feeds preloads both when publishing)
+       # :tree because media can be published IN a group (a link post is exactly that, and it is most of what the threadiverse federates) so "which group is this in" has the same canonical answer for media as for a post, rather than only its tags
        unquote_splicing(
-         common.([:controlled, :created, :activity, :caretaker, :peered, :replied, :tags])
+         common.([:controlled, :created, :activity, :caretaker, :peered, :replied, :tags, :tree])
        )
      end)
 
