@@ -32,7 +32,14 @@ config :activity_pub, :instance,
   hostname: "localhost",
   local_login_redirect_uri: "/login?go=",
   federation_publisher_modules: [ActivityPub.Federator.APPublisher],
-  federation_reachability_timeout_days: 7,
+  # when a host is written off entirely: no deliveries are even addressed to it, and we stop fetching from it too, so the only way back is it contacting us (or an admin clearing it)
+  federation_reachability_timeout_days: 15,
+  # pacing of deliveries to a host that keeps failing: leave it alone for this share of however long it has been failing, never less than the grace period's worth of patience and never more than the cap. The cap doubles as how long after a host recovers before we notice, so smaller is friendlier
+  federation_backoff_grace_sec: 60,
+  federation_backoff_fraction: 4,
+  federation_backoff_cap_sec: 10_800,
+  # when a delivery is too stale to be worth making: riding the backoff curve costs a job nothing, so this is what eventually stops one to a host that stays down
+  federation_delivery_max_age_days: 7,
   # Max. depth of reply-to and reply activities fetching on incoming federation, to prevent out-of-memory situations while fetching very long threads.
   federation_incoming_max_recursion: 10,
   rewrite_policy: [ActivityPub.MRF.KeywordPolicy, Bonfire.Federate.ActivityPub.BoundariesMRF],

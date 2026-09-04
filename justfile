@@ -1285,9 +1285,10 @@ _test-dance-positions:
 test-rate-limit *args='': services 
 	ENABLE_RATE_LIMIT=yes TEST_INSTANCE=yes PHX_SERVER=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only rate_limit {{args}} 
 
+# NOTE: OBAN_TESTING=inline so ingest finishes before the inbox answers: without it the endpoint stores the activity, queues the local creation, and a test asserting right then sees an AP object with no pointer and reports a bug that is not there
 test-federation-live-DRAGONS *args='':
 	just mix deps.clean bonfire --build
-	TUNNELED_CMD="just test_run --only live_federation {{args}}" just _with-bore-tunnel "1"
+	TUNNELED_CMD="OBAN_TESTING=inline just test_run --only live_federation {{args}}" just _with-bore-tunnel "${BORE_PORT:-1}"
 	just mix deps.clean bonfire --build
 
 # Run live email sending tests. Set LIVE_TEST_SEND_EMAILS=true LIVE_TEST_EMAIL_ENCRYPTED=enc@proton.me LIVE_TEST_EMAIL_PLAIN=plain@gmail.com
