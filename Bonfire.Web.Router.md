@@ -5,6 +5,8 @@
 
 # `account_required`
 
+# `account_verification`
+
 # `activity_json`
 
 # `activity_json_or_html`
