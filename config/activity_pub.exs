@@ -115,7 +115,6 @@ config :activity_pub,
         "@type" => "@id"
       },
       "sensitive" => "as:sensitive",
-      # TODO
       "manuallyApprovesFollowers" => "as:manuallyApprovesFollowers",
       # FEP-844e: capability discovery:
       "implements" => %{
@@ -139,6 +138,16 @@ config :activity_pub,
       "featured" => %{
         "@id" => "http://joinmastodon.org/ns#featured",
         "@type" => "@id"
+      },
+      # Group rules, emitted by `AdapterUtils.group_declarations/2`. On every actor because `Utils.do_make_json_ld_context_list/1` REPLACES the `:actor` bucket rather than merging, so a per-type entry would drop everything above.
+      # Verbatim from `https://join-lemmy.org/context.json`, which Mbin, PieFed and NodeBB also honour by hiding the compose button
+      "lemmy" => "https://join-lemmy.org/ns#",
+      "postingRestrictedToMods" => "lemmy:postingRestrictedToMods",
+      # Describes JOINING where `manuallyApprovesFollowers` describes FOLLOWING, so we emit both: our `mobilizon/group_actor.json` capture has `openness: "moderated"` WITH `manuallyApprovesFollowers: false`
+      "mz" => "https://mobilizon.org/ns#",
+      "openness" => %{
+        "@id" => "mz:openness",
+        "@type" => "@id"
       }
     },
     object: %{
@@ -156,6 +165,9 @@ config :activity_pub,
         "@id" => "https://w3id.org/fep/044f#quoteAuthorization",
         "@type" => "@id"
       },
+      # Whether replies are allowed, said alongside `interactionPolicy` because different software reads different ones: our captures have this from Pixelfed, PieFed, PeerTube and Mobilizon. PeerTube's namespace, per `https://join-lemmy.org/context.json`
+      "pt" => "https://joinpeertube.org/ns#",
+      "commentsEnabled" => "pt:commentsEnabled",
       # MLS-over-ActivityPub: KeyPackage object type and endorsement fields
       "KeyPackage" => "https://purl.archive.org/socialweb/mls#KeyPackage",
       "mlsSignature" => "https://purl.archive.org/socialweb/mls#Signature",
