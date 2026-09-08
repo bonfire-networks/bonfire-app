@@ -1130,13 +1130,37 @@ deps-git-fix:
 
 #### TESTING RELATED COMMANDS ####
 
+# Erlang node name for test runs (same style as the `localenv@127.0.0.1` used by `just dev`). Registering it with epmd is what stops two suites running at once: the second VM refuses to boot instead of two runs fighting over the same test DB. epmd drops the name when the VM dies, so an interrupted run leaves no stale lock to clean up.
+# Only applies with WITH_DOCKER=easy/no (with `total`, mix runs in a container with its own epmd).
+TEST_NODE := env_var_or_default('TEST_NODE', "bonfire-test")
+test_node_opts := 'ELIXIR_ERL_OPTIONS="${ELIXIR_ERL_OPTIONS:-} -name ' + TEST_NODE + '@127.0.0.1"'
+
+# Readable message when the name is already taken. The -name registration is the actual race-free guard; this only explains the failure before the BEAM prints its cryptic version.
+_test-node-free:
+	#!/usr/bin/env bash
+	if epmd -names 2>/dev/null | grep -q "name {{TEST_NODE}} at port"; then
+		echo "❌ A test suite is already running as {{TEST_NODE}}@127.0.0.1."
+		echo "   Wait for it to finish, or to override and run simultaneously:"
+		echo "   TEST_NODE={{TEST_NODE}}-2 just test ..."
+		exit 1
+	fi
+
+# Wait for another test suite to finish, then run. Suites usually should not overlap. Use this instead of retrying `just test` until it gets in: `just test-wait extensions/bonfire_social/test`
+test-wait path *args='':
+	#!/usr/bin/env bash
+	while epmd -names 2>/dev/null | grep -q "name {{TEST_NODE}} at port"; do
+		echo "⏳ waiting for the suite running as {{TEST_NODE}}@127.0.0.1 to finish..."
+		sleep 30
+	done
+	just test {{path}} {{args}}
+
 # Run tests. You can also run only specific tests, eg: `just test extensions/bonfire_social/test`
 test path *args='': services
 	just test_run `just test_convert_path "{{path}}"` {{args}}
 
-test_run *args='': services
+test_run *args='': services _test-node-free
 	@echo "Testing with {{args}}..."
-	@MIX_ENV=test TEST_UI_ASYNC=no just mix test `just test_minimum_excludes` {{args}} 
+	@MIX_ENV=test TEST_UI_ASYNC=no {{test_node_opts}} just mix test `just test_minimum_excludes` {{args}}
 
 test-backend path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
@@ -1157,9 +1181,9 @@ test_minimum_excludes:
 	@echo "--exclude todo --exclude skip --exclude fixme --exclude benchmark"
 
 # Run only stale tests
-test-stale path='' *args='': services
+test-stale path='' *args='': services _test-node-free
 	@echo "Testing with {{args}}..."
-	MIX_ENV=test just mix test  `just test_convert_path {{path}}`  --stale {{args}}
+	MIX_ENV=test {{test_node_opts}} just mix test  `just test_convert_path {{path}}`  --stale {{args}}
 
 # Run tests (ignoring changes in local clones)
 test-remote path='' *args='': services
@@ -1167,32 +1191,32 @@ test-remote path='' *args='': services
 	MIX_ENV=test just mix-remote test  `just test_convert_path {{path}}`  {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests
-test-watch path='' *args='': services
+test-watch path='' *args='': services _test-node-free
 	@echo "Testing {{args}}..."
-	MIX_ENV=test TEST_WITH_MNEME=no just mix test.watch `just test_convert_path {{path}}`   --stale --exclude mneme `just test_default_excludes` {{args}}
+	MIX_ENV=test TEST_WITH_MNEME=no {{test_node_opts}} just mix test.watch `just test_convert_path {{path}}`   --stale --exclude mneme `just test_default_excludes` {{args}}
 
-test-watch-mneme path='' *args='': services
+test-watch-mneme path='' *args='': services _test-node-free
 	@echo "Testing {{args}}..."
-	MIX_ENV=test just mix mneme.watch  `just test_convert_path {{path}}`  --stale --include mneme {{args}}
+	MIX_ENV=test {{test_node_opts}} just mix mneme.watch  `just test_convert_path {{path}}`  --stale --include mneme {{args}}
 
-test-watch-full path='' *args='': services
+test-watch-full path='' *args='': services _test-node-free
 	@echo "Testing {{args}}..."
-	MIX_ENV=test TEST_WITH_MNEME=no just mix test.watch  `just test_convert_path {{path}}`  --exclude mneme {{args}}
+	MIX_ENV=test TEST_WITH_MNEME=no {{test_node_opts}} just mix test.watch  `just test_convert_path {{path}}`  --exclude mneme {{args}}
 # MIX_ENV=test just mix mneme.watch {{args}}
 
 # Run stale tests, and wait for changes to any module code, and re-run affected tests, and interactively choose which tests to run
-test-interactive path='' *args='': services
-	@MIX_ENV=test just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
+test-interactive path='' *args='': services _test-node-free
+	@MIX_ENV=test {{test_node_opts}} just mix test.interactive  `just test_convert_path {{path}}` --stale {{args}}
 
 # Run all Mastodon API tests (tagged with :masto_api or :masto_api_coverage)
-test-masto-api *args='': services
+test-masto-api *args='': services _test-node-free
 	@echo "Running Mastodon API tests..."
-	MIX_ENV=test just mix test `just test_minimum_excludes` --only masto_api --only masto_api_coverage {{args}}
+	MIX_ENV=test {{test_node_opts}} just mix test `just test_minimum_excludes` --only masto_api --only masto_api_coverage {{args}}
 
 # Run Mastodon API coverage report
-test-masto-api-coverage *args='': services
+test-masto-api-coverage *args='': services _test-node-free
 	@echo "Running Mastodon API coverage report..."
-	MIX_ENV=test just mix test `just test_minimum_excludes` --only masto_api_coverage {{args}}
+	MIX_ENV=test {{test_node_opts}} just mix test `just test_minimum_excludes` --only masto_api_coverage {{args}}
 
 ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "forks/activity_pub/test/activity_pub/" } else { "deps/activity_pub/test/activity_pub/" }
 ap_ext := if path_exists("extensions/bonfire_federate_activitypub/test/")=="true" { "extensions/bonfire_federate_activitypub/test/" } else { "deps/bonfire_federate_activitypub/test/" }
