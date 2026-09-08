@@ -62,8 +62,15 @@ runs:
           extensions
           forks
         # the toolchain belongs in the key: a `_build` compiled under another OTP/Elixir is useless
-        key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock') }}
+        # `config/` belongs in it too: Exto stitches Ecto assocs onto the `bonfire_data_*` schemas from `config/bonfire_data.exs` at the time those deps compile, and Mix does NOT recompile a dep for a config change, so a restored `_build` keeps the schemas as they were. A newly declared assoc then does not exist and every insert casting it fails, with nothing pointing at the cache as the cause.
+        key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock', 'config/**') }}
         restore-keys: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-
+
+    # `cache-hit` is only true on an EXACT key match, so this fires precisely when `restore-keys` fell back to a cache built against a different `config/` or `mix.lock`. That build has the old stitched schemas, and Mix won't rebuild them on its own (see the key above), so drop them and let the compile step below redo them. Only these deps, since a full cache drop would cost the whole build.
+    - name: Rebuild stitched schemas when the cache only partially matched
+      if: inputs.setup == 'full' && steps.deps-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: rm -rf _build/*/lib/bonfire_data_*
 
     - name: Install hex
       shell: bash
