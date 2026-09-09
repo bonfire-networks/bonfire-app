@@ -127,12 +127,13 @@ setup:
 
 @_flavour_install select_flavour *args='':
 	{{ if path_exists("extensions/"+select_flavour)=="true" { "chmod +x extensions/"+select_flavour+"/install.sh && ./extensions/"+select_flavour+"/install.sh "+args } else {"chmod +x deps/"+select_flavour+"/install.sh && ./deps/"+select_flavour+"/install.sh "+args } }}
-	@echo "Synchronizing themes..."
-	@just sync-themes || echo "WARNING: Theme sync failed. You can run 'just sync-themes' manually later."
+	just prepare-flavour-theme {{select_flavour}}
 
-# Sync DaisyUI themes from config into CSS. Runs as an escript so it needs no compiled app (it only reads config files and rewrites CSS), so the flavour installer can call it before anything is built.
-@sync-themes *args='':
-	{{ if path_exists("extensions/bonfire_ui_common")=="true" { "just escript extensions/bonfire_ui_common/lib/mix/tasks sync_themes "+args } else {"just escript deps/bonfire_ui_common/lib/mix/tasks sync_themes "+args } }}
+# Copy only the active flavour's adapted DaisyUI theme definitions into the build.
+# Flavours without their own theme intentionally produce an empty file and use Bonfire's light/dark themes.
+@prepare-flavour-theme flavour=FLAVOUR:
+	@mkdir -p assets/css
+	@if [ -f "extensions/{{flavour}}/themes/theme.css" ]; then cp "extensions/{{flavour}}/themes/theme.css" assets/css/current_flavour_theme.css; elif [ -f "deps/{{flavour}}/themes/theme.css" ]; then cp "deps/{{flavour}}/themes/theme.css" assets/css/current_flavour_theme.css; else cp /dev/null assets/css/current_flavour_theme.css; fi
 #{{ if CI == "true" { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install --yes" } else { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install" } }}
 # NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 
@@ -1422,6 +1423,7 @@ _rel-compile-OTP USE_EXT="local" ARGS="":
 _rel-compile-assets USE_EXT="local" ARGS="":
 	-rm -rf priv/static
 	yarn -v || npm install -g corepack
+	just prepare-flavour-theme
 	just js-ext-deps
 	just rel-mix {{ USE_EXT }} bonfire.gen_tailwind_sources
 	cd ./assets && yarn && yarn build && cd ..
