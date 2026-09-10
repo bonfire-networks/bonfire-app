@@ -132,8 +132,7 @@ setup:
 # Copy only the active flavour's adapted DaisyUI theme definitions into the build.
 # Flavours without their own theme intentionally produce an empty file and use Bonfire's light/dark themes.
 @prepare-flavour-theme flavour=FLAVOUR:
-	@mkdir -p assets/css
-	@if [ -f "extensions/{{flavour}}/themes/theme.css" ]; then cp "extensions/{{flavour}}/themes/theme.css" assets/css/current_flavour_theme.css; elif [ -f "deps/{{flavour}}/themes/theme.css" ]; then cp "deps/{{flavour}}/themes/theme.css" assets/css/current_flavour_theme.css; else cp /dev/null assets/css/current_flavour_theme.css; fi
+	sh prepare-flavour-theme.sh "{{flavour}}"
 #{{ if CI == "true" { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install --yes" } else { "MIX_ENV=dev just deps-get && MIX_ENV=dev just mix "+select_flavour+".install" } }}
 # NOTE: using dev env as workaround for issue with Igniter in prod: Igniter would have produced invalid syntax. ** (Mix.Error) Unknown dependency :assert_value given to :import_deps in the formatter configuration. Make sure the dependency is listed in your mix.exs for environment :prod and you have run "mix deps.get")
 

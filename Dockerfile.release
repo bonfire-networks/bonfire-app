@@ -102,6 +102,10 @@ COPY --link ${CLONES_PATH_TO_COPY} ./${CLONES_PATH_TO_COPY}
 RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=124 mix deps.get --only prod
 RUN ls deps/
 
+# Generate in the dependency tree copied into assets-builder, including on clean builds.
+COPY --link prepare-flavour-theme.sh ./
+RUN sh prepare-flavour-theme.sh "$FLAVOUR" deps/bonfire_ui_common/assets/css/current_flavour_theme.css
+
 # Include translations
 COPY --link priv/localisation/ priv/localisation/
 # RUN ls -la priv/localisation/
