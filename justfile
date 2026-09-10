@@ -1150,6 +1150,20 @@ test-ui-browser path='' *args='': services
 test-others path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` {{others_excludes}} --exclude federation `just test_default_excludes` {{args}}
 
+# Run the sonix fork's own suite (Sonic client + connection handling). Needs the sonic service, and docker for the tests that spin up a throwaway Sonic.
+test-sonix *args='': services
+	#!/usr/bin/env bash
+	set -euo pipefail
+	env_file=$(readlink .env 2>/dev/null || echo .env)
+	# .env sets MIX_ENV=dev, which `mix test` would honour, leaving test/support off elixirc_paths
+	export MIX_ENV=test
+	# the sonic service publishes on loopback, so reach it there rather than via .env's in-network SONIC_HOST
+	export SONIC_HOST=127.0.0.1
+	export SONIC_PORT="${SONIC_PORT:-1491}"
+	export SONIC_PASSWORD=$(grep -h '^SONIC_PASSWORD=' "$env_file" 2>/dev/null | head -1 | cut -d= -f2-)
+	cd forks/sonix
+	exec mix test {{args}}
+
 test_default_excludes:
 	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude integration `just test_minimum_excludes`"
 
@@ -1580,7 +1594,14 @@ rel-docker-compose *args:
 	  # doesn't create an empty directory at the mount path. The password comes from the
 	  # SONIC_CHANNEL__AUTH_PASSWORD env var, so the template intentionally omits auth_password.
 	  if [ "$search_profile" = "sonic" ]; then
-	    test -f config/deploy/sonic.cfg || cp config/templates/sonic.cfg config/deploy/sonic.cfg
+	    if [ -f config/deploy/sonic.cfg ]; then
+	      # the deploy copy is gitignored and never overwritten, so template changes (eg. the
+	      # [channel.search] -> [search] move in Sonic 1.8) would otherwise go unnoticed
+	      diff -q config/templates/sonic.cfg config/deploy/sonic.cfg >/dev/null 2>&1 || \
+	        echo "WARNING: config/deploy/sonic.cfg differs from config/templates/sonic.cfg — run: diff config/templates/sonic.cfg config/deploy/sonic.cfg"
+	    else
+	      cp config/templates/sonic.cfg config/deploy/sonic.cfg
+	    fi
 	  fi
 	  # Use --profile to enable the right search service, but name it explicitly so
 	  # docker-compose doesn't start unrelated services (e.g. web) that share the profile
@@ -1813,7 +1834,12 @@ secrets:
 	set -euo pipefail
 	env_file=$(readlink .env 2>/dev/null || echo .env)
 	just rands >> "$env_file"
-	test -f config/deploy/sonic.cfg || cp config/templates/sonic.cfg config/deploy/sonic.cfg
+	if [ -f config/deploy/sonic.cfg ]; then
+	  diff -q config/templates/sonic.cfg config/deploy/sonic.cfg >/dev/null 2>&1 || \
+	    echo "WARNING: config/deploy/sonic.cfg differs from config/templates/sonic.cfg — run: diff config/templates/sonic.cfg config/deploy/sonic.cfg"
+	else
+	  cp config/templates/sonic.cfg config/deploy/sonic.cfg
+	fi
 	echo "Secrets appended to .env"
 #{{ if MIX_ENV == "prod" { "just rands" } else if WITH_DOCKER=="total" { "just rands" } else { "just mix-secrets" } }}
 
