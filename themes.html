@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.4">
+    <meta name="project" content="Bonfire v1.0.8-community-beta.5">
+
+
+    <title>Themes and appearance — Bonfire v1.0.8-community-beta.5</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
+
+    <script defer src="dist/sidebar_items-ABB79E03.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-MI33G4N7.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.8-community-beta.5
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Themes and appearance</h1>
+
+<a href="themes.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/building/themes.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>Bonfire supports three ways to change its appearance:</p><ul><li><strong>Instance custom theme:</strong> an administrator changes colours and corner radii from the Bonfire interface. The values are stored in the instance settings and applied to that instance.</li><li><strong>Configured custom-theme default:</strong> an operator or flavour maintainer seeds the instance custom palette from Elixir configuration. Administrators can override those defaults through the interface.</li><li><strong>Named flavour theme:</strong> a flavour maintainer defines a reusable theme in CSS and includes its name in the flavour configuration. It is compiled with the application.</li></ul><p>Bonfire does not load DaisyUI's stock themes, accept arbitrary CSS through the theme editor, or fall back to another DaisyUI theme when a name is missing. Every named theme must follow Bonfire's current token contract.</p><h2 id="choose-an-instance-theme" class="section-heading"><a href="#choose-an-instance-theme" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Choose an instance theme</span></h2><p>Sign in as an instance administrator and open <strong>Settings → Default User Preferences → Appearance → Theme</strong>. The page is also available directly at <code class="inline">/settings/instance/preferences/appearance</code>.</p><p>The theme mode controls when the configured themes are used:</p><table><thead><tr><th style="text-align: left;">Mode</th><th style="text-align: left;">Behaviour</th></tr></thead><tbody><tr><td style="text-align: left;"><strong>Use dark</strong></td><td style="text-align: left;">Always uses the selected dark theme.</td></tr><tr><td style="text-align: left;"><strong>Use light</strong></td><td style="text-align: left;">Always uses the selected light theme.</td></tr><tr><td style="text-align: left;"><strong>Use system</strong></td><td style="text-align: left;">Switches between the selected light and dark themes with the visitor's device preference.</td></tr><tr><td style="text-align: left;"><strong>Use custom</strong></td><td style="text-align: left;">Uses the selected dark theme as a base and applies the instance's stored custom overrides.</td></tr></tbody></table><p>The cards under <strong>Light mode theme</strong> and <strong>Dark mode theme</strong> select a named theme for each mode. Use <strong>Preview</strong> to inspect a theme without selecting it, then <strong>Choose</strong> to make it the instance default for that mode.</p><p>People who have not chosen their own mode see the instance setting. This includes guests and signed-in people using <strong>Follow instance theme</strong>. A person's own light, dark, system, or custom choice takes precedence for that person.</p><h2 id="customise-a-theme-for-one-instance" class="section-heading"><a href="#customise-a-theme-for-one-instance" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Customise a theme for one instance</span></h2><p>Choose <strong>Use custom</strong> to open the custom-theme editor. The editor starts from the instance's selected dark theme and stores only the values you change. A control labelled <strong>Inherited</strong> continues to use its value from that base theme.</p><p>The editor exposes:</p><ul><li>20 colour tokens for base surfaces, primary, secondary, accent, neutral, info, success, warning, and error colours, including their content colours;</li><li>corner radii for boxes, fields, and selectors.</li></ul><p>Select a colour, choose its new value, and press <strong>Apply</strong>. Changes are saved to the instance palette and become visible to guests and people following the instance theme.</p><p>The picker supports opaque three- and six-digit hex colours; alpha hex values are unsupported.</p><p>Use <strong>Reset</strong> on a colour or <strong>Base</strong> on a radius to remove only that override. Use <strong>Reset all</strong> to remove the complete stored instance palette. Values then inherit from the selected base theme, subject to the <a href="#set-a-default-custom-palette-in-configuration">configured defaults below</a>.</p><p>When choosing colours, check text and controls across the interface for sufficient contrast. In particular, test every <code class="inline">*-content</code> colour against its matching background colour.</p><h2 id="choose-your-own-theme" class="section-heading"><a href="#choose-your-own-theme" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Choose your own theme</span></h2><p>Open your personal Appearance settings at <code class="inline">/settings/user/preferences/appearance</code>. New users follow the instance theme by default. Your changes here affect only your own interface.</p><p>Choose <strong>Use light</strong>, <strong>Use dark</strong>, or <strong>Use system</strong> to override the instance's mode. You can also choose your own named themes from the light and dark cards. Until you choose a different named theme, the instance's selection applies.</p><p>Choose <strong>Use custom</strong> to edit your own colours and corner radii with the same controls described above. Your selected dark theme is the base; unset values inherit from it. Your custom overrides are kept separate from the instance's custom palette, so choosing this mode does not copy or merge the administrator's custom colours.</p><p><strong>Reset</strong>, <strong>Base</strong>, and <strong>Reset all</strong> remove personal custom overrides while keeping custom mode selected. To return to the instance's mode and named themes, choose <strong>Follow instance theme</strong>. Your saved custom colours and radii are retained for when you choose <strong>Use custom</strong> again.</p><h2 id="set-a-default-custom-palette-in-configuration" class="section-heading"><a href="#set-a-default-custom-palette-in-configuration" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Set a default custom palette in configuration</span></h2><p>An operator or flavour maintainer can seed the instance custom palette in <code class="inline">config/*.exs</code>. This uses the same <code class="inline">custom_instance</code> palette as the administrator interface; it does not create a new named theme or a new card in the theme picker.</p><pre><code class="makeup elixir" translate="no"><span class="kn">import</span><span class="w"> </span><span class="nc">Config</span><span class="w">
+
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:ui</span><span class="p">,</span><span class="w">
+  </span><span class="ss">theme</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="group-1">[</span><span class="w">
+    </span><span class="ss">preferred</span><span class="p">:</span><span class="w"> </span><span class="ss">:custom</span><span class="p">,</span><span class="w">
+    </span><span class="ss">instance_theme</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dark&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="ss">custom_instance</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="group-2">%{</span><span class="w">
+      </span><span class="s">&quot;color-primary&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;#e63027&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="s">&quot;color-primary-content&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;#ffffff&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="s">&quot;color-base-100&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;#fff7f7&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="s">&quot;radius-box&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;0.5rem&quot;</span><span class="w">
+    </span><span class="p" data-group-id="group-2">}</span><span class="w">
+  </span><span class="p" data-group-id="group-1">]</span></code></pre><p><code class="inline">preferred: :custom</code> activates the instance custom mode. <code class="inline">instance_theme</code> selects the named dark/base theme used for every token that is not present in <code class="inline">custom_instance</code>.</p><p>Configuration may set any of the 28 allowlisted custom-theme tokens: the 20 colour tokens, three radius tokens, <code class="inline">size-selector</code>, <code class="inline">size-field</code>, <code class="inline">border</code>, <code class="inline">depth</code>, and <code class="inline">noise</code>. Unknown keys and unsafe values are not emitted as CSS. Configuration cannot use this map to add arbitrary CSS variables.</p><p>The configured palette is the deployment default. Instance values saved through the administrator interface take precedence. Reset removes the stored override and its current in-memory value; its configured default returns when configuration is reloaded, such as on restart. Omit <code class="inline">custom_instance</code> from configuration when <strong>Reset</strong> should always return directly to the named base theme.</p><p>Restart Bonfire after changing runtime configuration. Configuration baked into a release requires rebuilding that release. Changing only the <code class="inline">custom_instance</code> map does not itself require CSS compilation.</p><h2 id="add-a-named-theme-to-a-flavour" class="section-heading"><a href="#add-a-named-theme-to-a-flavour" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Add a named theme to a flavour</span></h2><p>A named theme is part of a flavour's source code. It requires both a CSS definition and a configuration entry:</p><ol><li><code class="inline">extensions/my_flavour/themes/theme.css</code> defines the theme values that are compiled.</li><li><code class="inline">extensions/my_flavour/config/my_flavour.exs</code> lists the theme under the light or dark picker and may make it the default.</li></ol><p>The configuration list does not define any CSS values. A name that appears in configuration without a matching compiled CSS definition will be shown in the picker but will not render correctly.</p><h3 id="1-define-the-complete-theme" class="section-heading"><a href="#1-define-the-complete-theme" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">1. Define the complete theme</span></h3><p>Start from a current Bonfire <code class="inline">light</code>, <code class="inline">dark</code>, or maintained flavour theme rather than a stock DaisyUI theme. Give every theme a unique lowercase name and define the complete supported token set.</p><pre><code class="css">/* extensions/my_flavour/themes/theme.css */
+@plugin &quot;daisyui/theme&quot; {
+  name: &quot;my-theme&quot;;
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(98.5% 0.002 250);
+  --color-base-300: oklch(97% 0.003 250);
+  --color-base-content: oklch(28% 0.012 250);
+
+  --color-primary: #4169e1;
+  --color-primary-content: #ffffff;
+  --color-secondary: oklch(93% 0.006 250);
+  --color-secondary-content: oklch(38% 0.012 250);
+  --color-accent: oklch(58% 0.08 245);
+  --color-accent-content: #ffffff;
+  --color-neutral: oklch(30% 0.012 250);
+  --color-neutral-content: oklch(97% 0 0);
+
+  --color-info: oklch(52% 0.11 235);
+  --color-info-content: #ffffff;
+  --color-success: oklch(52% 0.12 150);
+  --color-success-content: #ffffff;
+  --color-warning: oklch(64% 0.13 85);
+  --color-warning-content: oklch(24% 0.04 85);
+  --color-error: oklch(57% 0.19 25);
+  --color-error-content: #ffffff;
+
+  --radius-selector: 2rem;
+  --radius-field: 2rem;
+  --radius-box: 0rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+
+  --spacing-page-header: 64px;
+  --text-display: clamp(20px, 18.6px + 0.36vw, 20px);
+  --elevation-modal: 0 0 0 1px oklch(0% 0 0 / 0.06), 0 24px 48px -12px oklch(0% 0 0 / 0.18);
+  --elevation-popover: 0 2px 6px -2px oklch(0% 0 0 / 0.08), 0 12px 24px -8px oklch(0% 0 0 / 0.14);
+}</code></pre><p>Replace the example values with the flavour's design tokens. This example uses Bonfire's shared <code class="inline">dark</code> theme for dark mode.</p><h3 id="2-add-the-theme-to-the-picker" class="section-heading"><a href="#2-add-the-theme-to-the-picker" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">2. Add the theme to the picker</span></h3><p>List only names that exist in the flavour's <code class="inline">themes/theme.css</code> or Bonfire's shared <code class="inline">light</code> and <code class="inline">dark</code> definitions.</p><pre><code class="makeup elixir" translate="no"><span class="c1"># extensions/my_flavour/config/my_flavour.exs</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nc">Config</span><span class="w">
+
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:bonfire</span><span class="p">,</span><span class="w"> </span><span class="ss">:ui</span><span class="p">,</span><span class="w">
+  </span><span class="ss">themes_light</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="group-1">[</span><span class="s">&quot;my-theme&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;light&quot;</span><span class="p" data-group-id="group-1">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">themes_dark</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="group-2">[</span><span class="s">&quot;dark&quot;</span><span class="p" data-group-id="group-2">]</span><span class="p">,</span><span class="w">
+  </span><span class="ss">theme</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="group-3">[</span><span class="w">
+    </span><span class="ss">instance_theme_light</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my-theme&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="ss">instance_theme</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dark&quot;</span><span class="w">
+  </span><span class="p" data-group-id="group-3">]</span></code></pre><p><code class="inline">themes_light</code> and <code class="inline">themes_dark</code> control which cards appear in the picker. <code class="inline">instance_theme_light</code> and <code class="inline">instance_theme</code> select the flavour defaults. Despite its historical name, <code class="inline">instance_theme</code> is the dark theme and the base used by custom palettes.</p><p>To add a custom dark theme, define a second complete CSS block with a unique name and <code class="inline">color-scheme: dark</code>, then use that name in <code class="inline">themes_dark</code> and <code class="inline">instance_theme</code>.</p><h3 id="3-build-and-verify-the-flavour" class="section-heading"><a href="#3-build-and-verify-the-flavour" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">3. Build and verify the flavour</span></h3><p>From the Bonfire application root:</p><pre><code class="makeup sh" translate="no"><span class="">just prepare-flavour-theme my_flavour
+</span><span class="">cd extensions/bonfire_ui_common/assets
+</span><span class="">yarn build.css
+</span></code></pre><p>Preparation copies the selected flavour's CSS into the ignored <code class="inline">assets/css/current_flavour_theme.css</code>. Edit the flavour source, not that generated file. Flavours without theme CSS produce an empty file and use the shared themes.</p><p>The CSS build ends with a theme-contract message listing the shared themes and those in the prepared flavour CSS. For this example:</p><pre><code class="text">Theme contract verified: dark, light, my-theme</code></pre><p>The contract rejects missing or unexpected compiled theme selectors. It does not check picker configuration, token completeness, or whether the prepared file belongs to the intended flavour.</p><p>To test the complete application configuration, switch the application to the flavour, finish setup, and restart the development server:</p><pre><code class="makeup sh" translate="no"><span class="">cd ../../..
+</span><span class="">just flavour my_flavour
+</span><span class="">just setup
+</span><span class="">just dev
+</span></code></pre><p>Reopen the appearance settings after the restart. Confirm that only the expected names appear, preview each theme, and test light, dark, system, and custom modes.</p><p>We'll gradually add themes back as they are adapted to Bonfire's current styling, and expand the custom-theme options to let you configure more CSS tokens as the interface evolves.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="routing.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Routing
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="working-with-flavour.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Working with flavour
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
