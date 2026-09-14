@@ -859,7 +859,7 @@ update-deps: _pre-update-deps
 	just mix-remote updates
 
 update-repo: _pre-contrib-hooks
-	just git-publish . pull || git pull
+	just git-publish . pull
 
 update-repo-pull:
 	just git-publish . pull only
@@ -899,22 +899,41 @@ update-dep-simple dep:
 	just update-clone $dep pull
 	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update $dep"
 
-# Pull the latest commits from all clones
-@update-clones:
-	(just git-fetch-all && just update-clones-all rebase) || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-clones-all pull)
+# Fetch every clone up front with Jungle so each can rebase directly, falling back to pulling them one by one.
+# mindepth 1: the clones themselves, not extensions/ and forks/, which git resolves to the app repo
+update-clones extra='' message='':
+	#!/usr/bin/env bash
+	if just git-fetch-all; then cmd=rebase; else echo "Fetching all clones with Jungle didn't work, will fetch one by one instead."; cmd=pull; fi
+	just update-clone-path "$CLONES_EXTENSIONS_PATH $CLONES_EXTRA_PATH" "$cmd" 1 1 "{{extra}}" "{{message}}"
 
-update-clones-all cmd='pull' extra='' message='':
-	just update-clone-path $CLONES_EXTENSIONS_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
-	just update-clone-path $CLONES_EXTRA_PATH {{cmd}} 0 1 "{{extra}}" "{{message}}"
-
-# Pull the latest commits from all clones
+# Pull the latest commits from one clone (in whichever of extensions/ or forks/ it lives)
 update-clone dep cmd='pull' extra='' mindepth='0' maxdepth='0':
-	-just update-clone-path $CLONES_EXTENSIONS_PATH/{{dep}} {{cmd}} {{mindepth}} {{maxdepth}} {{extra}}
-	-just update-clone-path $CLONES_EXTRA_PATH/{{dep}} {{cmd}}  {{mindepth}} {{maxdepth}} {{extra}}
+	just update-clone-path "${CLONES_EXTENSIONS_PATH}{{dep}} ${CLONES_EXTRA_PATH}{{dep}}" {{cmd}} {{mindepth}} {{maxdepth}} "{{extra}}"
 
-update-clone-path path cmd='pull' mindepth='0' maxdepth='1' extra='' message='':
-	@chmod +x git-publish.sh
-	find {{path}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d -exec ./git-publish.sh {} "{{cmd}}" "{{extra}}" "{{message}}" \;
+# Publish each clone found under `paths` (space separated, missing ones are ignored).
+# Carries on when one of them fails, then lists them all and exits non-zero, so that a bad
+# rebase can't be scrolled past unnoticed.
+update-clone-path paths cmd='pull' mindepth='0' maxdepth='1' extra='' message='':
+	#!/usr/bin/env bash
+	chmod +x git-publish.sh
+	found=0
+	failed=()
+
+	while IFS= read -r dir; do
+		found=$((found + 1))
+		./git-publish.sh "$dir" "{{cmd}}" "{{extra}}" "{{message}}" || failed+=("$dir")
+	done < <(find {{paths}} -mindepth {{mindepth}} -maxdepth {{maxdepth}} -type d 2>/dev/null)
+
+	if [ "$found" -eq 0 ]; then
+		echo "No clone found at: {{paths}}" >&2
+		exit 1
+	fi
+
+	if [ ${#failed[@]} -gt 0 ]; then
+		printf '\n!! %s of %s clone(s) failed, see the error printed under each one above:\n' "${#failed[@]}" "$found" >&2
+		printf '  %s\n' "${failed[@]}" >&2
+		exit 1
+	fi
 
 # Fetch locked versions of deps (Elixir and JS), including ones also cloned locally
 @deps-fetch *args='':
@@ -1080,8 +1099,7 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 @contrib-app-release-increment:
 	just escript_common release "./ $APP_VSN_EXTRA"
 
-contrib-clones message='': 
-	(just git-fetch-all && just update-clones-all rebase "" "{{message}}") || (echo "Fetch all clones with Jungle not available, will fetch one by one instead." && just update-clones-all pull "" "{{message}}")
+contrib-clones message='': (update-clones "" message)
 
 
 contrib-rel-push: contrib-release rel-build rel-push
