@@ -888,15 +888,15 @@ update-deps-js:
 	just js-ext-deps up
 	rm -rf deps/*/*/yarn.lock
 
-# Update a specify dep (eg. `just update.dep needle`)
-update-dep dep: _pre-update-deps
-	just update-dep-simple $dep 
+# Update a specify dep (eg. `just update.dep needle`). Give a message to commit the clone's changes without being prompted for one.
+update-dep dep message='': _pre-update-deps
+	just update-dep-simple $dep "$message"
 	just _deps-post-get
 	./js-deps-get.sh $dep
 
 # always with WITH_ALL_FLAVOUR_DEPS: naming a dep explicitly means you want it found, and without it Mix answers "Unknown dependency" for anything outside the current flavour
-update-dep-simple dep:
-	just update-clone $dep pull
+update-dep-simple dep message='':
+	just update-clone $dep pull "" 0 0 "$message"
 	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update $dep"
 
 # Fetch every clone up front with Jungle so each can rebase directly, falling back to pulling them one by one.
@@ -907,8 +907,8 @@ update-clones extra='' message='':
 	just update-clone-path "$CLONES_EXTENSIONS_PATH $CLONES_EXTRA_PATH" "$cmd" 1 1 "{{extra}}" "{{message}}"
 
 # Pull the latest commits from one clone (in whichever of extensions/ or forks/ it lives)
-update-clone dep cmd='pull' extra='' mindepth='0' maxdepth='0':
-	just update-clone-path "${CLONES_EXTENSIONS_PATH}{{dep}} ${CLONES_EXTRA_PATH}{{dep}}" {{cmd}} {{mindepth}} {{maxdepth}} "{{extra}}"
+update-clone dep cmd='pull' extra='' mindepth='0' maxdepth='0' message='':
+	just update-clone-path "${CLONES_EXTENSIONS_PATH}{{dep}} ${CLONES_EXTRA_PATH}{{dep}}" {{cmd}} {{mindepth}} {{maxdepth}} "{{extra}}" "{{message}}"
 
 # Publish each clone found under `paths` (space separated, missing ones are ignored).
 # Carries on when one of them fails, then lists them all and exits non-zero, so that a bad
@@ -1100,6 +1100,10 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 	just escript_common release "./ $APP_VSN_EXTRA"
 
 contrib-clones message='': (update-clones "" message)
+
+# Push one clone's changes, then update the app to use it (eg. `just contrib-dep-update bonfire_social "fix the thing"`)
+contrib-dep-update dep message='': _pre-push-hooks
+	just update-dep {{dep}} "{{message}}"
 
 
 contrib-rel-push: contrib-release rel-build rel-push
