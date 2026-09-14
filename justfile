@@ -888,16 +888,19 @@ update-deps-js:
 	just js-ext-deps up
 	rm -rf deps/*/*/yarn.lock
 
-# Update a specify dep (eg. `just update.dep needle`). Give a message to commit the clone's changes without being prompted for one.
-update-dep dep message='': _pre-update-deps
-	just update-dep-simple $dep "$message"
+# Update one dep, or several as a quoted list (eg. `just update-dep needle` or `just update-dep "needle bonfire_social"`).
+# Give a message to commit each clone's changes without being prompted for one.
+update-dep deps message='': _pre-update-deps
+	just update-dep-simple "$deps" "$message"
 	just _deps-post-get
-	./js-deps-get.sh $dep
+	./js-deps-get.sh "$deps"
 
 # always with WITH_ALL_FLAVOUR_DEPS: naming a dep explicitly means you want it found, and without it Mix answers "Unknown dependency" for anything outside the current flavour
-update-dep-simple dep message='':
-	just update-clone $dep pull "" 0 0 "$message"
-	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update $dep"
+update-dep-simple deps message='':
+	#!/usr/bin/env bash
+	set -e # a clone that didn't publish must not get locked in below
+	for dep in {{deps}}; do just update-clone "$dep" pull "" 0 0 "{{message}}"; done
+	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update {{deps}}"
 
 # Fetch every clone up front with Jungle so each can rebase directly, falling back to pulling them one by one.
 # mindepth 1: the clones themselves, not extensions/ and forks/, which git resolves to the app repo
@@ -1101,9 +1104,10 @@ contrib-app-release: _pre-push-hooks contrib-app-release-increment git-publish
 
 contrib-clones message='': (update-clones "" message)
 
-# Push one clone's changes, then update the app to use it (eg. `just contrib-dep-update bonfire_social "fix the thing"`)
-contrib-dep-update dep message='': _pre-push-hooks
-	just update-dep {{dep}} "{{message}}"
+# Push one clone's changes, then update the app to use it. Takes several as a quoted list,
+# eg. `just contrib-dep-update bonfire_social "fix the thing"` or `just contrib-dep-update "bonfire_social bonfire_ui_social" "fix the thing"`
+contrib-dep-update deps message='': _pre-push-hooks
+	just update-dep "{{deps}}" "{{message}}"
 
 
 contrib-rel-push: contrib-release rel-build rel-push
