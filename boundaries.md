@@ -31,7 +31,7 @@ You can add members to a circle when creating it or by editing an existing circl
 
 1. Go to the circle's page or the circles settings.
 2. Click the members button.
-3. Use the search interface to add people to the circle. Alternatively, you can click the circle button when viewing someone's profile and select what circles you want them in from there.
+3. Use the search interface to add people to the circle. Alternatively, you can click the circle button when viewing someone's profile and select which circles you want them in from there.
 
 ![Circle members](assets/circle-members.png)
 
@@ -109,7 +109,7 @@ It's as easy as 1-2-3 :-)
 
 #### Detailed guide to using boundaries
 
-To avoid having to toggle a bunch of circles/people every time you post, you can use Boundary presets. Define them in your Boundary settings and they will appear in the drop-down list once set up.
+To avoid having to toggle a bunch of circles/people every time you post, you can use Boundary presets. Define them in your Boundary settings, and they will appear in the drop-down list once set up.
 
 To do so, visit the Boundary presets page in your settings. There, you can create a new preset by adding a name and an optional description, then selecting one or more circles or users and assigning permissions for each action.
 
@@ -203,7 +203,7 @@ There are some predefined roles, but you can also make your own with different s
 
 There are also negative roles, indicating actions which you specifically do not want to allow a particular circle or user to do, such as:
 
-* Cannot Read: not discoverable in lists or readable, and also can't interact or participate.
+* Cannot Read: not discoverable in lists or readable, and also cannot interact or participate.
 
 * Cannot Interact: cannot perform any actions related to interaction, including liking, following, boosting, and pinning, and also can't participate.
 
