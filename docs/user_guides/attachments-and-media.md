@@ -45,12 +45,12 @@ Photos and videos often contain Exif metadata, which may include camera details,
 ## Tips
 
 - Use media to make your posts more engaging, informative, or fun.
-- Check licensing and privacy requirements of the orignal author when sharing files.
+- Check licensing and privacy requirements of the original author when sharing files.
 - Indicate the license (e.g. Creative Commons BY-SA) of the content.
 - Use content warnings and sensitivity flags thoughtfully.
 - Be mindful of privacy risks when sharing media, especially if you are at risk of surveillance or stalking.
 
 ---
 
-For more on privacy and sharing, see [Circles & Boundaries](/docs/user_guides/boundaries.md).  
+For more on privacy and sharing, see [Circles & Boundaries](./docs/user_guides/boundaries.md).  
 For details on content warnings and sensitive media, see [Sensitive Content & Content Warnings](./content-warnings.md).

@@ -219,7 +219,7 @@ Bonfire takes special care to preserve your content's original identity when imp
 ## Step 6: Clean up your old account
 
 ### Option A: Keep as redirect (Recommended)
-- Leave your account as-is to to point visitors to your new account (you can update your bio with a notice)
+- Leave your account as-is to point visitors to your new account (you can update your bio with a notice)
 - This means your old posts and activities are still accessible
 - No further action needed
 
