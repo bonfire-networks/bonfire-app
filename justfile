@@ -1238,6 +1238,7 @@ ap_lib := if path_exists("forks/activity_pub/test/activity_pub/")=="true" { "for
 ap_ext := if path_exists("extensions/bonfire_federate_activitypub/test/")=="true" { "extensions/bonfire_federate_activitypub/test/" } else { "deps/bonfire_federate_activitypub/test/" }
 ap_integration := ap_ext+"activity_pub_integration/"
 ap_boundaries := ap_ext+"boundaries/"
+open_id_ext := if path_exists("extensions/bonfire_open_id/test/")=="true" { "extensions/bonfire_open_id/test/" } else { "deps/bonfire_open_id/test/" }
 # common excludes shared by the various "others"/fallback runners
 others_excludes := "--exclude ui --exclude browser --exclude backend --exclude ap_lib"
 # federation "others"/fallback: shares the common base but keeps federation tests, and drops the buckets with their own cmds (masto-api/openid); also keeps external-service :integration tests opt-in (like test_default_excludes does for the other suites)
@@ -1307,7 +1308,32 @@ test-federation-dance-unsigned *args='': services _test-dance-positions
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
-test-openid-dance *args='extensions/bonfire_open_id/test': services _test-dance-positions
+# The whole bonfire_open_id suite bar the dance tests (those are `test-openid-dance`). It needs its own runner because its `ConnCase` tags every web test `:ui`: `test-backend` drops those with `--exclude ui` and `test-ui` never loads the extension, so neither suite covers them. The Mastodon API tests live here too and are excluded by default everywhere else, so they are re-included.
+test-openid *args=open_id_ext: services
+	just test_run {{args}} --include masto_api --include masto_api_coverage `just test_default_excludes`
+
+# every openid bucket, continuing past a failing one so a red dance run cannot hide a red web run (and vice versa).
+# NOTE: the dance bucket leaves the build compiled with `sql_sandbox: false`, so a second local run in a row fails to boot the web bucket. `just mix deps.clean bonfire --build` clears it. CI jobs start fresh, so it only bites locally.
+test-openid-all:
+    #!/usr/bin/env bash
+    set +e
+    EXIT_CODE_SUM=0
+
+    just test-openid
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+
+    just test-openid-dance
+    EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
+
+    if [ $EXIT_CODE_SUM -ne 0 ]; then
+        echo "❌ $EXIT_CODE_SUM openid test buckets failed"
+        exit 1
+    else
+        echo "✅ All openid tests passed"
+        exit 0
+    fi
+
+test-openid-dance *args=open_id_ext: services _test-dance-positions
 	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
