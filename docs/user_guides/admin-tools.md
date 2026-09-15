@@ -28,7 +28,7 @@ Instance admins have access to advanced tools for managing users, extensions, an
 ## Advanced Monitoring and Maintenance
 
 - Access real-time metrics and logs via the **LiveDashboard** at `/admin/system/`.
-- Monitor queued jobs (e.g. federation, media processing) by clickig on **Oban** in the LiveDashboard.
+- Monitor queued jobs (e.g. federation, media processing) by clicking on **Oban** in the LiveDashboard.
 <!-- - Browse and edit database data via **LiveAdmin** at `/admin/system/data`. -->
 - Profile performance with **Orion** at `/admin/system/orion`.
 - Use **Web Observer** for alternative metrics at `/admin/system/wobserver`.
