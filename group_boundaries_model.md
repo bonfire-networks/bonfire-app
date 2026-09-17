@@ -16,7 +16,7 @@ Three of the four dimensions are organised by **scope** — how far the group re
 | `local` | Logged-in users of this instance | no |
 | `members` | The group's own members | no |
 
-`Bonfire.Boundaries.Presets.slug_scope/1` reads the part before the first `:`, falling back to `global` for a prefix that is not a known scope — which is why `anyone`, `discoverable`, `unlisted` and `public` all resolve to the `global` scope despite not being spelled that way.
+`Bonfire.Boundaries.Presets.slug_scope/1` reads the part before the first `:`, falling back to `global` for a prefix that is not a known scope — which is why `anyone`, `preview`, `unlisted` and `public` all resolve to the `global` scope despite not being spelled that way.
 
 **Membership and participation have no `nonfederated` slug**, and this is deliberate rather than a gap: a group that federates nothing has only local users to be joined by or posted in by. So the *participant* scope of a `nonfederated` group is `local` (`participant_scope_for/1` in `Bonfire.Classify.Boundaries`).
 
@@ -36,17 +36,18 @@ The first three are the *free to join* slugs, distinguished by scope; the last t
 
 ## 2. Group visibility — who can see the group and its content (`:see` / `:read` verbs)
 
-Laid out as a scope × role grid. The role is how MUCH the audience gets: `:interact` (see + read + interact), `:discover` (see it exists, members-only content), `:unlisted_read` (readable by direct link, not listed).
+Laid out as a scope × role grid. The role is how MUCH the audience gets, named restriction-first: `:interact` (see + read + interact), `:preview_discover` (they find it, they get a preview, members read the content), `:unlisted_read` (readable by direct link, not listed).
 
-| Scope | `:interact` | `:discover` | `:unlisted_read` |
-|-------|-------------|-------------|------------------|
-| `global` | `global` | `discoverable` | `unlisted` |
-| `archipelago` | `archipelago` | `archipelago:discoverable` | `archipelago:unlisted` |
-| `nonfederated` | `nonfederated` | `nonfederated:discoverable` | `nonfederated:unlisted` |
-| `local` | `local` | `local:discoverable` | `local:unlisted` |
+| Scope | `:interact` | `:preview_discover` | `:unlisted_read` |
+|-------|-------------|---------------------|------------------|
+| `global` | `global` | `preview` | `unlisted` |
+| `nonfederated` | `nonfederated` | `nonfederated:preview` | `nonfederated:unlisted` |
+| `local` | `local` | `local:preview` | `local:unlisted` |
 | `members` | `members:private` | — | — |
 
-Only the bare `archipelago` slug appears in the dimension's `slug_order`; its `:discoverable` / `:unlisted` variants exist in `:preset_acls` but are not yet selectable.
+The `:preview_discover` slugs were called `*:discoverable` until 2026-09-16. That name stated only half of what they mean, since being findable is compatible with being readable, and twice led to one being paired with a preset that promised readable content. The DCV grid below already called the same grants `preview`, so the two now share one name per scope rather than each having its own.
+
+Archipelago has no row: a group carrying its own archipelago allow-list is unbuilt, and when the instance is in archipelago mode `global` and `nonfederated` already mean "to the archipelago". The slugs are commented out in `:preset_acls` rather than left as `[]`, because an empty signature is undetectable and so read back as a neighbouring slug.
 
 ## 3. Participation — who can post/interact (`:create`, `:reply`, `:boost`, `:like` verbs)
 
@@ -64,15 +65,18 @@ Participation slugs carry no `role`, unlike visibility and DCV.
 
 ## 4. Default content visibility — how posts in this group are shared by default
 
-Same scope × role grid as visibility, except the `global` scope is spelled `public*`. Stored per group in settings; pre-fills the composer's boundary selector via `read_default_content_visibility/2`, and authors can still change it. Affects future posts only.
+Same scope × role grid as visibility, except that two of the `global` scope's entries are spelled `public*`. Stored per group in settings; pre-fills the composer's boundary selector via `read_default_content_visibility/2`, and authors can still change it. Affects future posts only.
 
-| Scope | `:interact` | `:discover` (preview) | `:unlisted_read` (quiet) |
-|-------|-------------|------------------------|--------------------------|
-| `global` | `public` | `public:preview` | `public:quiet` |
-| `archipelago` | `archipelago` | — | — |
-| `nonfederated` | `nonfederated` | `nonfederated:preview` | `nonfederated:quiet` |
-| `local` | `local` | `local:preview` | `local:quiet` |
+| Scope | `:interact` | `:preview_discover` | `:unlisted_read` |
+|-------|-------------|---------------------|------------------|
+| `global` | `public` | `public:preview` | `unlisted` |
+| `nonfederated` | `nonfederated` | `nonfederated:preview` | `nonfederated:unlisted` |
+| `local` | `local` | `local:preview` | `local:unlisted` |
 | `members` | `members:private` | — | — |
+
+Every `:unlisted_read` slug and every `:preview_discover` slug below the `global` scope is the SAME `:preset_acls` entry the visibility grid uses, declared once (a flat map cannot hold a key twice) and offered by both dimensions. `quiet` used to be a second name for this role on the post side; it is gone, because the only thing that made `public:quiet` differ from `unlisted` was the `verbs_ping` grant that `unlisted` was missing, and a post in this tier needs exactly that.
+
+Only the two `:interact` and `:preview_discover` entries at `global` scope are still dimension-specific, because the group side spells that scope `global` and the post side spells it `public`.
 
 When a group states no DCV, one is derived from its visibility by `default_content_visibility_for/1`: `global*` → `public`, `local*` → `local`, `members:private` → itself, everything else → `nonfederated`. This matters beyond groups anyone configures here, because `Categories.create_remote/2` scaffolds every **mirrored remote community** through the same path.
 
@@ -86,13 +90,17 @@ Post visibility options are automatically disabled based on group visibility (`d
 
 | Preset ID | Membership | Visibility | Participation | Default post vis |
 |-----------|-----------|------------|---------------|-----------------|
-| `public_local_community` | `local:members` | `nonfederated:discoverable` | `local:contributors` | `nonfederated` |
-| `announcement_channel` | `invite_only` | `nonfederated:discoverable` | `moderators` | `nonfederated` |
-| `private_club` | `on_request` | `local:discoverable` | `group_members` | `members:private` |
+| `public_local_community` | `local:members` | `nonfederated` | `local:contributors` | `nonfederated` |
+| `announcement_channel` | `invite_only` | `nonfederated` | `moderators` | `nonfederated` |
+| `private_club` | `on_request` | `local:preview` | `group_members` | `members:private` |
+
+The first two used to name a `*:preview` visibility while their descriptions promised content anyone could read, which is the contradiction that `preview` is named to prevent: a preview slug withholds `:read` from non-members. `private_club` is the one that wants it, and it pairs it with `group_members` participation. Restricting who may POST is the participation dimension's job in all three.
 
 Federated presets (`open_network` and others) are sketched in config but commented out until groups federation ships.
 
-A group resolves its preset by two different routes, which matters when editing this config: `group_row_chip/1` back-translates from the group's **dimensions**, while `group_icon/2` reads the `[:preset_slug]` **setting** stored at create time. Changing an existing preset's dims breaks the first for groups already created with it; renaming its key breaks the second. Adding a new key breaks neither, with `:group_preset_order` deciding which presets are offered — an entry in `group_presets` but absent from `group_preset_order` still back-translates without being offered for new groups.
+A group resolves its preset by back-translating from its **dimensions** (`Presets.preset_slug_from_dims/1`), which is what `group_row_chip/1` and `group_icon/2` both do. Nothing stores the preset a group was created from: a stored copy can only go stale the first time someone edits the boundaries. So changing an existing preset's dims changes what groups already created with it resolve to, while renaming its key affects nothing that is stored. `:group_preset_order` decides which presets are offered — an entry in `group_presets` but absent from `group_preset_order` still back-translates without being offered for new groups.
+
+For a LIST of groups use `Presets.group_icons/2` rather than `group_icon/2` per row: it resolves the whole list through `group_listing_dimension_slugs/1` in one query.
 
 ## Layer 2 Overrides
 
