@@ -15,6 +15,8 @@ config :bonfire,
   default_pagination_limit: 2,
   pagination_hard_max_limit: 20,
   skip_all_boundary_checks: false,
+  # so tests still see UI whose backend isn't built yet
+  show_unimplemented: true,
   ui: [infinite_scroll: false]
 
 config :bonfire_mailer, Bonfire.Mailer.Swoosh, adapter: Swoosh.Adapters.Test
