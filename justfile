@@ -983,9 +983,7 @@ deps-clean *args='':
 
 js-deps-fetch: js-ext-deps _assets-ln
 
-# Build each extension's own JS bundles. Extensions that ship a `build` script in their
-# assets/package.json own their bundle entirely (deps, loaders, output path), rather than
-# bonfire_ui_common's build chain needing an entry per extension.
+# Build each extension's own JS bundles. Extensions that ship a `build` script in their assets/package.json own their bundle entirely (deps, loaders, output path), rather than bonfire_ui_common's build chain needing an entry per extension.
 js-ext-build: (js-ext-deps "build.ext")
 
 # Watch each extension's own JS bundles (runs them in parallel and blocks, for `watchers:` in dev)
