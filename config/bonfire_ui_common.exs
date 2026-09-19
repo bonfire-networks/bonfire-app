@@ -72,56 +72,8 @@ config :bonfire, :ui,
     "Luciole",
     "OpenDyslexic"
   ],
-  themes_dark: [
-    "dark"
-    # "synthwave",
-    # "forest",
-    # "dracula",
-    # "aqua",
-    # "luxury",
-    # "night",
-    # "coffee",
-    # "dim",
-    # "sunset",
-    # "abyss",
-    # "retro",
-    # "cyberpunk",
-    # "valentine",
-    # "halloween",
-    # "garden"
-  ],
-  themes_light: [
-    "light"
-    # "silk",
-    # "caramellatte",
-    # "nord",
-    # "cmyk",
-    # "acid",
-    # "autumn",
-    # "lofi",
-    # "pastel",
-    # "fantasy",
-    # "cupcake",
-    # "bumblebee",
-    # "emerald",
-    # "corporate"
-  ],
-  themes_custom: [
-    [
-      name: "federated_archives",
-      default: false,
-      prefersdark: true,
-      color_scheme: "dark",
-      "color-base-100": "#303030",
-      "color-base-200": "#333333",
-      "color-base-300": "#262626",
-      "color-base-content": "#f2f1f1",
-      "color-primary": "#B5FF00",
-      "color-primary-content": "#272e16",
-      "radius-box": "2rem",
-      "radius-field": "2rem"
-    ]
-  ],
+  themes_dark: ["dark"],
+  themes_light: ["light"],
   show_trending_tags: [
     disabled: false,
     for_last_x_days: 30,
