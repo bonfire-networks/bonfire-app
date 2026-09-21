@@ -368,13 +368,23 @@ defmodule Bonfire.Umbrella.MixProject do
     # "paper_trail"
   ]
 
+  # Which deps' test suites the `ui` leg loads. An extension whose tests are `@moduletag :ui` and
+  # whose name is not here runs in neither leg: the backend leg excludes `:ui`, and this list is
+  # what the ui leg looks at. That is how `bonfire_community_rules` sat red for four months
+  # without anyone hearing about it.
   test_ui = [
     "bonfire_ui_",
     "bonfire_boundaries",
     "bonfire_search",
     "bonfire_geolocate",
     "bonfire_files",
-    "bonfire_invite_links"
+    "bonfire_invite_links",
+    "bonfire_notify",
+    "bonfire_classify",
+    "bonfire_community_rules",
+    "bonfire_ghost",
+    "bonfire_poll",
+    "bonfire_translation"
   ]
 
   # TODO: put these in ENV or an external writeable config file similar to deps.*
