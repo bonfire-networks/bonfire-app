@@ -485,6 +485,7 @@ defmodule Bonfire.Umbrella.MixProject do
       update: [
         "bonfire_",
         "bonfire_files",
+        "bonfire_ghost",
         "ember",
         "social",
         "community",
@@ -529,6 +530,9 @@ defmodule Bonfire.Umbrella.MixProject do
       test_paths: Mixer.test_paths(config()),
       # test_deps: Mixer.deps(config(), :test) |> Mixer.log(),
       required_deps: config()[:deps_prefixes][:required],
+      # Aggregate of every name across the `deps_prefixes` groups, threaded to runtime (release-safe via `Bonfire.Application.project`, like `required_deps` above) so that `Bonfire.Common.Extend.maybe_extension_loaded!/1` can still recognise an extension by its app name when it isn't compiled into this flavour (an absent extension leaves no other trace). NOT exhaustive: only names that appear in some `deps_prefixes` group are covered.
+      known_extension_names:
+        config()[:deps_prefixes] |> Keyword.values() |> List.flatten() |> Enum.uniq(),
       # consolidate_protocols: false, # for Tria
       compilers: Mixer.compilers(Mix.env()),
       listeners: [Phoenix.CodeReloader],

@@ -2,24 +2,6 @@ import Config
 
 #### Base configuration
 
-verbs = [
-  "Boost",
-  "Create",
-  "Delete",
-  "Edit",
-  "Flag",
-  "Follow",
-  "Join",
-  "Like",
-  "Mention",
-  "Message",
-  "Read",
-  "Reply",
-  "Request",
-  "See",
-  "Tag"
-]
-
 config :needle, :search_path_fun, {Bonfire.Common.ExtensionBehaviour, :apps_to_scan}
 
 # Search these apps/extensions for Verbs to index (i.e. they contain modules with a declare_verbs/0 function)
@@ -32,7 +14,6 @@ config :bonfire_data_access_control,
     # :bonfire,
   ]
 
-config :bonfire, :verb_names, verbs
 
 # # FIXME on older elixir versions
 # known_deps =

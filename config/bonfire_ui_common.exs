@@ -100,21 +100,7 @@ config :bonfire, :ui,
   # ],
   smart_input_as: :non_blocking
 
-config :bonfire,
-  # used by ActivityLive - TODO: autogenerate?
-  verb_families: [
-    reply: ["Reply", "Respond", "Annotate"],
-    create: ["Create", "Write"],
-    react: ["Like", "Boost", "Flag", "Tag", "Pin"],
-    simple_action: [
-      "Assign",
-      "Label",
-      "Schedule",
-      "Request",
-      "Request to Quote",
-      "Request to Follow"
-    ]
-  ]
+# verb families moved to `bonfire_social`, alongside the kinds they group
 
 config :bonfire_ui_common, Bonfire.UI.Common.SmartInputLive,
   max_length: 2000,
