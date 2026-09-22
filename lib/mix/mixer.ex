@@ -654,12 +654,12 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       dep_path =
         dep_path(dep, true)
 
-      # |> IO.inspect()
+      # 
 
       if dep_path do
         # path = 
         Path.join(dep_path, extra)
-        # |> IO.inspect()
+        # 
         |> Path.wildcard()
 
         # if path, do: [path], else: []
