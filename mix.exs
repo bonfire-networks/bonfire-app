@@ -398,7 +398,8 @@ defmodule Bonfire.Umbrella.MixProject do
     guides:
       [
         # "docs/introduction.md",
-        "README.md"
+        "README.md",
+        "FEDERATION.md"
         # "docs/HACKING.md",
         # "docs/DEPLOY.md",
         # "docs/CHANGELOG.md"
@@ -595,7 +596,8 @@ defmodule Bonfire.Umbrella.MixProject do
             Path.wildcard("{extensions,deps,forks}/*/LICENSES/*") ++
             Path.wildcard("{extensions,deps,forks}/*/LICENSE"),
         Concepts:
-          Path.wildcard("docs/topics/*.md") ++
+          Path.wildcard("FEDERATION.md") ++
+            Path.wildcard("docs/topics/*.md") ++
             Path.wildcard("{extensions,deps,forks}/*/docs/*.md") ++
             Path.wildcard(
               "{deps,forks,extensions}/{needle,bonfire_boundaries,bonfire_api_graphql,bonfire_mailer}/*.md"
