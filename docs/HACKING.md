@@ -145,6 +145,8 @@ You can also choose to use nix to setup your development environment.
 
 The tool direnv is necessary for the nix setup as the nix shell environment will use variables defined on `.envrc` to set itself up.
 
+It also sets `WITH_DOCKER=no` and `WITH_NIX=flake` for you. The second is what tells `just dev` to start postgres and meilisearch from the devShell; without it, `WITH_DOCKER=no` means those run elsewhere, bare-metal or on another host, and nothing is started for you.
+
 Note: when you run `direnv allow` on the bonfire-app directory for the first time, nix will automatically fetch the dependencies for bonfire. The process will take a while as it's downloading everything needed to use the development environment. Afterwards you will be able to use just fine. Proceeding times you enter the directory, the shell with automatically set up for your use without downloading the packages again.
 
 You will need to update the db directory which is automatically created by nix the first time you initialized the shell with `direnv allow`. You can do so with the following steps:

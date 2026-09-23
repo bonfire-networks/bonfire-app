@@ -18,6 +18,11 @@ FLAVOUR := env_var_or_default('FLAVOUR', "ember")
 # - WITH_DOCKER=no : please no
 WITH_DOCKER := env_var_or_default('WITH_DOCKER', "total")
 
+# with WITH_DOCKER=no, where do the services come from? set as env var:
+# - WITH_NIX=flake : postgres and meilisearch from the nix devShell
+# - unset : they run bare-metal or on another host, and are not managed here
+WITH_NIX := env_var_or_default('WITH_NIX', "")
+
 MIX_ENV := env_var_or_default('MIX_ENV', "dev")
 CI := env_var_or_default('CI', "false")
 
@@ -1621,7 +1626,7 @@ rel-docker-compose *args:
 	{{ if MIX_ENV == "prod" { "just rel-services \"$services\"" } else { "just dev-services \"$services\"" } }}
 
 @dev-services services="db search":
-	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just _start-services docker-compose \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "echo Skipping docker services"} }}
+	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just _start-services docker-compose \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "just nix-services \"$services\"" } }}
 
 # Start docker services via the given compose recipe (docker-compose or rel-docker-compose), using SEARCH_ADAPTER env to choose between meili and sonic when "search" is in the list
 @_start-services compose="docker-compose" services="db search":
@@ -1861,7 +1866,7 @@ localise-prune:
 @localise-tx-push-lang-files lang *args='':
 	tx push -t -l {{lang}} -f {{args}}
 
-# @localise-extract-push: localise-extract localise-tx-push
+# @localise-extract-push: localise-extract localise-tx-push
 
 @assets-prepare:
 	-mkdir -p priv/static
@@ -1940,6 +1945,32 @@ secrets:
 nix-db-init: (nix-db "start")
   createdb ${PGDATABASE}
   createuser -dlsw ${PGUSERNAME}
+
+# Bring up the services the nix devShell provides, when WITH_NIX=flake
+nix-services services="db search":
+	@[ "${WITH_NIX:-}" = "flake" ] \
+	  || { echo "WITH_NIX is not 'flake': assuming postgres and meilisearch run elsewhere"; exit 0; }; \
+	  [ -n "${PGDATA:-}" ] && command -v pg_ctl >/dev/null 2>&1 \
+	  || { echo "WITH_NIX=flake but not inside the devShell: run 'nix develop' (or 'direnv allow') first"; exit 0; }; \
+	  for svc in {{services}}; do case "$svc" in db) just _nix-db-up ;; search) just _nix-search-up ;; *) echo "No devShell service for '$svc', skipping" ;; esac; done
+
+_nix-db-up:
+	@pg_ctl -D "$PGDATA" status >/dev/null 2>&1 || just nix-db start
+
+# Start meilisearch in the background, unless something already answers on its port.
+# NOTE: the log goes next to --db-path, not inside it: meilisearch refuses to start on a
+# non-empty data dir that has no VERSION file of its own.
+_nix-search-up:
+	@command -v meilisearch >/dev/null 2>&1 || { echo "No meilisearch in PATH, skipping"; exit 0; }; \
+	  [ "${SEARCH_ADAPTER:-meili}" = "meili" ] || { echo "SEARCH_ADAPTER=${SEARCH_ADAPTER:-} has no devShell service, skipping"; exit 0; }; \
+	  url="${SEARCH_MEILI_INSTANCE:-http://localhost:7700}"; \
+	  curl -fsS -o /dev/null "$url/health" 2>/dev/null && exit 0; \
+	  mkdir -p data/search/dev; \
+	  (nohup meilisearch --db-path data/search/dev --http-addr "${url#http://}" --master-key "$MEILI_MASTER_KEY" --env development >> data/search/meilisearch.log 2>&1 &); \
+	  echo "Started meilisearch on $url (log: data/search/meilisearch.log)"
+
+@nix-search-stop:
+	-pkill -f "meilisearch --db-path data/search/dev"
 
 # to test federation locally you can use `just dev-federate` or `just test-federation-live-DRAGONS`
 # and run this in seperate terminal to start the above tunnel: `just tunnel`
