@@ -67,10 +67,11 @@ runs:
         restore-keys: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-
 
     # `cache-hit` is only true on an EXACT key match, so this fires precisely when `restore-keys` fell back to a cache built against a different `config/` or `mix.lock`. That build has the old stitched schemas, and Mix won't rebuild them on its own (see the key above), so drop them and let the compile step below redo them. Only these deps, since a full cache drop would cost the whole build.
+    # Which deps those are is read from the config rather than listed here (see `just deps-clean-stitched`), since any Needle schema takes config through `Exto.flex_schema` and stitching reaches well beyond `bonfire_data_*`.
     - name: Rebuild stitched schemas when the cache only partially matched
       if: inputs.setup == 'full' && steps.deps-cache.outputs.cache-hit != 'true'
       shell: bash
-      run: rm -rf _build/*/lib/bonfire_data_*
+      run: just deps-clean-stitched
 
     - name: Install hex
       shell: bash

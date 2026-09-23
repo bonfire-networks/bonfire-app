@@ -978,6 +978,14 @@ deps-clean *args='':
 @deps-clean-api:
 	just mix bonfire.deps.clean.api
 
+# Drop the builds of every dep whose schemas take fields or assocs from config (`Exto.flex_schema`, which every Needle schema calls), so they compile again with the config as it is now: Mix does not recompile a dep for a config change. Run after changing stitching locally; CI runs it when its build cache only partially matched. The apps are read from the config rather than listed, so a newly stitched schema is covered: every app `config/bonfire_data.exs` configures, plus every app configured for `Bonfire.Social.FeedFilters`. Needs no Mix, so it can run before hex is installed.
+deps-clean-stitched:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	apps=$( (grep -hoE '^config :[a-z0-9_]+, [A-Z][A-Za-z0-9.]+' config/bonfire_data.exs; grep -hoE '^config :[a-z0-9_]+, Bonfire\.Social\.FeedFilters' config/*.exs) | awk '{print $2}' | tr -d ':,' | sort -u)
+	echo "Rebuilding stitched schemas in: $apps"
+	for app in $apps; do rm -rf _build/*/lib/$app; done
+
 @deps-clean-web:
 	just deps-clean plug
 	just deps-clean phoenix_html
