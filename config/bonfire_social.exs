@@ -11,7 +11,15 @@ config :bonfire,
     reply: [:reply, :respond, :annotate],
     create: [:create, :write, :message, :mention],
     react: [:like, :boost, :flag, :tag, :pin, :react],
-    simple_action: [:assign, :label, :schedule, :request, :quote_request, :follow_request]
+    simple_action: [
+      :assign,
+      :label,
+      :schedule,
+      :request,
+      :quote_request,
+      :follow_request,
+      :join_request
+    ]
   ]
 
 config :bonfire_social, Bonfire.Social.Activities,
@@ -21,6 +29,7 @@ config :bonfire_social, Bonfire.Social.Activities,
     message: "Send",
     react: "React",
     follow_request: "Request to follow",
+    join_request: "Request to join",
     quote_request: "Request to quote"
   }
 
