@@ -228,6 +228,8 @@ config :sentry,
   root_source_code_paths: [project_root] ++ dep_paths,
   # NOTE: source_code_exclude_patterns moved to runtime.exs (cannot include regex in release config with Elixir 1.19+)
   context_lines: 15,
+  # we don't send client IP addresses to Sentry
+  before_send: {Bonfire.Common.Errors, :sentry_before_send},
   tags: %{app_version: Mix.Project.config()[:version]}
 
 # OpenTelemetry base configuration
