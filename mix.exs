@@ -95,18 +95,18 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_ai_deps =
     if(with_ai?,
       do: [
-        {:bumblebee, "~> 0.7"},
-        {:axon, "~> 0.8", override: true},
+        {:bumblebee, "~> 0.8"},
+        {:axon, "~> 0.9", override: true},
         {:table_rex, "~> 4.1", override: true},
-        {:nx, "~> 0.13"},
-        {:exla, "~> 0.13"}
+        {:nx, "~> 1.0"},
+        {:exla, "~> 1.0"}
         # temp workaround: https://github.com/elixir-nx/nx/issues/1599
         # {:exla, github: "elixir-nx/nx", sparse: "exla", override: true},
         # {:nx, github: "elixir-nx/nx", sparse: "nx", override: true}
       ],
       else: [
-        {:axon, "~> 0.8", override: true},
-        {:nx, "~> 0.13", override: true},
+        {:axon, "~> 0.9", override: true},
+        {:nx, "~> 1.0", override: true},
         {:table_rex, "~> 4.1", override: true}
       ]
       # because used by other deps ^

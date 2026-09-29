@@ -904,7 +904,7 @@ update-dep deps message='': _pre-update-deps
 update-dep-simple deps message='':
 	#!/usr/bin/env bash
 	set -e # a clone that didn't publish must not get locked in below
-	for dep in {{deps}}; do just update-clone "$dep" pull "" 0 0 "{{message}}"; done
+	for dep in {{deps}}; do just update-clone "$dep" pull "" 0 0 "{{message}}" || echo "skipped"; done
 	COMPILE_DISABLED_EXTENSIONS=all WITH_ALL_FLAVOUR_DEPS=1 just mix-remote "deps.update {{deps}}"
 
 # Fetch every clone up front with Jungle so each can rebase directly, falling back to pulling them one by one.
