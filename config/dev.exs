@@ -10,9 +10,9 @@ if System.get_env("DISABLE_IMAGE_CLASSIFIER", "yes") in yes? do
 end
 
 config :bonfire,
-  # Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
+  # features that WORK but are still being tested, which users and admins can also opt into as a setting. Note: you can run `Bonfire.Common.Config.put(:experimental_features_enabled, true)` to enable these in prod too
   experimental_features_enabled: true,
-  # so UI whose backend isn't built yet stays visible while working on it
+  # UI whose backend isn't built yet, for developers only (see `Bonfire.Common.Utils.show_unimplemented?/0`); once it works, it moves behind `experimental_features_enabled` or loses its check
   show_unimplemented: true,
   # low limit so it is easier to test UX
   # default_pagination_limit: 10,
