@@ -22,4 +22,15 @@ config :bonfire_api_graphql, Bonfire.API.MastoCompat.Schemas.Notification,
     "quoted_update",
     "added_to_collection",
     "collection_update"
+  ],
+  # the types whose notification carries the status it is about, and which the user stream also sends as an `update` event
+  types_with_status: [
+    "mention",
+    "status",
+    "reblog",
+    "favourite",
+    "poll",
+    "update",
+    "quote",
+    "quoted_update"
   ]
