@@ -10,7 +10,7 @@ Three of the four dimensions are organised by **scope** — how far the group re
 
 | Scope | Means | Marked `disabled` in config |
 |-------|-------|------------------------------|
-| `global` | The whole fediverse | yes, until groups federation ships |
+| `global` | The whole fediverse | no |
 | `archipelago` | Trusted linked instances | yes, until the archipelago feature ships |
 | `nonfederated` | Everyone on this instance, including guests, sent nowhere | no |
 | `local` | Logged-in users of this instance | no |
@@ -34,9 +34,11 @@ Three of the four dimensions are organised by **scope** — how far the group re
 
 The first three are the *free to join* slugs, distinguished by scope; the last two are process-based and scope-independent.
 
-## 2. Group visibility — who can see the group and its content (`:see` / `:read` verbs)
+## 2. Group visibility — who can see the group itself (`:see` / `:read` verbs)
 
-Laid out as a scope × role grid. The role is how MUCH the audience gets, named restriction-first: `:interact` (see + read + interact), `:preview_discover` (they find it, they get a preview, members read the content), `:unlisted_read` (readable by direct link, not listed).
+This is about the group (its profile and page), not what is posted in it. Each post has its own boundary, pre-filled from the group's default content visibility (section 4).
+
+Laid out as a scope × role grid. The role is how MUCH the audience gets of the group, named restriction-first: `:interact` (see + read + interact), `:preview_discover` (they find it and get a preview, members get all of it), `:unlisted_read` (readable by direct link, not listed).
 
 | Scope | `:interact` | `:preview_discover` | `:unlisted_read` |
 |-------|-------------|---------------------|------------------|
@@ -80,9 +82,14 @@ Only the two `:interact` and `:preview_discover` entries at `global` scope are s
 
 When a group states no DCV, one is derived from its visibility by `default_content_visibility_for/1`: `global*` → `public`, `local*` → `local`, `members:private` → itself, everything else → `nonfederated`. This matters beyond groups anyone configures here, because `Categories.create_remote/2` scaffolds every **mirrored remote community** through the same path.
 
-### Cascade constraints
+### What caps a post's audience
 
-Post visibility options are automatically disabled based on group visibility (`disabled_default_content_visibility_options/1`), so a post default can never reach an audience the group itself excludes.
+A group's visibility (section 2) is who can see the group, not its posts. So the audience an author picks is kept, and only two caps apply. They apply both to the group's default and to each post:
+
+- **Federation cap.** A group that isn't `global` drops a `global` post to `nonfederated`, keeping its role: `public` → `nonfederated`, `public:preview` → `nonfederated:preview`, `unlisted` → `nonfederated:unlisted`.
+- **Hidden-group cap.** A hidden group (visibility `members:private`) caps its posts to `members:private`, since a post seen outside would reveal the group. A previewable group, such as `private_club`, gets only the federation cap.
+
+A post with no audience, or one that isn't a post audience, gets the group's default through the same caps: the stored one, or else the one derived from its visibility (above). If that isn't one either, the post fails closed, to the group's moderators and its author.
 
 ---
 
@@ -90,13 +97,16 @@ Post visibility options are automatically disabled based on group visibility (`d
 
 | Preset ID | Membership | Visibility | Participation | Default post vis |
 |-----------|-----------|------------|---------------|-----------------|
+| `open_network` | `open` | `global` | `anyone` | `public` |
 | `public_local_community` | `local:members` | `nonfederated` | `local:contributors` | `nonfederated` |
 | `announcement_channel` | `invite_only` | `nonfederated` | `moderators` | `nonfederated` |
 | `private_club` | `on_request` | `local:preview` | `group_members` | `members:private` |
 
-The first two used to name a `*:preview` visibility while their descriptions promised content anyone could read, which is the contradiction that `preview` is named to prevent: a preview slug withholds `:read` from non-members. `private_club` is the one that wants it, and it pairs it with `group_members` participation. Restricting who may POST is the participation dimension's job in all three.
+`open_network` is the public/federated preset, and the only one that currently federates. The other three are local to this instance.
 
-Federated presets (`open_network` and others) are sketched in config but commented out until groups federation ships.
+`public_local_community` and `announcement_channel` used to name a `*:preview` visibility while their descriptions promised content anyone could read, which is the contradiction that `preview` is named to prevent: a preview slug withholds `:read` from non-members. `private_club` is the one that wants it, and it pairs it with `group_members` participation. Restricting who may POST is the participation dimension's job in all three.
+
+`secret_group` (`invite_only` membership) is sketched in config but commented out until invite-only member management is ready.
 
 A group resolves its preset by back-translating from its **dimensions** (`Presets.preset_slug_from_dims/1`), which is what `group_row_chip/1` and `group_icon/2` both do. Nothing stores the preset a group was created from: a stored copy can only go stale the first time someone edits the boundaries. So changing an existing preset's dims changes what groups already created with it resolve to, while renaming its key affects nothing that is stored. `:group_preset_order` decides which presets are offered — an entry in `group_presets` but absent from `group_preset_order` still back-translates without being offered for new groups.
 
@@ -108,8 +118,8 @@ A Layer 2 toggle is an override on a preset that enacts one or more Layer 3 dime
 
 | Key | Toggles | Writes to | Locked by |
 |-----|---------|-----------|-----------|
-| `federate` | Group reachable from other instances | `visibility` **and** `default_content_visibility` scope, at the same role | all presets (until federation ships) |
-| `joins_need_approval` | Moderator reviews each join request | `membership` | `announcement_channel`, `private_club` |
+| `federate` | Group reachable from other instances | `visibility` **and** `default_content_visibility` scope, at the same role | all presets (only `open_network` federates today, and it can't be turned off there) |
+| `joins_need_approval` | Moderator reviews each join request | `membership` | none |
 | `nonmembers_may_post` | People who have not joined can post | `participation` | `announcement_channel`, `private_club` |
 
 
