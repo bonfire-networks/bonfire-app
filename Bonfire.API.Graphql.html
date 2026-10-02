@@ -112,14 +112,14 @@ Bonfire
   </div>
 
 
-<h2 id="graphql-introduction" class="section-heading"><a href="#graphql-introduction" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">GraphQL Introduction</span></h2><p>Go to <a rel="nofollow" href="http://your-instance-url/api/">http://your-instance-url/api/</a> to start playing with the GraphQL API. The GraphiQL UI should autocomplete types, queries and mutations for you, and you can also explore the schema there.</p><p>Let's start with a simple GraphQL thoeretical query:</p><pre><code class="makeup graphql" translate="no"><span class="kr">query</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">greetings</span><span class="p">(</span><span class="n">limit</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">greeting</span><span class="w">
-</span><span class="w">    </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">      </span><span class="n">name</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span></code></pre><p>Let's break this apart:</p><ul><li><code class="inline">query {}</code> is how you retrieve information from GraphQL.</li><li><code class="inline">greetings</code> is a <code class="inline">field</code> within the query.</li><li><code class="inline">greetings</code> takes a <code class="inline">limit</code> argument, a positive integer.</li><li><code class="inline">greetings</code> has two fields, <code class="inline">greeting</code> and <code class="inline">to</code>.</li><li><code class="inline">to</code> has one <code class="inline">field</code>, <code class="inline">name</code>.</li></ul><p>This query is asking for a list of (up to) 10 greetings and the people
+<h2 id="graphql-introduction" class="section-heading"><a href="#graphql-introduction" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">GraphQL Introduction</span></h2><p>Go to <a rel="nofollow" href="http://your-instance-url/api/">http://your-instance-url/api/</a> to start playing with the GraphQL API. The GraphiQL UI should autocomplete types, queries and mutations for you, and you can also explore the schema there.</p><p>Let's start with a simple GraphQL thoeretical query:</p><pre><code class="graphql">query {
+  greetings(limit: 10) {
+    greeting
+    to {
+      name
+    }
+  }
+}</code></pre><p>Let's break this apart:</p><ul><li><code class="inline">query {}</code> is how you retrieve information from GraphQL.</li><li><code class="inline">greetings</code> is a <code class="inline">field</code> within the query.</li><li><code class="inline">greetings</code> takes a <code class="inline">limit</code> argument, a positive integer.</li><li><code class="inline">greetings</code> has two fields, <code class="inline">greeting</code> and <code class="inline">to</code>.</li><li><code class="inline">to</code> has one <code class="inline">field</code>, <code class="inline">name</code>.</li></ul><p>This query is asking for a list of (up to) 10 greetings and the people
 they are for. Notice that the result of both <code class="inline">greetings</code> and <code class="inline">to</code> are
 map/object structures with their own fields and that if the type has
 multiple fields, we can select more than one field.</p><p>Here is some possible data we could get returned</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="group-1">%{</span><span class="ss">greetings</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="group-2">[</span><span class="w">
