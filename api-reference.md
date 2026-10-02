@@ -1,4 +1,4 @@
-# Bonfire v1.0.8-community-alpha.23 - API Reference
+# Bonfire v1.0.8-community-alpha.24 - API Reference
 
 ## Modules
 

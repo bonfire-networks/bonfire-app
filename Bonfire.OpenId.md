@@ -46,13 +46,18 @@ GITHUB_CLIENT_SECRET=
 
 #### For OpenID Connect providers:
 ```
-OPENID_1_DISCOVERY=https://yourprovider.example/.well-known/openid-configuration
+OPENID_1_ISSUER=https://yourprovider.example
 OPENID_1_CLIENT_ID=your-client-id
 OPENID_1_CLIENT_SECRET=your-client-secret
 OPENID_1_DISPLAY_NAME=Your Provider Name
 OPENID_1_SCOPE=openid email profile
+OPENID_1_RESPONSE_TYPE=code
 OPENID_1_ENABLE_SIGNUP=false
 ```
+
+`OPENID_1_ISSUER` is the provider's issuer URL, with no path. OpenID Connect Discovery defines the document as the issuer plus `/.well-known/openid-configuration`, so that is all you need. If a provider serves its document somewhere non-standard, set the full URL in `OPENID_1_DISCOVERY` instead. When both are set, `OPENID_1_DISCOVERY` wins.
+
+`OPENID_1_RESPONSE_TYPE` defaults to `code` and you will rarely want anything else. Note that `code` is a *response* type: `authorization_code` is a *grant* type, belongs in a different field, and will be rejected here.
 
 #### For OAuth2 providers:
 ```
@@ -143,9 +148,48 @@ Bonfire.OpenID.Provider.ClientApps.list_active_tokens()
 
 ### 4. Configure the external app
 
-- In your client app, set the Bonfire instance as the OpenID Connect or OAuth2 provider.
-- Use the client ID and secret generated in step 2.
-- Make sure the redirect URIs matches what you registered.
+Use the client ID and secret from step 2 to configure the client app you want to connect (and make sure it uses the redirect URI exactly as registered). An unregistered or mismatched redirect URI is refused, and no code is issued.
+
+#### If the app speaks OpenID Connect
+
+Most clients need only the issuer, which for a Bonfire instance is its base URL with no path:
+
+```
+https://your-bonfire-instance.tld
+```
+
+Clients that support discovery derive everything else from `<issuer>/.well-known/openid-configuration`. Some libraries want that full URL rather than deriving it, in which case give them the whole thing: `https://your-bonfire-instance.tld/.well-known/openid-configuration`.
+
+Then set:
+
+| Setting | Value |
+|---|---|
+| `client_id` / `client_secret` | from step 2 |
+| `redirect_uri` | exactly as registered |
+| `response_type` | `code` |
+| `scope` | e.g. `openid email profile` |
+
+#### If the app speaks plain OAuth2
+
+Clients supporting RFC 8414 can instead read `/.well-known/oauth-authorization-server`, but some OAuth2 clients want each endpoint spelled out. Relative to the same base URL, these are:
+
+| Setting | Path |
+|---|---|
+| authorize | `/oauth/authorize` |
+| token | `/oauth/token` |
+| userinfo | `/oauth/userinfo` |
+| revoke | `/oauth/revoke` |
+| introspect | `/oauth/introspect` |
+| JWKS | `/openid/jwks` |
+
+#### response_type vs grant_type
+
+These are different fields and the values are not interchangeable, which is a common source of confusion:
+
+- `response_type=code` goes on the request to `/oauth/authorize` or `/openid/authorize`.
+- `grant_type=authorization_code` goes on the request to `/oauth/token` or `/openid/token`.
+
+Valid response types here are `code`, `id_token`, `token`, `id_token token`, `code id_token`, `code token` and `code id_token token`. A grant type in the `response_type` field is rejected, though `authorization_code` and `implicit` are mapped to their response-type equivalents for the benefit of clients that send them.
 
 
 ### Provider endpoints
@@ -160,7 +204,9 @@ Bonfire.OpenID.Provider.ClientApps.list_active_tokens()
 | `/openid/authorize`                  | Provider: OpenID authorize     |
 | `/openid/userinfo`                   | Provider: user info endpoint   |
 | `/openid/jwks`                       | Provider: JWKS endpoint        |
-| `/.well-known/openid-configuration`  | Provider: discovery endpoint   |
+| `/openid/register`                   | Provider: dynamic client registration |
+| `/.well-known/openid-configuration`  | Provider: OpenID Connect discovery |
+| `/.well-known/oauth-authorization-server` | Provider: OAuth2 metadata (RFC 8414) |
 
 
 ---
@@ -168,15 +214,35 @@ Bonfire.OpenID.Provider.ClientApps.list_active_tokens()
 
 ## Supported Grant Types
 
-Bonfire should support all standard OAuth2 and OpenID Connect grant types:
+Sent as `grant_type` on a request to the token endpoint, `/oauth/token` or `/openid/token`:
 
-- Authorization Code
-- Implicit
-- Hybrid
-- Client Credentials
-- Resource Owner Password Credentials
+- `authorization_code`
+- `implicit`
+- `password`
+- `client_credentials`
+- `refresh_token`
 
-Redirect URIs must match what is registered for each client.
+Published in the discovery document as `grant_types_supported`.
+
+
+## Supported Response Types
+
+Sent as `response_type` on a request to the authorize endpoint, `/oauth/authorize` or `/openid/authorize`:
+
+- `code`
+- `id_token`
+- `token`
+- `id_token token`
+- `code id_token`
+- `code token`
+- `code id_token token`
+
+Published in the discovery document as `response_types_supported`.
+
+
+## Redirect URIs
+
+Must match what is registered for each client, exactly. Bonfire issues no code or token to an unregistered callback.
 
 
 ## Supported Scopes and Claims
@@ -191,6 +257,9 @@ Redirect URIs must match what is registered for each client.
 - **Login not working?** Double-check client IDs, secrets, and redirect URIs.
 - **Provider not listed?** Make sure the relevant environment variables are set and the Bonfire instance has been restarted.
 - **Callback errors?** Ensure the callback URL matches exactly between Bonfire and the provider’s configuration.
+- **`Invalid response_type param`?** The client sent a grant type where a response type belongs. Use `response_type=code`, see [response_type vs grant_type](#response_type-vs-grant_type).
+- **Client refuses to redirect, or reports the response type is unsupported?** Could be a similar mix-up, caught at the client end by comparing its configured response type against `response_types_supported` in the discovery document.
+- **Unregistered redirect URI?** Register it first, via the `curl` or `iex` commands in step 2. Bonfire issues no code to an unregistered callback, by design.
 
 
 ---
