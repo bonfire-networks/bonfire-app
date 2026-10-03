@@ -407,7 +407,8 @@ common_assocs = %{
           join_through: unquote(Bonfire.Data.Assort.Ranked),
           unique: true,
           join_keys: [scope_id: :id, item_id: :id],
-          on_replace: :delete
+          on_replace: :delete,
+          preload_order: {Bonfire.Data.Assort.Ranked, :preload_order, []}
         )
     )
 }

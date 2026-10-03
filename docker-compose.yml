@@ -82,7 +82,8 @@ services:
     # reject_writes_min_disk_space_pct=0 (on both master, which holds the system catalog, and tserver) because the data dir is on the host disk, where under 5% free (the default) would reject all writes; the MB-based floor (reject_writes_min_disk_space_mb) still applies
     # ysql_yb_ddl_transaction_block_enabled runs DDL inside the enclosing transaction like Postgres does, otherwise each DDL commits separately and can abort the migration's DML transaction
     # ysql_yb_enable_listen_notify because the app (eg. Oban, PubSub) uses pg_notify, and a rejected notify aborts the enclosing transaction
-    command: ["bin/yugabyted", "start", "--background=false", "--ysql_port=5432", "--base_dir=/home/yugabyte/yb_data", "--master_flags=reject_writes_min_disk_space_pct=0,ysql_yb_enable_listen_notify=true", "--tserver_flags=reject_writes_min_disk_space_pct=0,ysql_yb_ddl_transaction_block_enabled=true,ysql_yb_enable_listen_notify=true"]
+    # ysql_yb_enable_ddl_savepoint_support (a preview flag, hence allowed_preview_flags_csv) because the test sandbox wraps each test in a transaction with savepoints, and some tests run DDL inside it
+    command: ["bin/yugabyted", "start", "--background=false", "--ysql_port=5432", "--base_dir=/home/yugabyte/yb_data", "--master_flags=reject_writes_min_disk_space_pct=0,ysql_yb_enable_listen_notify=true", "--tserver_flags=reject_writes_min_disk_space_pct=0,ysql_yb_ddl_transaction_block_enabled=true,ysql_yb_enable_listen_notify=true,allowed_preview_flags_csv=ysql_yb_enable_ddl_savepoint_support,ysql_yb_enable_ddl_savepoint_support=true"]
     # The built-in `postgres` superuser is used as is: setting YSQL_USER=postgres makes yugabyted try to re-create that role and fail, and YSQL_PASSWORD would enable auth with a password set only on the `yugabyte` role, so auth stays disabled and POSTGRES_PASSWORD is accepted without being checked
     environment:
       - YSQL_DB=${POSTGRES_DB:-bonfire_db}
