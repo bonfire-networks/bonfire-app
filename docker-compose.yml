@@ -86,6 +86,12 @@ services:
     # The built-in `postgres` superuser is used as is: setting YSQL_USER=postgres makes yugabyted try to re-create that role and fail, and YSQL_PASSWORD would enable auth with a password set only on the `yugabyte` role, so auth stays disabled and POSTGRES_PASSWORD is accepted without being checked
     environment:
       - YSQL_DB=${POSTGRES_DB:-bonfire_db}
+    # the first start initialises the cluster, which takes much longer than postgres, so `just services` waits on this before the app connects
+    healthcheck:
+      test: ["CMD", "bin/ysqlsh", "-h", "yugabyte", "-p", "5432", "-U", "postgres", "-c", "select 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
     networks:
       default:
         aliases:

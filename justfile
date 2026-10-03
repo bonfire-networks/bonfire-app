@@ -1647,7 +1647,7 @@ rel-docker-compose *args:
 	for svc in {{services}}; do
 	  if [ "$svc" = "db" ] && [ "{{ DB_ADAPTER }}" = "yugabyte" ]; then
 	    # the yugabyte service is aliased as db, so it replaces postgres
-	    just {{compose}} --profile yugabyte up -d yugabyte
+	    just {{compose}} --profile yugabyte up -d --wait yugabyte
 	  elif [ "$svc" = "search" ]; then
 	    adapter="${SEARCH_ADAPTER:-sonic}"
 	    if [ "$adapter" = "meili" ] || [ "$adapter" = "sonic" ]; then
