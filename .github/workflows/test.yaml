@@ -62,13 +62,16 @@ jobs:
     needs: [check_file_changed, prepare]
     if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
-    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} OTP ${{matrix.otp}} Elixir ${{matrix.elixir}}
+    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} db:${{matrix.db_adapter}} otp:${{matrix.otp}} elixir:${{matrix.elixir}}
+    # YugabyteDB support is experimental, so its failures show per job without failing the workflow
+    continue-on-error: ${{ matrix.db_adapter == 'yugabyte' }}
     strategy:
       fail-fast: false
       matrix:
         flavour: ['community'] # 'social', 'cooperation'
         # `db-down-migrations` is not a test suite: it's the rollback check, run as its own matrix job so a failing down-migration doesn't show a passing test suite as red (and vice versa)
         test_only: ['backend', 'ui', 'federation-all', 'openid-all', 'masto-api', 'db-down-migrations']
+        db_adapter: ['postgres', 'yugabyte']
         otp: ['29.0.5'] # keep in sync with .tool-versions
         elixir: ['1.20.3'] # keep in sync with .tool-versions
         with_docker: ['easy']
@@ -77,6 +80,7 @@ jobs:
       FLAVOUR: ${{matrix.flavour}}
       # MIX_TEST_ONLY: ${{matrix.test_only}}
       WITH_DOCKER: ${{matrix.with_docker}}
+      DB_ADAPTER: ${{matrix.db_adapter}}
       CI: true
       MIX_ENV: test
       WITH_AI: "0"

@@ -39,6 +39,8 @@ APP_DOCKER_IMAGE := env_var_or_default('APP_DOCKER_IMAGE', APP_DOCKER_REPO + ":l
 DB_DOCKER_VERSION := env_var_or_default('DB_DOCKER_VERSION', "17-3.5") 
 # NOTE: we currently only use features available in Postgres 12+, though a more recent version is recommended if possible
 DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', if ARCH == "aarch64" { "ghcr.io/baosystems/postgis:"+DB_DOCKER_VERSION } else { "postgis/postgis:"+DB_DOCKER_VERSION+"-alpine" })
+# postgres or yugabyte
+DB_ADAPTER := env_var_or_default('DB_ADAPTER', "postgres")
 
 # DB_DOCKER_IMAGE := env_var_or_default('DB_DOCKER_IMAGE', "supabase/postgres")
 # ELIXIR_DOCKER_IMAGE := env_var_or_default('ELIXIR_DOCKER_IMAGE', env_var_or_default('ELIXIR_VERSION', "1.17") +"-erlang-"+env_var_or_default('ERLANG_VERSION', "27")+"-alpine-"+env_var_or_default('ALPINE_VERSION', "3.20")) # NOTE: done in `docker-cmd` command instead
@@ -1636,14 +1638,17 @@ rel-docker-compose *args:
 @dev-services services="db search":
 	{{ if WITH_DOCKER != "no" { "(echo Starting docker services to run in the background: $services && just _start-services docker-compose \"$services\") || echo \"WARNING: You may want to make sure the docker daemon is started or run 'colima start' first.\"" } else { "just nix-services \"$services\"" } }}
 
-# Start docker services via the given compose recipe (docker-compose or rel-docker-compose), using SEARCH_ADAPTER env to choose between meili and sonic when "search" is in the list
+# Start docker services via the given compose recipe (docker-compose or rel-docker-compose), using SEARCH_ADAPTER env to choose between meili and sonic when "search" is in the list, and DB_ADAPTER env to choose between postgres and yugabyte when "db" is in the list
 @_start-services compose="docker-compose" services="db search":
 	#!/usr/bin/env bash
 	set -euo pipefail
 	other=""
 	search_profile=""
 	for svc in {{services}}; do
-	  if [ "$svc" = "search" ]; then
+	  if [ "$svc" = "db" ] && [ "{{ DB_ADAPTER }}" = "yugabyte" ]; then
+	    # the yugabyte service is aliased as db, so it replaces postgres
+	    just {{compose}} --profile yugabyte up -d yugabyte
+	  elif [ "$svc" = "search" ]; then
 	    adapter="${SEARCH_ADAPTER:-sonic}"
 	    if [ "$adapter" = "meili" ] || [ "$adapter" = "sonic" ]; then
 	      search_profile="$adapter"
@@ -1670,7 +1675,8 @@ rel-docker-compose *args:
 	  # docker-compose doesn't start unrelated services (e.g. web) that share the profile
 	  search_svc=$([ "$search_profile" = "sonic" ] && echo "sonic" || echo "search")
 	  just {{compose}} --profile "$search_profile" up -d $other $search_svc
-	else
+	elif [ -n "$other" ]; then
+	  # a bare `up -d` would start every service (incl. web)
 	  just {{compose}} up -d $other
 	fi
 

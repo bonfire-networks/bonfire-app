@@ -19,6 +19,7 @@ services:
       - config/dev/.env
     environment:
       - POSTGRES_HOST=db
+      - DB_ADAPTER=${DB_ADAPTER:-postgres}
       - SEARCH_MEILI_INSTANCE=http://search:7700
       - SONIC_HOST=search
       - SONIC_HOST=${SONIC_HOST:-search}
@@ -37,7 +38,8 @@ services:
       # do not mount the following:
       # - /opt/app/_build
       # - /opt/app/assets/node_modules
-      - /opt/app/data/postgres 
+      - /opt/app/data/postgres
+      - /opt/app/data/yugabyte
       - /opt/app/data/search
     stdin_open: true # like docker run -i
     tty: true # like docker run -t
@@ -69,6 +71,31 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  yugabyte:
+    # alternative to the db service, enabled with DB_ADAPTER=yugabyte
+    profiles:
+      - yugabyte
+    image: yugabytedb/yugabyte:2026.1.2.0-b137
+    # yugabyted saves its hostname as the node address on first start, so it must not change when the container is recreated
+    hostname: yugabyte
+    # YSQL on 5432 (instead of the default 5433) so it's a drop-in for the db service
+    # reject_writes_min_disk_space_pct=0 (on both master, which holds the system catalog, and tserver) because the data dir is on the host disk, where under 5% free (the default) would reject all writes; the MB-based floor (reject_writes_min_disk_space_mb) still applies
+    # ysql_yb_ddl_transaction_block_enabled runs DDL inside the enclosing transaction like Postgres does, otherwise each DDL commits separately and can abort the migration's DML transaction
+    # ysql_yb_enable_listen_notify because the app (eg. Oban, PubSub) uses pg_notify, and a rejected notify aborts the enclosing transaction
+    command: ["bin/yugabyted", "start", "--background=false", "--ysql_port=5432", "--base_dir=/home/yugabyte/yb_data", "--master_flags=reject_writes_min_disk_space_pct=0,ysql_yb_enable_listen_notify=true", "--tserver_flags=reject_writes_min_disk_space_pct=0,ysql_yb_ddl_transaction_block_enabled=true,ysql_yb_enable_listen_notify=true"]
+    # The built-in `postgres` superuser is used as is: setting YSQL_USER=postgres makes yugabyted try to re-create that role and fail, and YSQL_PASSWORD would enable auth with a password set only on the `yugabyte` role, so auth stays disabled and POSTGRES_PASSWORD is accepted without being checked
+    environment:
+      - YSQL_DB=${POSTGRES_DB:-bonfire_db}
+    networks:
+      default:
+        aliases:
+          - db # using same as postgres to avoid ever running both
+    ports:
+      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:15433:15433" # yugabyted UI
+    volumes:
+      # a bind mount, since a named volume's mount point is created root-owned and the image runs as the yugabyte user
+      - ./data/yugabyte/dev:/home/yugabyte/yb_data
   search:
     profiles:
       - meili
