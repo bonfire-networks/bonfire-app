@@ -1647,7 +1647,9 @@ rel-docker-compose *args:
 	for svc in {{services}}; do
 	  if [ "$svc" = "db" ] && [ "{{ DB_ADAPTER }}" = "yugabyte" ]; then
 	    # the yugabyte service is aliased as db, so it replaces postgres
-	    just {{compose}} --profile yugabyte up -d --wait yugabyte
+	    # on Linux, docker would create a missing bind-mount dir as root, which the image's yugabyte user can't write to
+	    mkdir -p data/yugabyte/dev && chmod 777 data/yugabyte/dev
+	    just {{compose}} --profile yugabyte up -d --wait yugabyte || { just {{compose}} --profile yugabyte logs --tail 50 yugabyte; exit 1; }
 	  elif [ "$svc" = "search" ]; then
 	    adapter="${SEARCH_ADAPTER:-sonic}"
 	    if [ "$adapter" = "meili" ] || [ "$adapter" = "sonic" ]; then
