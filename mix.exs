@@ -436,7 +436,9 @@ defmodule Bonfire.Umbrella.MixProject do
         # "zest",
         "iconify",
         "faviconic",
-        "paper_trail"
+        "paper_trail",
+        "forecastr",
+        "emote"
       ],
       test_federation: test_federation,
       test_backend: test_backend,
@@ -483,10 +485,8 @@ defmodule Bonfire.Umbrella.MixProject do
         # FIXME: should extract to root app, not activity_pub like it's doing (for whatever reason)
         "activity_pub"
       ],
+      # only the names in no other group: `Mixer.deps_prefixes(:update)` adds all the others
       update: [
-        "bonfire_",
-        "bonfire_files",
-        "bonfire_ghost",
         "ember",
         "social",
         "community",
@@ -496,16 +496,8 @@ defmodule Bonfire.Umbrella.MixProject do
         "upcycle",
         "open_science",
         "federated_archives",
-        "linkify",
-        "unfurl",
-        "untangle",
-        "iconify_ex",
         "boruta",
-        "ecto_shorts",
-        "ecto_materialized_path",
-        "phoenix_gon",
-        "http_signatures",
-        "forecastr"
+        "phoenix_gon"
       ]
     ],
     deps: deps,
@@ -532,8 +524,7 @@ defmodule Bonfire.Umbrella.MixProject do
       # test_deps: Mixer.deps(config(), :test) |> Mixer.log(),
       required_deps: config()[:deps_prefixes][:required],
       # Aggregate of every name across the `deps_prefixes` groups, threaded to runtime (release-safe via `Bonfire.Application.project`, like `required_deps` above) so that `Bonfire.Common.Extend.maybe_extension_loaded!/1` can still recognise an extension by its app name when it isn't compiled into this flavour (an absent extension leaves no other trace). NOT exhaustive: only names that appear in some `deps_prefixes` group are covered.
-      known_extension_names:
-        config()[:deps_prefixes] |> Keyword.values() |> List.flatten() |> Enum.uniq(),
+      known_extension_names: Mixer.deps_prefixes(:update, config()),
       # consolidate_protocols: false, # for Tria
       compilers: Mixer.compilers(Mix.env()),
       listeners: [Phoenix.CodeReloader],

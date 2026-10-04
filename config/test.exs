@@ -75,6 +75,8 @@ if !federate? do
 
   config :faviconic, :ssrf, resolver: ssrf_test_resolver
   config :unfurl, :ssrf, resolver: ssrf_test_resolver
+  config :bonfire_common, :ssrf, resolver: ssrf_test_resolver
+  config :activity_pub, :ssrf, resolver: ssrf_test_resolver
 end
 
 # Configure Req.Test stubs

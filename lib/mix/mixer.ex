@@ -33,7 +33,7 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
       (config[:deps] || config)
       |> Enum.filter(
-        &(include_dep?(deps_subtype, &1, config[:deps_prefixes][deps_subtype]) ||
+        &(include_dep?(deps_subtype, &1, deps_prefixes(deps_subtype, config)) ||
             in_multirepo?(&1, prefixes, extensions))
       )
     end
@@ -109,6 +109,14 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
     def deps_prefixes(nil, config),
       do: multirepo_prefixes(config)
+
+    # every group's names, so the `update` group only has to list the ones in no other group
+    def deps_prefixes(:update, config),
+      do:
+        (config[:deps_prefixes] || mix_config()[:deps_prefixes])
+        |> Keyword.values()
+        |> List.flatten()
+        |> Enum.uniq()
 
     def deps_prefixes(type, config),
       do: (config[:deps_prefixes] || mix_config()[:deps_prefixes])[type] || []
