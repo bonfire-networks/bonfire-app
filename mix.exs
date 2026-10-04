@@ -692,8 +692,10 @@ defmodule Bonfire.Umbrella.MixProject do
       "bonfire.seeds": [
         # "phil_columns.seed",
       ],
-      # FIXME: this does not update transitive deps
-      "bonfire.deps.update": ["deps.update " <> Mixer.deps_to_update(config())],
+      # functions rather than strings, so the deps are listed once Mix has loaded them (transitive ones included)
+      "bonfire.deps.update": [
+        fn _args -> Mix.Task.run("deps.update", Mixer.deps_to_update(config())) end
+      ],
       "bonfire.deps.clean": [
         "deps.clean " <> Mixer.deps_to_clean(config(), :localise) <> " --build"
       ],
@@ -704,7 +706,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "deps.clean " <> Mixer.deps_to_clean(config(), :api) <> " --build"
       ],
       "bonfire.deps.compile": [
-        "deps.compile " <> Mixer.deps_to_update(config())
+        fn _args -> Mix.Task.run("deps.compile", Mixer.deps_to_update(config())) end
       ],
       "ecto.seeds": [
         "run priv/repo/seeds.exs"

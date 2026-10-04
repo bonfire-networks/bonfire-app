@@ -305,26 +305,18 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
       |> or_unused()
     end
 
-    # Also deps that are only pulled in by other deps (e.g. `faviconic` via `bonfire_files` when `WITH_CLONES=0`), which aren't in the top-level deps the prefixes are otherwise matched against
-    defp locked_deps_matching(prefixes, lockfile \\ "mix.lock") do
-      if File.exists?(lockfile) do
-        Mix.Dep.Lock.read(lockfile)
-        |> Map.keys()
-        |> Enum.map(&Atom.to_string/1)
-        |> Enum.filter(&String.starts_with?(&1, prefixes))
-      else
-        []
-      end
-    end
-
     defp or_unused(""), do: " --unused"
     defp or_unused(deps), do: deps
 
+    # Among the deps this project actually loaded for this env, including ones only pulled in by other deps (e.g. `faviconic` via `bonfire_files` when `WITH_CLONES=0`), so it never names a dep that only another flavour uses. Needs the project loaded, so call it when a task runs, not while `mix.exs` builds its aliases.
     def deps_to_update(config) do
-      (deps_names_list(deps(config, :update), false) ++
-         locked_deps_matching(deps_prefixes(:update, config)))
+      prefixes = deps_prefixes(:update, config)
+      selected = deps_names_list(deps(config, :update), false)
+
+      Mix.Dep.cached()
+      |> Enum.map(&Atom.to_string(&1.app))
+      |> Enum.filter(&(&1 in selected or String.starts_with?(&1, prefixes)))
       |> Enum.uniq()
-      |> Enum.join(" ")
 
       # |> log(
       #   "Running Bonfire #{version(config)} at #{System.get_env("HOSTNAME", "localhost")} in #{Mix.env()} environment. You can run `just mix bonfire.deps.update` to update these extensions and dependencies"
