@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.4">
+    <meta name="project" content="Bonfire v1.0.8-community-alpha.27">
+
+
+    <title>Federation modes and Archipelago — Bonfire v1.0.8-community-alpha.27</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
+
+    <script defer src="dist/sidebar_items-1A411D68.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-MI33G4N7.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.8-community-alpha.27
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Federation modes and Archipelago</h1>
+
+<a href="federation-modes-and-archipelago.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/user_guides/federation-modes-and-archipelago.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>Bonfire lets each community choose how its instance connects to other communities. You can participate in open federation, limit federation to selected instances or people, use on-demand federation, or disable federation.</p><p>This guide is for instance administrators and people coordinating federation between communities.</p><h2 id="choose-a-federation-mode" class="section-heading"><a href="#choose-a-federation-mode" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Choose a federation mode</span></h2><p>Administrators can choose the instance's mode in <strong>Instance settings → Configuration → Federation</strong>, at <code class="inline">/settings/instance/configuration</code> on their own instance.</p><table><thead><tr><th style="text-align: left;">Mode</th><th style="text-align: left;">Behaviour</th></tr></thead><tbody><tr><td style="text-align: left;"><strong>Open</strong></td><td style="text-align: left;">Automatically delivers activities to their remote recipients and accepts incoming activities, subject to blocks and content permissions.</td></tr><tr><td style="text-align: left;"><strong>Archipelago</strong></td><td style="text-align: left;">Allows federation with explicitly allowlisted instances or individual actors. Incoming activities and outgoing delivery are filtered by the allowlist, and blocks still apply.</td></tr><tr><td style="text-align: left;"><strong>Manual</strong></td><td style="text-align: left;">Does not push activities automatically. Individual profiles and posts can still be fetched on demand, subject to permissions.</td></tr><tr><td style="text-align: left;"><strong>Disabled</strong></td><td style="text-align: left;">Turns off ActivityPub federation, including remote fetching. Local use can continue.</td></tr></tbody></table><p>Open federation does not mean every post is sent to every server. Delivery still depends on recipients, follows, and the post's boundary. Manual mode is not a queue where administrators approve each outgoing activity.</p><h2 id="what-is-an-archipelago" class="section-heading"><a href="#what-is-an-archipelago" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">What is an Archipelago?</span></h2><p>Archipelago is Bonfire's allowlist-only federation mode. A community chooses which other instances or individual actors it permits federation with. An actor is a federated identity, such as a person's account.</p><p>Each instance maintains its own allowlist. Adding a partner to your list does not update their list or the lists of other communities. There is no automatic shared membership: if community A allows B, and B allows C, A does not automatically allow C.</p><p>Communities can run on separate hardware and use different hosting providers. What matters for this configuration is the federated instance domain or actor identity, together with compatible ActivityPub support and the policies at both ends.</p><h2 id="add-a-community-or-person" class="section-heading"><a href="#add-a-community-or-person" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Add a community or person</span></h2><p>You need an account with permission to configure the instance. Other signed-in users may be able to view the instance list without being able to edit it.</p><ol><li>Open <strong>Instance settings → Configuration → Federation</strong> and select <strong>Archipelago</strong>. This reveals the <strong>Manage archipelago federation allow-list</strong> button.</li><li>Select <strong>Manage archipelago federation allow-list</strong> to open the <strong>Instance Federation Archipelago</strong> page.</li><li>Agree with the other community which instance domain or individual actor should be allowed.</li><li>In <strong>Actor URL, domain, or @handle@domain</strong>, enter one of the following:<ul><li>A bare domain, such as <code class="inline">community.example.org</code>, to allow all actors on that instance.</li><li>An actor's URL, such as <code class="inline">https://community.example.org/users/alice</code>, to allow that actor. Copy the actual URL from the remote service; URL formats vary.</li><li>A handle, such as <code class="inline">@alice@community.example.org</code>, to resolve and allow that actor.</li></ul></li><li>Select <strong>Add</strong> and confirm that the intended entry appears. A bare domain is the clearest way to request an instance-wide entry.</li><li>Ask the other administrator to check their own policy. If their instance also uses Archipelago, they need to add your instance or the relevant actors to their allowlist for two-way federation.</li></ol><p>An Open partner does not need to switch to Archipelago to communicate with you. Your allowlist must permit them, and their own federation policy must permit communication with you.</p><p>To remove an entry, use <strong>Remove</strong> beside it. Removing an individual actor does not exclude them if their whole instance remains allowlisted. Use the appropriate moderation block when you need to restrict an actor on an otherwise allowed instance.</p><h2 id="allowlists-blocks-and-content-boundaries" class="section-heading"><a href="#allowlists-blocks-and-content-boundaries" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Allowlists, blocks, and content boundaries</span></h2><p>An allowlist permits federation; it does not automatically follow everyone on an instance, subscribe to all their posts, or grant access to restricted content. People still follow accounts and choose audiences for their posts.</p><p>Applicable instance-wide and personal blocks take priority over allowlisting. A domain can be allowed while a particular actor on it is blocked. Incoming and outgoing restrictions depend on the type of block.</p><p>Archipelago is not a substitute for a post's privacy boundary. Restricting federation does not by itself make a publicly accessible web page private. Choose an appropriate content boundary for material intended for a limited audience.</p><h2 id="check-the-connection" class="section-heading"><a href="#check-the-connection" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Check the connection</span></h2><p>After both communities have configured their policies:</p><ol><li>Use a test account on each instance and look up the other account by its full handle or actor URL.</li><li>Follow the remote account and accept the request if approval is required.</li><li>Publish a new post with a boundary that permits federation to the test follower. Check that it arrives on the other instance.</li><li>Repeat in the opposite direction, then try a reply or mention.</li></ol><p>A successful profile lookup alone does not establish that activity delivery works. Test with new activity after configuring the lists rather than relying on older posts appearing.</p><p>If an interaction does not arrive, check:</p><ul><li>The effective federation mode of both instances and both accounts. A personal Manual or Disabled setting can prevent outgoing delivery even when the instance permits it.</li><li>The actual remote domain or actor in each applicable allowlist.</li><li>Instance-wide and personal blocks, follow approval, and the post's boundary.</li><li>Remote reachability and federation delivery errors in the server logs.</li></ul><h2 id="current-limitations" class="section-heading"><a href="#current-limitations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Current limitations</span></h2><p>Personal allowlists and group-specific Archipelago are on the roadmap but are not currently implemented. For now, use the instance-wide allowlist to manage Archipelago federation.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="extensions.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Bonfire Extensions/Plugins
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="finding-following.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Finding People & Following
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
