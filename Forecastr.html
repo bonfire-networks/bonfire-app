@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.4">
+    <meta name="project" content="Bonfire v1.0.8-community-alpha.27">
+
+
+    <title>Forecastr — Bonfire v1.0.8-community-alpha.27</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
+
+    <script defer src="dist/sidebar_items-757B7738.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-MI33G4N7.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.0.8-community-alpha.27
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Forecastr <img src="https://secure.travis-ci.org/kpanic/forecastr.png?branch=master" alt="Build Status" title="Build Status"/> <img src="https://img.shields.io/hexpm/v/forecastr.svg" alt="Package Version" title="Package Version"/> <img src="https://img.shields.io/hexpm/l/forecastr.svg" alt="License" title="License"/></h1>
+
+<a href="Forecastr.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/forecastr/blob/main/README.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>Forecastr is an open source Weather API wrapper for OpenWeatherMap and PirateWeather API.</p><p>Forecastr is an Elixir flavour of <a rel="nofollow" href="http://wttr.in">http://wttr.in</a> that talks directly to one of
+the aforementioned weather services.</p><p>Aim of the project is to provide a website similar to wttr.in written entirely in elixir</p><p><strong>Project status: beta</strong></p><h2 id="installation" class="section-heading"><a href="#installation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Installation</span></h2><p>The package can be installed by adding <code class="inline">forecastr</code> to your list of dependencies
+in <code class="inline">mix.exs</code>:</p><pre><code class="makeup elixir" translate="no"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="group-1">do</span><span class="w">
+  </span><span class="p" data-group-id="group-2">[</span><span class="w">
+    </span><span class="p" data-group-id="group-3">{</span><span class="ss">:forecastr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.3&quot;</span><span class="p" data-group-id="group-3">}</span><span class="w">
+  </span><span class="p" data-group-id="group-2">]</span><span class="w">
+</span><span class="k" data-group-id="group-1">end</span></code></pre><p>The documentation can be found at
+<a href="https://hexdocs.pm/forecastr">https://hexdocs.pm/forecastr</a>.</p><p><strong>NOTE</strong>
+If you want to play with this project you have to obtain an api key from
+<a rel="nofollow" href="http://openweathermap.org/">http://openweathermap.org/</a> or <a rel="nofollow" href="https://darksky.net/">https://darksky.net/</a> and:</p><pre><code class="makeup bash" translate="no"><span class="">export FORECASTR_API_KEY=YOUR_API_KEY
+</span></code></pre><p>Also put in your <code class="inline">config/config.exs</code></p><pre><code class="makeup elixir" translate="no"><span class="n">config</span><span class="w"> </span><span class="ss">:forecastr</span><span class="p">,</span><span class="w">
+  </span><span class="ss">appid</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="group-1">(</span><span class="s">&quot;FORECASTR_API_KEY&quot;</span><span class="p" data-group-id="group-1">)</span><span class="p">,</span><span class="w">
+  </span><span class="ss">backend</span><span class="p">:</span><span class="w"> </span><span class="nc">Forecastr.OWM</span><span class="p">,</span><span class="w">
+  </span><span class="c1"># 10 minutes by default</span><span class="w">
+  </span><span class="ss">ttl</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60_000</span></code></pre><p>If you want to use the DarkSky API put <code class="inline">backend: Forecastr.Darksky</code></p><p>Samples of output for today's forecast:</p><pre><code class="makeup elixir" translate="no"><span class="nc">Forecastr</span><span class="o">.</span><span class="n">forecast</span><span class="p" data-group-id="group-1">(</span><span class="ss">:today</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lima&quot;</span><span class="p" data-group-id="group-1">)</span></code></pre><p><img src="today.png" alt="today"/>
+<img src="berlin.png" alt="berlin"/></p><p>Sample output with the OWM backend (the number of days is different depending on the backend used):</p><pre><code class="makeup elixir" translate="no"><span class="nc">Forecastr</span><span class="o">.</span><span class="n">forecast</span><span class="p" data-group-id="group-1">(</span><span class="ss">:next_days</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lima&quot;</span><span class="p" data-group-id="group-1">)</span></code></pre><p><img src="in_five_days.png" alt="in 5 days"/></p><blockquote><p>&quot;<em>All the ducks are swimming in the water
+Fal de ral de ral do</em>&quot; (Lemon Jelly cit.)</p></blockquote><p><img src="duck_with_sunglasses.jpg" alt="duck with sunglasses"/></p><p>If you want <em>gifs</em> back with your weather forecast from <strong>Giphy</strong> call the giphy
+renderer:</p><pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Forecastr</span><span class="o">.</span><span class="n">forecast</span><span class="p" data-group-id="group-1">(</span><span class="ss">:today</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;berlin&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">units</span><span class="p">:</span><span class="w"> </span><span class="ss">:metric</span><span class="p">,</span><span class="w"> </span><span class="ss">renderer</span><span class="p">:</span><span class="w"> </span><span class="nc">Forecastr.Renderer.Giphy</span><span class="p" data-group-id="group-1">)</span><span class="w">
+</span><span class="p" data-group-id="group-2">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w">
+ </span><span class="p" data-group-id="group-3">%{</span><span class="w">
+   </span><span class="s">&quot;coordinates&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="group-4">%{</span><span class="s">&quot;lat&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">52.5170365</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lon&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">13.3888599</span><span class="p" data-group-id="group-4">}</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;country&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Deutschland&quot;</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;description&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Mostly Cloudy&quot;</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;giphy_pic&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;https://i.giphy.com/media/XqL0uC2RUx9Hq/200.gif&quot;</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;partly-cloudy-day&quot;</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;Berlin&quot;</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;temp&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">9.77</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;temp_max&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">9.77</span><span class="p">,</span><span class="w">
+   </span><span class="s">&quot;temp_min&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="mf">9.77</span><span class="w">
+ </span><span class="p" data-group-id="group-3">}</span><span class="p" data-group-id="group-2">}</span></code></pre><p>This works also by calling <code class="inline">Forecastr.forecast</code> with the <code class="inline">:next_days</code> atom to
+get the weather forecast for the next days.</p><h1>TODO</h1><ul><li>[X] Travis</li><li>[X] JSON renderer</li><li>[X] PNG Renderer with transparency (it's there but needs some love)</li><li>[X] Integrate <a rel="nofollow" href="https://forecast.io">https://forecast.io</a> (now DarkSky) as a backend.</li><li>[X] Giphy renderer</li><li>[ ] Tests! (some coverage, good enough for now ™, however if someone feels like to add more.. ;))</li><li>[ ] Correct ASCII Art for the renderers that supports that (In progress)</li></ul><h1>Thank yous</h1><ul><li>The <a rel="nofollow" href="https://wttr.in">https://wttr.in</a> project for inspiration</li><li><img src="https://github.com/schachmat/wego" alt="wego"/> for the amazing ASCII art</li></ul>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="Bonfire.Notify.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Bonfire.Notify
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="ActivityPub.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+ActivityPub
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
