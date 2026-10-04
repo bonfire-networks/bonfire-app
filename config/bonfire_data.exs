@@ -131,9 +131,12 @@ common_assocs = %{
   object_caretaker:
     quote(do: has_one(:caretaker, unquote(Replied), foreign_key: :id, references: :object_id)),
 
-  # Indicates the creator of an object
-  # TODO: add :creator with join_through
-  created: quote(do: has_one(:created, unquote(Created), unquote(mixin))),
+  # Indicates the creator of an object, and `creator` through it, so one `creator` preload reaches an object's creator whether it has this mixin or (like `Media`) its own `creator`, in which case it mustn't have this mixin too
+  created:
+    quote do
+      has_one(:created, unquote(Created), unquote(mixin))
+      has_one(:creator, through: [:created, :creator])
+    end,
   object_created:
     quote(do: has_one(:created, unquote(Created), foreign_key: :id, references: :object_id)),
 
@@ -1312,7 +1315,8 @@ config :bonfire_files, Media,
        # (e.g. Feeds.target_feeds preloads both when publishing)
        # :tree because media can be published IN a group (a link post is exactly that, and it is most of what the threadiverse federates) so "which group is this in" has the same canonical answer for media as for a post, rather than only its tags
        unquote_splicing(
-         common.([:controlled, :created, :activity, :caretaker, :peered, :replied, :tags, :tree])
+         # no `:created`: media keeps its own `creator` (`creator_id`, also the file's storage owner)
+         common.([:controlled, :activity, :caretaker, :peered, :replied, :tags, :tree])
        )
      end)
 
@@ -1346,7 +1350,8 @@ config :bonfire_classify, Category,
        # multimixins
        unquote_splicing(common.([:controlled, :feed_publishes]))
 
-       has_one(:creator, through: [:created, :creator])
+       # now added by the `created` mixin itself
+       # has_one(:creator, through: [:created, :creator])
 
        # add references of tagged objects to any Category
        many_to_many(:tags, unquote(Pointer),
@@ -1363,7 +1368,8 @@ config :bonfire_geolocate, Bonfire.Geolocate.Geolocation,
     (quote do
        # mixins
        unquote_splicing(
-         common.([:activity, :caretaker, :created, :actor, :peered, :profile, :character])
+         # no `:created`: a geolocation keeps its own `creator`
+         common.([:activity, :caretaker, :actor, :peered, :profile, :character])
        )
 
        # multimixins
