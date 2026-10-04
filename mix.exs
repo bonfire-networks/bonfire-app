@@ -438,6 +438,7 @@ defmodule Bonfire.Umbrella.MixProject do
         "faviconic",
         "paper_trail",
         "forecastr",
+        "libre_translate_ex",
         "emote"
       ],
       test_federation: test_federation,
