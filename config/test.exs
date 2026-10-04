@@ -66,6 +66,15 @@ end
 if !federate? do
   config :tesla,
     adapter: Tesla.Mock
+
+  # Tests mock made-up hostnames (e.g. `mastodon.local`) that don't resolve, and the SSRF guard refuses names that don't resolve, so pretend every name resolves to a public address. Addresses written as IPs (e.g. `127.0.0.1`) aren't resolved, so they're still checked for real.
+  ssrf_test_resolver = fn
+    _host, :inet, _timeout -> {:ok, [{93, 184, 216, 34}]}
+    _host, :inet6, _timeout -> {:error, :nxdomain}
+  end
+
+  config :faviconic, :ssrf, resolver: ssrf_test_resolver
+  config :unfurl, :ssrf, resolver: ssrf_test_resolver
 end
 
 # Configure Req.Test stubs
