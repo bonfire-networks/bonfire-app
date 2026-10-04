@@ -248,8 +248,10 @@ _clone_flavour_apps:
 	just _clone_extension ember
 	just _clone_extension {{FLAVOUR}}
 
+# the clone (new or existing) is checked out at the commit mix.lock pins for it, when it pins one, so the config/ and migrations taken from it match the dep that gets compiled, rather than whatever its default branch holds. A checkout that git refuses (eg. conflicting local changes) only warns, and nothing local is discarded
 _clone_extension name:
 	test -d extensions/{{name}} || (mkdir -p extensions && git clone https://github.com/bonfire-networks/{{name}} extensions/{{name}} || echo "Could not clone the {{name}} extension")
+	ref=$(grep -o '"{{name}}": {:git, "[^"]*", "[0-9a-f]\{40\}"' mix.lock | grep -o '[0-9a-f]\{40\}'); [ -z "$ref" ] || [ ! -d extensions/{{name}} ] || ( (git -C extensions/{{name}} cat-file -e "$ref^{commit}" 2>/dev/null || git -C extensions/{{name}} fetch -q origin) && git -C extensions/{{name}} checkout -q "$ref" ) || echo "Could not check out extensions/{{name}} at the mix.lock commit $ref, so it stays as it is"
 
 _ext-migrations-copy:
 	MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just compile

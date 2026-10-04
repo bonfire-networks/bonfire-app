@@ -59,8 +59,7 @@ runs:
         path: |
           deps
           _build
-          extensions
-          forks
+        # not `extensions/` or `forks/`: those are source clones, so one restored from an older run is stale, and any step that reuses an existing clone without checking it out at the locked commit then tests against old source (e.g. the flavour's `config/` symlinked from an old ember clone)
         # the toolchain belongs in the key: a `_build` compiled under another OTP/Elixir is useless
         # `config/` belongs in it too: Exto stitches Ecto assocs onto the `bonfire_data_*` schemas from `config/bonfire_data.exs` at the time those deps compile, and Mix does NOT recompile a dep for a config change, so a restored `_build` keeps the schemas as they were. A newly declared assoc then does not exist and every insert casting it fails, with nothing pointing at the cache as the cause.
         key: ${{ runner.os }}-otp${{ inputs.otp }}-elixir${{ inputs.elixir }}-${{ inputs.flavour }}-mix-${{ hashFiles('mix.lock', 'config/**') }}
