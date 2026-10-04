@@ -62,7 +62,8 @@ jobs:
     needs: [check_file_changed, prepare]
     if: ${{ needs.check_file_changed.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
-    name: &test_name ${{matrix.test_only}} flavour:${{matrix.flavour}} db:${{ github.job == 'test-yugabyte' && 'yugabyte' || 'postgres' }} otp:${{matrix.otp}} elixir:${{matrix.elixir}}
+    # not shared via an anchor: `github.job` isn't set yet when a job's name is evaluated
+    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} db:postgres otp:${{matrix.otp}} elixir:${{matrix.elixir}}
     strategy: &test_strategy
       fail-fast: false
       matrix:
@@ -88,20 +89,27 @@ jobs:
       SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
-    # shared with `test-yugabyte`: there, a suite only runs once it has passed on Postgres (`steps.postgres` fails when its marker is missing, and is skipped here)
+    # shared with `test-yugabyte`: there, a suite only runs once it has passed on Postgres (`steps.postgres` outputs `passed=false` when its marker is missing, and is skipped here)
     steps: &test_steps
     - name: Check the suite passed on Postgres
       id: postgres
       if: github.job == 'test-yugabyte'
-      continue-on-error: true
-      uses: actions/download-artifact@v8
-      with:
-        name: postgres-passed-${{matrix.test_only}}
+      env:
+        GH_TOKEN: ${{ github.token }}
+      # queried rather than downloaded, so a suite that failed on Postgres is a notice here rather than an error
+      run: |
+        found=$(gh api "repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts?name=postgres-passed-${{ matrix.test_only }}" --jq .total_count)
+        if [ "$found" -gt 0 ]; then
+          echo "passed=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "passed=false" >> "$GITHUB_OUTPUT"
+          echo "::notice::Skipped since ${{ matrix.test_only }} didn't pass on Postgres"
+        fi
     - uses: actions/checkout@v7
-      if: steps.postgres.outcome != 'failure'
+      if: steps.postgres.outputs.passed != 'false'
     # same composite action the prepare job ran, but in `restore` mode: the flavour install and build already happened there and are cached, so repeating them here only invalidates the restored build and costs ~6min per job (it still falls back to the full setup if the cache missed)
     - uses: ./.github/actions/prepare-bonfire
-      if: steps.postgres.outcome != 'failure'
+      if: steps.postgres.outputs.passed != 'false'
       with:
         otp: ${{matrix.otp}}
         elixir: ${{matrix.elixir}}
@@ -109,10 +117,10 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         setup: restore
     - name: Run tests
-      if: steps.postgres.outcome != 'failure' && matrix.test_only != 'db-down-migrations'
+      if: steps.postgres.outputs.passed != 'false' && matrix.test_only != 'db-down-migrations'
       run: just test-${{matrix.test_only}}
     - name: Check database down migrations
-      if: steps.postgres.outcome != 'failure' && matrix.test_only == 'db-down-migrations'
+      if: steps.postgres.outputs.passed != 'false' && matrix.test_only == 'db-down-migrations'
       # create + migrate first: the test DB is normally brought into being by the app booting during `mix test`, but this job runs no tests, so without ecto.create `ecto.rollback` finds no database
       run: just db-create && just db-migrate && just db-rollback-all
     # only reached when the suite passed
@@ -132,7 +140,7 @@ jobs:
     # always(): `test` fails as a whole if any one suite fails, but the suites that passed should still run here
     if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' && needs.prepare.result == 'success' }}
     runs-on: ubuntu-latest
-    name: *test_name
+    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} db:yugabyte otp:${{matrix.otp}} elixir:${{matrix.elixir}}
     # YugabyteDB support is experimental, so its failures show per job without failing the workflow
     continue-on-error: true
     strategy: *test_strategy
