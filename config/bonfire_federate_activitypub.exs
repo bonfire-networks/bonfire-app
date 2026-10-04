@@ -6,7 +6,8 @@ actor_types = ["Person", "Group", "Application", "Service", "Organization"]
 
 config :bonfire,
   # enable/disable logging of federation logic
-  log_federation: true
+  log_federation: true,
+  federation_fallback_module: Bonfire.Social.APActivities
 
 config :bonfire, actor_AP_types: actor_types
 

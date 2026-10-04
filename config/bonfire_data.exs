@@ -14,7 +14,6 @@ config :bonfire_data_access_control,
     # :bonfire,
   ]
 
-
 # # FIXME on older elixir versions
 # known_deps =
 #   if Code.ensure_loaded?(Bonfire.Common.Extend),
@@ -516,6 +515,7 @@ config :needle, Pointer,
   code:
     (quote do
        field(:dummy, :any, virtual: true)
+
        # a thread-deduped feed's sort key (the thread's latest activity id), selected so the pagination cursor can read it
        field(:thread_last_activity_id, :string, virtual: true)
        # pointables

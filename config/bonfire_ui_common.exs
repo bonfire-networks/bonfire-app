@@ -74,6 +74,8 @@ config :bonfire, :ui,
   ],
   themes_dark: ["dark"],
   themes_light: ["light"],
+  # Lumis theme used for code blocks in each Bonfire theme, see https://lumis.sh and `Bonfire.UI.Common.CodeTheme`
+  code_themes: %{"light" => "bamboo_light", "dark" => "bamboo_vulgaris"},
   show_trending_tags: [
     disabled: false,
     for_last_x_days: 30,
