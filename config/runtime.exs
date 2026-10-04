@@ -164,26 +164,43 @@ config :bonfire, Bonfire.Web.Endpoint,
     hibernate_after: String.to_integer(System.get_env("LV_HIBERNATE_AFTER", "7000"))
   ]
 
-if test_instance? do
-  test_instance_hostname = System.get_env("TEST_INSTANCE_HOSTNAME", "localhost")
+test_instance_hosts =
+  if test_instance? do
+    test_instance_hostname = System.get_env("TEST_INSTANCE_HOSTNAME", "localhost")
 
-  test_instance_server_port =
-    String.to_integer(System.get_env("TEST_INSTANCE_SERVER_PORT", "4002"))
+    test_instance_server_port =
+      String.to_integer(System.get_env("TEST_INSTANCE_SERVER_PORT", "4002"))
 
-  config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
-    url: [
-      host: test_instance_hostname,
-      port:
-        if(test_instance_hostname != "localhost",
-          do: public_port,
-          else: test_instance_server_port
-        )
-    ],
-    http: [
-      port: test_instance_server_port
-    ],
-    secret_key_base: secret_key_base
-end
+    test_instance_url_port =
+      if(test_instance_hostname != "localhost",
+        do: public_port,
+        else: test_instance_server_port
+      )
+
+    config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
+      url: [
+        host: test_instance_hostname,
+        port: test_instance_url_port
+      ],
+      http: [
+        port: test_instance_server_port
+      ],
+      secret_key_base: secret_key_base
+
+    # the two local instances fetch from each other
+    ["#{host}:#{public_port}", "#{test_instance_hostname}:#{test_instance_url_port}"]
+  else
+    []
+  end
+
+# `host:port` entries that outgoing requests may reach even though they resolve to a private or loopback address (requests to those are otherwise refused, to prevent SSRF), e.g. other instances in a local multi-instance setup. Never a whole host, so allowing one local instance doesn't open every other service on that machine.
+ssrf_allow_hosts =
+  test_instance_hosts ++
+    (System.get_env("SSRF_ALLOW_HOSTS", "")
+     |> String.split(",", trim: true)
+     |> Enum.map(&String.trim/1))
+
+config :faviconic, ssrf_allow_hosts: ssrf_allow_hosts
 
 # HTTP client(s) configuration
 

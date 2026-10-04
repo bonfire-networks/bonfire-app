@@ -9,8 +9,11 @@ route /data/uploads/* {
   # fallback to index (for single page site)
   try_files {path} 
 
+  # uploads (e.g. SVG) are served from the instance's origin, so stop any script in them from running if opened directly
+  header Content-Security-Policy "sandbox; default-src 'none'; style-src 'unsafe-inline'"
+
   # serve static files
-  file_server 
+  file_server
 }
 
 route * {

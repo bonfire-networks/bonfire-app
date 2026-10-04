@@ -475,6 +475,8 @@ exec bin/bonfire "${@:-start}"
     <Directory /home/youruser/bonfire/uploads>
         Require all granted
         Options -Indexes
+        # uploads (e.g. SVG) are served from the instance's origin, so stop any script in them from running if opened directly (needs mod_headers)
+        Header always set Content-Security-Policy "sandbox; default-src 'none'; style-src 'unsafe-inline'"
     </Directory>
     ProxyPassMatch ^/data/uploads/ !
 
@@ -850,7 +852,9 @@ The last piece to be able to access your instance from the Internet is a reverse
                 (uri "/data/uploads/")
                 (body
                  (list "alias /var/lib/bonfire/uploads/;"
-                       "index  index.html index.htm;"))))))))))
+                       "index  index.html index.htm;"
+                       ;; uploads (e.g. SVG) are served from the instance's origin, so stop any script in them from running if opened directly
+                       "add_header Content-Security-Policy \"sandbox; default-src 'none'; style-src 'unsafe-inline'\" always;"))))))))))
 ```
 
 <!-- tabs-close -->
