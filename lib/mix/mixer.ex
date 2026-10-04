@@ -308,6 +308,10 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
     defp or_unused(""), do: " --unused"
     defp or_unused(deps), do: deps
 
+    # mix aliases (as remote functions, since the project config, aliases included, is stored in a module attribute by `Bonfire.Application`)
+    def deps_update_task(_args), do: Mix.Task.run("deps.update", deps_to_update(mix_config()))
+    def deps_compile_task(_args), do: Mix.Task.run("deps.compile", deps_to_update(mix_config()))
+
     # Among the deps this project actually loaded for this env, including ones only pulled in by other deps (e.g. `faviconic` via `bonfire_files` when `WITH_CLONES=0`), so it never names a dep that only another flavour uses. Needs the project loaded, so call it when a task runs, not while `mix.exs` builds its aliases.
     def deps_to_update(config) do
       prefixes = deps_prefixes(:update, config)

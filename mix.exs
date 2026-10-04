@@ -390,7 +390,7 @@ defmodule Bonfire.Umbrella.MixProject do
   # TODO: put these in ENV or an external writeable config file similar to deps.*
   @config [
     # note that the flavour will automatically be added where the dash appears
-    version: "1.0.8-alpha.27",
+    version: "1.0.8-alpha.28",
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
@@ -693,9 +693,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # "phil_columns.seed",
       ],
       # functions rather than strings, so the deps are listed once Mix has loaded them (transitive ones included)
-      "bonfire.deps.update": [
-        fn _args -> Mix.Task.run("deps.update", Mixer.deps_to_update(config())) end
-      ],
+      "bonfire.deps.update": [&Bonfire.Mixer.deps_update_task/1],
       "bonfire.deps.clean": [
         "deps.clean " <> Mixer.deps_to_clean(config(), :localise) <> " --build"
       ],
@@ -705,9 +703,7 @@ defmodule Bonfire.Umbrella.MixProject do
       "bonfire.deps.clean.api": [
         "deps.clean " <> Mixer.deps_to_clean(config(), :api) <> " --build"
       ],
-      "bonfire.deps.compile": [
-        fn _args -> Mix.Task.run("deps.compile", Mixer.deps_to_update(config())) end
-      ],
+      "bonfire.deps.compile": [&Bonfire.Mixer.deps_compile_task/1],
       "ecto.seeds": [
         "run priv/repo/seeds.exs"
       ],
