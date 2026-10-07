@@ -1318,6 +1318,11 @@ test-federation-dance *args=ap_ext: services _test-dance-positions
 	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
+# The dance with the second instance on an internationalized domain (bücher.localhost, as its A-label), to check federation with IDN hosts. Needs this line in /etc/hosts once: 127.0.0.1 xn--bcher-kva.localhost
+test-federation-dance-idn *args=ap_ext: services _test-dance-positions
+	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 TEST_INSTANCE_HOSTNAME=xn--bcher-kva.localhost TEST_INSTANCE_URL_PORT=4002 just test_run {{args}} --only test_instance
+	just _test-dance-positions
+
 # note: also includes oauth
 test-federation-dance-unsigned *args='': services _test-dance-positions
 	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance

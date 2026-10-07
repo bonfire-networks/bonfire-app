@@ -171,11 +171,18 @@ test_instance_hosts =
     test_instance_server_port =
       String.to_integer(System.get_env("TEST_INSTANCE_SERVER_PORT", "4002"))
 
+    # a hostname other than localhost is assumed to be behind a tunnel or proxy on PUBLIC_PORT, unless TEST_INSTANCE_URL_PORT says otherwise (e.g. for a hostsfile name pointing at this machine)
     test_instance_url_port =
-      if(test_instance_hostname != "localhost",
-        do: public_port,
-        else: test_instance_server_port
-      )
+      case System.get_env("TEST_INSTANCE_URL_PORT") do
+        port when is_binary(port) and port != "" ->
+          String.to_integer(port)
+
+        _ ->
+          if(test_instance_hostname != "localhost",
+            do: public_port,
+            else: test_instance_server_port
+          )
+      end
 
     config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
       url: [
