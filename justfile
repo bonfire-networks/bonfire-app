@@ -1480,28 +1480,28 @@ rel-rebuild:
 	just rel-build {{CLONES_EXTENSIONS_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local clones)
-rel-build *ARGS:
+rel-build *ARGS="":
 	@echo "Please note that the build will not include any changes in clones that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build-with-opts remote {{ ARGS }}
 
-rel-build-with-clones *ARGS:
+rel-build-with-clones *ARGS="":
 	@echo "Please note that the build will include changes in clones that haven't been committed and pushed."
 	@just rel-build-with-opts local {{ ARGS }}
 
 # Build the release
-rel-build-with-opts USE_EXT *ARGS:
+rel-build-with-opts USE_EXT *ARGS="":
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
-rel-build-OTP USE_EXT="local" *ARGS: _rel_init _rel-prepare
+rel-build-OTP USE_EXT="local" *ARGS="": _rel_init _rel-prepare
 	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
 
-_rel-build-OTP USE_EXT="local" *ARGS:
+_rel-build-OTP USE_EXT="local" *ARGS="":
 	just _rel-compile-OTP {{ USE_EXT }} {{ ARGS }}
 	just _rel-compile-assets {{ USE_EXT }}
 	just _rel-release-OTP {{ USE_EXT }}
 
-_rel-compile-OTP USE_EXT="local" *ARGS:
+_rel-compile-OTP USE_EXT="local" *ARGS="":
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 
 #git checkout HEAD -- "config/current_flavour/assets/hooks/*"
@@ -1524,10 +1524,10 @@ rel-mix USE_EXT="local" ARGS="":
 	@MIX_ENV=prod CI=true just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image
-@rel-build-docker USE_EXT="local" *ARGS: _rel_init _rel-prepare assets-prepare
+@rel-build-docker USE_EXT="local" *ARGS="": _rel_init _rel-prepare assets-prepare
 	just docker-cmd just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {CLONES_EXTENSIONS_PATH} }} {{ ARGS }} 
 
-rel-build-path CLONES_PATH_TO_COPY *ARGS:
+rel-build-path CLONES_PATH_TO_COPY *ARGS="":
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{ARCH}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR=$FLAVOUR \

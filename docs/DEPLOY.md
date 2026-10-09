@@ -875,6 +875,7 @@ journalctl -u bonfire --since today --no-pager | grep -n -F -B 5 -A 50 "your err
 ```
 
 If `journalctl` shows nothing or prints "You are currently not seeing messages from other users", your user can't read the journal. Some distros (eg. RHEL) keep the journal in memory by default, and then logs from user services go to the system journal. To fix this, do one of these as root:
+
 - Add the user to the `systemd-journal` group: `usermod -aG systemd-journal <your_user>`, then log in again.
 - Make the journal persistent, so each user gets their own journal file: `mkdir -p /var/log/journal && systemctl restart systemd-journald`.
 
