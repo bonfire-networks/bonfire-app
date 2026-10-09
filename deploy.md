@@ -211,7 +211,7 @@ You need a Postgres database, see [Database](#database-bare-metal).
    - `debian-bookworm` for Debian 12
    - `rhel-9` for RHEL 9 and compatible distros, such as Rocky Linux 9 or AlmaLinux 9
 
-If there is no tarball for your flavour, architecture or distro, use the "Bare-metal, build from source" tab or Docker.
+If there is no tarball for your flavour, architecture or distro, use the "Bare-metal, custom build" tab or Docker.
 
 2. Set your choice of tarball, and choose where to install. As root, put the app in `/opt/bonfire`, put the env file in `/etc/bonfire`, and create a system user to run the app. Without root, put both in a directory in your home.
 
@@ -299,7 +299,7 @@ chown -R bonfire:bonfire "$BONFIRE_DIR" "$(dirname "$ENV_FILE")"
 
 8. [Run the app as a service](#run-as-a-service-bare-metal).
 
-### Bare-metal, build from source
+### Bare-metal, custom build
 
 Build the release yourself, without Docker. Use this to change the code, add your own extensions, or run a flavour, architecture or distro that has no prebuilt tarball. This works with or without root access.
 
