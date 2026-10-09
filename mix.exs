@@ -498,7 +498,8 @@ defmodule Bonfire.Umbrella.MixProject do
         "open_science",
         "federated_archives",
         "boruta",
-        "phoenix_gon"
+        "phoenix_gon",
+        "ex_confusables"
       ]
     ],
     deps: deps,
