@@ -17,7 +17,7 @@ Instance admins have access to advanced tools for managing users, extensions, an
     - Resource limits (max file upload size, max number of profiles per account, etc)
 - In **Default user preferences** you can set default values for new users (such as language, theme, notification settings, and more).  
   Users can override these defaults in their own preferences and profile settings.
-- **Terms** such as moderation policies and code of conduct
+- **Terms / Policies**: your code of conduct, privacy policy and impressum, plus **Community Rules** (see [Setting Up Your Code of Conduct, Privacy Policy & Community Rules](./instance-policies.md))
 
 ## Circles, Roles & Boundaries
 
