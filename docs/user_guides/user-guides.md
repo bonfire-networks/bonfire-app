@@ -43,6 +43,7 @@ Welcome to the Bonfire user documentation! These guides are designed to help you
 - [Running Your Own Instance](./running-your-own.md)
 - [Moderator Tools](./moderator-tools.md)
 - [Admin Tools](./admin-tools.md)
+- [Code of Conduct, Privacy Policy & Community Rules](./instance-policies.md)
 
 ---
 
