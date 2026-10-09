@@ -111,27 +111,64 @@ MAIL_FROM=[from@yourdomain.net]
 * How to sync or share config? to be able to deploy from several computers
 	You can turn the `~/abra/servers/yourdomain.net` directory into a git repo and share it (privately!) with collaborators. It's also useful as a backup if you loose access to your machine or want to manager the server from a different place.
 
-### Docker containers
+### Docker, prebuilt image
 
-1. Install dependencies. 
+Run a ready-made image from Docker Hub. Use this unless you want to change the code or add your own extensions.
 
-The easiest way to manage the docker image is using just commands.
+`docker-compose.release.yml` starts the app together with a Postgres container, a Sonic search index, and a Caddy reverse proxy. You can replace Caddy with nginx or another proxy.
 
-The `docker-compose.release.yml` uses `config/prod/.env` to launch a container with the necessary environment variables along with its dependencies, currently that means an extra postgres container, along with a reverse proxy (Caddy server, which you may want to replace with nginx or whatever you prefer).
+1. Install [Docker](https://www.docker.com/) with the [compose](https://docs.docker.com/compose/install/#install-compose) plugin. Check that `docker compose version` works.
 
-Make sure you have [Docker](https://www.docker.com/), with the [compose](https://docs.docker.com/compose/install/#install-compose) plugin, and [just](https://github.com/casey/just#packages) installed:
+2. Choose a flavour. The script uses `community` by default. [Docker Hub](https://hub.docker.com/r/bonfirenetworks/bonfire/tags) lists which flavours and architectures have an image. Tags follow the pattern `latest-<flavour>-<arch>`, for example `latest-community-amd64`. To use another flavour, set it first, for example:
 
 ```sh
-$ docker version
-Docker Engine - Community - 23.0.1
-
-$ docker compose version
-Docker Compose version v2.16.0
-
-$ just --version
-just 1.13.0
-...
+export FLAVOUR=social
 ```
+
+The setup includes a Caddy reverse proxy that handles HTTPS. If you use your own reverse proxy, leave Caddy out:
+
+```sh
+export WITH_PROXY=no
+```
+
+Your proxy then forwards to the app on port 4000.
+
+3. Download the preparation script into a new directory, read it, and run it:
+
+```sh
+mkdir bonfire && cd bonfire
+curl -fsSLO https://raw.githubusercontent.com/bonfire-networks/bonfire-app/main/config/deploy/prepare-docker.sh
+less prepare-docker.sh
+bash prepare-docker.sh
+```
+
+The script downloads the compose file and the config files that the containers use. It creates the env file `config/prod/.env` with generated secrets and the image names for your flavour and architecture, and links `.env` to it. It runs no Docker commands.
+
+You can edit the Caddy, Sonic and Postgres configs that it copies to `config/deploy/`. Run the script again before each upgrade. It updates the other downloaded files, and doesn't change an existing env file. When a template of a config that you can edit changed, it shows the changes and asks whether to keep your copy, or replace it and save yours as a `.bak` file. The same check runs in the `just` setups, when they start the containers.
+
+4. Edit `config/prod/.env`. Set at least `HOSTNAME` and the `MAIL_*` keys (see [prepare the config](#preparing-the-config-in-env)). Also:
+   - If you set `PUBLIC_PORT=443`, also set `PROXY_CADDYFILE_PATH=./config/deploy/Caddyfile2-https`.
+   - To add or remove the Caddy proxy later, add or remove `proxy` in `COMPOSE_PROFILES`.
+
+5. Download the images: `docker compose pull`
+
+6. Start the app in the foreground to check that it works: `docker compose up`. The migrations run on the first start. The app runs at [http://localhost:4000/](http://localhost:4000/). [Yay, you're up and running!](#notes-on-running-the-app)
+
+7. Stop it with Ctrl+C, then start it in the background: `docker compose up -d`
+
+Useful commands, in the same directory:
+- Logs: `docker compose logs -f web`
+- IEx console: `docker compose exec web bin/bonfire remote`
+- Upgrade: `bash prepare-docker.sh`, then `docker compose pull && docker compose up -d`
+- Stop: `docker compose stop`
+
+### Docker, custom build
+
+Build your own image. Use this to change the code, add your own extensions, or run a flavour that has no image on [Docker Hub](https://hub.docker.com/r/bonfirenetworks/bonfire/tags).
+
+`Dockerfile.release` uses a [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) to keep the image small. It builds the OTP release, then copies it into an Alpine Linux image.
+
+1. Install [Docker](https://www.docker.com/) with the [compose](https://docs.docker.com/compose/install/#install-compose) plugin, and [just](https://github.com/casey/just#packages). Check that `docker compose version` and `just --version` work.
 
 2. Clone this repository and change into the directory:
 
@@ -139,200 +176,79 @@ just 1.13.0
 git clone --depth 1 https://github.com/bonfire-networks/bonfire-app.git bonfire && cd bonfire
 ```
 
-3. Specify what flavour you want to run in production:
-
-The first thing to do is choose what flavour of Bonfire (eg. ember, social, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `social` flavour:
-
-- `export MIX_ENV=prod FLAVOUR=social WITH_DOCKER=yes` 
-
-You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
-
-4. Run `MIX_ENV=prod just config` to initialise some default config and then edit the config in the `./.env` file (see [prepare the config](#preparing-the-config-in-env) for details about what to edit).
-
-> Now that your tooling is set up, you have the choice of using pre-built images or building your own. For example if your flavour does not have a prebuilt image on Docker Hub, or if you want to customise any of the extensions, you can build one yourself. 
-
-
-#### Using pre-built Docker images (easy mode)
-
-- The `image` entry in `docker-compose.release.yml` will by default use the image on Docker Hub which corresponds to your chosen flavour (see step 1 above for choosing your flavour).
-
-You can see the images available per flavour, version (we currently recommend using the `latest` tag), and architecture at https://hub.docker.com/r/bonfirenetworks/bonfire/tags 
-
-5. Try [running the app](#running-with-docker)!
-
-
-#### Custom Docker build
-
-Building your own Docker image is useful if you want to make code changes or add your own extensions.
-
-`Dockerfile.release` uses the [multistage build](https://docs.docker.com/develop/develop-images/multistage-build/) feature to just the image as small as possible. It generates the OTP release which is later copied into the final image packaged in an Alpine linux container.
-
-There is a `justfile` with relevant commands (make sure set the `MIX_ENV=prod` env variable):
-
-- `just rel-build-locked` which builds the docker image of the latest release
-- `just rel-build` which builds the docker image, including local changes to any cloned extensions in `./extensions/` 
-- `just rel-tag` adds the "latest" tag to your last build, so that it will be used when running
-
-Once you've built and tagged your image, you may need to update the `image` name in `docker-compose.release.release.yml` to match (either your local image name if running on the same machine you used for the build, or a remote image on Docker Hub if you pushed it) and then follow the same steps as for option A1.
-
-For production, we recommend to set up a CI workflow to automate this, for an example you can look at the one [we currently use](../github/workflows/release.yaml).
-
-Finally, try [running the app](#running-with-docker)!
-
-
-#### Running with Docker
-
-1. Before running the app for the first time, but after having [prepared the config](#preparing-the-config-in-env), you should get the instance ready:
-   - If you're using **pre-built images** (easy mode), run `just setup-prod` which will pull the Docker images.
-   - If you're **building your own image** (custom build, see above), run `just setup-prod-build` instead.
-
-2. The you can start the docker containers with docker-compose: `just rel-run`
-
-You can run this at the prompt `bin/bonfire remote` to enter Elixir's iex environment. Once there in case migrations have not run automatically you can run `Bonfire.Common.Repo.migrate` to initialise your database.
-
-3. The backend should now be running at [http://localhost:4000/](http://localhost:4000/). [Yay, you're up and running!](#notes-on-running-the-app)
-
-4. If that worked, start the app as a daemon to it stays running in the background: `just rel-run-bg`
-
-> Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index as well.
-
-
-### Bare-metal
-
-Running a custom build without Docker.
-
-1. Install dependencies. 
-
-- Postgres 12+ (but preferably 17+) with [Postgis](https://postgis.net/install/) extension
-- [just](https://github.com/casey/just#packages)
-- Elixir version 1.15+ with OTP 25+ (see the `.tool-versions` to double check the versions we're currently using). If your distribution only has an old version available, check [Elixir's install page](https://elixir-lang.org/install.html) or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf. 
-
-**Note: Source versions of Elixir >=1.17 and <1.17.3 have bugs that can freeze compilation when using the Pathex library, which bonfire does,** so please use 1.16 or 1.17.3+ (or you can set `WITH_PATHEX=0` in env to disabled the use of that library).
-
-2. Clone this repository and change into the directory:
+3. Choose a flavour, for example `community`:
 
 ```sh
-git clone --depth 1 https://github.com/bonfire-networks/bonfire-app.git bonfire && cd bonfire
+export MIX_ENV=prod FLAVOUR=community WITH_DOCKER=yes
 ```
 
-3. Specify what flavour you want to run in production:
+Add this line to your shell profile (eg. `~/.bashrc` or `~/.zshrc`) so that `just` remembers your choice next time.
 
-The first thing to do is choose what flavour of Bonfire (eg. ember, social, community, or cooperation) you want to deploy, as each flavour uses different Docker images and set of configs. For example if you want to run the `social` flavour:
+4. Run `just config` to create the `.env` file, then edit it (see [prepare the config](#preparing-the-config-in-env)).
 
-- `export FLAVOUR=social MIX_ENV=prod WITH_DOCKER=no` 
+5. Run `just setup-prod-build`. This fetches the flavour's extensions and dependencies.
 
-You may also want to put this in the appropriate place in your system so your choice of flavour is remembered for next time (eg. `~/.bashrc` or `~/.zshrc`)
+6. Build the image with one of these:
+- `just rel-build` builds with the committed and pushed version of each extension. It ignores local changes in `./extensions/`.
+- `just rel-build-with-clones` includes local changes in `./extensions/`.
 
-4. Run `just config` to initialise some default config and then edit the config in the `./.env` file (see [prepare the config](#preparing-the-config-in-env) for details about what to edit).
- 
-5. Run `just setup-prod`
+Arguments after the recipe name go to `docker build`, for example `just rel-build --no-cache`.
 
-6. Run `just rel-build` to create an elixir release. This will create an executable in your `_build/prod/rel/bonfire` directory. Note that you will need `just` to pass in the `.env` file to the executable, like so: `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Alternatively, this file can be sourced by `source .env` instead. We will be using the `bin/bonfire` executable as called from `just` from here on. 
+7. Run `just rel-tag`. This tags your last build as `bonfirenetworks/bonfire:latest-<flavour>-<arch>`, which is the image that `docker-compose.release.yml` uses by default. To use an image with another name, for example one you pushed to a registry, set `APP_DOCKER_IMAGE` in `.env`.
 
-7. Running the release
+8. [Run the app](#running-with-docker).
 
-- Create a database, and a user, fill out the `.env` with your credentials and secrets
+For production, we recommend a CI workflow that builds your images. For an example, see [the one we use](../.github/workflows/release.yaml).
 
-- You will need to use `just` in order to pass the `.env` file to the executable. This can be accomplished by running `just cmd _build/prod/rel/bonfire/bin/bonfire <bonfire command>`. Just works from the root directory of the `justfile`, not your current directory.
 
-- If you’re using RDS or some other locked down DB, you may need to run `CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;` on your database with elevated privileges.
+### Bare-metal, prebuilt release
 
-- You may also need to enable the `postgis` extension manually by running `CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;` on your database with elevated privileges.
+Run a release tarball without Docker and without a build step. The tarball includes the Erlang runtime, so you don't need Erlang or Elixir on the server. This works with or without root access.
 
-- You can check if your instance is configured correctly and get to the iex console by running `bin/bonfire start`
+You need a Postgres database, see [Database](#database-bare-metal).
 
-- The migrations should automatically run on first boot, but if you run into troubles the migration command is: `Bonfire.Common.Repo.migrate()` in the iex console. 
+1. Choose a tarball. The [GitHub releases](https://github.com/bonfire-networks/bonfire-app/releases) page lists the available tarballs under "Assets" for each release. The file names follow the pattern `bonfire-<flavour>-<arch>-<distro>.tar.gz`. Each tarball is built on its target distro, so choose the one that matches your server:
+   - `debian-bookworm` for Debian 12
+   - `rhel-9` for RHEL 9 and compatible distros, such as Rocky Linux 9 or AlmaLinux 9
 
-- To run the instance as a background daemon (via Erlang's `run_erl`), use `bin/bonfire daemon`. Logs will be written to `tmp/log/` inside the release directory. Note: if you are using systemd (see below), use `bin/bonfire start` instead — systemd manages the process directly and captures stdout to journald. [Yay, you're up and running!](#notes-on-running-the-app)
+If there is no tarball for your flavour, architecture or distro, use the "Bare-metal, build from source" tab or Docker.
 
-- To keep Bonfire running in production you'll want a process supervisor. On systemd-based Linux systems (Debian, RHEL, etc.) you can use the provided unit file — but other options like OpenRC, runit, or your platform's init system work equally well, as long as they run `bin/bonfire start` in the foreground and restart on failure. For systemd:
+2. Set your choice of tarball, and choose where to install. As root, put the app in `/opt/bonfire`, put the env file in `/etc/bonfire`, and create a system user to run the app. Without root, put both in a directory in your home.
 
 ```sh
-# If you built from source, copy the release to its permanent location:
-cp -r _build/prod/rel/bonfire /opt/bonfire
+export FLAVOUR=community
+export DISTRO=rhel-9    # or debian-bookworm
 
-# Or download a pre-built release from GitHub (replace flavour/architecture/distro/version as appropriate).
-# Pre-built releases are compiled on a matching host (debian:bookworm or redhat/ubi9) so binaries are guaranteed to be compatible with the target system:
-# curl -L https://github.com/bonfire-networks/bonfire-app/releases/latest/download/bonfire-social-amd64-debian-bookworm.tar.gz | tar -xz -C /opt/bonfire --strip-components=1
-# curl -L https://github.com/bonfire-networks/bonfire-app/releases/latest/download/bonfire-social-amd64-rhel-9.tar.gz | tar -xz -C /opt/bonfire --strip-components=1
+# As root:
+BONFIRE_DIR=/opt/bonfire
+ENV_FILE=/etc/bonfire/.env
+useradd --system --home "$BONFIRE_DIR" --shell /sbin/nologin bonfire
 
-# Create a dedicated system user
-useradd --system --home /opt/bonfire --shell /sbin/nologin bonfire
-chown -R bonfire:bonfire /opt/bonfire
-
-# Create the environment file based on the provided templates, then fill in secrets
-mkdir -p /etc/bonfire
-cat config/templates/public.env config/templates/not_secret.env > /etc/bonfire/.env
-# Edit /etc/bonfire/.env to set SECRET_KEY_BASE, DATABASE_URL, and other required values
-chown bonfire:bonfire /etc/bonfire/.env
-chmod 600 /etc/bonfire/.env
-
-# Install and enable the service
-cp config/deploy/bonfire.service /etc/systemd/system/bonfire.service
-systemctl daemon-reload
-systemctl enable --now bonfire
-
-# Check status and logs
-systemctl status bonfire
-journalctl -u bonfire -f
+# Without root:
+BONFIRE_DIR=$HOME/bonfire
+ENV_FILE=$HOME/bonfire/.env
 ```
 
-The environment file at `/etc/bonfire/.env` is based on `config/templates/public.env` and `config/templates/not_secret.env`. At minimum you must set `SECRET_KEY_BASE` (a long random string) and `DATABASE_URL` in it.
+These variables last for the current shell session only. The next steps use them.
 
-8. Adding HTTPS
+3. Download and extract the tarball:
 
-The common and convenient way for adding HTTPS is by using a reverse proxy like Nginx or Caddyserver (the latter of which is bundled as part of the docker compose setup).
-
-Some web servers (like Caddy or Traefik) can handle generating and setting up HTTPS certificates automatically, but if you need TLS/SSL certificates for nginx, you can look get some for free with [letsencrypt](https://letsencrypt.org/). The simplest way to obtain and install a certificate is to use [Certbot.](https://certbot.eff.org). Depending on your specific setup, certbot may be able to get a certificate and configure your web server automatically.
-
-There is an example nginx configuration provided at `config/deploy/nginx.conf` and one for Caddy at `config/deploy/Caddyfile2-https`
-
-> NOTE: If you've built from source, you should point the web server root directory to be `_build/prod/rel/bonfire/lib/bonfire-[current-version]/priv/static`
-
-### Bare-metal (no root)
-
-These instructions apply for servers with hardened security measures where root access is not an option. 
-
-#### Overview
-1. Download and untar a binary with a bonfire flavour and dependencies to your home folder.
-2. Setting up `.env`
-3. Run bonfire 
-
-#### Download binaries
-
-Starting from [v.1.0.4-alpha.3](https://github.com/bonfire-networks/bonfire-app/releases/tag/v1.0.4-alpha.3), bonfire includes a binaries with dependencies (e.g., just and erlang/elixir) bundled with it. 
-
-> [!IMPORTANT]
-> Note that there are different binaries for different bonfire flavours (currently only `social` and `openscience`) as well as for different distros (currently RHEL and debian). In this example, we are assuming openscience flavour for RHEL, but make sure to download the right file for your use case.
-
-Download and unzip the bundle in a folder where you have write permissions, such as `/home/bonfire`:
-
-```bash
-wget  https://github.com/bonfire-networks/bonfire-app/releases/download/v1.0.4-alpha.3/bonfire-open_science-amd64-debian-bookworm.tar.gz | tar -xzf - -C /home/<your_username>/bonfire --strip-components=1
+```sh
+mkdir -p "$BONFIRE_DIR"
+curl -L "https://github.com/bonfire-networks/bonfire-app/releases/latest/download/bonfire-$FLAVOUR-amd64-$DISTRO.tar.gz" | tar -xz -C "$BONFIRE_DIR" --strip-components=1
 ```
 
-#### Setting up `.env`
+`releases/latest/download/` gets the latest stable release. For a pre-release, copy the tarball link from its release page.
 
-1. Scaffold `.env`. Unlike with the bare-metal with root access, the required templates are not included in the binaries and will need to be downloaded from the repository:
+4. Create the env file. The tarball doesn't include the templates, so download them from the repository:
 
-```bash
-mkdir bonfire-templates
-
-# Download files
-wget https://raw.githubusercontent.com/bonfire-networks/bonfire-app/refs/heads/main/config/templates/public.env -P bonfire-templates
-wget https://raw.githubusercontent.com/bonfire-networks/bonfire-app/refs/heads/main/config/templates/not_secret.env -P bonfire-templates
-
-# Create env file from templates.
-cat bonfire-templates/public.env bonfire-templates/not_secret.env > bonfire/.env
-
-# Cleanup
-rm -rf bonfire-templates/
-
+```sh
+mkdir -p "$(dirname "$ENV_FILE")"
+curl -L https://raw.githubusercontent.com/bonfire-networks/bonfire-app/main/config/templates/public.env https://raw.githubusercontent.com/bonfire-networks/bonfire-app/main/config/templates/not_secret.env > "$ENV_FILE"
+chmod 600 "$ENV_FILE"
 ```
-2. Generate required keys. Edit `bonfire/.env` to set `SECRET_KEY_BASE`, `DATABASE_URL`, and other required values. To generate the keys with random values and paste their values on `.env`, create and run this `.sh` script in the `bonfire/` folder:
 
-1. Create the script: `touch keys-generator.sh`:
-2. Edit `keys-generator.sh`and paste this content:
+5. Generate the secrets and set the flavour. Save this script as `keys-generator.sh`:
 
 ```shell
 #!/usr/bin/env bash
@@ -342,7 +258,7 @@ rand() {
   echo
 }
 
-env_file=$(readlink .env 2>/dev/null || echo .env)
+env_file=$(readlink -f "${1:-.env}")
 
 set_var() {
   key="$1"
@@ -357,147 +273,85 @@ set_var() {
   fi
 }
 
+set_var "FLAVOUR" "${FLAVOUR:?Set FLAVOUR first, see step 2}"
 set_var "SECRET_KEY_BASE" "$(rand 128)"
 set_var "SIGNING_SALT" "$(rand 128)"
 set_var "ENCRYPTION_SALT" "$(rand 128)"
 set_var "RELEASE_COOKIE" "$(rand 42)"
 set_var "POSTGRES_PASSWORD" "$(rand 42)"
-set_var "MEILI_MASTER_KEY" "$(rand 42)"
 set_var "SONIC_PASSWORD" "$(rand 42)"
 
 echo "Updated $env_file"
 ```
 
-3. Make it executable: `chmod +x keys-generator.sh` and run it to generate the keys: `./keys-generator.sh`.
-4. Edit `.env`  (`nano bonfire/.env`) to introduce the remaining variables and credentials:
-	1. `HOSTNAME`
- 	2. `POSTGRES_HOST`
-  3. `POSTGRES_USER`
-  4. `POSTGRES_DB`
+Then run it: `bash keys-generator.sh "$ENV_FILE"`
 
-#### Run bonfire
+6. Edit the env file (eg. `nano "$ENV_FILE"`) and set at least these values (see [prepare the config](#preparing-the-config-in-env) for the others):
+   - `HOSTNAME`
+   - `POSTGRES_HOST`, `POSTGRES_USER` and `POSTGRES_DB`. The script generated a random `POSTGRES_PASSWORD`, so set the database user's password to the same value, or replace it with the existing password. You can set `DATABASE_URL=ecto://USER:PASS@HOST/DATABASE` instead of these four.
+   - The `MAIL_*` keys
 
-To run bonfire we need to run `bin/bonfire start`. However, due to the setup, `.env` will be ignored. To address that, we will need to run within a wrapper script that ensures that `.env` is also loaded.
+7. As root, give the app's user ownership of its files:
 
-##### Using `systemctl`
-
-1. On `/home/<your_user>/.config/systemd/user/` create two files: `bonfire.service` and `sonic.service`, with the following contents:
-	1. `bonfire.service`:
-
-```
-**[Unit]**
-
-Description=Bonfire
-
-After=network.target sonic.service
-
-Wants=sonic.service
-
-**[Service]**
-
-WorkingDirectory=/home/<your_user>/bonfire
-
-EnvironmentFile=/home/<your_user>/bonfire/.env
-
-ExecStart=/home/<your_user>/bonfire/bin/bonfire start
-
-Restart=on-failure
-
-RestartSec=5
-
-**[Install]**
-
-WantedBy=default.target
+```sh
+chown -R bonfire:bonfire "$BONFIRE_DIR" "$(dirname "$ENV_FILE")"
 ```
 
-	2. sonic.service
+8. [Run the app as a service](#run-as-a-service-bare-metal).
 
-```
-**[Unit]**
+### Bare-metal, build from source
 
-Description=Sonic search backend
+Build the release yourself, without Docker. Use this to change the code, add your own extensions, or run a flavour, architecture or distro that has no prebuilt tarball. This works with or without root access.
 
-After=network.target
+1. Install the dependencies:
+   - Postgres, see [Database](#database-bare-metal)
+   - [just](https://github.com/casey/just#packages)
+   - Elixir 1.15+ with OTP 25+ (see `.tool-versions` for the versions we use). If your distribution only has an older version, see [Elixir's install page](https://elixir-lang.org/install.html), or use a tool like [mise](https://github.com/jdx/mise) (run `mise install` in this directory) or asdf.
 
-**[Service]**
+**Note: Source versions of Elixir >=1.17 and <1.17.3 have bugs that can freeze compilation when using the Pathex library, which bonfire does,** so please use 1.16 or 1.17.3+ (or you can set `WITH_PATHEX=0` in env to disable the use of that library).
 
-ExecStart=/home/<your_user>/sonic/sonic -c /home/<your_user>/sonic/config.cfg
+2. Clone this repository and change into the directory:
 
-Restart=on-failure
-
-**[Install]**
-
-WantedBy=default.target
-```
-1. Run the following command
-
-```bash
-systemctl --user start bonfire
+```sh
+git clone --depth 1 https://github.com/bonfire-networks/bonfire-app.git bonfire && cd bonfire
 ```
 
+3. Choose a flavour, for example `community`:
 
-> [!tip] Frequent `systemctl` commands
-> 1. Check status: `systemctl --user status bonfire`
-> 2. Check sonic status: `systemctl --user status sonic`
-> 3. Start bonfire: `systemctl --user start bonfire`
-> 4. Stop bonfire: `systemctl --user stop bonfire`
-
-
-
-##### (Deprecated) Using a custom script
-
-1. Create a `start.sh` script (`touch start.sh`and `chmod +x start.sh`) and paste the following:
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-set -a
-source .env
-set +a
-exec bin/bonfire "${@:-start}"
+```sh
+export MIX_ENV=prod FLAVOUR=community WITH_DOCKER=no
 ```
 
-2. then you can run for example:
-	1. `start.sh`: defaults to "start"
-	2. `start.sh daemon`: to run in background
-	3. `start.sh remote`: to connect to bg app
+Add this line to your shell profile (eg. `~/.bashrc` or `~/.zshrc`) so that `just` remembers your choice next time.
 
-#### Reverse proxy and process supervisor
+4. Run `just config` to create the `.env` file, then edit it (see [prepare the config](#preparing-the-config-in-env)). Put your database credentials in it.
 
+5. Run `just setup-prod`. This fetches the flavour's extensions and dependencies.
 
-1. Configuring Apache as a reverse proxy: edit .htaccess with the following content:
+6. Build the release in `_build/prod/rel/bonfire` with one of these:
+- `just rel-build` builds with the committed and pushed version of each extension. It ignores local changes in `./extensions/`.
+- `just rel-build-with-clones` includes local changes in `./extensions/`.
 
+7. Check that the release starts: `just cmd _build/prod/rel/bonfire/bin/bonfire start`. `just cmd` loads `.env` and runs from the directory of the `justfile`. The migrations run on the first start. If they don't, connect with `just cmd _build/prod/rel/bonfire/bin/bonfire remote` and run `Bonfire.Common.Repo.migrate()`.
+
+8. Copy the release and the env file to their permanent location:
+
+```sh
+# As root:
+cp -r _build/prod/rel/bonfire /opt/bonfire
+mkdir -p /etc/bonfire
+cp -L .env /etc/bonfire/.env
+chmod 600 /etc/bonfire/.env
+useradd --system --home /opt/bonfire --shell /sbin/nologin bonfire
+chown -R bonfire:bonfire /opt/bonfire /etc/bonfire
+
+# Without root:
+cp -r _build/prod/rel/bonfire ~/bonfire
+cp -L .env ~/bonfire/.env
+chmod 600 ~/bonfire/.env
 ```
- AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript \
-        application/javascript application/json application/xml image/svg+xml
 
-    # User uploads served directly by Apache
-    Alias /data/uploads/ /home/youruser/bonfire/uploads/
-    <Directory /home/youruser/bonfire/uploads>
-        Require all granted
-        Options -Indexes
-        # uploads (e.g. SVG) are served from the instance's origin, so stop any script in them from running if opened directly (needs mod_headers)
-        Header always set Content-Security-Policy "sandbox; default-src 'none'; style-src 'unsafe-inline'"
-    </Directory>
-    ProxyPassMatch ^/data/uploads/ !
-
-    # WebSocket upgrade
-    RewriteEngine On
-    RewriteCond %{REQUEST_URI} !^/data/uploads/
-    RewriteCond %{HTTP:Upgrade} websocket [NC]
-    RewriteCond %{HTTP:Connection} upgrade [NC]
-    RewriteRule ^/?(.*) "ws://127.0.0.1:4000/$1" [P,L]
-
-    # Everything else (including priv/static assets) proxied to Phoenix
-    ProxyPreserveHost On
-    ProxyPass        / http://127.0.0.1:4000/
-    ProxyPassReverse / http://127.0.0.1:4000/
-
-    RequestHeader set X-Forwarded-Proto "https"
-    RequestHeader set X-Forwarded-Port  "443"
-```
-2. A process supervisor is needed to ensure that bonfire is restarted if the server restarts or the app crashes for any reason.
-
-Instructions to be added.
+9. [Run the app as a service](#run-as-a-service-bare-metal).
 
 ### Guix
 
@@ -877,8 +731,9 @@ You can run `just secrets` to generate some for you.
 - `SECRET_KEY_BASE`
 - `SIGNING_SALT`
 - `ENCRYPTION_SALT`
+- `RELEASE_COOKIE`
 - `POSTGRES_PASSWORD`
-- `MEILI_MASTER_KEY` 
+- `SONIC_PASSWORD`
 
 ### Further information on config
 
@@ -893,9 +748,154 @@ In the `./config/` (which is a symbolic link to the config of the flavour you ch
 You should *not* have to modify the files above. Instead, overload any settings from the above files using env variables or in `./.env`. If any settings in the `.exs` config files are not available in env or in the instance settings UI, please open an issue or PR.
 
 
-## Notes on running the app
+## Database (bare-metal)
 
-> NOTE: If you are running in a restricted environment such as Amazon RDS, you will need to execute some sql against the database before migrations can run: `CREATE EXTENSION IF NOT EXISTS citext;`
+The Docker and Co-op Cloud setups run Postgres for you. On bare-metal, install Postgres 12+ (preferably 17+) with the [PostGIS](https://postgis.net/install/) extension, then create a database and a user for Bonfire.
+
+Put the credentials in the env file: `POSTGRES_HOST`, `POSTGRES_USER`, `POSTGRES_DB` and `POSTGRES_PASSWORD`, or `DATABASE_URL=ecto://USER:PASS@HOST/DATABASE` instead.
+
+The migrations run when the app starts. If the Bonfire database user can't create extensions (for example on Amazon RDS or another locked-down database), run this on the database as a privileged user first:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
+```
+
+## Running with Docker
+
+1. Start the containers: `just rel-run`. This opens an IEx console attached to the app. The migrations run on start. If they don't, run `Bonfire.Common.Repo.migrate` in the console.
+
+2. The app now runs at [http://localhost:4000/](http://localhost:4000/). [Yay, you're up and running!](#notes-on-running-the-app)
+
+3. If that works, stop it and start it in the background so that it keeps running: `just rel-run-bg`
+
+> Alternatively, `just rel-run-bg db` if you want to run the backend + db but not the web proxy, or `just rel-run-bg db search` if you want to run the full-text search index as well.
+
+## Run as a service (bare-metal)
+
+Use a process supervisor so that Bonfire restarts after a crash or a reboot. These examples use systemd. Other supervisors (eg. OpenRC or runit) also work, if they run `bin/bonfire start` in the foreground and restart it on failure.
+
+Don't use `bin/bonfire daemon` under a supervisor. It detaches from the supervisor, and it writes its logs to `tmp/log/` in the release directory instead of the journal.
+
+### As root
+
+The provided unit file [config/templates/bonfire.service](../config/templates/bonfire.service) expects the release in `/opt/bonfire`, the env file at `/etc/bonfire/.env`, and a `bonfire` system user. Edit it if your setup is different.
+
+```sh
+curl -L https://raw.githubusercontent.com/bonfire-networks/bonfire-app/main/config/templates/bonfire.service -o /etc/systemd/system/bonfire.service
+systemctl daemon-reload
+systemctl enable --now bonfire
+systemctl status bonfire
+```
+
+### Without root
+
+1. Save this as `~/.config/systemd/user/bonfire.service`. `%h` is your home directory, so change the paths if you installed elsewhere than `~/bonfire`:
+
+```ini
+[Unit]
+Description=Bonfire
+After=network.target
+
+[Service]
+Type=exec
+WorkingDirectory=%h/bonfire
+EnvironmentFile=%h/bonfire/.env
+ExecStart=%h/bonfire/bin/bonfire start
+ExecStop=%h/bonfire/bin/bonfire stop
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+```
+
+2. Start it:
+
+```sh
+systemctl --user daemon-reload
+systemctl --user enable --now bonfire
+systemctl --user status bonfire
+```
+
+3. Run `loginctl enable-linger` once. Without it, systemd stops your services when you log out, and doesn't start them at boot. If this fails, ask an admin to run `sudo loginctl enable-linger <your_user>`.
+
+Add `--user` to every `systemctl` and `journalctl` command for this service, for example `systemctl --user restart bonfire`.
+
+### Sonic search
+
+The env templates set `SEARCH_ADAPTER=sonic`. In this case, run [Sonic](https://github.com/valeriansaliou/sonic#installation) as a second service:
+
+1. Install Sonic. Copy [config/templates/sonic.cfg](../config/templates/sonic.cfg) next to it, then edit the copy. Change the `store` paths to a directory that the service's user can write to. Change `inet` to `127.0.0.1:1491` if Sonic runs on the same server as Bonfire.
+
+2. Create a unit for it. For example without root, save this as `~/.config/systemd/user/sonic.service`. Sonic reads its password from `SONIC_CHANNEL__AUTH_PASSWORD`, so the unit sets it from `SONIC_PASSWORD` in Bonfire's env file:
+
+```ini
+[Unit]
+Description=Sonic search backend
+After=network.target
+
+[Service]
+EnvironmentFile=%h/bonfire/.env
+ExecStart=/usr/bin/env SONIC_CHANNEL__AUTH_PASSWORD=${SONIC_PASSWORD} %h/sonic/sonic -c %h/sonic/sonic.cfg
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+```
+
+As root, put it in `/etc/systemd/system/`, use absolute paths instead of `%h`, add `User=bonfire`, and set `WantedBy=multi-user.target`.
+
+3. In `bonfire.service`, add `Wants=sonic.service` and `After=sonic.service` in the `[Unit]` section. Then run `systemctl daemon-reload` (with `--user` for user units) and enable both services.
+
+### Open a console
+
+To connect an IEx console to the running app, load the env file first, so that the console uses the same node name and cookie:
+
+```sh
+set -a; . /etc/bonfire/.env; set +a    # or ~/bonfire/.env without root
+/opt/bonfire/bin/bonfire remote        # or ~/bonfire/bin/bonfire
+```
+
+### View logs
+
+systemd sends the app's output to the journal. Add `--user` to these commands if you run Bonfire without root:
+
+```sh
+journalctl -u bonfire -f                      # follow live
+journalctl -u bonfire -n 200                  # last 200 lines
+journalctl -u bonfire --since "1 hour ago"
+journalctl -u bonfire -p err                  # errors only
+```
+
+To find an error message and the lines around it, use `grep -C` (`-B` and `-A` set the lines before and after separately):
+
+```sh
+journalctl -u bonfire --since today --no-pager | grep -n -F -B 5 -A 50 "your error text"
+```
+
+If `journalctl` shows nothing or prints "You are currently not seeing messages from other users", your user can't read the journal. Some distros (eg. RHEL) keep the journal in memory by default, and then logs from user services go to the system journal. To fix this, do one of these as root:
+- Add the user to the `systemd-journal` group: `usermod -aG systemd-journal <your_user>`, then log in again.
+- Make the journal persistent, so each user gets their own journal file: `mkdir -p /var/log/journal && systemctl restart systemd-journald`.
+
+You can also see live logs in the admin UI at `/admin/system/`.
+
+## Reverse proxy and HTTPS (bare-metal)
+
+Put a reverse proxy in front of the app (which listens on port 4000) to add HTTPS. The Docker setup includes Caddy.
+
+Caddy and Traefik can get HTTPS certificates for you. For nginx or Apache, you can get free certificates from [Let's Encrypt](https://letsencrypt.org/), for example with [Certbot](https://certbot.eff.org). Certbot can sometimes also configure your web server for you.
+
+Copy the template for your web server into its config directory, then edit the copy. Without a clone of this repository, download the template first, for example `curl -LO https://raw.githubusercontent.com/bonfire-networks/bonfire-app/main/config/templates/nginx.conf`.
+
+The app stores uploads in `data/uploads/` inside its working directory (`/opt/bonfire` as root, `~/bonfire` without root).
+
+- nginx: [config/templates/nginx.conf](../config/templates/nginx.conf) has only the `location` blocks. Put them in a `server` block with your `server_name`, `listen 443 ssl` and certificate lines, for example in `/etc/nginx/conf.d/bonfire.conf`. Change `root priv/static` to the absolute path of the static files: `lib/bonfire-<version>/priv/static` inside the release directory. The version in this path changes when you upgrade.
+- Caddy: [config/templates/Caddyfile2-https](../config/templates/Caddyfile2-https) is written for the Docker setup. Copy it to `/etc/caddy/Caddyfile`, then replace `:443` with your domain (so that Caddy gets a certificate for it), `web:4000` with `127.0.0.1:4000`, and `/frontend/` with the app's working directory.
+- Apache: copy [config/templates/apache.conf](../config/templates/apache.conf) to `/etc/httpd/conf.d/bonfire.conf` (RHEL), or to `/etc/apache2/sites-available/bonfire.conf` and run `a2ensite bonfire` (Debian). Change `ServerName`, the certificate and log paths, and the uploads `Alias` and `<Directory>` paths, which must point to `data/uploads/` inside the app's working directory. It needs the `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, `headers` and `ssl` modules. This is a `<VirtualHost>` block, so it needs admin access. It doesn't work in a `.htaccess` file, because `.htaccess` doesn't allow `Alias` or `ProxyPass`.
+
+
+## Notes on running the app
 
 By default, the backend listens on port 4000 (TCP), so you can access it on http://localhost:4000/ (if you are on the same machine) but would usually access it at https://yourdomain.net/. In case of an error it will restart automatically.
 

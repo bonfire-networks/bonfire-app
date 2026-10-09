@@ -1480,28 +1480,28 @@ rel-rebuild:
 	just rel-build {{CLONES_EXTENSIONS_PATH}} --no-cache
 
 # Build the Docker image (NOT including changes to local clones)
-rel-build ARGS="":
+rel-build *ARGS:
 	@echo "Please note that the build will not include any changes in clones that haven't been committed and pushed, you may want to run just contrib-release first."
 	@just rel-build-with-opts remote {{ ARGS }}
 
-rel-build-with-clones ARGS="":
+rel-build-with-clones *ARGS:
 	@echo "Please note that the build will include changes in clones that haven't been committed and pushed."
 	@just rel-build-with-opts local {{ ARGS }}
 
 # Build the release
-rel-build-with-opts USE_EXT ARGS="":
+rel-build-with-opts USE_EXT *ARGS:
 	@just {{ if WITH_DOCKER != "no" {"rel-build-docker"} else {"rel-build-OTP"} }} {{ USE_EXT }} {{ ARGS }}
 
 # Build the OTP release
-rel-build-OTP USE_EXT="local" ARGS="": _rel_init _rel-prepare
+rel-build-OTP USE_EXT="local" *ARGS: _rel_init _rel-prepare
 	WITH_DOCKER=no just _rel-build-OTP {{ USE_EXT }} {{ ARGS }}
 
-_rel-build-OTP USE_EXT="local" ARGS="": 
+_rel-build-OTP USE_EXT="local" *ARGS:
 	just _rel-compile-OTP {{ USE_EXT }} {{ ARGS }}
 	just _rel-compile-assets {{ USE_EXT }}
 	just _rel-release-OTP {{ USE_EXT }}
 
-_rel-compile-OTP USE_EXT="local" ARGS="": 
+_rel-compile-OTP USE_EXT="local" *ARGS:
 	just rel-mix {{ USE_EXT }} "compile --return-errors {{ ARGS }}"
 
 #git checkout HEAD -- "config/current_flavour/assets/hooks/*"
@@ -1524,10 +1524,10 @@ rel-mix USE_EXT="local" ARGS="":
 	@MIX_ENV=prod CI=true just {{ if USE_EXT=="remote" {"mix-remote"} else {"mix"} }} {{ ARGS }}
 
 # Build the Docker image
-@rel-build-docker USE_EXT="local" ARGS="": _rel_init _rel-prepare assets-prepare
+@rel-build-docker USE_EXT="local" *ARGS: _rel_init _rel-prepare assets-prepare
 	just docker-cmd just rel-build-path {{ if USE_EXT=="remote" {"data/null"} else {CLONES_EXTENSIONS_PATH} }} {{ ARGS }} 
 
-rel-build-path CLONES_PATH_TO_COPY ARGS="":
+rel-build-path CLONES_PATH_TO_COPY *ARGS:
 	@echo "Building $APP_NAME with flavour $FLAVOUR for arch {{ARCH}} with image $ELIXIR_DOCKER_IMAGE."
 	@MIX_ENV=prod docker build {{ ARGS }} --progress=plain \
 		--build-arg FLAVOUR=$FLAVOUR \
@@ -1663,22 +1663,23 @@ rel-docker-compose *args:
 	      search_profile="$adapter"
 	    fi
 	  else
+	    # the proxy bind-mounts a Caddyfile from config/deploy/, which must exist or Docker creates an empty directory at the mount path
+	    if [ "$svc" = "proxy" ]; then
+	      just _deploy-config Caddyfile2
+	      just _deploy-config Caddyfile2-https
+	    fi
+	    # the postgres entrypoint renders config/deploy/postgres.conf.tmpl, and fails if it's missing
+	    if [ "$svc" = "db" ]; then
+	      just _deploy-config postgres.conf.tmpl
+	    fi
 	    other="$other $svc"
 	  fi
 	done
 	if [ -n "$search_profile" ]; then
-	  # sonic bind-mounts config/deploy/sonic.cfg; ensure it exists (from template) so Docker
-	  # doesn't create an empty directory at the mount path. The password comes from the
+	  # sonic bind-mounts config/deploy/sonic.cfg, for the same reason as the proxy. The password comes from the
 	  # SONIC_CHANNEL__AUTH_PASSWORD env var, so the template intentionally omits auth_password.
 	  if [ "$search_profile" = "sonic" ]; then
-	    if [ -f config/deploy/sonic.cfg ]; then
-	      # the deploy copy is gitignored and never overwritten, so template changes (eg. the
-	      # [channel.search] -> [search] move in Sonic 1.8) would otherwise go unnoticed
-	      diff -q config/templates/sonic.cfg config/deploy/sonic.cfg >/dev/null 2>&1 || \
-	        echo "WARNING: config/deploy/sonic.cfg differs from config/templates/sonic.cfg — run: diff config/templates/sonic.cfg config/deploy/sonic.cfg"
-	    else
-	      cp config/templates/sonic.cfg config/deploy/sonic.cfg
-	    fi
+	    just _deploy-config sonic.cfg
 	  fi
 	  # Use --profile to enable the right search service, but name it explicitly so
 	  # docker-compose doesn't start unrelated services (e.g. web) that share the profile
@@ -1906,19 +1907,50 @@ localise-prune:
 	-touch forks/*/lib/migrations.ex
 	-touch priv/repo/*
 
-# Generate secrets and append them to .env; copy sonic.cfg template to config/deploy/ if missing
+# Generate secrets and append them to .env; copy the config templates to config/deploy/ if missing
 secrets:
 	#!/usr/bin/env bash
 	set -euo pipefail
 	env_file=$(readlink .env 2>/dev/null || echo .env)
 	just rands >> "$env_file"
-	if [ -f config/deploy/sonic.cfg ]; then
-	  diff -q config/templates/sonic.cfg config/deploy/sonic.cfg >/dev/null 2>&1 || \
-	    echo "WARNING: config/deploy/sonic.cfg differs from config/templates/sonic.cfg — run: diff config/templates/sonic.cfg config/deploy/sonic.cfg"
-	else
-	  cp config/templates/sonic.cfg config/deploy/sonic.cfg
-	fi
+	just _deploy-config sonic.cfg
+	just _deploy-config Caddyfile2
+	just _deploy-config Caddyfile2-https
+	just _deploy-config postgres.conf.tmpl
 	echo "Secrets appended to .env"
+
+# Copy a config template to config/deploy/ if missing. The copy is gitignored and never overwritten without asking: when the template changed since the last check (eg. the [channel.search] -> [search] move in Sonic 1.8), show the changes and ask whether to keep or replace the copy. `.FILE.base` holds the template version of the last check.
+_deploy-config file:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	template="config/templates/{{file}}" copy="config/deploy/{{file}}" base="config/deploy/.{{file}}.base"
+	if [ ! -f "$copy" ]; then
+	  cp "$template" "$copy"
+	  cp "$template" "$base"
+	elif cmp -s "$template" "$copy"; then
+	  cp "$template" "$base"
+	elif [ ! -f "$base" ] || ! cmp -s "$template" "$base"; then
+	  if [ -f "$base" ]; then
+	    echo "$template changed since $copy was last checked:"
+	    diff -u "$base" "$template" || true
+	  else
+	    echo "$copy differs from $template (- your copy, + template):"
+	    diff -u "$copy" "$template" || true
+	  fi
+	  if { exec 3</dev/tty; } 2>/dev/null && read -r -u 3 -p "Keep your copy [k] or replace it with the template, saving yours as $copy.bak [r]? " answer; then
+	    exec 3<&-
+	    if [ "$answer" = r ]; then
+	      cp "$copy" "$copy.bak"
+	      cp "$template" "$copy"
+	      echo "Replaced $copy, yours is in $copy.bak"
+	    else
+	      echo "Kept $copy"
+	    fi
+	    cp "$template" "$base"
+	  else
+	    echo "WARNING: kept $copy unchanged. Run this again in a terminal to choose."
+	  fi
+	fi
 #{{ if MIX_ENV == "prod" { "just rands" } else if WITH_DOCKER=="total" { "just rands" } else { "just mix-secrets" } }}
 
 @rands:
