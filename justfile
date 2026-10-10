@@ -1804,6 +1804,10 @@ deps-licenses:
 audit:
 	AS_UMBRELLA=1 just mix sobelow
 
+# Count CSS class patterns tracked by docs/topics/CSS_TOKENS_SIMPLIFICATION_PLAN.md (pass a pattern name to list matches)
+css-audit *args='':
+	./css-audit.sh {{args}}
+
 bill-of-materials:
 	just mix sbom.cyclonedx --only prod -f -o docs/bill-of-materials/{{FLAVOUR}}/server-deps.cdx.json
 	cd extensions/bonfire_ui_common/assets 2>/dev/null || cd deps/bonfire_ui_common/assets && yarn dlx -q @cyclonedx/yarn-plugin-cyclonedx --prod -o ../../../docs/bill-of-materials/{{FLAVOUR}}/browser-deps.cdx.json
