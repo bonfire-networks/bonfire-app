@@ -32,8 +32,11 @@ config :activity_pub, :instance,
   hostname: "localhost",
   local_login_redirect_uri: "/login?go=",
   federation_publisher_modules: [ActivityPub.Federator.APPublisher],
-  # when a host is written off entirely: no deliveries are even addressed to it, and we stop fetching from it too, so the only way back is it contacting us (or an admin clearing it)
+  # when a host is written off: deliveries and fetches to it stop, except for an occasional probe (below). It also comes back when it contacts us, or when an admin clears it
   federation_reachability_timeout_days: 15,
+  # how often a written-off host is probed, so one that recovers is noticed: wait this share of however long it has been failing, never more than the cap. So about every 1.5 days at the 15-day threshold, weekly once it has been down for 70 days. The probe is the next real delivery or fetch for it, never a scheduled request, so a dead host that nothing here talks to is never contacted
+  federation_dead_probe_fraction: 10,
+  federation_dead_probe_cap_sec: 604_800,
   # pacing of deliveries to a host that keeps failing: leave it alone for this share of however long it has been failing, never less than the grace period's worth of patience and never more than the cap. The cap doubles as how long after a host recovers before we notice, so smaller is friendlier
   federation_backoff_grace_sec: 60,
   federation_backoff_fraction: 4,
