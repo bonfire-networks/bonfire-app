@@ -151,6 +151,19 @@ config :activity_pub,
       "openness" => %{
         "@id" => "mz:openness",
         "@type" => "@id"
+      },
+      # A group people JOIN, as Smithereen says it (`capabilities.acceptsJoins`, which it reads to offer Join), and which a topic, followed rather than joined, leaves out
+      "litepub" => "http://litepub.social/ns#",
+      "capabilities" => "litepub:capabilities",
+      "acceptsJoins" => "litepub:acceptsJoins",
+      # FEP-9b2b (https://w3id.org/fep/9b2b), whose `broader` and `inScheme` are aliases of SKOS: a topic names the group it is in, and its scheme, `https://w3id.org/fep/9b2b#Topic`
+      "broader" => %{
+        "@id" => "http://www.w3.org/2004/02/skos/core#broader",
+        "@type" => "@id"
+      },
+      "inScheme" => %{
+        "@id" => "http://www.w3.org/2004/02/skos/core#inScheme",
+        "@type" => "@id"
       }
     },
     object: %{

@@ -18,7 +18,6 @@ services:
       - POSTGRES_HOST=db
       - SEARCH_MEILI_INSTANCE=http://search:7700
       - SONIC_HOST=search
-      - SONIC_HOST=${SONIC_HOST:-search}
       - SONIC_PORT=${SONIC_PORT:-1491}
     depends_on:
       - db
@@ -85,6 +84,8 @@ services:
       - search
     hostname: search # using same as meili as a sanity to avoid ever running both
     image: valeriansaliou/sonic:v1.8.1
+    env_file:
+      - config/prod/.env
     environment:
       - SONIC_CHANNEL__AUTH_PASSWORD=${SONIC_PASSWORD}
     # ports:
