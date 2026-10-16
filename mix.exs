@@ -384,6 +384,7 @@ defmodule Bonfire.Umbrella.MixProject do
     "bonfire_community_rules",
     "bonfire_ghost",
     "bonfire_poll",
+    "bonfire_divlab",
     "bonfire_translation"
   ]
 
