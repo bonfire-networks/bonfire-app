@@ -164,6 +164,11 @@ config :activity_pub,
       "inScheme" => %{
         "@id" => "http://www.w3.org/2004/02/skos/core#inScheme",
         "@type" => "@id"
+      },
+      # and its inverse, which FEP-9b2b doesn't alias: a group's collection of the topics and subgroups in it
+      "narrower" => %{
+        "@id" => "http://www.w3.org/2004/02/skos/core#narrower",
+        "@type" => "@id"
       }
     },
     object: %{
