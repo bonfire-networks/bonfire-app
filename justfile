@@ -1030,6 +1030,9 @@ dep-clean dep:
 	@just mix "deps.clean $dep --build"
 # @just mix "deps.clean bonfire --build"
 
+dep-clone dep:
+	just dep-clone-local {{dep}} https://github.com/bonfire-networks/{{dep}}
+
 # Clone a git dep and use the local version, eg: `just dep-clone-local bonfire_me https://github.com/bonfire-networks/bonfire_me`
 dep-clone-local dep repo:
 	git clone {{repo}} {{CLONES_EXTENSIONS_PATH}}{{dep}} 2> /dev/null || (cd {{CLONES_EXTENSIONS_PATH}}{{dep}} ; git pull)

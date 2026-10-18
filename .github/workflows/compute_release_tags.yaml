@@ -11,10 +11,18 @@ on:
         required: false
         type: string
         default: ''
+      flavour_release_stage:
+        description: 'JSON object of each flavour to the highest release stage (alpha, beta, rc or stable) whose latest-* tags it gets (see flavours.yaml)'
+        required: false
+        type: string
+        default: '{}'
     outputs:
       tag_suffixes:
         description: 'Space-separated list of latest-* tag suffixes applicable to this version'
         value: ${{ jobs.compute.outputs.tag_suffixes }}
+      tags_by_flavour:
+        description: 'JSON object of each flavour to its space-separated tag prefixes: the latest-* suffixes up to the lower of the version stage and the flavour stage, plus the version itself'
+        value: ${{ jobs.compute.outputs.tags_by_flavour }}
       prerelease:
         description: 'Whether this version is a prerelease (true unless it is a stable version)'
         value: ${{ jobs.compute.outputs.prerelease }}
@@ -23,30 +31,59 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tag_suffixes: ${{ steps.compute.outputs.tag_suffixes }}
+      tags_by_flavour: ${{ steps.compute.outputs.tags_by_flavour }}
       prerelease: ${{ steps.compute.outputs.prerelease }}
     steps:
       - name: Compute tag suffixes and prerelease flag
         id: compute
         run: |
           VERSION="${{ inputs.version }}"
-          TAGS=()
+          # Stages from lowest to highest, with the latest-* suffix each one publishes
+          STAGES=(alpha beta rc stable)
+          SUFFIXES=(latest-alpha latest-beta latest-rc latest)
+          stage_index() {
+            for i in "${!STAGES[@]}"; do
+              [ "${STAGES[$i]}" = "$1" ] && echo "$i" && return
+            done
+            echo "Unknown release stage '$1' (expected one of: ${STAGES[*]})" >&2
+            exit 1
+          }
+          # Suffixes for every stage up to the given index, highest first, after any always-on extra suffixes (e.g. "unstable" -> "latest-unstable")
+          suffixes_up_to() {
+            TAGS=()
+            for EXTRA in ${{ inputs.extra_suffixes }}; do
+              TAGS+=("latest-${EXTRA}")
+            done
+            for ((i = $1; i >= 0; i--)); do
+              TAGS+=("${SUFFIXES[$i]}")
+            done
+            echo "${TAGS[*]}"
+          }
+
           if [[ "$VERSION" =~ -rc ]]; then
-            TAGS+=(latest-rc latest-beta latest-alpha)
-            PRERELEASE=true
+            VERSION_STAGE=rc
           elif [[ "$VERSION" =~ -beta ]]; then
-            TAGS+=(latest-beta latest-alpha)
-            PRERELEASE=true
+            VERSION_STAGE=beta
           elif [[ "$VERSION" =~ -alpha ]]; then
-            TAGS+=(latest-alpha)
-            PRERELEASE=true
+            VERSION_STAGE=alpha
           else
-            TAGS+=(latest latest-rc latest-beta latest-alpha)
-            PRERELEASE=false
+            VERSION_STAGE=stable
           fi
-          # Prepend any always-on extra suffixes (e.g. "unstable" -> "latest-unstable")
-          for EXTRA in ${{ inputs.extra_suffixes }}; do
-            TAGS=("latest-${EXTRA}" "${TAGS[@]}")
-          done
-          echo "tag_suffixes=${TAGS[*]}" >> $GITHUB_OUTPUT
+          VERSION_INDEX=$(stage_index "$VERSION_STAGE")
+          if [ "$VERSION_STAGE" = "stable" ]; then PRERELEASE=false; else PRERELEASE=true; fi
+
+          TAG_SUFFIXES=$(suffixes_up_to "$VERSION_INDEX")
+
+          TAGS_BY_FLAVOUR='{}'
+          while IFS=$'\t' read -r FLAVOUR FLAVOUR_STAGE; do
+            FLAVOUR_INDEX=$(stage_index "$FLAVOUR_STAGE")
+            INDEX=$(( FLAVOUR_INDEX < VERSION_INDEX ? FLAVOUR_INDEX : VERSION_INDEX ))
+            FLAVOUR_TAGS="$(suffixes_up_to "$INDEX") ${VERSION}"
+            echo "Flavour '$FLAVOUR' (stage $FLAVOUR_STAGE) gets tags '$FLAVOUR_TAGS'"
+            TAGS_BY_FLAVOUR=$(echo "$TAGS_BY_FLAVOUR" | jq -c --arg f "$FLAVOUR" --arg t "$FLAVOUR_TAGS" '. + {($f): $t}')
+          done < <(echo '${{ inputs.flavour_release_stage }}' | jq -r 'to_entries[] | "\(.key)\t\(.value)"')
+
+          echo "tag_suffixes=${TAG_SUFFIXES}" >> $GITHUB_OUTPUT
+          echo "tags_by_flavour=${TAGS_BY_FLAVOUR}" >> $GITHUB_OUTPUT
           echo "prerelease=${PRERELEASE}" >> $GITHUB_OUTPUT
-          echo "Computed tag_suffixes='${TAGS[*]}' prerelease='${PRERELEASE}' for version '$VERSION'"
+          echo "Computed tag_suffixes='${TAG_SUFFIXES}' prerelease='${PRERELEASE}' for version '$VERSION' (stage $VERSION_STAGE)"

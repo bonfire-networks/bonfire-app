@@ -7,8 +7,9 @@ destination=${2:-assets/css/current_flavour_theme.css}
 mkdir -p "$(dirname "$destination")"
 for source in "extensions/$flavour/themes/theme.css" "deps/$flavour/themes/theme.css"; do
     if [ -f "$source" ]; then
-        cp "$source" "$destination"
-        exit 0
+        cp "$source" "$destination" && echo "Copied flavour theme from $source to $destination" && exit 0
+    else
+        echo "No theme found for flavour $flavour at $source"
     fi
 done
 

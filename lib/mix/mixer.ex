@@ -568,8 +568,15 @@ if not Code.ensure_loaded?(Bonfire.Mixer) do
 
       {_opts, wildcards_to_test, _} = System.argv() |> OptionParser.parse(strict: switches)
 
+      # strip ExUnit's `file:LINE` (or `file:LINE:LINE`) suffix, which would otherwise glob to nothing and so compile every dep's test/support
       wildcards_to_test
-      |> Enum.map(&(&1 |> Path.expand() |> Path.wildcard() |> Path.relative_to_cwd()))
+      |> Enum.map(
+        &(&1
+          |> String.replace(~r/(:\d+)+$/, "")
+          |> Path.expand()
+          |> Path.wildcard()
+          |> Path.relative_to_cwd())
+      )
 
       # |> IO.inspect(label: "paths_to_test")
     end

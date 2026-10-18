@@ -48,10 +48,11 @@ jobs:
     uses: ./.github/workflows/flavours.yaml
 
   compute_tags:
-    needs: detect_version
+    needs: [detect_version, flavours]
     uses: ./.github/workflows/compute_release_tags.yaml
     with:
       version: ${{ needs.detect_version.outputs.version }}
+      flavour_release_stage: ${{ needs.flavours.outputs.flavour_release_stage }}
 
   docker_arm64:
     needs: [detect_version, compute_tags, flavours]
@@ -62,6 +63,7 @@ jobs:
       arch: aarch64
       # promotion tiers + the version-named tag (minted here, not in step 1)
       tags: ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.version }}
+      tags_by_flavour: ${{ needs.compute_tags.outputs.tags_by_flavour }}
       flavours: ${{ needs.flavours.outputs.build }}
 
   retag_amd64:
@@ -90,7 +92,7 @@ jobs:
             echo "Source image $SOURCE not found (was ${{ matrix.flavour }} built+pushed in step 1?), skipping this flavour."
             exit 0
           fi
-          for PREFIX in ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.version }}; do
+          for PREFIX in ${{ fromJSON(needs.compute_tags.outputs.tags_by_flavour)[matrix.flavour] }}; do
             TARGET=bonfirenetworks/bonfire:${PREFIX}-${{ matrix.flavour }}-amd64
             echo "Re-tagging $SOURCE -> $TARGET"
             docker buildx imagetools create -t "$TARGET" "$SOURCE"
@@ -104,6 +106,7 @@ jobs:
     secrets: inherit
     with:
       tags: ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.version }}
+      tags_by_flavour: ${{ needs.compute_tags.outputs.tags_by_flavour }}
       flavours: ${{ needs.flavours.outputs.build }}
 
   otp_release_amd64:

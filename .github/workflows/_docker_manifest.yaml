@@ -10,6 +10,11 @@ on:
         description: 'JSON array of flavours (e.g. ["social","open_science"])'
         required: true
         type: string
+      tags_by_flavour:
+        description: 'JSON object of flavour to space-separated tag prefixes (see compute_release_tags.yaml); a flavour listed here uses its own prefixes instead of `tags`'
+        required: false
+        type: string
+        default: '{}'
 
 jobs:
   manifest:
@@ -32,7 +37,7 @@ jobs:
         run: |
           set -e
           # Combine each requested tag prefix into a multi-arch manifest
-          for TAG in ${{ inputs.tags }}; do
+          for TAG in ${{ fromJSON(inputs.tags_by_flavour)[matrix.flavour] || inputs.tags }}; do
             images=""
             for platform in amd64 aarch64 arm32v7; do
               image=bonfirenetworks/bonfire:${TAG}-${{ matrix.flavour }}-$(echo $platform | sed 's#/#-#g')

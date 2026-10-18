@@ -18,6 +18,11 @@ on:
         description: 'JSON array of flavours to build (e.g. ["social","community"])'
         required: true
         type: string
+      tags_by_flavour:
+        description: 'JSON object of flavour to space-separated tag prefixes (see compute_release_tags.yaml); a flavour listed here uses its own prefixes instead of `tags`'
+        required: false
+        type: string
+        default: '{}'
 
 jobs:
   docker:
@@ -92,7 +97,7 @@ jobs:
         id: read_tags
         run: |
           : > docker_tags.txt
-          for PREFIX in ${{ inputs.tags }}; do
+          for PREFIX in ${{ fromJSON(inputs.tags_by_flavour)[matrix.flavour] || inputs.tags }}; do
             echo "bonfirenetworks/${{ env.DOCKER_REPO }}:${PREFIX}-${{ env.FLAVOUR }}-${{ inputs.arch }}" >> docker_tags.txt
           done
           TAGS=$(paste -sd, docker_tags.txt)

@@ -8,6 +8,9 @@ on:
       otp:
         description: 'JSON array of flavours that get OTP binary releases'
         value: ${{ jobs.flavours.outputs.otp }}
+      flavour_release_stage:
+        description: 'JSON object of each flavour to the highest release stage (alpha, beta, rc or stable) whose latest-* tags it gets'
+        value: ${{ jobs.flavours.outputs.flavour_release_stage }}
 
 # Single source of truth for the flavour lists used across release.yaml and release-promote.yaml.
 jobs:
@@ -16,8 +19,12 @@ jobs:
     outputs:
       build: ${{ steps.set.outputs.build }}
       otp: ${{ steps.set.outputs.otp }}
+      flavour_release_stage: ${{ steps.set.outputs.flavour_release_stage }}
     steps:
       - id: set
         run: |
-          echo 'build=["social", "community", "open_science", "bovenjan", "jacobin"]' >> $GITHUB_OUTPUT
+          # Add a flavour here to build it. Its stage caps the latest-* tags it gets: an alpha-stage flavour gets only latest-alpha, even when the version is a beta, rc or stable one.
+          FLAVOUR_RELEASE_STAGE='{"social": "stable", "community": "stable", "bovenjan": "stable", "jacobin": "stable", "open_science": "alpha", "coordination": "alpha"}'
+          echo "flavour_release_stage=$(echo "$FLAVOUR_RELEASE_STAGE" | jq -c .)" >> $GITHUB_OUTPUT
+          echo "build=$(echo "$FLAVOUR_RELEASE_STAGE" | jq -c keys_unsorted)" >> $GITHUB_OUTPUT
           echo 'otp=["community", "open_science"]' >> $GITHUB_OUTPUT
