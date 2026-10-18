@@ -168,6 +168,10 @@ The other, lesser used, type of object is called the `Needle.Pointable`. The maj
 
 > When a record is inserted into a pointable table, a copy is made in the `pointers` table for you transparently. When you delete from the table, the the corresponding `pointers` entry is marked deleted for you. In these ways, they behave very much like virtuals. By having a table, however, we are free to add new fields.
 
+> It also works the other way round: marking a pointable's `pointers` entry deleted (setting its `deleted_at`) DELETES the record from the pointable's table (the `<table>_soft_delete_trigger` installed by `Needle.Migration.create_pointable_triggers/2`). So a pointable's table never holds soft-deleted records, which is why querying it directly needs no `deleted_at` check.
+
+> **Warning: a soft delete therefore loses the pointable's own fields** (the columns of its table, other than the id). Mixins reference the pointer, not the pointable's table, so they survive. Restoring a pointable recreates its record (clearing the pointer's `deleted_at` alone brings back only the pointer), so its own fields have to be given again when it is restored.
+
 Pointables pay for this flexibility by being slightly more expensive than virtuals:
 
 * Records must be inserted into/deleted from two tables (the pointable's table and the `pointers` table).
