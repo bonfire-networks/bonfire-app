@@ -6,7 +6,7 @@ Welcome to Bonfire! This guide will help you create your account, set up your pr
 
 - Visit the Bonfire instance you want to join (e.g. `https://yourinstance.tld`). Some instances are invite-only, and you may need an invite link from an admin or existing member.
 - Click **Sign Up** and fill in your desired username, email, and password.
-- Check your email for a confirmation link.
+- Check your email for a confirmation link and open it. If the page that opens shows a button, press it.
 
 ## 2. Creating and Managing Profiles
 
