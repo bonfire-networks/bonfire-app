@@ -216,7 +216,7 @@ To create an account, go to http://localhost:4000/signup and enter your email ad
 
 You can sign up at that page even though instances are invite-only by default, if you are the first to sign up you'll be able to do so without email confirmation and will automatically be made an instance admin (where you can then generate invite links or enable open sign ups).
 
-However, for any future signups know you can find the confirmation link in the server logs.
+However, for any future signups know you can find the confirmation link in the server logs. Open it in a browser to confirm the email address, and press the button if the page that opens shows one.
 
 > You can also sign up via CLI by entering something like this in your app's Elixir console: `Bonfire.Me.make_account_only("my@email.net", "my pw")`
 
