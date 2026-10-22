@@ -25,7 +25,12 @@ readonly STORAGE_HDD="hdd"
 readonly STORAGE_SAN="san"
 
 # Auto-detect or use environment variables
-PG_DB_TYPE="${PG_DB_TYPE:-${DB_TYPE:-oltp}}"
+# NOTE: default profile is `mixed` (not `oltp`): Bonfire is OLTP plus a tail of analytics-shaped
+# queries (many-join boundarised feeds/threads), which is exactly PGTune's mixed workload. It also
+# right-sizes max_connections (100 vs oltp's 300 — Bonfire's Ecto pool is the pooler, ~25-50 conns;
+# an oversized value wastes RAM headroom and shrinks the computed work_mem, which caused measured
+# multi-TB temp-file spills in prod).
+PG_DB_TYPE="${PG_DB_TYPE:-${DB_TYPE:-mixed}}"
 PG_STORAGE_TYPE="${PG_STORAGE_TYPE:-${DISK_STORAGE_TYPE:-ssd}}"
 PG_DB_VERSION="${PG_DB_VERSION:-17}"
 
@@ -35,14 +40,21 @@ detect_total_memory_kb() {
         echo $((AVAILABLE_RAM_GB * GB / KB))
     elif [[ -n "${AVAILABLE_RAM_MB:-}" ]]; then
         echo $((AVAILABLE_RAM_MB * MB / KB))
+    elif [[ -r /sys/fs/cgroup/memory.max && "$(cat /sys/fs/cgroup/memory.max)" != "max" ]]; then
+        # cgroup v2: an explicit container memory limit is the deliberate budget signal
+        echo $(($(cat /sys/fs/cgroup/memory.max) / KB))
+    elif [[ -r /sys/fs/cgroup/memory/memory.limit_in_bytes ]] &&
+         [[ "$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)" -lt $((1 << 60)) ]]; then
+        # cgroup v1 (its "no limit" sentinel is a huge number rather than "max")
+        echo $(($(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) / KB))
     elif [[ -f /proc/meminfo ]]; then
-        # Linux
-        awk '/MemTotal/ {print int($2)}' /proc/meminfo
+        # Calculate based on total available memory: claiming a fraction as co-hosted services need the rest. Sized for our standard stack (app + postgres + search + proxy). Override with PG_RAM_PERCENT or AVAILABLE_RAM_MB.
+        awk -v pct="${PG_RAM_PERCENT:-40}" '/MemTotal/ {print int($2 * pct / 100)}' /proc/meminfo
     elif command -v sysctl &> /dev/null; then
         # macOS/BSD
         local mem_bytes
         mem_bytes=$(sysctl -n hw.memsize 2>/dev/null || sysctl -n hw.physmem 2>/dev/null)
-        echo $((mem_bytes / KB))
+        echo $((mem_bytes * ${PG_RAM_PERCENT:-40} / 100 / KB))
     else
         # Fallback: assume 4GB
         echo $((4 * GB / KB))
@@ -284,33 +296,35 @@ calc_effective_io_concurrency() {
 }
 
 # Calculate parallel workers settings
+# Echoes 4 space-separated values: max_worker_processes max_parallel_workers_per_gather max_parallel_workers max_parallel_maintenance_workers
+# (single source of truth — generate_env_vars reads these instead of duplicating the logic)
 calc_parallel_settings() {
-    if [[ $CPU_COUNT -lt 4 ]]; then
-        echo ""
-        return
+    local max_worker_processes max_parallel_workers_per_gather max_parallel_workers max_parallel_maintenance_workers
+
+    if [[ $CPU_COUNT -ge 4 ]]; then
+        local workers_per_gather=$((CPU_COUNT / 2))
+        # Cap at 4 for non-DW workloads
+        if [[ "$PG_DB_TYPE" != "$DB_TYPE_DW" && $workers_per_gather -gt 4 ]]; then
+            workers_per_gather=4
+        fi
+
+        local parallel_maint_workers=$((CPU_COUNT / 2))
+        if [[ $parallel_maint_workers -gt 4 ]]; then
+            parallel_maint_workers=4
+        fi
+
+        max_worker_processes=${PG_MAX_WORKER_PROCESSES:-$CPU_COUNT}
+        max_parallel_workers_per_gather=${PG_MAX_PARALLEL_WORKERS_PER_GATHER:-$workers_per_gather}
+        max_parallel_workers=${PG_MAX_PARALLEL_WORKERS:-$CPU_COUNT}
+        max_parallel_maintenance_workers=${PG_MAX_PARALLEL_MAINTENANCE_WORKERS:-$parallel_maint_workers}
+    else
+        max_worker_processes=${PG_MAX_WORKER_PROCESSES:-8}
+        max_parallel_workers_per_gather=${PG_MAX_PARALLEL_WORKERS_PER_GATHER:-2}
+        max_parallel_workers=${PG_MAX_PARALLEL_WORKERS:-8}
+        max_parallel_maintenance_workers=${PG_MAX_PARALLEL_MAINTENANCE_WORKERS:-2}
     fi
 
-    local workers_per_gather=$((CPU_COUNT / 2))
-    local max_parallel_workers=${PG_MAX_PARALLEL_WORKERS:-$CPU_COUNT}
-    local max_worker_processes=${PG_MAX_WORKER_PROCESSES:-$CPU_COUNT}
-
-    # Cap at 4 for non-DW workloads
-    if [[ "$PG_DB_TYPE" != "$DB_TYPE_DW" && $workers_per_gather -gt 4 ]]; then
-        workers_per_gather=4
-    fi
-
-    local parallel_maint_workers=$((CPU_COUNT / 2))
-    if [[ $parallel_maint_workers -gt 4 ]]; then
-        parallel_maint_workers=4
-    fi
-    local max_parallel_maintenance_workers=${PG_MAX_PARALLEL_MAINTENANCE_WORKERS:-$parallel_maint_workers}
-
-    local max_parallel_workers_per_gather=${PG_MAX_PARALLEL_WORKERS_PER_GATHER:-$workers_per_gather}
-
-    echo "max_worker_processes = $max_worker_processes"
-    echo "max_parallel_workers_per_gather = $max_parallel_workers_per_gather"
-    echo "max_parallel_workers = $max_parallel_workers"
-    echo "max_parallel_maintenance_workers = $max_parallel_maintenance_workers"
+    echo "$max_worker_processes $max_parallel_workers_per_gather $max_parallel_workers $max_parallel_maintenance_workers"
 }
 
 # Calculate work_mem
@@ -322,8 +336,10 @@ calc_work_mem() {
 
     local shared_buffers_kb=$1
     local max_connections=$2
-    local max_worker_processes=${PG_MAX_WORKER_PROCESSES:-8}
-    
+    # the actual computed worker count, passed in by generate_env_vars so the divisor stays
+    # consistent with the exported max_worker_processes (was previously assumed to be 8)
+    local max_worker_processes=${3:-${PG_MAX_WORKER_PROCESSES:-8}}
+
     local work_mem_kb=$(( (TOTAL_MEMORY_KB - shared_buffers_kb) / ((max_connections + max_worker_processes) * 3) ))
 
     case "$PG_DB_TYPE" in
@@ -332,9 +348,17 @@ calc_work_mem() {
             ;;
     esac
 
-    # Minimum 64KB
-    if [[ $work_mem_kb -lt 64 ]]; then
-        work_mem_kb=64
+    # Floor for web/oltp/mixed app workloads: below ~16MB, many-join queries (sorts + hashes)
+    # constantly spill to disk-based algorithms writing temp files (measured multi-TB on a busy
+    # instance at 16.6MB with an oversized max_connections divisor). Other profiles keep 64KB.
+    local min_work_mem=64
+    case "$PG_DB_TYPE" in
+        "$DB_TYPE_WEB"|"$DB_TYPE_OLTP"|"$DB_TYPE_MIXED")
+            min_work_mem=$((16 * MB / KB))
+            ;;
+    esac
+    if [[ $work_mem_kb -lt $min_work_mem ]]; then
+        work_mem_kb=$min_work_mem
     fi
 
     echo "$work_mem_kb"
@@ -360,6 +384,48 @@ calc_checkpoint_completion_target() {
     echo "${PG_CHECKPOINT_COMPLETION_TARGET:-0.9}"
 }
 
+# Calculate autovacuum_max_workers (~1/3 of cores, min 3 which is also the PG default)
+calc_autovacuum_max_workers() {
+    if [[ -n "${PG_AUTOVACUUM_MAX_WORKERS:-}" ]]; then
+        echo "$PG_AUTOVACUUM_MAX_WORKERS"
+        return
+    fi
+
+    local workers=$((CPU_COUNT / 3))
+    if [[ $workers -lt 3 ]]; then
+        workers=3
+    fi
+    echo "$workers"
+}
+
+# WAL compression: lz4 is cheaper than the pglz default but needs PG >= 15
+calc_wal_compression() {
+    if [[ -n "${PG_WAL_COMPRESSION:-}" ]]; then
+        echo "$PG_WAL_COMPRESSION"
+        return
+    fi
+
+    if [[ "${PG_DB_VERSION%%.*}" -ge 15 ]]; then
+        echo "lz4"
+    else
+        echo "off"
+    fi
+}
+
+# TOAST compression for large values (post content etc.): lz4 needs PG >= 14
+calc_toast_compression() {
+    if [[ -n "${PG_TOAST_COMPRESSION:-}" ]]; then
+        echo "$PG_TOAST_COMPRESSION"
+        return
+    fi
+
+    if [[ "${PG_DB_VERSION%%.*}" -ge 14 ]]; then
+        echo "lz4"
+    else
+        echo "pglz"
+    fi
+}
+
 # Main generation function - output as ENV vars
 generate_env_vars() {
     local max_connections shared_buffers_kb effective_cache_kb maint_work_mem_kb
@@ -376,33 +442,20 @@ generate_env_vars() {
     default_stats_target=$(calc_default_statistics_target)
     random_page_cost=$(calc_random_page_cost)
     effective_io_concurrency=$(calc_effective_io_concurrency)
-    work_mem_kb=$(calc_work_mem "$shared_buffers_kb" "$max_connections")
     huge_pages=$(calc_huge_pages)
     checkpoint_target=$(calc_checkpoint_completion_target)
 
-    # Calculate parallel settings as individual values
+    # Parallel settings (single source: calc_parallel_settings), needed BEFORE work_mem
+    # since the worker count is part of its divisor
     local max_worker_processes max_parallel_workers_per_gather max_parallel_workers max_parallel_maintenance_workers
-    if [[ $CPU_COUNT -ge 4 ]]; then
-        local workers_per_gather=$((CPU_COUNT / 2))
-        if [[ "$PG_DB_TYPE" != "$DB_TYPE_DW" && $workers_per_gather -gt 4 ]]; then
-            workers_per_gather=4
-        fi
-        
-        local parallel_maint_workers=$((CPU_COUNT / 2))
-        if [[ $parallel_maint_workers -gt 4 ]]; then
-            parallel_maint_workers=4
-        fi
+    read -r max_worker_processes max_parallel_workers_per_gather max_parallel_workers max_parallel_maintenance_workers <<< "$(calc_parallel_settings)"
 
-        max_worker_processes=${PG_MAX_WORKER_PROCESSES:-$CPU_COUNT}
-        max_parallel_workers_per_gather=${PG_MAX_PARALLEL_WORKERS_PER_GATHER:-$workers_per_gather}
-        max_parallel_workers=${PG_MAX_PARALLEL_WORKERS:-$CPU_COUNT}
-        max_parallel_maintenance_workers=${PG_MAX_PARALLEL_MAINTENANCE_WORKERS:-$parallel_maint_workers}
-    else
-        max_worker_processes=${PG_MAX_WORKER_PROCESSES:-8}
-        max_parallel_workers_per_gather=${PG_MAX_PARALLEL_WORKERS_PER_GATHER:-2}
-        max_parallel_workers=${PG_MAX_PARALLEL_WORKERS:-8}
-        max_parallel_maintenance_workers=${PG_MAX_PARALLEL_MAINTENANCE_WORKERS:-2}
-    fi
+    work_mem_kb=$(calc_work_mem "$shared_buffers_kb" "$max_connections" "$max_worker_processes")
+
+    local autovacuum_max_workers wal_compression toast_compression
+    autovacuum_max_workers=$(calc_autovacuum_max_workers)
+    wal_compression=$(calc_wal_compression)
+    toast_compression=$(calc_toast_compression)
 
     # Output ENV vars (only if not already set)
     cat << EOF
@@ -424,6 +477,27 @@ export PG_MAX_WORKER_PROCESSES=\${PG_MAX_WORKER_PROCESSES:-$max_worker_processes
 export PG_MAX_PARALLEL_WORKERS_PER_GATHER=\${PG_MAX_PARALLEL_WORKERS_PER_GATHER:-$max_parallel_workers_per_gather}
 export PG_MAX_PARALLEL_WORKERS=\${PG_MAX_PARALLEL_WORKERS:-$max_parallel_workers}
 export PG_MAX_PARALLEL_MAINTENANCE_WORKERS=\${PG_MAX_PARALLEL_MAINTENANCE_WORKERS:-$max_parallel_maintenance_workers}
+# JIT: a per-execution LLVM compile tax on complex-but-fast app queries; off unless doing long analytics scans
+export PG_JIT=\${PG_JIT:-off}
+# observability: query stats extension (restart-required to change), I/O timing, full query texts in pg_stat_activity
+export PG_PRELOAD_LIBS=\${PG_PRELOAD_LIBS:-pg_stat_statements}
+export PG_TRACK_IO_TIMING=\${PG_TRACK_IO_TIMING:-on}
+export PG_TRACK_ACTIVITY_QUERY_SIZE=\${PG_TRACK_ACTIVITY_QUERY_SIZE:-16384}
+# autovacuum tuned for soft-delete/append app workloads (default 20% thresholds never trigger on big tables);
+# per-table thresholds for the hottest tables also ship as an app migration
+export PG_AUTOVACUUM_VACUUM_SCALE_FACTOR=\${PG_AUTOVACUUM_VACUUM_SCALE_FACTOR:-0.05}
+export PG_AUTOVACUUM_VACUUM_INSERT_SCALE_FACTOR=\${PG_AUTOVACUUM_VACUUM_INSERT_SCALE_FACTOR:-0.05}
+export PG_AUTOVACUUM_ANALYZE_SCALE_FACTOR=\${PG_AUTOVACUUM_ANALYZE_SCALE_FACTOR:-0.02}
+export PG_AUTOVACUUM_VACUUM_COST_LIMIT=\${PG_AUTOVACUUM_VACUUM_COST_LIMIT:-1000}
+export PG_AUTOVACUUM_MAX_WORKERS=\${PG_AUTOVACUUM_MAX_WORKERS:-$autovacuum_max_workers}
+export PG_LOG_AUTOVACUUM_MIN_DURATION=\${PG_LOG_AUTOVACUUM_MIN_DURATION:-0}
+# cheaper compression codecs (version-gated: wal lz4 needs PG15+, toast lz4 PG14+)
+export PG_WAL_COMPRESSION=\${PG_WAL_COMPRESSION:-$wal_compression}
+export PG_TOAST_COMPRESSION=\${PG_TOAST_COMPRESSION:-$toast_compression}
+# diagnostics logging: slow statements (server-side; the app logs its own from 100ms), lock waits, temp-file spills
+export PG_LOG_MIN_DURATION_STATEMENT=\${PG_LOG_MIN_DURATION_STATEMENT:-2000}
+export PG_LOG_LOCK_WAITS=\${PG_LOG_LOCK_WAITS:-on}
+export PG_LOG_TEMP_FILES=\${PG_LOG_TEMP_FILES:-0}
 EOF
 }
 
