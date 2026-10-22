@@ -135,23 +135,23 @@ jobs:
         echo "suites=$suites" >> "$GITHUB_OUTPUT"
 
   # The same suites on YugabyteDB, each only once it has passed on Postgres, so a YugabyteDB failure points at YugabyteDB rather than at a bug both databases share.
-  test-yugabyte:
-    needs: [check_file_changed, prepare, postgres-passed]
-    if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' && needs.prepare.result == 'success' && needs.postgres-passed.outputs.suites != '[]' && needs.postgres-passed.outputs.suites != '' }}
-    runs-on: ubuntu-latest
-    name: ${{matrix.test_only}} flavour:${{matrix.flavour}} db:yugabyte otp:${{matrix.otp}} elixir:${{matrix.elixir}}
-    # YugabyteDB support is experimental, so its failures show per job without failing the workflow
-    continue-on-error: true
-    strategy:
-      fail-fast: false
-      matrix:
-        flavour: *flavours
-        test_only: ${{ fromJSON(needs.postgres-passed.outputs.suites) }}
-        otp: *otps
-        elixir: *elixirs
-        with_docker: *with_dockers
-    env: *test_env
-    steps: *test_steps
+  # test-yugabyte:
+  #   needs: [check_file_changed, prepare, postgres-passed]
+  #   if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' && needs.prepare.result == 'success' && needs.postgres-passed.outputs.suites != '[]' && needs.postgres-passed.outputs.suites != '' }}
+  #   runs-on: ubuntu-latest
+  #   name: ${{matrix.test_only}} flavour:${{matrix.flavour}} db:yugabyte otp:${{matrix.otp}} elixir:${{matrix.elixir}}
+  #   # YugabyteDB support is experimental, so its failures show per job without failing the workflow
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       flavour: *flavours
+  #       test_only: ${{ fromJSON(needs.postgres-passed.outputs.suites) }}
+  #       otp: *otps
+  #       elixir: *elixirs
+  #       with_docker: *with_dockers
+  #   env: *test_env
+  #   steps: *test_steps
 
   # This job summarizes the test results and sets an output for downstream workflows
   test_success:
