@@ -642,10 +642,12 @@ Outgoing:
 
 Incoming:
 
-- A proof that verifies makes the controller of the key the author of the document. A proof that is broken, or made by someone other than the document's actor, counts as evidence against the document. A proof that cannot be checked (unknown suite, key that cannot be fetched) is ignored, and the other ways of authenticating are tried.
-- How a document was authenticated is stored with it (`authenticated`: for example `integrity_proof`, `http_signature`, `ld_signature` or `fetched`), and a copy vouched for this way can replace an older stored copy of the same object, while an unvouched one never does.
+- A proof that verifies should match who made the document: the actor that owns the key which signed it. We read a proof when the HTTP signature of the delivery cannot be relied on, for example a copy forwarded by a group or another server. 
+- A proof that does not verify, or that was made by someone other than the document's actor, counts as evidence against the document. 
+- A proof that cannot be checked (unknown suite, key that cannot be fetched) is ignored, and other ways of authenticating are tried instead.
+- How a document was authenticated is stored with it, in the `authenticated` field: `integrity_proof`, `http_signature`, `ld_signature`, `embedded` (inside a document its actor signed, but naming no owner itself), `fetched` (we fetched it from its origin) or `unverified`. A copy that someone vouched for replaces an older stored copy of the same object unless it is provably older. 
 
-### Refernces
+### References
 
 For more details, see [RFC 9421][rfc9421], [draft-cavage HTTP Signatures][10], and [SWICG ActivityPub HTTP Signature spec][swicg-sig].
 
