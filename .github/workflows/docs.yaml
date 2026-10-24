@@ -40,7 +40,7 @@ jobs:
     needs: [check_lockfile_changed, check_docs_changed, check_version_changed]
     if: ${{ needs.check_lockfile_changed.outputs.changed == 'true' || needs.check_docs_changed.outputs.changed == 'true' || needs.check_version_changed.outputs.version_changed == 'true' }}
     runs-on: ubuntu-latest
-    container: hexpm/elixir:1.18.3-erlang-27.3.4-alpine-3.21.3
+    container: hexpm/elixir:1.20.4-erlang-29.1.1-alpine-3.23.6
     # TODO: compute this ^ from .tool-versions
     env:
       FLAVOUR: community
