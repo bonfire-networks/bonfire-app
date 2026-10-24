@@ -375,11 +375,11 @@ What is forwarded:
 - An activity we have already seen is not forwarded again.
 
 To whom: 
-The remote followers of our users involved in that thread, i.e. the authors of the post replied to and of the posts above it, and those who boosted or quoted the post replied to. Delivered to each inbox (shared inbox where there is one) once. Never to the sender's own inbox, nor an inbox the author already addressed in `to`/`cc`/`bto`/`bcc`.
+The remote followers of our users involved in that thread, i.e. the authors of the post replied to and of the posts above it, and those who boosted or quoted the post replied to. Delivered to each inbox (shared inbox where there is one) once. Never to the sender's own inbox, nor an inbox of actors the author directly addressed (eg. in `to`/`cc`).
 
 What you receive:
-- The activity exactly as it reached us. Nothing is added or removed, so the author's signature or proof still verifies. `bto`/`bcc` are left as they arrived too: removing them is the emitting server's job, and doing it here would break the proof.
-- An HTTP signature by one of our users in the thread, not by the activity's `actor`. So you have to rely on the author's own signature or proof, as Mastodon does for a forward (`relayed_through_actor`).
+- The activity exactly as it reached us. Nothing is added or removed, so the author's signature or proof still verifies. 
+- A request signed with a HTTP signature by one of our users in the thread, not by the activity's `actor`. So you have to rely on the author's own LD signature or object proof instead.
 
 ### Profile Discovery and Following
 
