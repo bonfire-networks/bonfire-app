@@ -363,6 +363,24 @@ Bonfire supports all standard ActivityPub flows, including:
 - Handling incoming `Flag` activities as moderation reports.
 - Processing `Move` activities for account migration.
 
+### Inbox forwarding
+
+Bonfire forwards some activities it receives ([ActivityPub §7.1.2][ap-forwarding]), so that our users' followers on other servers see the conversations under their posts, and not only the posts.
+
+What is forwarded:
+- A reply (a `Create` whose object has `inReplyTo`) with a post by one of our users anywhere up its reply chain, and an `Update` or `Delete` of such a reply.
+- Only when it is public or unlisted, is not ours, and was accepted by us.
+- Only when it is signed by its author with an LD signature or an [FEP-8b32][fep-8b32] proof, and that signature verifies. A receiver cannot tell a forward from a forgery by our word alone, so an unsigned reply is not forwarded, even though a receiver could refetch it.
+- Not when a group we host relays it already ([FEP-1b12][15]): its followers get it through the group's `Announce`.
+- An activity we have already seen is not forwarded again.
+
+To whom: 
+The remote followers of our users involved in that thread, i.e. the authors of the post replied to and of the posts above it, and those who boosted or quoted the post replied to. Delivered to each inbox (shared inbox where there is one) once. Never to the sender's own inbox, nor an inbox the author already addressed in `to`/`cc`/`bto`/`bcc`.
+
+What you receive:
+- The activity exactly as it reached us. Nothing is added or removed, so the author's signature or proof still verifies. `bto`/`bcc` are left as they arrived too: removing them is the emitting server's job, and doing it here would break the proof.
+- An HTTP signature by one of our users in the thread, not by the activity's `actor`. So you have to rely on the author's own signature or proof, as Mastodon does for a forward (`relayed_through_actor`).
+
 ### Profile Discovery and Following
 
 To follow a remote user or resource, Bonfire:
@@ -645,6 +663,7 @@ Incoming:
 - A proof that verifies should match who made the document: the actor that owns the key which signed it. We read a proof when the HTTP signature of the delivery cannot be relied on, for example a copy forwarded by a group or another server. 
 - A proof that does not verify, or that was made by someone other than the document's actor, counts as evidence against the document. 
 - A proof that cannot be checked (unknown suite, key that cannot be fetched) is ignored, and other ways of authenticating are tried instead.
+- Bonfire forwards replies in its users' threads only when they carry their author's signature or proof (see [Inbox forwarding](#inbox-forwarding)).
 - How a document was authenticated is stored with it, in the `authenticated` field: `integrity_proof`, `http_signature`, `ld_signature`, `embedded` (inside a document its actor signed, but naming no owner itself), `fetched` (we fetched it from its origin) or `unverified`. A copy that someone vouched for replaces an older stored copy of the same object unless it is provably older. 
 
 ### References
@@ -993,4 +1012,5 @@ An ActivityStreams object type representing a long-form post. [12]
 [ld-sig]: https://web-payments.org/vocabs/security#linkedDataSignature2015 "Linked Data Signatures"
 [fep-844e]: https://w3id.org/fep/844e "FEP-844e: Generator-based format discovery"
 [fep-8b32]: https://w3id.org/fep/8b32 "FEP-8b32: Object Integrity Proofs"
+[ap-forwarding]: https://www.w3.org/TR/activitypub/#inbox-forwarding "ActivityPub §7.1.2: Forwarding from Inbox"
 [swicg-sig]: https://swicg.github.io/activitypub-http-signature/ "SWICG ActivityPub HTTP Signature"

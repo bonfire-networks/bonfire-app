@@ -327,10 +327,10 @@ dev-federate-dance: services
 	TEST_INSTANCE=yes just dev-federate
 
 # Run a federated dev instance with a bore tunnel
-dev-federate-tunnel bore_port="1": (_dev-federate-tunneled bore_port)
+dev-federate-tunnel bore_port="1": (_with-federate-tunneled bore_port)
 
 # Run two federated dev instances with bore tunnels
-dev-federate-tunnel-dance bore_port1="1" bore_port2="2": (_dev-federate-tunneled bore_port1 bore_port2 "dance")
+dev-federate-tunnel-dance bore_port1="1" bore_port2="2": (_with-federate-tunneled bore_port1 bore_port2 "dance")
 
 dev-federate-dance-tunnel bore_port1="1" bore_port2="2": (dev-federate-tunnel-dance bore_port1 bore_port2)
 
@@ -739,9 +739,10 @@ dev-dance-db-down:
 	( trap '' INT; just tunnel-bore {{bore_port}} ) &
 	tunnel_pid=$!
 	trap "kill $tunnel_pid 2>/dev/null" EXIT
-	HOSTNAME="{{bore_port}}.{{BORE_SERVER}}" PUBLIC_PORT=443 FEDERATE=yes HOT_CODE_RELOAD=0 PHX_SERVER=yes eval "$TUNNELED_CMD"
+	HOSTNAME="{{bore_port}}.{{BORE_SERVER}}" PUBLIC_PORT=443 FEDERATE=yes HOT_CODE_RELOAD=0 PHX_SERVER=yes TUNNELED=yes eval "$TUNNELED_CMD"
 
-@_dev-federate-tunneled bore_port1="1" bore_port2="2" mode='':
+# runs `cmd` (the dev server by default) tunnelled, and in "dance" mode the test instance tunnelled too
+@_with-federate-tunneled bore_port1="1" bore_port2="2" mode='' cmd="just _dev":
 	#!/usr/bin/env bash
 	if [ "{{mode}}" = "dance" ]; then
 		( trap '' INT; just tunnel-bore {{bore_port2}} ${TEST_INSTANCE_SERVER_PORT:-4002} ) &
@@ -750,7 +751,7 @@ dev-dance-db-down:
 		export TEST_INSTANCE=yes
 		export TEST_INSTANCE_HOSTNAME="{{bore_port2}}.{{BORE_SERVER}}"
 	fi
-	TUNNELED_CMD="just _dev" just _with-bore-tunnel {{bore_port1}}
+	TUNNELED_CMD="{{cmd}}" just _with-bore-tunnel {{bore_port1}}
 
 dev-docker *args='': docker-stop-web
 	just docker-compose {{args}} run -e HOT_CODE_RELOAD=0 --name $WEB_CONTAINER --service-ports web
@@ -1380,10 +1381,19 @@ test-federation-live-DRAGONS *args='':
 	TUNNELED_CMD="OBAN_TESTING=inline just test_run --only live_federation {{args}}" just _with-bore-tunnel "${BORE_PORT:-1}"
 	just mix deps.clean bonfire --build
 
+# The dance with both instances tunnelled (`TUNNELED=yes`), for a dance test with a third party that has to reach them over the internet but needs no account of anyone's, eg. the Fedify CLI's ephemeral inbox (such a test skips itself without the tunnels). The bore ports are `BORE_PORT` (default 1) and `BORE_PORT2` (default 2).
+test-federation-dance-tunneled *args=ap_ext: services _test-dance-positions
+	just _with-federate-tunneled "${BORE_PORT:-1}" "${BORE_PORT2:-2}" dance "OBAN_TESTING=inline just test_run {{args}} --only test_instance"
+	just _test-dance-positions
+
+# Live federation tests with the dance's two instances, both tunnelled so real remotes can reach either: for a test with three parties (a dance test tagged `:live_federation`, eg. a reply from the second instance forwarded to a real server). The bore ports are `BORE_PORT` (default 1) and `BORE_PORT2` (default 2).
+test-federation-live-dance-DRAGONS *args='': services _test-dance-positions
+	just _with-federate-tunneled "${BORE_PORT:-1}" "${BORE_PORT2:-2}" dance "OBAN_TESTING=inline just test_run --only live_federation {{args}}"
+	just _test-dance-positions
+
 # Run live email sending tests. Set LIVE_TEST_SEND_EMAILS=true LIVE_TEST_EMAIL_ENCRYPTED=enc@proton.me LIVE_TEST_EMAIL_PLAIN=plain@gmail.com
 test-live-DRAGONS *args='extensions/bonfire_mailer/test/pgp/pgp_live_test.exs':
 	LIVE_TEST_SEND_EMAILS=true just test_run --only live_federation {{args}}
-
 
 load_testing: services
 	TEST_INSTANCE=yes just mix bonfire.load_testing
