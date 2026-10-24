@@ -76,13 +76,16 @@ Bonfire implements and/or experiments with several [Fediverse Enhancement Propos
 
 - [FEP-044f][7] (Quote Posts)
 - [TBD][15] (Interaction Policy)
+- [FEP-1b12][15] (Group federation)
 - [FEP-844e][fep-844e] (Capability discovery)
+- [FEP-8b32][fep-8b32] (Object Integrity Proofs, see [below](#object-integrity-proofs-fep-8b32))
+- [FEP-521a][21] (Representing actor's public keys)
 
 Partial support or conformity to-be-confirmed (help needed!):
 - [FEP-f1d5][16], [FEP-eb22][17], and/or [FEP-0151][18] (NodeInfo)
 - [FEP-2277][19] (ActivityPub core types)
 - [FEP-4adb][20] (Derefencing identifiers through webfinger)
-- [FEP-521a][21] (Representing actor's public keys)
+- [FEP-fe34][45] (Origin-based security model)
 - [FEP-5feb][22] (Search indexing consent for actors)
 - [FEP-268d][23] (Search consent signals for objects)
 - [FEP-d8c2][24] (OAuth 2.0 profile for the ActivityPub API)
@@ -100,14 +103,12 @@ Partial support or conformity to-be-confirmed (help needed!):
 - [FEP-eb48][38] (Hashtags)
 
 Work-in-progress, planned, or exploring (suggestions/feedback welcome!):
-- [FEP-1b12][15] (Group federation)
 - [FEP-67ff][39] (FEDERATION.md)
 - [FEP-2677][40] (Identifying the Application Actor)
 - [FEP-d556][41] (Server-level Actor Discovery using WebFinger)
 - [FEP-8a8e][42] (A common approach to using the Event object type)
 - [FEP-efda][43] (Followable objects)
 - [FEP-9967][44] (Polls)
-- [FEP-fe34][45] (Origin-based security model)
 - [FEP-0499][46] (Delivering to multiple inboxes with a multibox endpoints)
 - [FEP-6fcd][47] (Account export container format)
 - [FEP-3264][48] (Federated work coordination)
@@ -625,6 +626,25 @@ Bonfire uses the fragment format for `keyId` (e.g., `https://your.bonfire.instan
 
 The `keyId` in the signature header should match the `id` of the `publicKey` object in the actor's JSON.
 
+### Object integrity proofs (FEP-8b32)
+
+Bonfire signs the activities it sends, and checks the proofs on the ones it receives, following [FEP-8b32][fep-8b32] with the `eddsa-jcs-2022` cryptosuite (JSON canonicalised per RFC 8785, signed with Ed25519).
+
+Outgoing:
+
+- A `Create` or `Update` gets a proof on its object and another on the activity around it. The object's proof lasts when the object is fetched by id or embedded in a boost. The activity's is the one Mastodon reads, on a top-level activity from someone other than the HTTP signer. Any other activity gets a proof on the activity.
+- The Ed25519 key is derived from the actor's RSA key (HKDF-SHA256), so nothing new is stored and no migration is needed. It is published on the actor as an `assertionMethod` entry of type `Multikey` ([FEP-521a][21]), with a `#ed25519-key` fragment on the actor's id.
+- Documents that come out identical for several inboxes share one proof, and one publish has one `created` time. The proof is made last, over exactly the bytes each inbox gets.
+- A group relaying a remote author's `Create` signs its own `Announce` only. The `Create` inside is the author's, and is passed on as it came.
+- If signing fails, the activity goes out unsigned, with a warning in the log.
+- Set `sign_object_integrity_proofs: false` in the `:activity_pub` config to turn it off. `object_integrity_cryptosuite` picks the suite, and `object_integrity_domain_check` (`:relay`, `:strict` or `:off`) sets how a proof's `domain` is checked on incoming documents.
+- Bonfire lists `https://w3id.org/fep/8b32` in the `implements` of its service actor ([FEP-844e](#fep-844e-support)).
+
+Incoming:
+
+- A proof that verifies makes the controller of the key the author of the document. A proof that is broken, or made by someone other than the document's actor, counts as evidence against the document. A proof that cannot be checked (unknown suite, key that cannot be fetched) is ignored, and the other ways of authenticating are tried.
+- How a document was authenticated is stored with it (`authenticated`: for example `integrity_proof`, `http_signature`, `ld_signature` or `fetched`), and a copy vouched for this way can replace an older stored copy of the same object, while an unvouched one never does.
+
 ### Refernces
 
 For more details, see [RFC 9421][rfc9421], [draft-cavage HTTP Signatures][10], and [SWICG ActivityPub HTTP Signature spec][swicg-sig].
@@ -970,4 +990,5 @@ An ActivityStreams object type representing a long-form post. [12]
 [rfc9421]: https://www.rfc-editor.org/rfc/rfc9421 "RFC 9421: HTTP Message Signatures"
 [ld-sig]: https://web-payments.org/vocabs/security#linkedDataSignature2015 "Linked Data Signatures"
 [fep-844e]: https://w3id.org/fep/844e "FEP-844e: Generator-based format discovery"
+[fep-8b32]: https://w3id.org/fep/8b32 "FEP-8b32: Object Integrity Proofs"
 [swicg-sig]: https://swicg.github.io/activitypub-http-signature/ "SWICG ActivityPub HTTP Signature"

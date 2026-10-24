@@ -9,8 +9,14 @@ config :activity_pub,
   # FEP-844e: capabilities advertised via actor generator.implements
   implements: [
     %{"href" => "https://www.w3.org/TR/activitypub/"},
-    %{"href" => "https://datatracker.ietf.org/doc/html/rfc9421"}
+    %{"href" => "https://datatracker.ietf.org/doc/html/rfc9421"},
+    %{"href" => "https://w3id.org/fep/8b32"}
   ],
+  # FEP-8b32: sign what we send with an Object Integrity Proof (made by a key derived from the actor's RSA key)
+  sign_object_integrity_proofs: true,
+  object_integrity_cryptosuite: "eddsa-jcs-2022",
+  # how a proof's `domain` is checked: `:relay` accepts our own host, or the group relaying the activity (FEP-1b12); see `ActivityPub.Safety.IntegrityProofs`
+  object_integrity_domain_check: :relay,
   # Known software that validates RFC 9421 signatures, with minimum version (:any = all versions).
   # Used by nodeinfo-based format inference in Instances.maybe_infer_format_from_nodeinfo/2.
   rfc9421_software: %{
@@ -47,6 +53,63 @@ config :activity_pub, :instance,
   federation_incoming_max_recursion: 10,
   rewrite_policy: [ActivityPub.MRF.KeywordPolicy, Bonfire.Federate.ActivityPub.BoundariesMRF],
   handle_unknown_activities: true
+
+# Objects nested in the fields of another object (an event's `location`) are stored as objects of their own, and the field keeps their id (`ActivityPub.Federator.NestedObjects`). Which fields hold objects is read from the document's `@context`: the terms it defines as IRIs, plus `extra_terms`, minus `never_ingest`.
+config :activity_pub, :nested_objects,
+  # terms to ingest that no context defines as an IRI
+  extra_terms: [],
+  # object-valued in the vocabulary, but not ours to ingest: they name who or what a document is about or addressed to, media and tags (handled by their own extensions), and the pages, endpoints and links around a collection
+  never_ingest: [
+    "type",
+    "formerType",
+    "actor",
+    "object",
+    "attributedTo",
+    "audience",
+    "context",
+    "inReplyTo",
+    "replies",
+    "icon",
+    "image",
+    "attachment",
+    "tag",
+    "url",
+    "to",
+    "bto",
+    "cc",
+    "bcc",
+    "first",
+    "last",
+    "next",
+    "prev",
+    "current",
+    "partOf",
+    "items",
+    "orderedItems",
+    "inbox",
+    "outbox",
+    "followers",
+    "following",
+    "members",
+    "moderators",
+    "liked",
+    "likes",
+    "shares",
+    "streams",
+    "endpoints",
+    "sharedInbox",
+    "href",
+    "proxyUrl",
+    "uploadMedia",
+    "oauthAuthorizationEndpoint",
+    "oauthTokenEndpoint",
+    "provideClientKey",
+    "signClientKey",
+    # "alsoKnownAs",
+    "Public"
+  ],
+  # how many remote contexts one document may make us fetch (the sender chooses the URLs)
+  max_remote_contexts: 5
 
 config :activity_pub, :boundaries,
   block: [],
