@@ -633,19 +633,21 @@ Bonfire signs the activities it sends, and checks the proofs on the ones it rece
 Outgoing:
 
 - A `Create` or `Update` gets a proof on its object and another on the activity around it. The object's proof lasts when the object is fetched by id or embedded in a boost. The activity's is the one Mastodon reads, on a top-level activity from someone other than the HTTP signer. Any other activity gets a proof on the activity.
-- The Ed25519 key is derived from the actor's RSA key (HKDF-SHA256), so nothing new is stored and no migration is needed. It is published on the actor as an `assertionMethod` entry of type `Multikey` ([FEP-521a][21]), with a `#ed25519-key` fragment on the actor's id.
-- Documents that come out identical for several inboxes share one proof, and one publish has one `created` time. The proof is made last, over exactly the bytes each inbox gets.
-- A group relaying a remote author's `Create` signs its own `Announce` only. The `Create` inside is the author's, and is passed on as it came.
+- The Ed25519 key is derived from the actor's RSA key (HKDF-SHA256), so nothing new is stored. It is published on the actor as an `assertionMethod` entry of type `Multikey` ([FEP-521a][21]), with a `#ed25519-key` fragment on the actor's id.
+- Documents that are sent identically for several inboxes share one proof, but can otherwise have different proofs.
+- A group relaying a remote author's activities signs its own `Announce` only. The proof on the activity and/or object inside is the author's, passed on as provided by the remote if any.
 - If signing fails, the activity goes out unsigned, with a warning in the log.
-- Set `sign_object_integrity_proofs: false` in the `:activity_pub` config to turn it off. `object_integrity_cryptosuite` picks the suite, and `object_integrity_domain_check` (`:relay`, `:strict` or `:off`) sets how a proof's `domain` is checked on incoming documents.
+- Admins can set `sign_object_integrity_proofs: false` in the `:activity_pub` config to turn it off. `object_integrity_cryptosuite` picks the suite, and `object_integrity_domain_check` (`:relay`, `:strict` or `:off`) sets how a proof's `domain` is checked on incoming documents.
 - Bonfire lists `https://w3id.org/fep/8b32` in the `implements` of its service actor ([FEP-844e](#fep-844e-support)).
 
 Incoming:
 
-- A proof that verifies makes the controller of the key the author of the document. A proof that is broken, or made by someone other than the document's actor, counts as evidence against the document. A proof that cannot be checked (unknown suite, key that cannot be fetched) is ignored, and the other ways of authenticating are tried.
-- How a document was authenticated is stored with it (`authenticated`: for example `integrity_proof`, `http_signature`, `ld_signature` or `fetched`), and a copy vouched for this way can replace an older stored copy of the same object, while an unvouched one never does.
+- A proof that verifies should match who made the document: the actor that owns the key which signed it. We read a proof when the HTTP signature of the delivery cannot be relied on, for example a copy forwarded by a group or another server. 
+- A proof that does not verify, or that was made by someone other than the document's actor, counts as evidence against the document. 
+- A proof that cannot be checked (unknown suite, key that cannot be fetched) is ignored, and other ways of authenticating are tried instead.
+- How a document was authenticated is stored with it, in the `authenticated` field: `integrity_proof`, `http_signature`, `ld_signature`, `embedded` (inside a document its actor signed, but naming no owner itself), `fetched` (we fetched it from its origin) or `unverified`. A copy that someone vouched for replaces an older stored copy of the same object unless it is provably older. 
 
-### Refernces
+### References
 
 For more details, see [RFC 9421][rfc9421], [draft-cavage HTTP Signatures][10], and [SWICG ActivityPub HTTP Signature spec][swicg-sig].
 

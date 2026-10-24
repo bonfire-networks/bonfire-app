@@ -7,6 +7,54 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: past releases
 
+## Bonfire [1.1 (unreleased)]
+
+### Added
+- ✨ Public groups and announcement channels can now federate: people on other Bonfire instances and fediverse apps can find, join or follow them and take part in the conversation, using plain ActivityPub with FEP-1b12 [#745](https://github.com/bonfire-networks/bonfire-app/issues/745) [#743](https://github.com/bonfire-networks/bonfire-app/issues/743) [#673](https://github.com/bonfire-networks/bonfire-app/issues/673) [#1390](https://github.com/bonfire-networks/bonfire-app/issues/1390) (thanks @mayel and @ivanminutillo)
+- ✨ Rebuilt notifications: a bell to be notified about the latest from people, groups, discussions, or even just the replies to a branch of a nested discussion, with opt-in notifications per type and category, and optional email digests [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo)
+- ✨ Pin posts in groups, topics and profiles, shown in a pinned carousel (thanks @ivanminutillo)
+- ✨ When silencing, ghosting or blocking someone, choose whether to also unfollow them and send a Block to their server [#2310](https://github.com/bonfire-networks/bonfire-app/issues/2310) (thanks @mayel)
+- ✨ Admins can restrict signups to allowed email domains or SSO providers [#2324](https://github.com/bonfire-networks/bonfire-app/issues/2324) (thanks @mayel)
+- 🚧 Confirm your identity before sensitive actions (sudo mode) [#2281](https://github.com/bonfire-networks/bonfire-app/issues/2281) (thanks @ivanminutillo and @mayel)
+- 📝 The app can optionally use a YugabyteDB database (thanks @mayel)
+- 📝 Communities can use their own vocabulary for widget titles (thanks @mayel)
+- 📝 International handles, supporting unicode usernames (for remote users, and optionally for creating local ones) and domain names (thanks @mayel)
+
+### Changed
+- 💅 Better UI and UX for groups and topics: new group and topic headers and navigation, posting to a topic from the group composer, a group sidebar with follow and notification options, and a confirmation before leaving a group [#2351](https://github.com/bonfire-networks/bonfire-app/issues/2351) [#2389](https://github.com/bonfire-networks/bonfire-app/issues/2389) (thanks @sarahsquirrel and @ivanminutillo)
+- 💅 Redesigned guest homepage, about page and login (thanks @ivanminutillo)
+- 💅 Configure the dashboard widgets to display (thanks @ivanminutillo)
+- 💅 Dashboard widgets redesigned, including a carousel for top discussions and a community rules widget [#2397](https://github.com/bonfire-networks/bonfire-app/issues/2397) (thanks @ivanminutillo)
+- 💅 Reworked feed controls, with separate controls for what a feed includes and how it's ordered (thanks @ivanminutillo)
+- 💅 All post actions now sit inline in the "more actions" menu, without an "advanced" button (thanks @ivanminutillo)
+- 💅 Poll UI improvements (thanks @ivanminutillo)
+- 🔒 Follows and likes are now only sent to the person concerned, not to all your followers (thanks @ivanminutillo)
+- 🚀 Improvements to search (thanks @mayel and @ivanminutillo)
+- 🚀 Media handling and optimisation improvements (thanks @mayel and @ivanminutillo)
+- ✨ Show your password while creating an account [#2346](https://github.com/bonfire-networks/bonfire-app/issues/2346) (thanks @sarahsquirrel and @ivanminutillo)
+- 🚀 More system tuning, and a database healthcheck (thanks @mayel)
+- 📝 Mastodon API improvements (thanks @ivanminutillo)
+- 👷 Better syntax highlighting in code blocks [#1205](https://github.com/bonfire-networks/bonfire-app/issues/1205) (thanks @mayel)
+- 📝 Deployment docs, including installing with Co-op Cloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [PR #2267](https://github.com/bonfire-networks/bonfire-app/pull/2267) (thanks @mayel and @jeppebundsgaard)
+- 📝 Revived the nix devShell [PR #2332](https://github.com/bonfire-networks/bonfire-app/pull/2332) (thanks @merutam)
+- 🌐 Improved localisation coverage throughout the app (thank you translators!)
+
+### Fixed
+- 🐛 Alt texts federating again [#2241](https://github.com/bonfire-networks/bonfire-app/issues/2241) (thanks @ivanminutillo and @mayel)
+- 🐛 Fixed timelines loading forever after a websocket issue [#2435](https://github.com/bonfire-networks/bonfire-app/issues/2435) (thanks @DeadSuperHero)
+- 🐛 Fixed boost and like counters stopping at 2 in feeds [#2225](https://github.com/bonfire-networks/bonfire-app/issues/2225), and reply and boost counts missing when opening a post directly [#1584](https://github.com/bonfire-networks/bonfire-app/issues/1584) (thanks @daehee, @mayel and @ivanminutillo)
+- 🐛 Fixed the newest post not showing in the Local feed [#1892](https://github.com/bonfire-networks/bonfire-app/issues/1892) (thanks @jeppebundsgaard)
+- 🐛 Fixed avatars not loading in the thread participants list [#2250](https://github.com/bonfire-networks/bonfire-app/issues/2250) [#2279](https://github.com/bonfire-networks/bonfire-app/issues/2279) (thanks @ccamara, @lelehier and @ivanminutillo)
+- 🐛 Mastodon API: fixed blank avatars [#2391](https://github.com/bonfire-networks/bonfire-app/issues/2391) and markdown showing in notifications [#2392](https://github.com/bonfire-networks/bonfire-app/issues/2392) (thanks @DeadSuperHero, @ccamara, @lelehier and @ivanminutillo)
+- 🐛 Fixed the profile switcher an incorrect notification count [#2220](https://github.com/bonfire-networks/bonfire-app/issues/2220), and long usernames overflowing its menu [#2393](https://github.com/bonfire-networks/bonfire-app/issues/2393) (thanks @btfreeorg, @ccamara, @mayel and @ivanminutillo)
+- 🐛 Fixed a settings error when the connection came back on a notification [#2395](https://github.com/bonfire-networks/bonfire-app/issues/2395) (thanks @ivanminutillo)
+- 📱 Fixed the right sidebar not showing on narrow screens [#2388](https://github.com/bonfire-networks/bonfire-app/issues/2388), and thread controls overflowing on mobile [#2251](https://github.com/bonfire-networks/bonfire-app/issues/2251) (thanks @ccamara, @lelehier and @ivanminutillo)
+- 🐛 Fixed quotes in code blocks getting mangled [#2370](https://github.com/bonfire-networks/bonfire-app/issues/2370) (thanks @mayel)
+- 🐛 Fixed "Sorry, a function didn't receive the data it expected" errors [#2158](https://github.com/bonfire-networks/bonfire-app/issues/2158) (thanks @btfreeorg and @mayel)
+- 🐛 Fixed topic posts in groups missing where they were published and orphaned replies in threads (thanks @ivanminutillo)
+- 🐛 Fixed typos [PR #2308](https://github.com/bonfire-networks/bonfire-app/pull/2308) (thanks @btfreeorg)
+
+
 ## Bonfire [1.0.7 (2026-08-30)]
 
 ### Added
