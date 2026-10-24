@@ -633,11 +633,11 @@ Bonfire signs the activities it sends, and checks the proofs on the ones it rece
 Outgoing:
 
 - A `Create` or `Update` gets a proof on its object and another on the activity around it. The object's proof lasts when the object is fetched by id or embedded in a boost. The activity's is the one Mastodon reads, on a top-level activity from someone other than the HTTP signer. Any other activity gets a proof on the activity.
-- The Ed25519 key is derived from the actor's RSA key (HKDF-SHA256), so nothing new is stored and no migration is needed. It is published on the actor as an `assertionMethod` entry of type `Multikey` ([FEP-521a][21]), with a `#ed25519-key` fragment on the actor's id.
-- Documents that come out identical for several inboxes share one proof, and one publish has one `created` time. The proof is made last, over exactly the bytes each inbox gets.
-- A group relaying a remote author's `Create` signs its own `Announce` only. The `Create` inside is the author's, and is passed on as it came.
+- The Ed25519 key is derived from the actor's RSA key (HKDF-SHA256), so nothing new is stored. It is published on the actor as an `assertionMethod` entry of type `Multikey` ([FEP-521a][21]), with a `#ed25519-key` fragment on the actor's id.
+- Documents that are sent identically for several inboxes share one proof, but can otherwise have different proofs.
+- A group relaying a remote author's activities signs its own `Announce` only. The proof on the activity and/or object inside is the author's, passed on as provided by the remote if any.
 - If signing fails, the activity goes out unsigned, with a warning in the log.
-- Set `sign_object_integrity_proofs: false` in the `:activity_pub` config to turn it off. `object_integrity_cryptosuite` picks the suite, and `object_integrity_domain_check` (`:relay`, `:strict` or `:off`) sets how a proof's `domain` is checked on incoming documents.
+- Admins can set `sign_object_integrity_proofs: false` in the `:activity_pub` config to turn it off. `object_integrity_cryptosuite` picks the suite, and `object_integrity_domain_check` (`:relay`, `:strict` or `:off`) sets how a proof's `domain` is checked on incoming documents.
 - Bonfire lists `https://w3id.org/fep/8b32` in the `implements` of its service actor ([FEP-844e](#fep-844e-support)).
 
 Incoming:
