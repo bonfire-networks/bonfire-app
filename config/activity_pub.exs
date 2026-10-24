@@ -17,6 +17,8 @@ config :activity_pub,
   object_integrity_cryptosuite: "eddsa-jcs-2022",
   # how a proof's `domain` is checked: `:relay` accepts our own host, or the group relaying the activity (FEP-1b12); see `ActivityPub.Safety.IntegrityProofs`
   object_integrity_domain_check: :relay,
+  # the edit history Pleroma and Akkoma federate inside an edited object (`formerRepresentations`, its earlier versions): dropped on receipt unless `true`, since nothing here reads it and its origin still has it
+  keep_received_edit_history: false,
   # Known software that validates RFC 9421 signatures, with minimum version (:any = all versions).
   # Used by nodeinfo-based format inference in Instances.maybe_infer_format_from_nodeinfo/2.
   rfc9421_software: %{
@@ -54,12 +56,14 @@ config :activity_pub, :instance,
   rewrite_policy: [ActivityPub.MRF.KeywordPolicy, Bonfire.Federate.ActivityPub.BoundariesMRF],
   handle_unknown_activities: true
 
-# Objects nested in the fields of another object (an event's `location`) are stored as objects of their own, and the field keeps their id (`ActivityPub.Federator.NestedObjects`). Which fields hold objects is read from the document's `@context`: the terms it defines as IRIs, plus `extra_terms`, minus `never_ingest`.
+# Objects nested in the fields of another object (an event's `location`) are stored as objects of their own, and the field keeps their id (`ActivityPub.Federator.NestedObjects`). Which fields hold objects is read from the document's `@context`: the terms it defines as IRIs, plus `include_fields`, minus `exclude_fields` (the same names as the options of one call to `NestedObjects.ingest/2`, which are added to these and win over them).
 config :activity_pub, :nested_objects,
-  # terms to ingest that no context defines as an IRI
-  extra_terms: [],
+  # what is done with a nested object nobody vouched for (its own proof, or the document carrying it authenticated as its owner or by its origin), unless `include_fields` says otherwise for the field (`{field, policy}`): `:authenticate_or_store` (store it as `unverified`), `:authenticate_or_drop`, `:authenticate_or_fetch_or_store` or `:authenticate_or_fetch_or_drop`. Not fetching by default, which would slow each delivery and load other servers: whoever reads an `unverified` one can fetch it
+  default_policy: :authenticate_or_store,
+  # terms to ingest that no context defines as an IRI, as names, or as `{name, policy}` to set what is done with an object in that field
+  include_fields: [],
   # object-valued in the vocabulary, but not ours to ingest: they name who or what a document is about or addressed to, media and tags (handled by their own extensions), and the pages, endpoints and links around a collection
-  never_ingest: [
+  exclude_fields: [
     "type",
     "formerType",
     "actor",

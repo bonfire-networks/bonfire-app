@@ -103,9 +103,9 @@ if not Code.ensure_loaded?(Mess) do
     """
     def deps_packages(packages, extra_deps, opts) do
       # path beats git beats hex whichever source file lists them, so that eg. a git dep in the base flavour overrides a hex version in the current flavour (stable sort, so among deps of the same kind the earlier source still wins)
-      (packages
-       |> Enum.sort_by(&kind_rank(&1[:kind]))
-       |> Enum.flat_map(&dep_spec(&1, opts))) ++ extra_deps
+      ((packages
+        |> Enum.sort_by(&kind_rank(&1[:kind]))
+        |> Enum.flat_map(&dep_spec(&1, opts))) ++ extra_deps)
       |> deps_uniq(opts)
       |> maybe_filter_umbrella(opts)
     end

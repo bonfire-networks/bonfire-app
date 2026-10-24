@@ -15,7 +15,8 @@ defmodule Bonfire.MessTest do
     ]
   end
 
-  defp write!(dir, files), do: Enum.each(files, fn {name, body} -> File.write!(Path.join(dir, name), body) end)
+  defp write!(dir, files),
+    do: Enum.each(files, fn {name, body} -> File.write!(Path.join(dir, name), body) end)
 
   defp deps(dir), do: Mess.deps(sources(dir), [], use_local_clones?: true, use_umbrella?: false)
 
