@@ -19,6 +19,8 @@ SPDX-License-Identifier: CC0-1.0
 - 📝 The app can optionally use a YugabyteDB database (thanks @mayel)
 - 📝 Communities can use their own vocabulary for widget titles (thanks @mayel)
 - 📝 International handles, supporting unicode usernames (for remote users, and optionally for creating local ones) and domain names (thanks @mayel)
+- 🔒 Posts and activities are now signed with object integrity proofs (FEP-8b32), and proofs on what arrives are checked, so a post passed on by a group or another server can be trusted by its author's own signature. Groups pass on their members' activities unchanged, so those proofs still verify. Tested with Mastodon, Mitra and Fedify (thanks @mayel)
+- ✨ Replies to your posts from people on other servers now reach your followers on other servers too, as do edits and deletions of those replies (inbox forwarding). Only replies signed by their author are passed on, exactly as received, so their followers can trust them. Tested with Mastodon, Mitra and Fedify (thanks @mayel)
 
 ### Changed
 - 💅 Better UI and UX for groups and topics: new group and topic headers and navigation, posting to a topic from the group composer, a group sidebar with follow and notification options, and a confirmation before leaving a group [#2351](https://github.com/bonfire-networks/bonfire-app/issues/2351) [#2389](https://github.com/bonfire-networks/bonfire-app/issues/2389) (thanks @sarahsquirrel and @ivanminutillo)
@@ -34,6 +36,8 @@ SPDX-License-Identifier: CC0-1.0
 - ✨ Show your password while creating an account [#2346](https://github.com/bonfire-networks/bonfire-app/issues/2346) (thanks @sarahsquirrel and @ivanminutillo)
 - 🚀 More system tuning, and a database healthcheck (thanks @mayel)
 - 📝 Mastodon API improvements (thanks @ivanminutillo)
+- 🚀 Fetching a post again from its server now keeps the newer copy, and a post deleted on its server is deleted here too (thanks @mayel)
+- 📝 The federation guide documents object integrity proofs and inbox forwarding, with interop results (thanks @mayel)
 - 👷 Better syntax highlighting in code blocks [#1205](https://github.com/bonfire-networks/bonfire-app/issues/1205) (thanks @mayel)
 - 📝 Deployment docs, including installing with Co-op Cloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [PR #2267](https://github.com/bonfire-networks/bonfire-app/pull/2267) (thanks @mayel and @jeppebundsgaard)
 - 📝 Revived the nix devShell [PR #2332](https://github.com/bonfire-networks/bonfire-app/pull/2332) (thanks @merutam)
@@ -53,6 +57,7 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Fixed "Sorry, a function didn't receive the data it expected" errors [#2158](https://github.com/bonfire-networks/bonfire-app/issues/2158) (thanks @btfreeorg and @mayel)
 - 🐛 Fixed topic posts in groups missing where they were published and orphaned replies in threads (thanks @ivanminutillo)
 - 🐛 Fixed typos [PR #2308](https://github.com/bonfire-networks/bonfire-app/pull/2308) (thanks @btfreeorg)
+- 🐛 Activities from deactivated remote accounts are now refused cleanly, instead of failing with an error (thanks @mayel)
 
 
 ## Bonfire [1.0.7 (2026-08-30)]
