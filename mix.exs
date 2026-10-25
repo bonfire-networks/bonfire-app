@@ -261,6 +261,8 @@ defmodule Bonfire.Umbrella.MixProject do
         {:mock, "~> 0.3", only: :test},
         {:meck, "~> 1.2", only: [:dev, :test], override: true},
         {:mox, "~> 1.0", only: [:dev, :test]},
+        # a Mastodon API client, for bonfire_federate_activitypub's `Nomad.MastoAPI`, which only tests use so far
+        {:hunter, "~> 0.8", only: [:dev, :test]},
         {:bypass, "~> 2.1", only: :test},
         {:ex_machina, "~> 2.7", only: [:dev, :test]},
         {:zest, "~> 0.1.0"},
