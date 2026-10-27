@@ -75,9 +75,7 @@ jobs:
       - name: Push source strings to Transifex
         env:
           TX_TOKEN: ${{ secrets.TX_TOKEN }}
-        run: |
-          just localise-tx-setup
-          just localise-tx-push
+        run: just localise-tx-push
       - name: Create Pull Request for source strings
         uses: peter-evans/create-pull-request@v8
         with:
@@ -87,6 +85,4 @@ jobs:
           title: "Automated update of strings to translate"
           body: "This PR was created automatically by the localise-extract workflow."
           base: main
-          add-paths: |
-            priv/localisation/*.po
-            .tx/config
+          add-paths: priv/localisation/*.po
