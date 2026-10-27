@@ -1,0 +1,11 @@
+name: Install Transifex client
+description: Install the `tx` CLI. It reads its token from the `TX_TOKEN` env var, set it on the step that runs `tx`.
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        curl -fsSL https://github.com/transifex/cli/releases/latest/download/tx-linux-amd64.tar.gz | tar -xz tx
+        sudo mv tx /usr/local/bin/tx
+        tx --version

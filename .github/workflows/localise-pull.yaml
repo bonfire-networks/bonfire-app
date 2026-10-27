@@ -1,0 +1,36 @@
+name: Pull translations from Transifex
+on:
+  workflow_call: # from localise.yaml, which owns the schedule
+  workflow_dispatch:
+
+# Opens a PR with the latest translated .po files, so step 1 (amd64) and step 2 (arm64) of the next release both build from the same commit.
+# No bonfire build here: `tx pull` and `localise-prune` are plain shell. The pruning drops the locales ex_cldr cannot compile, and the PR's own test run covers the rest.
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  pull:
+    name: Pull translations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: extractions/setup-just@v3
+      - uses: ./.github/actions/install-tx
+      - name: Pull translations
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: |
+          tx pull --minimum-perc 5 -f -a
+          just localise-prune
+      - name: Create Pull Request for translations
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "translations [skip ci]"
+          branch: localisation/pull-${{ github.run_id }}
+          title: "Automated translations update"
+          body: "This PR was created automatically by the localise-pull workflow."
+          base: main
+          add-paths: priv/localisation/**

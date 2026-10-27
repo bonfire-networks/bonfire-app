@@ -1,0 +1,86 @@
+name: Extract strings and push to Transifex
+on:
+  workflow_call: # from localise.yaml, which owns the schedule. A scheduled run only extracts if mix.lock changed since the source .po files last did, a manual one always does
+  workflow_dispatch:
+
+# Extracts the strings to translate, runs the UI tests with the annotator on (so each string gets the pages it rendered on as a `#. URLs:` comment for translators), pushes the sources to Transifex, and opens a PR with the updated source .po files.
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  FLAVOUR: community
+  MIX_ENV: test
+  CI: true
+  WITH_DOCKER: easy
+  WITH_AI: "0"
+  WITH_LV_NATIVE: "0"
+  TEST_LOG_TRUNCATE: 340
+  TEST_LOG_LEVEL: notice
+  POOL_SIZE: 30
+  BONFIRE_POT_URL_BASE: https://campground.bonfire.cafe
+  SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
+  SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
+  ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
+
+jobs:
+  check_lock_changed:
+    name: Check if mix.lock changed since the last extraction
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: check
+        run: |
+          last=$(git log -1 --format=%H -- ':(glob)priv/localisation/*.po')
+          if [ -z "$last" ] || ! git diff --quiet "$last" HEAD -- mix.lock; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+  extract:
+    needs: check_lock_changed
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.check_lock_changed.outputs.changed == 'true' }}
+    name: Extract, annotate and push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # `setup: full` (the default): this is a single job, there is no `prepare` job to restore from
+      - uses: ./.github/actions/prepare-bonfire
+        with:
+          otp: '29.0.5' # keep in sync with .tool-versions
+          elixir: '1.20.3' # keep in sync with .tool-versions
+          flavour: community
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # the annotator switch (`BONFIRE_POT_URL_BASE`) is read when each extension compiles, so this build must not share the tests' cache (made without it). It gets its own, built once with the switch on and restored on later runs.
+          cache-suffix: -annotate
+      - uses: ./.github/actions/install-tx
+      - name: Extract strings
+        run: just localise-extract
+      # failing tests still annotate the pages they reached, so a red suite does not stop the push
+      - name: Run UI tests to annotate strings
+        continue-on-error: true
+        run: just test-ui
+      - name: Push source strings to Transifex
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: |
+          just localise-tx-setup
+          just localise-tx-push
+      - name: Create Pull Request for source strings
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "localisation sources [skip ci]"
+          branch: localisation/extract-${{ github.run_id }}
+          title: "Automated update of strings to translate"
+          body: "This PR was created automatically by the localise-extract workflow."
+          base: main
+          add-paths: |
+            priv/localisation/*.po
+            .tx/config

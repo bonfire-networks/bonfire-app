@@ -1,0 +1,22 @@
+name: Localise (pull translations, then extract strings)
+on:
+  schedule:
+    - cron: '0 3 * * 1' # Mondays, 03:00 UTC
+  workflow_dispatch:
+
+# Pull first, so the translations are captured before the new source strings go to Transifex. Each part can also be run alone: localise-pull.yaml, localise-extract.yaml.
+# The extract part only runs on a schedule if mix.lock changed since the source .po files last did (see its `check_lock_changed` job), a manual run always extracts.
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  pull:
+    uses: ./.github/workflows/localise-pull.yaml
+    secrets: inherit
+
+  extract:
+    needs: pull
+    uses: ./.github/workflows/localise-extract.yaml
+    secrets: inherit
