@@ -66,6 +66,12 @@ jobs:
       - name: Run UI tests to annotate strings
         continue-on-error: true
         run: just test-ui
+      # the UI tests above are allowed to fail, so this is what notices an annotator that wrote nothing (a path mismatch did once), rather than a green run opening an empty PR
+      - name: Check that strings were annotated
+        run: |
+          annotated=$(grep -l '^#\. URLs:' priv/localisation/*.po | wc -l)
+          echo "$annotated source .po files have page URLs"
+          [ "$annotated" -gt 0 ] || { echo "::error::No string was annotated with the pages it rendered on, see the POAnnotator notes in the UI test log"; exit 1; }
       - name: Push source strings to Transifex
         env:
           TX_TOKEN: ${{ secrets.TX_TOKEN }}
