@@ -1308,13 +1308,13 @@ test_run_continue *args='':
 test-federation-lib *args=ap_lib: services _test-dance-positions
 	just test_run {{args}}
 
-test-federation-integration *args=ap_integration: services _test-dance-positions
+test-federation-integration-only *args=ap_integration: services _test-dance-positions
 	just test_run {{args}}
 
 test-federation-boundaries *args=ap_boundaries: services _test-dance-positions
 	just test_run {{args}}
 
-test-federation-general *args=federation_others_excludes: services _test-dance-positions
+test-federation-integration *args=federation_others_excludes: services _test-dance-positions
 	just test_run {{args}}
 
 # dance DB reset is now periodic, not per-run (per-test `clean_slate` + `reset_caches` handle intra-run isolation); run `just test-federation-dance-reset` (or `just _test-db-dance-reset`) periodically / after an interrupted run
