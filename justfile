@@ -136,6 +136,10 @@ setup:
 	{{ if path_exists("extensions/"+select_flavour)=="true" { "chmod +x extensions/"+select_flavour+"/install.sh && ./extensions/"+select_flavour+"/install.sh "+args } else {"chmod +x deps/"+select_flavour+"/install.sh && ./deps/"+select_flavour+"/install.sh "+args } }}
 	just prepare-flavour-theme {{select_flavour}}
 
+# Copy flavours' lib templates into lib/ (default: the current flavour): only the "Processing templates for lib/" step of a flavour install, for when just the templates changed. The flavours a flavour installs first (`run_installers` in its install.sh) go before it, as in the install. Prompts with a diff for each file that differs; `AUTO_YES=true just update-flavour-templates` overwrites without asking. Writes the generated files in lib/bonfire/ (gitignored), not config, migrations or dependencies.
+update-flavour-templates *flavours=FLAVOUR:
+	bash -c 'source extensions/ember/functions.sh; copied=" "; templates() { local f d; for f in "$@"; do case "$copied" in *" $f "*) continue;; esac; copied="$copied$f "; d=extensions/$f; [ -d "$d" ] || d=deps/$f; [ -f "$d/install.sh" ] && templates $(sed -n "s/^run_installers \(.*\) || exit 1/\1/p" "$d/install.sh"); copy_dir_with_prompt "$d/priv/templates/lib/" lib/; done; }; templates {{flavours}}'
+
 # Copy only the active flavour's adapted DaisyUI theme definitions into the build.
 # Flavours without their own theme intentionally produce an empty file and use Bonfire's light/dark themes.
 @prepare-flavour-theme flavour=FLAVOUR:
