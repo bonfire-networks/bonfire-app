@@ -51,6 +51,10 @@ Applicable instance-wide and personal blocks take priority over allowlisting. A 
 
 Archipelago is not a substitute for a post's privacy boundary. Restricting federation does not by itself make a publicly accessible web page private. Choose an appropriate content boundary for material intended for a limited audience.
 
+In Archipelago mode, your server answers only signed requests from allowed servers. So if someone on an allowed server boosts one of your public posts, a server you did not allow cannot fetch the post from you. There is one gap: a Bonfire server sends the whole post along with a boost, and some servers that receives it can use it and re-share it without asking your server for a copy.
+
+Your allowlist cannot control what an allowed server does with your public posts once it has them. Some servers, such as Mastodon and Akkoma with their default settings, show the public posts they hold to anyone through their public pages and API. For sensitive material, use a narrower post boundary.
+
 ## Check the connection
 
 After both communities have configured their policies:
