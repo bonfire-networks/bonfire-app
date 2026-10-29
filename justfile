@@ -1199,19 +1199,31 @@ test-ui-browser path='' *args='': services
 test-others path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` {{others_excludes}} --exclude federation `just test_default_excludes` {{args}}
 
+# Run a fork's own test suite (forks/<fork>) against the services, eg: just test-fork paginator test/paginator/config_test.exs. Args go to `mix test`.
+test-fork fork *args='': services
+	#!/usr/bin/env bash
+	set -euo pipefail
+	# .env sets MIX_ENV=dev, which `mix test` would honour, leaving test/support off elixirc_paths
+	export MIX_ENV=test
+	# the services publish on loopback, so reach them there rather than via .env's in-network hosts
+	export POSTGRES_HOST=127.0.0.1
+	export SONIC_HOST=127.0.0.1
+	cd forks/{{fork}}
+	# a fork's own mix.lock can lag behind its deps' requirements: re-resolve it if so
+	mix deps.get || { mix deps.unlock --all; mix deps.get; }
+	exec mix test {{args}}
+
 # Run the sonix fork's own suite (Sonic client + connection handling). Needs the sonic service, and docker for the tests that spin up a throwaway Sonic.
-test-sonix *args='': services
+test-sonix *args='':
 	#!/usr/bin/env bash
 	set -euo pipefail
 	env_file=$(readlink .env 2>/dev/null || echo .env)
-	# .env sets MIX_ENV=dev, which `mix test` would honour, leaving test/support off elixirc_paths
-	export MIX_ENV=test
-	# the sonic service publishes on loopback, so reach it there rather than via .env's in-network SONIC_HOST
-	export SONIC_HOST=127.0.0.1
 	export SONIC_PORT="${SONIC_PORT:-1491}"
 	export SONIC_PASSWORD=$(grep -h '^SONIC_PASSWORD=' "$env_file" 2>/dev/null | head -1 | cut -d= -f2-)
-	cd forks/sonix
-	exec mix test {{args}}
+	exec just test-fork sonix {{args}}
+
+# Run the paginator fork's own suite (cursor pagination SQL and pages), in its own `paginator_test` database on the db service's Postgres.
+test-paginator *args='': (test-fork "paginator" args)
 
 test_default_excludes:
 	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude integration `just test_minimum_excludes`"
