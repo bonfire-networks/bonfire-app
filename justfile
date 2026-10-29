@@ -1208,7 +1208,11 @@ test-fork fork *args='': services
 	# the services publish on loopback, so reach them there rather than via .env's in-network hosts
 	export POSTGRES_HOST=127.0.0.1
 	export SONIC_HOST=127.0.0.1
-	cd forks/{{fork}}
+	# the fork's checkout when cloned for development, else the pinned git dependency (as in CI)
+	dir=forks/{{fork}}
+	[ -d "$dir" ] || dir=deps/{{fork}}
+	[ -d "$dir" ] || { echo "No forks/{{fork}} or deps/{{fork}} to test"; exit 1; }
+	cd "$dir"
 	# a fork's own mix.lock can lag behind its deps' requirements: re-resolve it if so
 	mix deps.get || { mix deps.unlock --all; mix deps.get; }
 	exec mix test {{args}}
