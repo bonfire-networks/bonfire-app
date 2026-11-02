@@ -82,6 +82,8 @@ endpoint_render_errors = [
 ]
 
 config :bonfire, Bonfire.Web.Endpoint,
+  # Phoenix defaults to Cowboy, which is only compiled in on demand (see below)
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   check_origin: :conn,
   http: [
@@ -92,8 +94,22 @@ config :bonfire, Bonfire.Web.Endpoint,
   live_view: endpoint_live_view,
   pubsub_server: Bonfire.Common.PubSub
 
+# Cowboy is only compiled in when PLUG_SERVER is cowboy or cowboy_socket at build time (see mix.exs). Its `http` options are kept apart from the endpoint's, because runtime.exs can still switch to Bandit, which rejects them. runtime.exs merges them in when it keeps Cowboy.
+if System.get_env("PLUG_SERVER") in ["cowboy", "cowboy_socket"] do
+  config :bonfire, Bonfire.Web.Endpoint, adapter: Phoenix.Endpoint.Cowboy2Adapter
+
+  config :bonfire,
+    cowboy_http_options:
+      [transport_options: [max_connections: 16_384]] ++
+        if(config_env() == :dev,
+          do: [protocol_options: [idle_timeout: to_timeout(minute: 2)]],
+          else: []
+        )
+end
+
 if as_desktop_app? do
   config :bonfire, Bonfire.Desktop.Endpoint,
+    adapter: Bandit.PhoenixAdapter,
     server: true,
     url: [host: "localhost"],
     check_origin: :conn,
@@ -109,6 +125,7 @@ end
 
 # Optionally run a 2nd endpoint for testing federation (only used in dev/prod)
 config :bonfire, Bonfire.Web.FakeRemoteEndpoint,
+  adapter: Bandit.PhoenixAdapter,
   server: true,
   pubsub_server: Bonfire.Common.PubSub,
   render_errors: [view: Bonfire.UI.Common.ErrorView, accepts: ~w(html json), layout: false],

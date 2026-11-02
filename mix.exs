@@ -68,7 +68,7 @@ defmodule Bonfire.Umbrella.MixProject do
   maybe_api_deps =
     if(System.get_env("WITH_API_GRAPHQL") not in no?,
       do: [
-        {:absinthe, "~> 1.10.1"},
+        {:absinthe, "~> 1.12"},
         {:absinthe_graphql_ws, "~> 0.3"},
         {:bonfire_api_graphql, git: "https://github.com/bonfire-networks/bonfire_api_graphql"},
         {:absinthe_client, git: "https://github.com/bonfire-networks/absinthe_client"}
@@ -88,6 +88,22 @@ defmodule Bonfire.Umbrella.MixProject do
       ],
       else: []
     )
+
+  # Bypass needs Ranch 1 and Plug.Cowboy, so its tests only run with TEST_WITH_BYPASS
+  # TODO: replace Bypass in tests with Bonfire.Common.TestServer (which runs on Bandit)
+  with_bypass? = System.get_env("TEST_WITH_BYPASS") && Mix.env() == :test
+
+  # Bandit is the default web server, Cowboy is only compiled in when PLUG_SERVER is cowboy or cowboy_socket at compile time (see config/config.exs and config/runtime.exs)
+  # TODO: move to ember?
+  maybe_cowboy =
+    if(System.get_env("PLUG_SERVER") in ["cowboy", "cowboy_socket"] or with_bypass?,
+      do: [
+        {:plug_cowboy, "~> 2.7", override: true},
+        {:cowboy, "~> 2.14", override: true}
+      ],
+      else: []
+    ) ++
+      if(with_bypass?, do: [{:bypass, "~> 2.1", only: :test}], else: [])
 
   # TODO: move to ember?
   with_ai? = System.get_env("WITH_AI") not in no?
@@ -154,11 +170,9 @@ defmodule Bonfire.Umbrella.MixProject do
   rustler_envs = if(rustler_force_build?, do: [:prod, :dev, :test], else: [:dev, :test])
 
   ranch_req =
-    if System.get_env("TEST_WITH_BYPASS") && Mix.env() == :test do
+    if with_bypass? do
       # must be compatible with Bypass
       "~> 1.8"
-
-      # TODO: replace Bypass in test with one of https://github.com/danschultzer/test_server or https://github.com/andrewtimberlake/sham or https://github.com/claytongentry/lasso
     else
       "~> 2.2"
     end
@@ -167,6 +181,7 @@ defmodule Bonfire.Umbrella.MixProject do
     main_deps ++
       maybe_api_deps ++
       maybe_image_vix ++
+      maybe_cowboy ++
       maybe_ai_deps ++
       maybe_xmpp_deps ++
       maybe_non_ci_deps ++
@@ -184,7 +199,7 @@ defmodule Bonfire.Umbrella.MixProject do
 
         {:ranch, ranch_req, override: true},
         #  to override boruta
-        {:nebulex, "~> 3.0.3", override: true},
+        {:nebulex, "~> 3.1", override: true},
         # Nebulex.Adapters.Replicated for boruta
         {:nebulex_distributed, "~> 3.0", override: true},
 
@@ -198,7 +213,7 @@ defmodule Bonfire.Umbrella.MixProject do
         ## dev conveniences
         {
           :tidewave,
-          "~> 0.5.1",
+          "~> 0.9",
           # git: "https://github.com/tidewave-ai/tidewave_phoenix/",
           only: :dev
         },
@@ -233,7 +248,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # {:phoenix_profiler, "~> 0.2.0"},
         # "~> 0.1.0", path: "forks/one_plus_n_detector",
         # {:one_plus_n_detector, git: "https://github.com/bonfire-networks/one_plus_n_detector", only: :dev},
-        {:observer_cli, "~> 1.7", only: [:dev, :test]},
+        {:observer_cli, "~> 2.0", only: [:dev, :test]},
         {:map_diff, "~> 1.3", only: [:dev, :test]},
         {:sbom, "~> 0.8", only: :dev, runtime: false},
 
@@ -263,12 +278,12 @@ defmodule Bonfire.Umbrella.MixProject do
         {:mox, "~> 1.0", only: [:dev, :test]},
         # a Mastodon API client, for bonfire_federate_activitypub's `Nomad.MastoAPI`, which only tests use so far
         {:hunter, "~> 0.8", only: [:dev, :test]},
-        {:bypass, "~> 2.1", only: :test},
+        # {:bypass, "~> 2.1", only: :test}, # moved to maybe_cowboy, only with TEST_WITH_BYPASS
         {:ex_machina, "~> 2.7", only: [:dev, :test]},
         {:zest, "~> 0.1.0"},
         {:grumble, "~> 0.1.3", only: [:test], override: true},
         {:mix_test_watch, "~> 1.1", only: :test, runtime: false, override: true},
-        {:mix_test_interactive, "~> 5.0", only: :test, runtime: false},
+        {:mix_test_interactive, "~> 6.0", only: :test, runtime: false},
         {:ex_unit_summary, "~> 0.2.0", only: :test},
         {:wallaby, "~> 0.30", runtime: false, only: :test},
         #  for phoenix_live_reload/credo compat with archeometer
@@ -287,13 +302,13 @@ defmodule Bonfire.Umbrella.MixProject do
         {:benchee_html, "~> 1.0", only: [:dev, :test]},
         # for Telemetry store — in all envs so metrics history can be switched on in prod too,
         # though it stays off there by default (see Bonfire.Common.Telemetry.Storage)
-        {:circular_buffer, "~> 0.4"},
+        {:circular_buffer, "~> 1.1"},
         # {:chaperon, "~> 0.3.1", only: [:dev, :test]},
 
         # logging
         {
           :sentry,
-          "~> 13.0",
+          "~> 14.0",
           # git: "https://github.com/getsentry/sentry-elixir",
           only: [:dev, :prod], override: true
         },

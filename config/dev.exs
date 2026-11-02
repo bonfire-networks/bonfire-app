@@ -45,22 +45,13 @@ config :live_debugger, disabled?: System.get_env("DISABLE_LIVE_DEBUGGER") in yes
 # ),
 # else: []
 
-use_cowboy? = System.get_env("PLUG_SERVER") != "bandit"
-max_requests = 1
 
 # Watch static and templates for browser reloading.
 config :bonfire, Bonfire.Web.Endpoint,
   server: true,
   #  show special Phoenix error pages instead of custom Bonfire ones?
   debug_errors: System.get_env("DEV_DEBUG_ERRORS", "1") != "0",
-  check_origin: false,
-  http:
-    if(use_cowboy?,
-      do: [protocol_options: [idle_timeout: to_timeout(minute: 2)]],
-      else: [
-        http_1_options: [max_requests: max_requests]
-      ]
-    )
+  check_origin: false
 
 hot_code_reload = System.get_env("HOT_CODE_RELOAD")
 

@@ -91,8 +91,16 @@ end
 
 phx_server = System.get_env("PHX_SERVER")
 plug_server = System.get_env("PLUG_SERVER")
-use_cowboy? = plug_server == "cowboy"
-use_socket_file? = plug_server == "cowboy_socket"
+# Bandit is the default. Cowboy is only available when PLUG_SERVER was also cowboy or cowboy_socket at build time, which compiles it in and sets its options in config.exs. Any other value switches back to Bandit.
+want_cowboy? = plug_server in ["cowboy", "cowboy_socket"]
+cowboy_compiled? = Code.ensure_loaded?(Plug.Cowboy)
+
+if want_cowboy? and not cowboy_compiled?,
+  do: IO.warn("PLUG_SERVER=#{plug_server} but Cowboy wasn't compiled in, using Bandit instead")
+
+use_cowboy? = want_cowboy? and cowboy_compiled?
+
+use_socket_file? = use_cowboy? and plug_server == "cowboy_socket"
 socket_file_path = System.get_env("SOCKET_FILE_PATH", "/tmp/bonfire_socket")
 phx_compress? = System.get_env("PHX_COMPRESS_HTTP") not in no?
 
@@ -124,7 +132,6 @@ http_options =
         port: server_port,
         compress: phx_compress?,
         transport_options: [
-          max_connections: 16_384,
           socket_opts: [:inet6]
         ]
       ]
@@ -136,8 +143,19 @@ http_options =
         http_options: [
           compress: phx_compress?
         ]
-      ]
+      ] ++
+        if(config_env() == :dev,
+          do: [http_1_options: [max_requests: 1]],
+          else: []
+        )
   end
+
+# the Cowboy options from config.exs, which the endpoint config below deep-merges with http_options
+if use_cowboy?,
+  do:
+    config(:bonfire, Bonfire.Web.Endpoint,
+      http: Application.get_env(:bonfire, :cowboy_http_options, [])
+    )
 
 config :bonfire, Bonfire.Web.Endpoint,
   server:
