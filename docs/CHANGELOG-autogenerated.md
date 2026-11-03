@@ -359,4 +359,3 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Security
 - 🚨 consent-return-and-silent-auth [`f6e8c77`](https://github.com/bonfire-networks/bonfire_open_id/commit/f6e8c77f256521fa5d96d592e5f5f59e0e89bdb5) (thanks @ivanminutillo)
-
