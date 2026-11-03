@@ -238,12 +238,11 @@ defmodule Bonfire.Umbrella.MixProject do
         {:periscope, "~> 0.4", only: :dev},
         # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
         # changelog generation
-        {:versioce, "~> 2.0.0", only: :dev},
+        {:versioce, "~> 2.0.0", only: [:dev, :test]},
         # needed for changelog generation
         {:git_cli, "~> 0.3.0", only: :dev},
         # {:recode, "~> 0.4", only: :dev},
         # API client needed for changelog generation
-        {:neuron, "~> 5.0", only: :dev, override: true},
         {:neuron, "~> 5.0", only: [:dev, :test], override: true},
         # note: cannot use only: dev
         # {:phoenix_profiler, "~> 0.2.0"},
