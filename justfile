@@ -50,6 +50,7 @@ DB_ADAPTER := env_var_or_default('DB_ADAPTER', "postgres")
 ## Other configs - edit these here if necessary
 CLONES_EXTENSIONS_PATH := "extensions/"
 CLONES_EXTRA_PATH := "forks/"
+CLONES_PATHS := CLONES_EXTENSIONS_PATH + " " + CLONES_EXTRA_PATH
 APP_VSN_EXTRA := "beta"
 APP_REL_DOCKERFILE :="Dockerfile.release"
 APP_REL_DOCKERCOMPOSE :="docker-compose.release.yml"
@@ -921,7 +922,7 @@ update-dep-simple deps message='':
 update-clones extra='' message='':
 	#!/usr/bin/env bash
 	if just git-fetch-all; then cmd=rebase; else echo "Fetching all clones with Jungle didn't work, will fetch one by one instead."; cmd=pull; fi
-	just update-clone-path "$CLONES_EXTENSIONS_PATH $CLONES_EXTRA_PATH" "$cmd" 1 1 "{{extra}}" "{{message}}"
+	just update-clone-path "$CLONES_PATHS" "$cmd" 1 1 "{{extra}}" "{{message}}"
 
 # Pull the latest commits from one clone (in whichever of extensions/ or forks/ it lives)
 update-clone dep cmd='pull' extra='' mindepth='0' maxdepth='0' message='':
@@ -1146,19 +1147,19 @@ git-fetch-all:
 
 # Run the git add command on each clone
 git-clones-add: deps-git-fix
-	find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
+	find $CLONES_PATHS -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' add --all . \;
 
 # Run a git status on each clone
 git-clones-status:
-	@jungle git status || find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
+	@jungle git status || find $CLONES_PATHS -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' status \;
 
 # Run a git command on each clone (eg. `just git-clones pull` pulls the latest version of all local deps from its git remote
 git-clones command:
-	@find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
+	@find $CLONES_PATHS -mindepth 1 -maxdepth 1 -type d -exec echo $command {} \; -exec git -C '{}' $command \;
 
 # List all diffs in clones
 git-diff:
-	@find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
+	@find $CLONES_PATHS -mindepth 1 -maxdepth 1 -type d -exec echo {} \; -exec git -C '{}' --no-pager diff --color --exit-code \;
 
 # Run a git command on each dep, to ignore chmod changes
 deps-git-fix:
@@ -1171,7 +1172,7 @@ deps-git-fix:
 
 # Find any git conflicts in clones
 @git-conflicts:
-	find $CLONES_EXTENSIONS_PATH -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
+	find $CLONES_PATHS -mindepth 1 -maxdepth 1 -type d -exec echo add {} \; -exec git -C '{}' diff --name-only --diff-filter=U \;
 
 @git-publish dir='.' cmd='pull' extra='' message='':
 	chmod +x git-publish.sh
