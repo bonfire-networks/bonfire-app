@@ -244,6 +244,7 @@ defmodule Bonfire.Umbrella.MixProject do
         # {:recode, "~> 0.4", only: :dev},
         # API client needed for changelog generation
         {:neuron, "~> 5.0", only: :dev, override: true},
+        {:neuron, "~> 5.0", only: [:dev, :test], override: true},
         # note: cannot use only: dev
         # {:phoenix_profiler, "~> 0.2.0"},
         # "~> 0.1.0", path: "forks/one_plus_n_detector",
