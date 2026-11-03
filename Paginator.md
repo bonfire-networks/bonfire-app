@@ -53,7 +53,7 @@ end
 
 query = from(p in Post, order_by: [asc: p.inserted_at, asc: p.id])
 
-page = MyApp.Repo.paginate(query, cursor_fields: [:inserted_at, :id], limit: 50)
+page = MyApp.Repo.paginate(query, cursor_fields: [inserted_at: :asc, id: :asc], limit: 50)
 
 # `page.edges` contains all the entries for this page.
 # `page.page_info` contains the meta-data associated with this page (cursors, limit, total count)
@@ -89,7 +89,7 @@ end
     query = from(p in Post, order_by: [asc: p.inserted_at, asc: p.id])
 
     # return the first 50 posts
-    %{edges: edges, page_info: page_info} = Repo.paginate(query, cursor_fields: [:inserted_at, :id], limit: 50)
+    %{edges: edges, page_info: page_info} = Repo.paginate(query, cursor_fields: [inserted_at: :asc, id: :asc], limit: 50)
 
     # assign the `after` cursor to a variable
     cursor_after = page_info.end_cursor
@@ -101,11 +101,11 @@ end
     cursor_before = page_info.start_cursor
 
     # return the previous 50 posts (if no post was created in between it should be the same list as in our first call to `paginate`)
-    %{edges: edges, page_info: page_info} = Repo.paginate(query, before: cursor_before, cursor_fields: [:inserted_at, :id], limit: 50)
+    %{edges: edges, page_info: page_info} = Repo.paginate(query, before: cursor_before, cursor_fields: [inserted_at: :asc, id: :asc], limit: 50)
 
     # return total count
     # NOTE: this will issue a separate `SELECT COUNT(*) FROM table` query to the database.
-    %{edges: edges, page_info: page_info} = Repo.paginate(query, include_total_count: true, cursor_fields: [:inserted_at, :id], limit: 50)
+    %{edges: edges, page_info: page_info} = Repo.paginate(query, include_total_count: true, cursor_fields: [inserted_at: :asc, id: :asc], limit: 50)
 
     IO.puts "total count: #{page_info.total_count}"
     ```

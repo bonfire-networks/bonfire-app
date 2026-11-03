@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.40.4">
+    <meta name="project" content="Bonfire v1.1.0-community-beta.26">
+
+
+    <title>Comments on your website (the Telling) — Bonfire v1.1.0-community-beta.26</title>
+
+    <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
+
+    <script defer src="dist/sidebar_items-4E97AAD6.js"></script>
+    <script defer src="docs_config.js"></script>
+    <script defer src="dist/html-MI33G4N7.js"></script>
+
+  </head>
+  <body>
+    <script>(()=>{var t="ex_doc:settings",e="dark";var o="dark",s="light";var E="sidebar_state",n="closed";var r="sidebar_width";var a="sidebar-open";var i=new URLSearchParams(window.location.search),S=i.get("theme")||JSON.parse(localStorage.getItem(t)||"{}").theme;(S===o||S!==s&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&document.body.classList.add(e);var d=sessionStorage.getItem(E),A=d!==n&&!window.matchMedia(`screen and (max-width: ${768}px)`).matches;document.body.classList.toggle(a,A);var c=sessionStorage.getItem(r);c&&document.body.style.setProperty("--sidebarWidth",`${c}px`);var p=/(Macintosh|iPhone|iPad|iPod)/.test(window.navigator.userAgent);document.documentElement.classList.toggle("apple-os",p);})();
+</script>
+
+<div class="body-wrapper">
+
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<nav id="sidebar" class="sidebar">
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
+
+        <a href="https://bonfirenetworks.org" class="sidebar-projectImage">
+          <img src="assets/logo.png" alt="Bonfire" />
+        </a>
+
+      <div>
+        <a href="https://bonfirenetworks.org" class="sidebar-projectName" translate="no">
+Bonfire
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v1.1.0-community-beta.26
+        </div>
+      </div>
+    </div>
+    <ul id="sidebar-list-nav" class="sidebar-list-nav" role="tablist" data-extras="Pages"></ul>
+  </div>
+</nav>
+
+<output role="status" id="toast"></output>
+
+<main class="content page-extra" id="main" data-type="extras">
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Bonfire</span>
+            <div class="search-input-wrapper">
+              <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+              <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+                <i class="ri-close-line ri-lg" title="Cancel search"></i>
+              </button>
+            </div>
+          </label>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <div class="engine-selector" data-multiple="false">
+          <button type="button" class="engine-button" aria-label="Select search engine" aria-haspopup="true" aria-expanded="false">
+            <i class="ri-search-2-line" aria-hidden="true"></i>
+            <span class="engine-name">Default</span>
+            <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+          </button>
+          <div class="engine-dropdown" hidden role="menu">
+
+              <button type="button"
+                      class="engine-option"
+                      data-engine-url="search.html?q="
+                      role="menuitemradio"
+                      aria-checked="true">
+                <span class="name">Default</span>
+                <span class="help">In-browser search</span>
+              </button>
+
+          </div>
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <div class="heading-with-actions top-heading">
+    <h1>Comments on your website (the Telling)</h1>
+
+<a href="embedded-comments.md" title="Copy Markdown (hold Ctrl/Cmd and click it to open as Markdown)" class="copy-markdown icon-action" rel="help">
+  <i class="ri-markdown-line" aria-hidden="true"></i>
+  <span class="sr-only">Copy Markdown</span>
+</a>
+
+
+      <a href="https://github.com/bonfire-networks/bonfire-app/blob/main/docs/user_guides/embedded-comments.md#L1" title="View Source" class="icon-action" rel="help nofollow">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+  </div>
+
+
+<p>The Telling puts a Bonfire discussion under any page of your website: a blog post, an article, a documentation page. Readers can comment with an account on your Bonfire instance, or reply from their own account on any fediverse server. Each page's discussion is a thread on your instance, so it federates like any other post.</p><h2 id="on-your-instance" class="section-heading"><a href="#on-your-instance" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">On your instance</span></h2><p>Whoever runs your Bonfire instance sets these once.</p><ul><li><code class="inline">IFRAME_ALLOWED_ORIGINS</code> (required): the sites allowed to show the Telling, separated by spaces, for example <code class="inline">IFRAME_ALLOWED_ORIGINS=&quot;https://your-blog.example https://another-site.example&quot;</code>. Without it the Telling doesn't display on your site, and no thread is ever created for a page on a site that isn't listed.</li><li>Import author (optional): the account new threads are posted under, for example your own or a dedicated one for your site. With it, a page's thread is created as soon as the Telling first loads there. Without it, a thread starts when a member of the instance signs in through the Telling on that page, so sign in yourself on each new page before readers arrive. For now it's set as &quot;Default author&quot; in the Ghost settings, which needs the Ghost extension.</li></ul><h2 id="add-it-to-a-page" class="section-heading"><a href="#add-it-to-a-page" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Add it to a page</span></h2><p>Add this to the template of the pages that should have comments, where the comments should appear:</p><pre><code class="html">&lt;script
+  src=&quot;https://your-instance.social/js/comments_embed.js&quot;
+  data-theme=&quot;dark&quot;
+  data-mode=&quot;nested&quot;
+  async
+&gt;&lt;/script&gt;</code></pre><p>Only <code class="inline">src</code> is required. The thread defaults to the current page's address, so on most sites the tag above is all you need.</p><h2 id="options" class="section-heading"><a href="#options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Options</span></h2><p>Add any of these attributes to the script tag.</p><p>Which thread it shows:</p><ul><li><code class="inline">data-media-uri</code>: find or create the thread for this address (default: the current page's address).</li><li><code class="inline">data-canonical-slug</code> / <code class="inline">data-canonical-id</code>: find a thread already imported for this post's slug or ID on your own site (for example a Ghost post). Loading the Telling never imports the post itself.</li><li><code class="inline">data-post-id</code>: show a specific Bonfire thread by its ID.</li><li><code class="inline">data-published-at</code>: the page's publication date, as <code class="inline">YYYY-MM-DD</code> (midnight UTC) or a date and time with seconds and a timezone, for example <code class="inline">2026-11-02T14:30:00Z</code> or <code class="inline">2026-11-02T14:30:00+01:00</code>. Backdates a newly created thread, so an older article doesn't jump to the top of feeds. Future dates are ignored, and so is a time without seconds or without a timezone (the thread is then simply not backdated).</li></ul><p>How it looks and behaves:</p><ul><li><code class="inline">data-theme</code>: a Bonfire theme name, for example <code class="inline">&quot;dark&quot;</code> or <code class="inline">&quot;light&quot;</code>.</li><li><code class="inline">data-mode</code>: <code class="inline">&quot;flat&quot;</code> or <code class="inline">&quot;nested&quot;</code> (default: the instance or user setting).</li><li><code class="inline">data-sort-by</code> / <code class="inline">data-sort-order</code>: initial sort (<code class="inline">&quot;latest_reply&quot;</code>, <code class="inline">&quot;reply_count&quot;</code>, <code class="inline">&quot;boost_count&quot;</code>, <code class="inline">&quot;like_count&quot;</code>, <code class="inline">&quot;popularity_score&quot;</code> or <code class="inline">&quot;newest&quot;</code>) and direction (<code class="inline">&quot;asc&quot;</code> or <code class="inline">&quot;desc&quot;</code>).</li><li><code class="inline">data-auth-mode</code>: <code class="inline">&quot;remote&quot;</code> makes the Reply button for logged-out readers send them to reply from their own fediverse account, instead of signing in to your instance. On an instance that is invite-only and which federates, this is the default.</li><li><code class="inline">data-token-max-age</code>: hours before a reader's stored sign-in is treated as stale and they're asked to sign in again (default <code class="inline">720</code>, 30 days). The server enforces a maximum.</li></ul><h2 id="help-the-fediverse-find-your-thread" class="section-heading"><a href="#help-the-fediverse-find-your-thread" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Help the fediverse find your thread</span></h2><p>The reply button already sends fediverse readers to the thread, but if someone pastes your page's address into the search box of their own server instead, that server reads your page without running the script, so it can't see the Telling. Add this line to the <code class="inline">&lt;head&gt;</code> of your page template to point it at the thread:</p><pre><code class="html">&lt;link rel=&quot;alternate&quot; type=&quot;application/activity+json&quot;
+  href=&quot;https://your-instance.social/comments/embed?media_uri=MEDIA_URI&quot;&gt;</code></pre><p>Replace <code class="inline">MEDIA_URI</code>, URL-encoded, with the same address the Telling uses for the thread: your <code class="inline">data-media-uri</code> if you set one, otherwise the page's full address (use your site builder's variable for it).</p><p>Bonfire servers follow this link to the thread. If your instance has an import author set (see above) and your site is in its allowed origins, the thread is created the first time the Telling loads on the page, or a fediverse server looks it up through this link.</p><p>Mastodon only follows a link that is the thread's exact address, not one that redirects there. If your site has a build step, fetch the link above with the header <code class="inline">Accept: application/activity+json</code>, and put the address it redirects to in the tag instead. That exact address works on Mastodon and Bonfire alike.</p><h2 id="ghost" class="section-heading"><a href="#ghost" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Ghost</span></h2><p>The Ghost extension imports your articles and has its own setup. See the <code class="inline">bonfire_ghost</code> extension's README.</p>
+
+</div>
+
+<div class="bottom-actions" id="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="data-manage.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Managing your data on Bonfire
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="extensions.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Bonfire Extensions/Plugins
+        </span>
+      </a>
+
+  </div>
+</div>
+    <footer class="footer">
+
+        <p>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Go to package docs">
+              Go to package docs
+            </button>
+
+              <a href="llms.txt" target="_blank">
+                View llms.txt
+              </a>
+
+
+              <a href="Bonfire.epub">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+
+
+    </footer>
+  </div>
+</main>
+</div>
+
+  </body>
+</html>
