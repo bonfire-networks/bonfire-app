@@ -1307,7 +1307,7 @@ _test-federation_script TEST_CMD="test_run": services
     just _test-dance-positions
     just _test-db-dance-reset
     
-    TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just $TEST_CMD "--exclude rate_limit --only test_instance" {{ ap_ext }}
+    ENABLE_RATE_LIMIT=no TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just $TEST_CMD "--exclude rate_limit --only test_instance" {{ ap_ext }}
     EXIT_CODE_SUM=$((EXIT_CODE_SUM+$?))
     
     # Output a summary - simple pass/fail
@@ -1340,17 +1340,17 @@ test-federation-integration *args=federation_others_excludes: services _test-dan
 
 # dance DB reset is now periodic, not per-run (per-test `clean_slate` + `reset_caches` handle intra-run isolation); run `just test-federation-dance-reset` (or `just _test-db-dance-reset`) periodically / after an interrupted run
 test-federation-dance *args=ap_ext: services _test-dance-positions
-	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
+	ENABLE_RATE_LIMIT=no TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 # The dance with the second instance on an internationalized domain (bücher.localhost, as its A-label), to check federation with IDN hosts. Needs this line in /etc/hosts once: 127.0.0.1 xn--bcher-kva.localhost
 test-federation-dance-idn *args=ap_ext: services _test-dance-positions
-	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 TEST_INSTANCE_HOSTNAME=xn--bcher-kva.localhost TEST_INSTANCE_URL_PORT=4002 just test_run {{args}} --only test_instance
+	ENABLE_RATE_LIMIT=no TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 TEST_INSTANCE_HOSTNAME=xn--bcher-kva.localhost TEST_INSTANCE_URL_PORT=4002 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 # note: also includes oauth
 test-federation-dance-unsigned *args='': services _test-dance-positions
-	ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
+	ENABLE_RATE_LIMIT=no ACCEPT_UNSIGNED_ACTIVITIES=1 TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 # The whole bonfire_open_id suite bar the dance tests (those are `test-openid-dance`). It needs its own runner because its `ConnCase` tags every web test `:ui`: `test-backend` drops those with `--exclude ui` and `test-ui` never loads the extension, so neither suite covers them. The Mastodon API tests live here too and are excluded by default everywhere else, so they are re-included.
@@ -1379,7 +1379,7 @@ test-openid-all:
     fi
 
 test-openid-dance *args=open_id_ext: services _test-dance-positions
-	TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
+	ENABLE_RATE_LIMIT=no TEST_INSTANCE=yes UNTANGLE_TO_IO=1 HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
 	just _test-dance-positions
 
 # reset the dance DBs for the federation dance suite (use periodically / after interrupted runs)
