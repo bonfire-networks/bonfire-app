@@ -1006,6 +1006,16 @@ deps-clean-stitched:
 
 js-deps-fetch: js-ext-deps _assets-ln
 
+# Rebuild the main stylesheet (`priv/static/assets/bonfire_basic.css`) once, with Tailwind, as `watch.css` does on every change in dev: for when no watcher is running, eg. before browser tests that depend on new CSS
+[working-directory: 'extensions/bonfire_ui_common/assets']
+assets-build-css:
+	yarn build.css
+
+# Rebuild all of bonfire_ui_common's assets once: static files, CSS and the JS bundles
+[working-directory: 'extensions/bonfire_ui_common/assets']
+assets-build:
+	yarn build
+
 # Build each extension's own JS bundles. Extensions that ship a `build` script in their assets/package.json own their bundle entirely (deps, loaders, output path), rather than bonfire_ui_common's build chain needing an entry per extension.
 js-ext-build: (js-ext-deps "build.ext")
 
@@ -1184,15 +1194,20 @@ deps-git-fix:
 test path *args='': services
 	just test_run `just test_convert_path "{{path}}"` {{args}}
 
-# Runs `cmd` holding the lock `name`, so runs that would collide take turns: a second one waits for the first, eg. `just with-lock test-run mix test`. Taken in the shell before the command starts, so nothing about it reaches the BEAM (a test node name did, and broke partitioned compiles). `mkdir` is atomic. The holder's pid and start time are kept in it, so a run that was killed or crashed (no exit trap ran) leaves a lock the next one clears: its pid is gone, or now belongs to another process that started at another time. A lock with no pid yet (killed right after taking it) is cleared once it is a couple of minutes old. To clear one by hand: `rm -rf /tmp/bonfire-<name>.lock`
+# Runs `cmd` holding the lock `name`, so runs that would collide take turns: a second one waits for the first, eg. `just with-lock test-run mix test`. Taken in the shell before the command starts, so nothing about it reaches the BEAM (a test node name did, and broke partitioned compiles). `mkdir` is atomic. The holder's pid and start time are kept in it, so a run that was killed or crashed (no exit trap ran) leaves a lock the next one clears: its pid is gone, or now belongs to another process that started at another time. A lock with no pid yet (killed right after taking it) is cleared once it is a couple of minutes old. A nested call, where the holder is one of this run's own parent processes (eg. `with-lock test-run just test …`, as `just test` takes the lock itself), would wait for itself forever: it prints a warning and runs the command without waiting instead. To clear one by hand: `rm -rf /tmp/bonfire-<name>.lock`
 with-lock name +cmd:
 	#!/usr/bin/env bash
 	set -e
 	lock="/tmp/bonfire-$1.lock"
 	shift
 	started() { ps -p "$1" -o lstart= 2>/dev/null; }
+	ancestor() { p=$$; while [ -n "$p" ] && [ "$p" -gt 1 ]; do [ "$p" = "$1" ] && return 0; p=$(ps -o ppid= -p "$p" 2>/dev/null | tr -d ' '); done; return 1; }
 	until mkdir "$lock" 2>/dev/null; do
 		holder=$(cat "$lock/pid" 2>/dev/null || true)
+		if [ -n "$holder" ] && ancestor "$holder"; then
+			echo "WARNING: nested 'with-lock $(basename "$lock" .lock | sed 's/^bonfire-//')': the lock $lock is already held by $holder, which started this run, so waiting for it would wait forever. Running without waiting. Don't wrap a recipe that already takes this lock (eg. 'just test', 'just test-federation-dance') in 'with-lock'." >&2
+			exec "$@"
+		fi
 		if [ -z "$holder" ]; then
 			if [ -n "$(find "$lock" -maxdepth 0 -mmin +1 2>/dev/null)" ]; then
 				echo "Clearing the lock $lock, which never got its holder's pid"
