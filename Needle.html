@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.40.4">
-    <meta name="project" content="Bonfire v1.1.0-community-beta.27">
+    <meta name="project" content="Bonfire v1.1.0-community-beta.28">
 
 
-    <title>Needles and Pointers: Universal foreign keys, virtual schemas, and shared data fields for Ecto — Bonfire v1.1.0-community-beta.27</title>
+    <title>Needles and Pointers: Universal foreign keys, virtual schemas, and shared data fields for Ecto — Bonfire v1.1.0-community-beta.28</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.1.0-community-beta.27
+          v1.1.0-community-beta.28
         </div>
       </div>
     </div>
@@ -174,7 +174,7 @@ record or not record information for each mixin. Sample mixins include:</p><ul><
     </span><span class="n">field</span><span class="w"> </span><span class="ss">:website</span><span class="p">,</span><span class="w"> </span><span class="ss">:string</span><span class="w">
     </span><span class="n">field</span><span class="w"> </span><span class="ss">:location</span><span class="p">,</span><span class="w"> </span><span class="ss">:string</span><span class="w">
   </span><span class="k" data-group-id="group-2">end</span><span class="w">
-</span><span class="k" data-group-id="group-1">end</span></code></pre><blockquote><p>Mixin tables are not themselves pointable, so there is no need to specify a table id as when defining a pointable schema.</p></blockquote><p>Aside from <code class="inline">use</code>ing <a href="./Needle.Mixin.html"><code class="inline">Needle.Mixin</code></a> instead of <a href="https://ecto.hexdocs.pm/3.14.2/Ecto.Schema.html"><code class="inline">Ecto.Schema</code></a> and calling <code class="inline">mixin_schema</code> instead of
+</span><span class="k" data-group-id="group-1">end</span></code></pre><blockquote><p>Mixin tables are not themselves pointable, so there is no need to specify a table id as when defining a pointable schema.</p></blockquote><p>Aside from <code class="inline">use</code>ing <a href="./Needle.Mixin.html"><code class="inline">Needle.Mixin</code></a> instead of <a href="https://ecto.hexdocs.pm/3.14.3/Ecto.Schema.html"><code class="inline">Ecto.Schema</code></a> and calling <code class="inline">mixin_schema</code> instead of
 <code class="inline">schema</code>, pretty similar to a standard Ecto schema, right? </p><p>The arguments to <code class="inline">use Needle.Mixin</code> are:</p><ul><li><code class="inline">otp_app</code>: the OTP app name to use when loading dynamic configuration, e.g. the current extension or app (required)</li><li><code class="inline">source</code>: the underlying table name to use in the database</li></ul><p>We will cover dynamic configuration later. For now, you can use the OTP app that includes the module.</p><h3 id="multimixins" class="section-heading"><a href="#multimixins" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Multimixins</span></h3><p>Multimixins are like mixins, except that where an object may have 0 or 1 of a particular mixins, an object may have any number of a particular multimixin.</p><p>For this to work, a multimixin must have a <em>compound primary key</em> which must contain an <code class="inline">id</code> column referencing <a href="./Needle.Pointer.html"><code class="inline">Needle.Pointer</code></a> and at least one other field which will collectively be unique.</p><p>An example multimixin is used for publishing an item to feeds:</p><pre><code class="makeup elixir" translate="no"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">Bonfire.Data.Social.FeedPublish</span><span class="w"> </span><span class="k" data-group-id="group-1">do</span><span class="w">
 
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Needle.Mixin</span><span class="p">,</span><span class="w">

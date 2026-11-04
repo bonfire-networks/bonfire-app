@@ -5,10 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.40.4">
-    <meta name="project" content="Bonfire v1.1.0-community-beta.27">
+    <meta name="project" content="Bonfire v1.1.0-community-beta.28">
 
 
-    <title>README — Bonfire v1.1.0-community-beta.27</title>
+    <title>README — Bonfire v1.1.0-community-beta.28</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
 
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.1.0-community-beta.27
+          v1.1.0-community-beta.28
         </div>
       </div>
     </div>
@@ -296,7 +296,7 @@ the PaperTrail.Version schema to use it.</p><h5>Example Config</h5><pre><code cl
 </span><span class="c1">#     updated_at: ~N[2016-09-15 23:22:12], first_version_id: 1, current_version_id: 2},</span><span class="w">
 </span><span class="c1">#    version: %PaperTrail.Version{__meta__: #Ecto.Schema.Metadata&lt;:loaded, &quot;versions&quot;&gt;,</span><span class="w">
 </span><span class="c1">#      event: &quot;update&quot;, id: 2, inserted_at: ~N[2016-09-15 23:22:12],</span><span class="w">
-</span><span class="c1">#      item_changes: %{name: &quot;Acme Inc.&quot;}, originator_id: nil, origin: &quot;documentation&quot;, meta: nil}}}</span></code></pre><p>Additionally, you can put a null constraint on <code class="inline">origin</code> column, you should always put an <code class="inline">origin</code> reference to describe who makes the change. This is important for big applications because a model can change from many sources.</p><h3 id="bang-functions" class="section-heading"><a href="#bang-functions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Bang(!) functions:</span></h3><p>PaperTrail also supports <code class="inline">PaperTrail.insert!</code>, <code class="inline">PaperTrail.update!</code>, <code class="inline">PaperTrail.delete!</code>. Naming of these functions intentionally match <code class="inline">Repo.insert!</code>, <code class="inline">Repo.update!</code>, <code class="inline">Repo.delete!</code> functions. If PaperTrail is on strict_mode these bang functions will update the version references of the model just like the normal PaperTrail operations.</p><p>Bang functions assume the operation will always be successful, otherwise functions will raise <a href="https://ecto.hexdocs.pm/3.14.2/Ecto.InvalidChangesetError.html"><code class="inline">Ecto.InvalidChangesetError</code></a> just like <code class="inline">Repo.insert!</code>, <code class="inline">Repo.update!</code> and <code class="inline">Repo.delete!</code>:</p><pre><code class="makeup elixir" translate="no"><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Post</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="group-1">(</span><span class="p" data-group-id="group-2">%</span><span class="nc" data-group-id="group-2">Post</span><span class="p" data-group-id="group-2">{</span><span class="p" data-group-id="group-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="group-3">%{</span><span class="w">
+</span><span class="c1">#      item_changes: %{name: &quot;Acme Inc.&quot;}, originator_id: nil, origin: &quot;documentation&quot;, meta: nil}}}</span></code></pre><p>Additionally, you can put a null constraint on <code class="inline">origin</code> column, you should always put an <code class="inline">origin</code> reference to describe who makes the change. This is important for big applications because a model can change from many sources.</p><h3 id="bang-functions" class="section-heading"><a href="#bang-functions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Bang(!) functions:</span></h3><p>PaperTrail also supports <code class="inline">PaperTrail.insert!</code>, <code class="inline">PaperTrail.update!</code>, <code class="inline">PaperTrail.delete!</code>. Naming of these functions intentionally match <code class="inline">Repo.insert!</code>, <code class="inline">Repo.update!</code>, <code class="inline">Repo.delete!</code> functions. If PaperTrail is on strict_mode these bang functions will update the version references of the model just like the normal PaperTrail operations.</p><p>Bang functions assume the operation will always be successful, otherwise functions will raise <a href="https://ecto.hexdocs.pm/3.14.3/Ecto.InvalidChangesetError.html"><code class="inline">Ecto.InvalidChangesetError</code></a> just like <code class="inline">Repo.insert!</code>, <code class="inline">Repo.update!</code> and <code class="inline">Repo.delete!</code>:</p><pre><code class="makeup elixir" translate="no"><span class="n">changeset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Post</span><span class="o">.</span><span class="n">changeset</span><span class="p" data-group-id="group-1">(</span><span class="p" data-group-id="group-2">%</span><span class="nc" data-group-id="group-2">Post</span><span class="p" data-group-id="group-2">{</span><span class="p" data-group-id="group-2">}</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="group-3">%{</span><span class="w">
   </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Word on the street is Elixir got its own database versioning library&quot;</span><span class="p">,</span><span class="w">
   </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You should try it now!&quot;</span><span class="w">
 </span><span class="p" data-group-id="group-3">}</span><span class="p" data-group-id="group-1">)</span><span class="w">
