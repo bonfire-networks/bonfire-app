@@ -1184,9 +1184,38 @@ deps-git-fix:
 test path *args='': services
 	just test_run `just test_convert_path "{{path}}"` {{args}}
 
+# Runs `cmd` holding the lock `name`, so runs that would collide take turns: a second one waits for the first, eg. `just with-lock test-run mix test`. Taken in the shell before the command starts, so nothing about it reaches the BEAM (a test node name did, and broke partitioned compiles). `mkdir` is atomic. The holder's pid and start time are kept in it, so a run that was killed or crashed (no exit trap ran) leaves a lock the next one clears: its pid is gone, or now belongs to another process that started at another time. A lock with no pid yet (killed right after taking it) is cleared once it is a couple of minutes old. To clear one by hand: `rm -rf /tmp/bonfire-<name>.lock`
+with-lock name +cmd:
+	#!/usr/bin/env bash
+	set -e
+	lock="/tmp/bonfire-$1.lock"
+	shift
+	started() { ps -p "$1" -o lstart= 2>/dev/null; }
+	until mkdir "$lock" 2>/dev/null; do
+		holder=$(cat "$lock/pid" 2>/dev/null || true)
+		if [ -z "$holder" ]; then
+			if [ -n "$(find "$lock" -maxdepth 0 -mmin +1 2>/dev/null)" ]; then
+				echo "Clearing the lock $lock, which never got its holder's pid"
+				rm -rf "$lock"
+				continue
+			fi
+		elif ! kill -0 "$holder" 2>/dev/null || { [ -f "$lock/started" ] && [ "$(started "$holder")" != "$(cat "$lock/started")" ]; }; then
+			echo "Clearing the lock $lock, left by $holder, which is gone"
+			rm -rf "$lock"
+			continue
+		fi
+		echo "Waiting for $lock, held by ${holder:-a run that is starting}..."
+		sleep 5
+	done
+	started $$ > "$lock/started"
+	echo $$ > "$lock/pid"
+	trap 'rm -rf "$lock"' EXIT
+	"$@"
+
+# One run at a time: every session and agent shares the test database and `_build`, so a second run waits for the first (see `with-lock`)
 test_run *args='': services
 	@echo "Testing with {{args}}..."
-	@MIX_ENV=test TEST_UI_ASYNC=no just mix test `just test_minimum_excludes` {{args}} 
+	@just with-lock test-run env MIX_ENV=test TEST_UI_ASYNC=no just mix test `just test_minimum_excludes` {{args}}
 
 test-backend path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
