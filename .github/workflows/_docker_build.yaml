@@ -23,6 +23,16 @@ on:
         required: false
         type: string
         default: '{}'
+      ref:
+        description: 'Git ref or sha to build, e.g. the tag of the version being promoted. Empty builds the commit that triggered the workflow.'
+        required: false
+        type: string
+        default: ''
+      display_version:
+        description: 'Version to build the image under when it is released with a different name than the one in mix.exs (e.g. 1.1.0-rc.1 for a promoted beta). Empty keeps the version in mix.exs.'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   docker:
@@ -48,7 +58,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
+          ref: ${{ inputs.ref }}
           fetch-depth: 2 # needed for action-detect-and-tag-new-version
+      # the commit actually built (not the one that triggered the run, which differs when `ref` is set), recorded on the image so a later promotion can check it is promoting the build it means to
+      - name: Read the built commit
+        id: built_commit
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
       - name: Load .tool-versions to env
         run: |
           ls -la && chmod +x tool-versions-to-env.sh
@@ -124,6 +139,9 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             ELIXIR_DOCKER_IMAGE=${{ env.ELIXIR_DOCKER_IMAGE }}
             RUSTLER_BUILD_ALL=${{ env.RUSTLER_BUILD_ALL }}
+            BONFIRE_DISPLAY_VERSION=${{ inputs.display_version }}
+          labels: |
+            org.opencontainers.image.revision=${{ steps.built_commit.outputs.sha }}
           tags: ${{ env.DOCKER_TAGS }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

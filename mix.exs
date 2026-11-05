@@ -528,6 +528,7 @@ defmodule Bonfire.Umbrella.MixProject do
   @umbrella_apps if use_umbrella?, do: Mess.read_umbrella_names(@mess_opts)
 
   def config, do: @config
+
   def deps, do: config()[:deps]
 
   def project_info do

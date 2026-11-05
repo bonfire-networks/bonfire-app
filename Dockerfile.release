@@ -228,6 +228,9 @@ RUN ls -la priv/static/assets
 
 RUN tar --exclude=*.env --exclude=.git --exclude=node_modules --exclude=priv/static/source.tar.gz  --exclude=priv/static/data --exclude=*/*/assets/static/data --exclude=deps/*/cache -czvf priv/static/source.tar.gz lib deps apps extensions forks config docs priv/repo priv/static mix.exs mix.lock LICENSES || echo "Could not prepare code archive"
 
+# Set when a release is promoted under a new name (beta to rc, see release-promote.yaml): rel/env.sh.eex writes it into the release, and the app reports it instead of the version in mix.exs. Declared here, right before the only step that reads it, so the cached steps above stay valid.
+ARG BONFIRE_DISPLAY_VERSION
+
 # build final OTP release
 RUN MIX_ENV=prod CI=1 mix release
 
@@ -235,7 +238,7 @@ RUN MIX_ENV=prod CI=1 mix release
 # From this line onwards, we're in a new image, which will be the image used in production
 FROM alpine:${ALPINE_VERSION}
 
-ENV APP_REVISION=${APP_VSN}-${APP_BUILD} 
+ENV APP_REVISION=${APP_VSN}-${APP_BUILD}
 
 WORKDIR /opt/app
 

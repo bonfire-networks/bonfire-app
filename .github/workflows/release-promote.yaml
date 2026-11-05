@@ -6,8 +6,14 @@ on:
         description: 'Version to promote (e.g. 0.9.0-beta.1). Leave blank to use the current mix.exs version.'
         required: false
         type: string
+      new_version:
+        description: 'Publish it under this version instead (e.g. 1.1.0-rc.1 to promote 1.1.0-beta.29 to a release candidate). Leave blank to keep the version.'
+        required: false
+        type: string
 
 # Step 2 of a two-step release (run manually once the step-1 `latest-unstable` amd64 images are tested):
+#  - everything is built from the commit tagged with `version` (not from whatever main has moved on to), and the amd64 image is checked to be the build of that commit
+#  - with `new_version`, the images, git tag, GitHub Release and OTP tarballs carry the new name and report it (BONFIRE_DISPLAY_VERSION), and a PR sets it in mix.exs
 #  - builds the linux/arm64 docker images
 #  - promotes the already-built amd64 images by adding the applicable latest-alpha/beta/rc/latest tags
 #    to the SAME image digest (re-tag, no rebuild)
@@ -19,8 +25,15 @@ jobs:
     runs-on: ubuntu-latest
     container: debian:bookworm
     outputs:
+      # the version being promoted, its tag, and the commit that tag points at
       version: ${{ steps.resolve.outputs.version }}
       tag: ${{ steps.resolve.outputs.tag }}
+      commit: ${{ steps.resolve.outputs.commit }}
+      # what it is published as: the same unless `new_version` is given
+      target_version: ${{ steps.resolve.outputs.target_version }}
+      target_tag: ${{ steps.resolve.outputs.target_tag }}
+      # set only when published under a new name, empty leaves every build as it is
+      display_version: ${{ steps.resolve.outputs.display_version }}
     steps:
       - name: Install git
         run: apt-get update -q -y && apt-get install -q -y git
@@ -36,13 +49,28 @@ jobs:
           create-tag: false
           version-command: |
             grep -m 1 'version:' mix.exs | cut -d '"' -f2
-      - name: Resolve version (input overrides detected)
+      - name: Resolve versions (inputs override detected)
         id: resolve
+        env:
+          SOURCE_VERSION: ${{ inputs.version || steps.version.outputs.current-version }}
+          NEW_VERSION: ${{ inputs.new_version }}
         run: |
-          VERSION="${{ inputs.version || steps.version.outputs.current-version }}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
-          echo "Promoting version '$VERSION' (tag v$VERSION)"
+          set -e
+          TARGET_VERSION="${NEW_VERSION:-$SOURCE_VERSION}"
+          # The tag marks the commit the version's images were built from (release.yaml creates it in step 1). Everything built here is built from that commit, so main having moved on does not change what gets promoted.
+          git fetch --depth=1 origin "refs/tags/v${SOURCE_VERSION}:refs/tags/v${SOURCE_VERSION}" || { echo "::error::Tag v${SOURCE_VERSION} not found. Was step 1 (release.yaml) run for this version?"; exit 1; }
+          COMMIT=$(git rev-parse "refs/tags/v${SOURCE_VERSION}^{commit}")
+          echo "version=$SOURCE_VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$SOURCE_VERSION" >> $GITHUB_OUTPUT
+          echo "commit=$COMMIT" >> $GITHUB_OUTPUT
+          echo "target_version=$TARGET_VERSION" >> $GITHUB_OUTPUT
+          echo "target_tag=v$TARGET_VERSION" >> $GITHUB_OUTPUT
+          if [ "$TARGET_VERSION" != "$SOURCE_VERSION" ]; then
+            echo "display_version=$TARGET_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "display_version=" >> $GITHUB_OUTPUT
+          fi
+          echo "Promoting version '$SOURCE_VERSION' (tag v$SOURCE_VERSION, commit $COMMIT) as '$TARGET_VERSION'"
 
   flavours:
     uses: ./.github/workflows/flavours.yaml
@@ -51,7 +79,8 @@ jobs:
     needs: [detect_version, flavours]
     uses: ./.github/workflows/compute_release_tags.yaml
     with:
-      version: ${{ needs.detect_version.outputs.version }}
+      # the stage (and so the latest-* tiers) comes from the name it is published under
+      version: ${{ needs.detect_version.outputs.target_version }}
       flavour_release_stage: ${{ needs.flavours.outputs.flavour_release_stage }}
 
   docker_arm64:
@@ -62,9 +91,12 @@ jobs:
       platforms: linux/arm64
       arch: aarch64
       # promotion tiers + the version-named tag (minted here, not in step 1)
-      tags: ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.version }}
+      tags: ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.target_version }}
       tags_by_flavour: ${{ needs.compute_tags.outputs.tags_by_flavour }}
       flavours: ${{ needs.flavours.outputs.build }}
+      # the commit the amd64 image was built from, not main's current HEAD
+      ref: ${{ needs.detect_version.outputs.commit }}
+      display_version: ${{ needs.detect_version.outputs.display_version }}
 
   retag_amd64:
     needs: [detect_version, compute_tags, flavours]
@@ -83,19 +115,41 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Add promotion + version tags to the tested unstable amd64 image (same digest, no rebuild)
+      - name: Add promotion + version tags to the tested unstable amd64 image (no rebuild)
+        env:
+          FLAVOUR: ${{ matrix.flavour }}
+          COMMIT: ${{ needs.detect_version.outputs.commit }}
+          DISPLAY_VERSION: ${{ needs.detect_version.outputs.display_version }}
+          PREFIXES: ${{ fromJSON(needs.compute_tags.outputs.tags_by_flavour)[matrix.flavour] }}
         run: |
           set -e
           # Source is the untested amd64 image from step 1 (release.yaml); only latest-unstable exists yet.
-          SOURCE=bonfirenetworks/bonfire:latest-unstable-${{ matrix.flavour }}-amd64
+          SOURCE=bonfirenetworks/bonfire:latest-unstable-${FLAVOUR}-amd64
           if ! docker buildx imagetools inspect "$SOURCE" > /dev/null 2>&1; then
-            echo "Source image $SOURCE not found (was ${{ matrix.flavour }} built+pushed in step 1?), skipping this flavour."
+            echo "Source image $SOURCE not found (was ${FLAVOUR} built+pushed in step 1?), skipping this flavour."
             exit 0
           fi
-          for PREFIX in ${{ fromJSON(needs.compute_tags.outputs.tags_by_flavour)[matrix.flavour] }}; do
-            TARGET=bonfirenetworks/bonfire:${PREFIX}-${{ matrix.flavour }}-amd64
-            echo "Re-tagging $SOURCE -> $TARGET"
-            docker buildx imagetools create -t "$TARGET" "$SOURCE"
+
+          # latest-unstable is the NEWEST step-1 build, which is not necessarily the one built from the version being promoted: the revision label says which commit it is
+          BUILT=$(docker buildx imagetools inspect "$SOURCE" --format '{{json .Image}}' | jq -r '(.["linux/amd64"] // .).config.Labels["org.opencontainers.image.revision"] // empty')
+          if [ -z "$BUILT" ]; then
+            echo "::warning::$SOURCE has no revision label (built before it was added), so it cannot be checked to be the build of $COMMIT."
+          elif [ "$BUILT" != "$COMMIT" ]; then
+            echo "::error::$SOURCE was built from $BUILT, not from $COMMIT (the commit of the version being promoted): a newer step-1 build has replaced it."
+            exit 1
+          fi
+
+          for PREFIX in $PREFIXES; do
+            TARGET=bonfirenetworks/bonfire:${PREFIX}-${FLAVOUR}-amd64
+            if [ -z "$DISPLAY_VERSION" ]; then
+              echo "Re-tagging $SOURCE -> $TARGET (same digest)"
+              docker buildx imagetools create -t "$TARGET" "$SOURCE"
+            else
+              # a re-tag cannot change an image's env, so the name it is published under goes in a one-line layer on top: same release binary, nothing compiled (config/runtime.exs reads it)
+              echo "Re-tagging $SOURCE -> $TARGET (reporting version $DISPLAY_VERSION)"
+              printf 'ARG BASE\nFROM ${BASE}\nENV BONFIRE_DISPLAY_VERSION=%s\n' "$DISPLAY_VERSION" \
+                | docker buildx build --platform linux/amd64 --provenance=false --build-arg BASE="$SOURCE" -t "$TARGET" --push -f- .
+            fi
           done
 
   docker_multi_arch_image:
@@ -105,7 +159,7 @@ jobs:
     uses: ./.github/workflows/_docker_manifest.yaml
     secrets: inherit
     with:
-      tags: ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.version }}
+      tags: ${{ needs.compute_tags.outputs.tag_suffixes }} ${{ needs.detect_version.outputs.target_version }}
       tags_by_flavour: ${{ needs.compute_tags.outputs.tags_by_flavour }}
       flavours: ${{ needs.flavours.outputs.build }}
 
@@ -138,11 +192,15 @@ jobs:
       WITH_AI: "0"
       WITH_LV_NATIVE: "0"
       AUTO_YES: "true"
+      # empty unless published under a new name: rel/env.sh.eex then writes it into the release, which reports it
+      BONFIRE_DISPLAY_VERSION: ${{ needs.detect_version.outputs.display_version }}
     steps:
       - name: Install git # needed for checkout with fetch-depth
         run: ${{ matrix.install_git }}
       - uses: actions/checkout@v7
         with:
+          # the commit the version's images were built from, not main's current HEAD
+          ref: ${{ needs.detect_version.outputs.commit }}
           fetch-depth: 5 # needed for action-detect-and-tag-new-version
       - name: Trust my repo
         run: export GIT_CEILING_DIRECTORIES=/__w && git config --global --add safe.directory $(realpath .) # see https://github.com/actions/checkout/issues/760
@@ -218,6 +276,37 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: _build/prod/rel/bonfire-*.tar.gz
-          name: ${{ needs.detect_version.outputs.tag }}
-          tag_name: ${{ needs.detect_version.outputs.tag }}
+          name: ${{ needs.detect_version.outputs.target_tag }}
+          tag_name: ${{ needs.detect_version.outputs.target_tag }}
+          # where a new tag (the one for `new_version`) is created: the same commit as the version being promoted
+          target_commitish: ${{ needs.detect_version.outputs.commit }}
           prerelease: ${{ needs.compute_tags.outputs.prerelease == 'true' }}
+
+  # Once published under a new name, main's mix.exs says so too. `[skip ci]` (in the commit and the title, which a merge commit's message includes) keeps merging it from building the images all over again in step 1.
+  bump_version_pr:
+    needs: [detect_version, docker_multi_arch_image, otp_release_amd64]
+    if: ${{ !cancelled() && needs.detect_version.outputs.display_version != '' && needs.docker_multi_arch_image.result == 'success' && needs.otp_release_amd64.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      NEW_VERSION: ${{ needs.detect_version.outputs.target_version }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set the version in mix.exs
+        run: |
+          set -e
+          # the first `version: "..."`, which is the line CI and the justfile read
+          sed -i -E '0,/version: "[^"]*"/s//version: "'"$NEW_VERSION"'"/' mix.exs
+          [ "$(grep -m 1 'version:' mix.exs | cut -d '"' -f2)" = "$NEW_VERSION" ] || { echo "::error::Could not set the version in mix.exs"; exit 1; }
+      - name: Create Pull Request for the version (no PR if mix.exs already has it)
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "version ${{ env.NEW_VERSION }} [skip ci]"
+          branch: version/${{ env.NEW_VERSION }}
+          title: "Version ${{ env.NEW_VERSION }} [skip ci]"
+          body: "${{ needs.detect_version.outputs.version }} was published as ${{ env.NEW_VERSION }} by the promote workflow. This sets the same version in mix.exs. `[skip ci]` stops merging it from building the images again."
+          base: main
+          add-paths: mix.exs

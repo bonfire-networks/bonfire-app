@@ -73,6 +73,12 @@ config :bonfire,
   host: host,
   default_cache_hours: String.to_integer(System.get_env("BONFIRE_CACHE_HOURS", "3")),
   app_name: System.get_env("APP_NAME", "Bonfire"),
+  # set on an image that was only re-tagged to a new stage, which cannot be rebuilt with the version compiled in
+  app_version:
+    (case System.get_env("BONFIRE_DISPLAY_VERSION") do
+       version when version in [nil, ""] -> nil
+       version -> version
+     end),
   ap_base_path: System.get_env("AP_BASE_PATH", "/pub"),
   # github_app_client_id: System.get_env("GITHUB_APP_CLIENT_ID", "Iv1.8d612e6e5a2149c9"),
   github_token: EnvSecrets.env_or_file("GITHUB_TOKEN"),

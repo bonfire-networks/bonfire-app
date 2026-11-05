@@ -1433,8 +1433,11 @@ test-federation-dance-db-reset: _test-db-dance-reset
 # 	TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run --only live_federation {{args}} 
 # 	just _test-dance-positions
 
+# Clears the compiled `bonfire` app from the test build, so the next run recompiles it with its own `:sql_sandbox` (see config/test.exs). It holds the `test-run` lock, so it waits for any running test run instead of deleting the build under it. Call it only outside a `test_run` (as a dependency, or after one), never from inside the lock.
 _test-dance-positions:
-	TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
+	# TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
+	# replaced: it ran outside the `test-run` lock, so it could wipe `_build/test/lib/bonfire/` while another run compiled or tested (the "router_reverse.ex missing" compile flake)
+	just with-lock test-run env TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 
 # Run rate limit tests (requires a running server on port 4000)
 test-rate-limit *args='': services 
@@ -1442,9 +1445,13 @@ test-rate-limit *args='': services
 
 # NOTE: OBAN_TESTING=inline so ingest finishes before the inbox answers: without it the endpoint stores the activity, queues the local creation, and a test asserting right then sees an AP object with no pointer and reports a bug that is not there
 test-federation-live-DRAGONS *args='':
-	just mix deps.clean bonfire --build
+	# just mix deps.clean bonfire --build
+	# replaced: it ran outside the `test-run` lock, and in the default MIX_ENV (dev, from .env), so it wiped the dev build (under a running `just dev`) and never the test build that the run below compiles with `PHX_SERVER=yes` (`:sql_sandbox` false)
+	just _test-dance-positions
 	TUNNELED_CMD="OBAN_TESTING=inline just test_run --only live_federation {{args}}" just _with-bore-tunnel "${BORE_PORT:-1}"
-	just mix deps.clean bonfire --build
+	# just mix deps.clean bonfire --build
+	# replaced, for the same reason as the first one
+	just _test-dance-positions
 
 # The dance with both instances tunnelled (`TUNNELED=yes`), for a dance test with a third party that has to reach them over the internet but needs no account of anyone's, eg. the Fedify CLI's ephemeral inbox (such a test skips itself without the tunnels). The bore ports are `BORE_PORT` (default 1) and `BORE_PORT2` (default 2).
 test-federation-dance-tunneled *args=ap_ext: services _test-dance-positions
