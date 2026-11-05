@@ -6,7 +6,9 @@ ARG ELIXIR_DOCKER_IMAGE
 
 FROM ${ELIXIR_DOCKER_IMAGE}
 
-ENV HOME=/opt/app/ TERM=xterm USER=docker 
+ENV HOME=/opt/app/ TERM=xterm USER=docker
+# where deps-alpine-build.sh installs Rust via rustup (outside $HOME, which is the mounted app directory)
+ENV CARGO_HOME=/usr/local/cargo RUSTUP_HOME=/usr/local/rustup PATH=/usr/local/cargo/bin:$PATH
 WORKDIR $HOME
 
 # dev tools

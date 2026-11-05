@@ -70,6 +70,7 @@ jobs:
       - name: Install system deps & tools
         run: |
           chmod +x deps-alpine-build.sh && ./deps-alpine-build.sh
+          echo "${CARGO_HOME:-$HOME/.cargo}/bin" >> $GITHUB_PATH
       - name: Install hex
         run: mix local.hex --force
       - name: Install rebar

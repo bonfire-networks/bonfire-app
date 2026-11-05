@@ -15,7 +15,10 @@ ARG WITH_IMAGE_VIX
 ARG WITH_API_GRAPHQL
 ARG RUSTLER_BUILD_ALL
 
-# necessary utils + dependencies 
+# where deps-alpine-build.sh installs Rust via rustup (outside $HOME, which changes below)
+ENV CARGO_HOME=/usr/local/cargo RUSTUP_HOME=/usr/local/rustup PATH=/usr/local/cargo/bin:$PATH
+
+# necessary utils + dependencies
 COPY --link deps-alpine.sh ./
 COPY --link deps-alpine-build.sh ./
 RUN chmod +x ./*.sh
