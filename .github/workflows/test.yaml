@@ -110,7 +110,7 @@ jobs:
     - name: Run tests
       if: matrix.test_only != 'db-down-migrations'
       run: just test-${{matrix.test_only}}
-    # failing tests still annotate the pages they reached, so this runs whatever the suite's result. localise-extract.yaml pushes the newest of these to Transifex.
+    # failing tests still annotate the pages they reached, so this runs whatever the suite's result. The `localise_push` job below sends them to Transifex.
     - name: Upload the annotated source strings
       if: ${{ !cancelled() && matrix.test_only == 'ui' && github.ref == 'refs/heads/main' }}
       uses: actions/upload-artifact@v7
@@ -131,6 +131,19 @@ jobs:
         name: postgres-passed-${{matrix.test_only}}
         path: postgres-passed
         retention-days: 1
+
+  # Pushes the source strings the `ui` suite annotated to Transifex and opens a PR with them. always(): failing tests still annotate the pages they reached.
+  localise_push:
+    needs: [check_file_changed, test]
+    if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' && github.ref == 'refs/heads/main' }}
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+    uses: ./.github/workflows/localise-push.yaml
+    with:
+      from_current_run: true
+    secrets: inherit
 
   # Lists the suites that passed on Postgres (from the markers `test` uploads), so `test-yugabyte` only gets jobs for those, and a suite that failed on Postgres doesn't show up there as a passing job with every step skipped.
   postgres-passed:

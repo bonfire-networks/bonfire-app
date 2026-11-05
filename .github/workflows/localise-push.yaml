@@ -1,10 +1,16 @@
 name: Push annotated source strings to Transifex
 on:
+  workflow_call: # from test.yaml, after the tests on main
+    inputs:
+      from_current_run:
+        description: Take the annotated sources uploaded earlier in the calling run
+        type: boolean
+        default: false
   workflow_dispatch:
-  schedule:
-    - cron: '0 4 * * 1' # Mondays, 04:00 UTC, an hour after localise-pull.yaml, so the translations are pulled before new sources go to Transifex
+  # schedule:
+  #   - cron: '0 4 * * 1' # Mondays, 04:00 UTC, an hour after localise-pull.yaml, so the translations are pulled before new sources go to Transifex
 
-# Strings are extracted locally (`just localise-extract`) and committed. The `ui` suite in test.yaml runs with the annotator on, which adds the pages each string rendered on as `#. URLs:` comments, and uploads the source .po files from runs on main. This job takes the newest of those uploads, pushes them to Transifex and opens a PR with the comments. It compiles nothing.
+# Strings are extracted locally (`just localise-extract`) and committed. The `ui` suite in test.yaml runs with the annotator on, which adds the pages each string rendered on as `#. URLs:` comments, and uploads the source .po files from runs on main. test.yaml then calls this, which pushes them to Transifex and opens a PR with the comments. A manual run takes the newest upload instead. It compiles nothing.
 
 permissions:
   contents: write
@@ -17,7 +23,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Download the annotated sources from this test run
+        if: ${{ inputs.from_current_run }}
+        uses: actions/download-artifact@v7
+        with:
+          name: localisation-annotated
+          path: ${{ runner.temp }}/annotated
       - name: Download the newest annotated sources from test runs on main
+        if: ${{ !inputs.from_current_run }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

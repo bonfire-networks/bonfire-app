@@ -11,7 +11,7 @@ SPDX-License-Identifier: CC0-1.0
 
 ### Added
 
-- ✨ Groups, see the [Groups guide](TODO-link-to-group-user-guide) and the [Running a Group guide](TODO-link-to-group-mod-guide) (thanks @mayel and @ivanminutillo):
+- ✨ Groups, see the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md) (thanks @mayel and @ivanminutillo):
   - Public groups and announcement channels can now federate: people on other Bonfire instances and fediverse apps can find, join or follow them and take part in the conversation, with their topics and subgroups, using plain ActivityPub with FEP-1b12 [#745](https://github.com/bonfire-networks/bonfire-app/issues/745) [#743](https://github.com/bonfire-networks/bonfire-app/issues/743) [#673](https://github.com/bonfire-networks/bonfire-app/issues/673) [#1390](https://github.com/bonfire-networks/bonfire-app/issues/1390)
   - Groups and topics can now be found in search, with a Groups tab. After upgrading, admins should re-index existing groups, topics and hashtags, in the Elixir (iex) console: `Bonfire.Search.Indexer.reindex_from_db(only: [Bonfire.Classify.Reindex, Bonfire.Tag.Reindex])`. 
   - Moderation across instances: a group's removals, locks, bans and reports reach the instances that follow it, and a moderator acting on a group hosted elsewhere sees the action applied once that group confirms it, or at once with **Apply it here now** [#2269](https://github.com/bonfire-networks/bonfire-app/issues/2269)
@@ -23,7 +23,7 @@ SPDX-License-Identifier: CC0-1.0
   - You can look up federated groups by URL or !name in the groups search 
   - Groups can be marked sensitive, when created or in their settings. Their banner, icon and description are hidden behind a warning until shown, the group page shows a notice before showing the feed, and new posts in the group default to having the content warning on. Groups marked NSFW on Lemmy, PieFed or Mbin arrive marked [#2458](https://github.com/bonfire-networks/bonfire-app/issues/2458)
   - Your groups' latest updates can be shown on your dashboard
-  - 📖 See the [Groups guide](TODO-link-to-group-user-guide) and the [Running a Group guide](TODO-link-to-group-mod-guide)
+  - 📖 See the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md)
 
 - ✨ Rebuilt notifications, see the [Notifications guide](user_guides/notifications.md) [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo):
   - A bell on a person, a group or a discussion: **Notify me about new posts** from someone or a group, or **Notify me about replies** on a discussion, even a single branch of one. It's off until you press it, and following or joining never turns it on
@@ -67,7 +67,7 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 A "Show new activities" button loads posts that arrived since you opened a feed, and they load on their own when you're at the top (thanks @ivanminutillo)
 - 💅 Join requests: **Pending** lets you withdraw your request, and moderators get a compact row to approve or decline (thanks @ivanminutillo)
 - 💅 Group discovery: **Joined** lists the groups you're a member of, "Start a discussion in [group]" opens the composer with the group's audience, and the title field shows by default when posting in a group (thanks @ivanminutillo)
-- 🔒 In a group you join by request or invitation, only members see who else is in it, and others see a count; see the [Groups guide](TODO-link-to-group-user-guide) (thanks @mayel)
+- 🔒 In a group you join by request or invitation, only members see who else is in it, and others see a count; see the [Groups guide](user_guides/groups.md) (thanks @mayel)
 - 🔒 A post in a group can only use the audiences the group allows, and a reply can't widen its parent's (thanks @mayel)
 - 💅 "Make admin" and "Revoke admin" ask first, and "Make admin" can also declare the person a moderator; "Moderated by" lists the declared moderators, and reports reach everyone who can moderate the instance (thanks @mayel)
 - 🚀 Faster pagination, and faster loading of older activities in feeds [`adee413`](https://github.com/bonfire-networks/bonfire_ui_me/commit/adee4137fd477695e8ab9a029f4cdf701173ba16) [`fd6f8bf`](https://github.com/bonfire-networks/bonfire_ui_common/commit/fd6f8bfd963b7e1fd3d397eeb604087bd86635cd) [`af7113e`](https://github.com/bonfire-networks/bonfire_social/commit/af7113ee0937b170c092a788e908ea7f43fdd954) [`5d63a76`](https://github.com/bonfire-networks/bonfire_social/commit/5d63a76d8d5517550109b405b51708de2eb374e9) (thanks @mayel and @ivanminutillo)
@@ -78,7 +78,7 @@ SPDX-License-Identifier: CC0-1.0
 - 📝 The federation guide documents object integrity proofs and inbox forwarding, with interop results (thanks @mayel)
 - 👷 Better syntax highlighting in code blocks [#1205](https://github.com/bonfire-networks/bonfire-app/issues/1205) (thanks @mayel)
 - 📝 Deployment docs, including installing with Co-op Cloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [PR #2267](https://github.com/bonfire-networks/bonfire-app/pull/2267) (thanks @mayel and @jeppebundsgaard)
-- 📝 Updated the [Notifications guide](user_guides/notifications.md), and new guides for [Groups](TODO-link-to-group-user-guide) and [Running a Group](TODO-link-to-group-mod-guide) (thanks @mayel)
+- 📝 Updated the [Notifications guide](user_guides/notifications.md), and new guides for [Groups](user_guides/groups.md) and [Running a Group](user_guides/group-moderation.md) (thanks @mayel)
 - 📝 Revived the nix devShell [PR #2332](https://github.com/bonfire-networks/bonfire-app/pull/2332) (thanks @merutam)
 - 🌐 Improved localisation coverage throughout the app (thank you translators!)
 - ✨ Upload an instance icon, with a sharp version for high-resolution screens [`6a8db47`](https://github.com/bonfire-networks/bonfire_files/commit/6a8db47dac1040465f21d50ebb4db052ba8ece2d) [`bbe5e3f`](https://github.com/bonfire-networks/bonfire_ui_me/commit/bbe5e3ffb9d0cec77faa4db99be08193fc73f4e9) (thanks @ivanminutillo)
