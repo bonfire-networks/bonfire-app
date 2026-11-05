@@ -11,7 +11,7 @@ SPDX-License-Identifier: CC0-1.0
 
 ### Added
 
-- ✨ Groups, see the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md) (thanks @mayel and @ivanminutillo):
+- ✨ Federation for public groups, plus general improvements. See the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md) (thanks @mayel and @ivanminutillo):
   - Public groups and announcement channels can now federate: people on other Bonfire instances and fediverse apps can find, join or follow them and take part in the conversation, with their topics and subgroups, using plain ActivityPub with FEP-1b12 [#745](https://github.com/bonfire-networks/bonfire-app/issues/745) [#743](https://github.com/bonfire-networks/bonfire-app/issues/743) [#673](https://github.com/bonfire-networks/bonfire-app/issues/673) [#1390](https://github.com/bonfire-networks/bonfire-app/issues/1390)
   - Groups and topics can now be found in search, with a Groups tab. After upgrading, admins should re-index existing groups, topics and hashtags, in the Elixir (iex) console: `Bonfire.Search.Indexer.reindex_from_db(only: [Bonfire.Classify.Reindex, Bonfire.Tag.Reindex])`. 
   - Moderation across instances: a group's removals, locks, bans and reports reach the instances that follow it, and a moderator acting on a group hosted elsewhere sees the action applied once that group confirms it, or at once with **Apply it here now** [#2269](https://github.com/bonfire-networks/bonfire-app/issues/2269)
