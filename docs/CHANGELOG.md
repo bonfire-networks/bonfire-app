@@ -17,6 +17,7 @@ SPDX-License-Identifier: CC0-1.0
   - Moderators can add people from this instance directly, which is how invite-only groups grow, take a post out of a group without deleting it, and archive or restore a group, which other instances follow too; locks, hides and bans are recorded on the group's moderation page [#572](https://github.com/bonfire-networks/bonfire-app/issues/572) [#601](https://github.com/bonfire-networks/bonfire-app/issues/601) [#2353](https://github.com/bonfire-networks/bonfire-app/issues/2353)
   - Making someone a moderator also makes them a member, so they can read the group's posts [#2365](https://github.com/bonfire-networks/bonfire-app/issues/2365)
   - Moderators can pin posts to the top of a group or topic, shown in a pinned carousel; other apps such as Lemmy show them as featured
+  - Groups, topics, and hashtags can now be found in search, with a Groups tab, and hashtags show at the top of results. After upgrading, admins should re-index existing groups, topics and hashtags, in the Elixir (iex) console: `Bonfire.Search.Indexer.reindex_from_db(only: [Bonfire.Classify.Reindex, Bonfire.Tag.Reindex])`. 
   - 📖 See the [Groups guide](TODO-link-to-group-user-guide) and the [Running a Group guide](TODO-link-to-group-mod-guide)
 
 - ✨ Rebuilt notifications, see the [Notifications guide](user_guides/notifications.md) [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo):
