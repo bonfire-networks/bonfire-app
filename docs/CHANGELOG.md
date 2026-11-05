@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: past releases
 
-## Bonfire [1.1 (unreleased)]
+## Bonfire [1.1 (RC1)]
 
 ### Added
 
