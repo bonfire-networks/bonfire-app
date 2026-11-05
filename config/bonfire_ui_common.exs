@@ -29,7 +29,10 @@ dep_path =
 config :bonfire, :ui,
   theme: [
     # instance_name: "Bonfire",
-    instance_theme: "bonfire",
+    # the theme mode: `:system` follows the device's light/dark preference, switching between `instance_theme_light` and `instance_theme` (so keep both set), or `:light`, `:dark` or `:custom`
+    preferred: :system,
+    # the dark theme
+    instance_theme: "dark",
     instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
     instance_image: "/images/bonfires.png",
@@ -48,6 +51,18 @@ config :bonfire, :ui,
   ],
   terms: [
     conduct: "https://raw.githubusercontent.com/bonfire-networks/blog/master/code_of_conduct.md"
+  ],
+  # Email palette for transactional emails (signup confirm, password reset,
+  # login link). Email clients don't support DaisyUI CSS vars, so values
+  # are concrete colors. Flavours and instance admins can override.
+  auth: [
+    email_theme: [
+      primary: "#e63946",
+      primary_content: "#ffffff",
+      body_bg: "#fff7f7",
+      body_text: "#1f1f1f",
+      muted: "#6b6b6b"
+    ]
   ],
   show_activity_counts: false,
   show_profile_background_image: true,
@@ -137,9 +152,11 @@ config :surface, :components, [
 
 # variants_prefix: "s-"
 
+# read by `CORSPlug.init/1` as defaults, under the options the endpoint passes (`plug CORSPlug, origin: …, headers: ["*"]` in `Bonfire.UI.Common.EndpointTemplate`), so only the keys the endpoint doesn't pass take effect
 config :cors_plug,
   # default: "*" # NOTE: we set specific origins per route in Bonfire.UI.Common.RuntimeConfig
-  origin: [],
+  # origin: [],
+  # ^ commented out: the endpoint passes `origin:` itself, which overrides this
   # default: 1_728_000
   max_age: 86_400,
   # same as default
@@ -152,10 +169,12 @@ config :cors_plug,
     "X-RateLimit-Remaining",
     "X-Request-Id",
     "Idempotency-Key"
-  ],
-  # send_preflight_response?: true # default: true
-  # credentials: true, # default: true
-  headers: ["Authorization", "Content-Type", "Idempotency-Key"]
+  ]
+
+# send_preflight_response?: true # default: true
+# credentials: true, # default: true
+# headers: ["Authorization", "Content-Type", "Idempotency-Key"]
+# ^ commented out: the endpoint passes `headers: ["*"]` itself, which overrides this
 
 # default headers: [
 #   "Authorization",

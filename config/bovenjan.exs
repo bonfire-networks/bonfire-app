@@ -4,6 +4,12 @@ import Config
 
 # Please note that most of these are defaults meant to be overridden by instance admins in Settings rather than edited here
 config :bonfire, :ui,
+  # deep-merged into the `theme:` keyword from bonfire_ui_common.exs: follow the device's light/dark preference, switching between Bovenjan's two themes
+  theme: [
+    preferred: :system,
+    instance_theme: "bovenjan-dark",
+    instance_theme_light: "bovenjan"
+  ],
   hide_app_switcher: true,
   feed_object_extension_preloads_disabled: false,
   smart_input_activities: [

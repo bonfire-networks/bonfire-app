@@ -8,6 +8,8 @@ config :bonfire, :ui,
   # `theme:` keyword from bonfire_ui_common.exs, so instance_icon/tagline/etc.
   # are preserved). Admins can still override per-instance in Settings.
   theme: [
+    # Jacobin ships only one (light) theme, so the mode is fixed on `instance_theme` whatever the device prefers
+    preferred: :custom,
     instance_theme_light: "jacobin",
     instance_theme: "jacobin",
     # pinned so Jacobin stays typographic if Bonfire's default preset becomes "stream"

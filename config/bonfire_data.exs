@@ -1353,7 +1353,8 @@ config :bonfire_classify, Category,
            :profile,
            :character,
            :settings,
-           :extra_info
+           :extra_info,
+           :sensitive
          ])
        )
 

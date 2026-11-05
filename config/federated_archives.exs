@@ -6,7 +6,10 @@ import Config
 config :bonfire, :ui,
   theme: [
     instance_name: "Federated Archives",
-    instance_theme: "bonfire",
+    # follow the device's light/dark preference, switching between the two themes below
+    preferred: :system,
+    # instance_theme: "bonfire", (this theme no longer exists)
+    instance_theme: "dark",
     instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
     instance_image: "/images/bonfires.png",
