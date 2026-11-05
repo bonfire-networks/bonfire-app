@@ -1,0 +1,62 @@
+name: Push annotated source strings to Transifex
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1' # Mondays, 04:00 UTC, an hour after localise-pull.yaml, so the translations are pulled before new sources go to Transifex
+
+# Strings are extracted locally (`just localise-extract`) and committed. The `ui` suite in test.yaml runs with the annotator on, which adds the pages each string rendered on as `#. URLs:` comments, and uploads the source .po files from runs on main. This job takes the newest of those uploads, pushes them to Transifex and opens a PR with the comments. It compiles nothing.
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  push:
+    name: Push annotated sources and open a PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download the newest annotated sources from test runs on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_id=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=localisation-annotated&per_page=30" \
+            --jq '[.artifacts[] | select(.expired | not) | select(.workflow_run.head_branch == "main")][0].workflow_run.id // empty')
+          [ -n "$run_id" ] || { echo "::error::No localisation-annotated upload from a test run on main. test.yaml only runs when mix.lock changes, so dispatch it on main first."; exit 1; }
+          echo "Using the upload from test run $run_id"
+          gh run download "$run_id" -n localisation-annotated -D "$RUNNER_TEMP/annotated"
+      # the upload comes from an older commit: if the sources were extracted again since then, copying it would undo that extraction
+      - name: Check the upload has the same strings as main
+        run: |
+          stale=0
+          for f in "$RUNNER_TEMP"/annotated/*.po; do
+            name=$(basename "$f")
+            [ -f "priv/localisation/$name" ] || { echo "::error::$name is not on main"; stale=1; continue; }
+            if ! diff -q <(grep -v '^#\. URLs:' "$f") <(grep -v '^#\. URLs:' "priv/localisation/$name") > /dev/null; then
+              echo "::error::$name differs from main beyond the URL comments"
+              stale=1
+            fi
+          done
+          [ "$stale" = 0 ] || { echo "::error::The sources changed since that test run. Run test.yaml on main, then this again."; exit 1; }
+          cp "$RUNNER_TEMP"/annotated/*.po priv/localisation/
+      - name: Check that strings were annotated
+        run: |
+          annotated=$(grep -l '^#\. URLs:' priv/localisation/*.po | wc -l)
+          echo "$annotated source .po files have page URLs"
+          [ "$annotated" -gt 0 ] || { echo "::error::No string was annotated with the pages it rendered on, see the POAnnotator notes in the ui test log"; exit 1; }
+      - uses: ./.github/actions/install-tx
+      - name: Push source strings to Transifex
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: tx push
+      - name: Create Pull Request for source strings
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "localisation sources [skip ci]"
+          branch: localisation/push-${{ github.run_id }}
+          title: "Automated update of strings to translate"
+          body: "This PR was created automatically by the localise-push workflow, from the annotated sources of a test run on main."
+          base: main
+          add-paths: priv/localisation/*.po

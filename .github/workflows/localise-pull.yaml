@@ -2,6 +2,8 @@ name: Pull translations from Transifex
 on:
   workflow_call: # from localise.yaml, which owns the schedule
   workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1' # Mondays, 03:00 UTC
 
 # Opens a PR with the latest translated .po files, so step 1 (amd64) and step 2 (arm64) of the next release both build from the same commit.
 # No bonfire build here: `tx pull` and `localise-prune` are plain shell. The pruning drops the locales ex_cldr cannot compile, and the PR's own test run covers the rest.

@@ -42,6 +42,8 @@ jobs:
       TEST_LOG_TRUNCATE: 340
       POOL_SIZE: 30
       TEST_LOG_LEVEL: notice
+      # turns on the localisation annotator, which adds the pages each string renders on to the source .po files as `#. URLs:` comments for translators. Read when each extension compiles, so it must match the test jobs' env.
+      BONFIRE_POT_URL_BASE: https://campground.bonfire.cafe
       SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
@@ -57,6 +59,8 @@ jobs:
         elixir: ${{matrix.elixir}}
         flavour: ${{matrix.flavour}}
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        # the cache key does not include env vars, so this keeps builds made with the annotator apart from older ones made without it
+        cache-suffix: -annotate
 
   test:
     needs: [check_file_changed, prepare]
@@ -86,6 +90,8 @@ jobs:
       TEST_LOG_TRUNCATE: 340
       POOL_SIZE: 30
       TEST_LOG_LEVEL: notice
+      # see the prepare job: must match its value, since the build comes from its cache
+      BONFIRE_POT_URL_BASE: https://campground.bonfire.cafe
       SECRET_KEY_BASE: "kSNSvYkWk14onNdbYzhEqFyG5TzpOO9+FFlk5sIrhTk0RV6+FeL/nM8DWQffDah4woepgQdrP6J8cjWGyehcWcRWvIIWXsghp0yY9/fEjgfUekD15P9LGRCmu6exIQ6g"
       SIGNING_SALT: "NPkqpeTx/q9xGQRWwRpqBWI7bCxeHMAF4L2PHntfjVtd8GZD2BQKe9KLnkIR5WbLVdZt24FWuR+Hy5WoXaZM4APydGvC2+w2enJmskOckX5VY1Bpvm7JGKu+QymgIgK/"
       ENCRYPTION_SALT: "l+QT/gkdX722f57qSAUc+bZcqm5ZduXY4D0hp0glEiKdR267JsZ1/CZlrlhADcD8kzuaZGFWvJ2dlr6sujbzGQV5e04lKVIsZh3gfd8eqQBckIqH6L8TDRRz4M07YE+F"
@@ -100,9 +106,17 @@ jobs:
         flavour: ${{matrix.flavour}}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         setup: restore
+        cache-suffix: -annotate
     - name: Run tests
       if: matrix.test_only != 'db-down-migrations'
       run: just test-${{matrix.test_only}}
+    # failing tests still annotate the pages they reached, so this runs whatever the suite's result. localise-extract.yaml pushes the newest of these to Transifex.
+    - name: Upload the annotated source strings
+      if: ${{ !cancelled() && matrix.test_only == 'ui' && github.ref == 'refs/heads/main' }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: localisation-annotated
+        path: priv/localisation/*.po
     - name: Check database down migrations
       if: matrix.test_only == 'db-down-migrations'
       # create + migrate first: the test DB is normally brought into being by the app booting during `mix test`, but this job runs no tests, so without ecto.create `ecto.rollback` finds no database
