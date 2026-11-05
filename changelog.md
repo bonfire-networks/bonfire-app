@@ -13,10 +13,16 @@ SPDX-License-Identifier: CC0-1.0
 
 - ✨ Groups, see the [Groups guide](TODO-link-to-group-user-guide) and the [Running a Group guide](TODO-link-to-group-mod-guide) (thanks @mayel and @ivanminutillo):
   - Public groups and announcement channels can now federate: people on other Bonfire instances and fediverse apps can find, join or follow them and take part in the conversation, with their topics and subgroups, using plain ActivityPub with FEP-1b12 [#745](https://github.com/bonfire-networks/bonfire-app/issues/745) [#743](https://github.com/bonfire-networks/bonfire-app/issues/743) [#673](https://github.com/bonfire-networks/bonfire-app/issues/673) [#1390](https://github.com/bonfire-networks/bonfire-app/issues/1390)
+  - Groups and topics can now be found in search, with a Groups tab. After upgrading, admins should re-index existing groups, topics and hashtags, in the Elixir (iex) console: `Bonfire.Search.Indexer.reindex_from_db(only: [Bonfire.Classify.Reindex, Bonfire.Tag.Reindex])`. 
   - Moderation across instances: a group's removals, locks, bans and reports reach the instances that follow it, and a moderator acting on a group hosted elsewhere sees the action applied once that group confirms it, or at once with **Apply it here now** [#2269](https://github.com/bonfire-networks/bonfire-app/issues/2269)
   - Moderators can add people from this instance directly, which is how invite-only groups grow, take a post out of a group without deleting it, and archive or restore a group, which other instances follow too; locks, hides and bans are recorded on the group's moderation page [#572](https://github.com/bonfire-networks/bonfire-app/issues/572) [#601](https://github.com/bonfire-networks/bonfire-app/issues/601) [#2353](https://github.com/bonfire-networks/bonfire-app/issues/2353)
   - Making someone a moderator also makes them a member, so they can read the group's posts [#2365](https://github.com/bonfire-networks/bonfire-app/issues/2365)
   - Moderators can pin posts to the top of a group or topic, shown in a pinned carousel; other apps such as Lemmy show them as featured
+  - The groups page has a **Directory** of groups and feed of **Latest updates** showing posts from your groups or from all known groups; it opens on your groups' updates if you're a member of any, or on the directory, and you can choose which in settings
+  - Searching the directory finds any public group (not just filtering those on screen), while toggling to **Private only** finds non-public groups you're able to see
+  - You can look up federated groups by URL or !name in the groups search 
+  - Groups can be marked sensitive, when created or in their settings. Their banner, icon and description are hidden behind a warning until shown, the group page shows a notice before showing the feed, and new posts in the group default to having the content warning on. Groups marked NSFW on Lemmy, PieFed or Mbin arrive marked [#2458](https://github.com/bonfire-networks/bonfire-app/issues/2458)
+  - Your groups' latest updates can be shown on your dashboard
   - 📖 See the [Groups guide](TODO-link-to-group-user-guide) and the [Running a Group guide](TODO-link-to-group-mod-guide)
 
 - ✨ Rebuilt notifications, see the [Notifications guide](user_guides/notifications.md) [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo):
@@ -43,6 +49,7 @@ SPDX-License-Identifier: CC0-1.0
 ### Changed
 
 - 💅 Better UI and UX for groups and topics: new group and topic headers and navigation, posting to a topic from the group composer, a group sidebar with follow and notification options, and a confirmation before leaving a group [#2351](https://github.com/bonfire-networks/bonfire-app/issues/2351) [#2389](https://github.com/bonfire-networks/bonfire-app/issues/2389) (thanks @sarahsquirrel and @ivanminutillo)
+- 🔒 Other servers' requests must now be signed by default, except to look up public profiles, so servers that don't sign them, such as Lemmy, can still find people here; an ActivityPub request to the home page leads to the instance's actor (thanks @mayel)
 - 💅 Redesigned guest homepage, about page and login [#2390](https://github.com/bonfire-networks/bonfire-app/issues/2390) (thanks @ivanminutillo)
 - 💅 Configure the dashboard widgets to display, including a feed [`b88f1fc`](https://github.com/bonfire-networks/bonfire_ui_me/commit/b88f1fcf8be850cc4496f5ce3b0040b8a208b563) (thanks @ivanminutillo)
 - 💅 Dashboard widgets redesigned, including a carousel for top discussions and a community rules widget [#2397](https://github.com/bonfire-networks/bonfire-app/issues/2397) (thanks @ivanminutillo)
@@ -51,7 +58,9 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 All post actions now sit inline in the "more actions" menu, without an "advanced" button (thanks @ivanminutillo)
 - 💅 Poll UI improvements (thanks @ivanminutillo)
 - 🔒 Follows and likes are now only sent to the person concerned, not to all your followers, and cancelling a pending follow request to someone on another instance now tells their server [`f26dde6`](https://github.com/bonfire-networks/bonfire_social_graph/commit/f26dde65101af4a8a1029049e58913a57fc3c732) (thanks @ivanminutillo)
-- 🚀 Improvements to search (thanks @mayel and @ivanminutillo)
+- 🚀 Improvements to search (thanks @mayel and @ivanminutillo):
+  - The **Posts** tab is now **Content** and shows more content types 
+  - Matching hashtags show at the top of results
 - 🚀 Media handling and optimisation improvements (thanks @mayel and @ivanminutillo)
 - 💅 The Stream look is now the default, and the typographic one stays available in settings (thanks @ivanminutillo)
 - 💅 Hovering a profile shows a preview card, and on a phone tapping opens it as a bottom sheet [#2455](https://github.com/bonfire-networks/bonfire-app/issues/2455) (thanks @ivanminutillo)
@@ -102,6 +111,10 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Videos, images and documents from other servers keep the date they were published, not the date they reached you [#2457](https://github.com/bonfire-networks/bonfire-app/issues/2457) (thanks @mayel)
 - 🐛 PeerTube videos no longer pile up duplicate copies each time they get views [#2433](https://github.com/bonfire-networks/bonfire-app/issues/2433) (thanks @mayel)
 - 🐛 Federation now works with servers whose TLS 1.3 handshake was refused (eg those running h2o): the request is retried with a compatible handshake, and the server is remembered [`6d6fd75`](https://github.com/bonfire-networks/activity_pub/commit/6d6fd75f4706f273f13a330338373bbad1904ad9) [`b9c9924`](https://github.com/bonfire-networks/bonfire_federate_activitypub/commit/b9c9924079c20b7c7c283e6c154f104a23f66254) (thanks @mayel)
+- 🔒 Replies now carry their author's own boundaries, so people they ghosted or silenced don't see them, and their authors can edit them, including comments in groups from other servers (thanks @mayel)
+- 🐛 Followers-only posts from other servers now properly reach their author's followers here (thanks @mayel)
+- 🐛 Copy link now copies the canonical ActivityPub URL of a post, profile or group, so it can be looked up from other fediverse apps (thanks @mayel)
+- 🐛 The "System" theme works without choosing both a light and a dark theme first (thanks @mayel and @xplosionmind)
 - 🐛 Posts keep their formatting: Enter starts a paragraph and Shift+Enter a line break, and pasted line breaks, lists, code blocks and quotes come out as written; titles and content warnings are now sanitised too [#2348](https://github.com/bonfire-networks/bonfire-app/issues/2348) [`acafd88`](https://github.com/bonfire-networks/bonfire_social/commit/acafd88f5a150cef7767a6b65839b7bcb2d40ecf) [`be137e7`](https://github.com/bonfire-networks/bonfire_editor_milkdown/commit/be137e7b42a6122bf5d440b6481a5a2d6abc235a) (thanks @ivanminutillo)
 
 
