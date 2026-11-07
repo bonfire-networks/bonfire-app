@@ -276,6 +276,8 @@ defmodule Bonfire.Umbrella.MixProject do
         {:mock, "~> 0.3", only: :test},
         {:meck, "~> 1.2", only: [:dev, :test], override: true},
         {:mox, "~> 1.0", only: [:dev, :test]},
+        # JSON Schema validator, for checking Mastodon API responses against the vendored Mastodon OpenAPI spec in bonfire_api_graphql's `Testing.MastoSchema`
+        {:jsv, "~> 0.27", only: [:dev, :test]},
         # a Mastodon API client, for bonfire_federate_activitypub's `Nomad.MastoAPI`, which only tests use so far
         {:hunter, "~> 0.8", only: [:dev, :test]},
         # {:bypass, "~> 2.1", only: :test}, # moved to maybe_cowboy, only with TEST_WITH_BYPASS
