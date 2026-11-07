@@ -1194,38 +1194,56 @@ deps-git-fix:
 test path *args='': services
 	just test_run `just test_convert_path "{{path}}"` {{args}}
 
-# Runs `cmd` holding the lock `name`, so runs that would collide take turns: a second one waits for the first, eg. `just with-lock test-run mix test`. Taken in the shell before the command starts, so nothing about it reaches the BEAM (a test node name did, and broke partitioned compiles). `mkdir` is atomic. The holder's pid and start time are kept in it, so a run that was killed or crashed (no exit trap ran) leaves a lock the next one clears: its pid is gone, or now belongs to another process that started at another time. A lock with no pid yet (killed right after taking it) is cleared once it is a couple of minutes old. A nested call, where the holder is one of this run's own parent processes (eg. `with-lock test-run just test …`, as `just test` takes the lock itself), would wait for itself forever: it prints a warning and runs the command without waiting instead. To clear one by hand: `rm -rf /tmp/bonfire-<name>.lock`
+# Runs `cmd` holding the lock `name`, so runs that would collide take turns: a second one waits for the first, eg. `just with-lock test-run mix test`. Taken in the shell before the command starts, so nothing about it reaches the BEAM (a test node name did, and broke partitioned compiles). The lock is a kernel `flock(2)` lock on `/tmp/bonfire-<name>.flock`, taken with `/usr/bin/lockf -k` on macOS (its man page guarantees waiters get the lock in the order they asked) or util-linux `flock` on Linux. The kernel frees the lock when its holder dies, so a dead run can't leave it behind and nothing needs clearing. When neither tool is installed (eg. a CI image without util-linux), the command runs without the lock, with a note on stderr. A waiter first tries without waiting, and if the lock is held it prints "Waiting for …, held by <pid>" once and then blocks. The holder writes its pid and start time to `/tmp/bonfire-<name>.flock.holder`, which only feeds that message and the nested-call check. A nested call, where the holder is one of this run's own parent processes (eg. `with-lock test-run just test …`, as `just test` takes the lock itself), would wait for itself forever: it prints a warning and runs the command without waiting instead. The command's exit status passes through.
 with-lock name +cmd:
 	#!/usr/bin/env bash
 	set -e
-	lock="/tmp/bonfire-$1.lock"
+	name="$1"
 	shift
+	lock="/tmp/bonfire-$name.flock"
+	holder_file="$lock.holder"
 	started() { ps -p "$1" -o lstart= 2>/dev/null; }
 	ancestor() { p=$$; while [ -n "$p" ] && [ "$p" -gt 1 ]; do [ "$p" = "$1" ] && return 0; p=$(ps -o ppid= -p "$p" 2>/dev/null | tr -d ' '); done; return 1; }
-	until mkdir "$lock" 2>/dev/null; do
-		holder=$(cat "$lock/pid" 2>/dev/null || true)
-		if [ -n "$holder" ] && ancestor "$holder"; then
-			echo "WARNING: nested 'with-lock $(basename "$lock" .lock | sed 's/^bonfire-//')': the lock $lock is already held by $holder, which started this run, so waiting for it would wait forever. Running without waiting. Don't wrap a recipe that already takes this lock (eg. 'just test', 'just test-federation-dance') in 'with-lock'." >&2
-			exec "$@"
-		fi
-		if [ -z "$holder" ]; then
-			if [ -n "$(find "$lock" -maxdepth 0 -mmin +1 2>/dev/null)" ]; then
-				echo "Clearing the lock $lock, which never got its holder's pid"
-				rm -rf "$lock"
-				continue
-			fi
-		elif ! kill -0 "$holder" 2>/dev/null || { [ -f "$lock/started" ] && [ "$(started "$holder")" != "$(cat "$lock/started")" ]; }; then
-			echo "Clearing the lock $lock, left by $holder, which is gone"
-			rm -rf "$lock"
-			continue
-		fi
-		echo "Waiting for $lock, held by ${holder:-a run that is starting}..."
-		sleep 5
-	done
-	started $$ > "$lock/started"
-	echo $$ > "$lock/pid"
-	trap 'rm -rf "$lock"' EXIT
-	"$@"
+	# A pid is alive if it exists and, when its start time was recorded, still started at that time (else the pid was reused)
+	alive() { [ -n "$1" ] && kill -0 "$1" 2>/dev/null && { [ -z "$2" ] || [ "$(started "$1")" = "$2" ]; }; }
+	if [ -n "${_BONFIRE_WITH_LOCK_HELD:-}" ]; then
+		# This copy of the script runs under the lock (started by lockf or flock below)
+		rm -f "$_BONFIRE_WITH_LOCK_HELD"
+		unset _BONFIRE_WITH_LOCK_HELD
+		# Diagnostic only, for the waiting message and the nested-call check: the lock itself is the kernel's
+		printf '%s\n%s\n' $$ "$(started $$)" > "$holder_file"
+		trap 'rm -f "$holder_file"' EXIT
+		status=0
+		"$@" || status=$?
+		exit "$status"
+	fi
+	# Runs this script again under the lock, with `$1` as the wait: `0` returns 75 at once when another run holds the lock, empty waits until it is free. lockf and `flock -o` don't pass the lock's file descriptor to the command, so anything the command leaves running (eg. epmd) doesn't keep the lock. lockf's command form keeps waiters in order, which its file descriptor form (`lockf 9`) doesn't
+	if [ -x /usr/bin/lockf ]; then
+		locked() { /usr/bin/lockf -k -s ${1:+-t "$1"} "$lock" "$BASH" "$0" "$name" "${@:2}"; }
+	elif command -v flock >/dev/null 2>&1; then
+		locked() { if [ -n "$1" ]; then flock -o -E 75 -w "$1" "$lock" "$BASH" "$0" "$name" "${@:2}"; else flock -o "$lock" "$BASH" "$0" "$name" "${@:2}"; fi; }
+	else
+		echo "with-lock: neither lockf nor flock is installed, so running without the lock $lock" >&2
+		exec "$@"
+	fi
+	# The run under the lock deletes this file first, so the file still being there means the command didn't start
+	export _BONFIRE_WITH_LOCK_HELD=$(mktemp /tmp/bonfire-with-lock.XXXXXX)
+	trap 'rm -f "$_BONFIRE_WITH_LOCK_HELD"' EXIT
+	status=0
+	locked 0 "$@" || status=$?
+	[ -e "$_BONFIRE_WITH_LOCK_HELD" ] || exit "$status"
+	[ "$status" = 75 ] || { echo "with-lock: could not take the lock $lock (exit $status)" >&2; exit "$status"; }
+	holder=$(sed -n 1p "$holder_file" 2>/dev/null || true)
+	if [ -n "$holder" ] && alive "$holder" "$(sed -n 2p "$holder_file" 2>/dev/null || true)" && ancestor "$holder"; then
+		echo "WARNING: nested 'with-lock $name': the lock $lock is already held by $holder, which started this run, so waiting for it would wait forever. Running without waiting. Don't wrap a recipe that already takes this lock (eg. 'just test', 'just test-federation-dance') in 'with-lock'." >&2
+		rm -f "$_BONFIRE_WITH_LOCK_HELD"
+		unset _BONFIRE_WITH_LOCK_HELD
+		exec "$@"
+	fi
+	echo "Waiting for $lock, held by ${holder:-a run that is starting}..."
+	status=0
+	locked "" "$@" || status=$?
+	exit "$status"
 
 # One run at a time: every session and agent shares the test database and `_build`, so a second run waits for the first (see `with-lock`)
 test_run *args='': services
