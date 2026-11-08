@@ -11,9 +11,9 @@ config :bonfire,
 
 config :bonfire, actor_AP_types: actor_types
 
-# Incoming activity types Bonfire does not model and skips cleanly (e.g. PeerTube `View`
-# view-count pings) instead of erroring/retrying. See bonfire-app#1802.
-config :bonfire_federate_activitypub, :skip_activity_types, ["View", "Listen", "WatchAction"]
+# Incoming activity types Bonfire does not model and skips before storing them (e.g. PeerTube `View` view-count pings), instead of erroring and retrying. Read by `ActivityPub.Config.skip_activity_types/0`, at compile time. See bonfire-app#1802.
+# config :bonfire_federate_activitypub, :skip_activity_types, ["View", "Listen", "WatchAction"]
+config :activity_pub, :instance, skip_activity_types: ["View", "Listen", "WatchAction"]
 
 # Each incoming `interactionPolicy` key, and the verbs it grants or denies (see `AdapterUtils.ap_incoming_interaction_policy_to_verb_grants/2`)
 config :bonfire_federate_activitypub, :interaction_policy_verbs, %{
