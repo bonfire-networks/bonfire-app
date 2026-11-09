@@ -1,6 +1,8 @@
 name: Maybe generate docs and/or changelog
+# The `docs` job in test.yaml does this now, from the test build. This stays as a manual fallback, with its own dev build.
 on:
-  push:
+  workflow_dispatch:
+  # push:
   # workflow_run:
   #   workflows: ["Test"]
   #   types:
@@ -38,7 +40,7 @@ jobs:
   docs:
     name: Generate docs and/or changelog
     needs: [check_lockfile_changed, check_docs_changed, check_version_changed]
-    if: ${{ needs.check_lockfile_changed.outputs.changed == 'true' || needs.check_docs_changed.outputs.changed == 'true' || needs.check_version_changed.outputs.version_changed == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.check_lockfile_changed.outputs.changed == 'true' || needs.check_docs_changed.outputs.changed == 'true' || needs.check_version_changed.outputs.version_changed == 'true' }}
     runs-on: ubuntu-latest
     container: hexpm/elixir:1.20.4-erlang-29.1.1-alpine-3.23.6
     # TODO: compute this ^ from .tool-versions

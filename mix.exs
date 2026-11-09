@@ -587,6 +587,10 @@ defmodule Bonfire.Umbrella.MixProject do
       source_url_pattern: &Mixer.source_url_pattern/2,
       extras: Mixer.extra_guide_paths(config()),
       source_beam: Mixer.docs_beam_paths(config()),
+      # in test env the app and its deps' `test/support` modules compile into the `bonfire` app, which `source_beam` includes, so leave them out (CI builds the docs from the test build)
+      filter_modules: fn mod, _metadata ->
+        not String.contains?(to_string(mod.module_info(:compile)[:source]), "/test/support/")
+      end,
       deps: Mixer.doc_dep_urls(config()),
       assets: %{
         "docs/assets" => "assets",
