@@ -66,3 +66,14 @@ jobs:
     with:
       tags: latest-unstable
       flavours: ${{ needs.flavours.outputs.build }}
+
+  # Without this, a push with no version change skips every build and shows as a green release. Cancelling shows it grey instead, like test.yaml does when mix.lock did not change.
+  skip_workflow:
+    needs: check_version_changed
+    runs-on: ubuntu-latest
+    if: ${{ needs.check_version_changed.outputs.version_changed != 'true' }}
+    steps:
+      - name: Log skipped reason
+        run: echo "The version in mix.exs did not change. Cancelling workflow."
+      - name: Cancel workflow
+        uses: andymckay/cancel-action@0.5
