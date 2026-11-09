@@ -1932,6 +1932,10 @@ localise-extract:
 	done
 	AS_UMBRELLA=1 MIX_OS_DEPS_COMPILE_PARTITION_COUNT=1 just mix gettext.extract
 	for f in "$dir"/*.pot; do mv -- "$f" "${f%.pot}.po"; done
+	# an umbrella root compiles no lib/ of its own, so the app's own strings need a second, non-umbrella pass, with only its own catalogue handed over
+	mv -- "$dir/bonfire.po" "$dir/bonfire.pot"
+	just mix bonfire.localise.extract_app
+	mv -- "$dir/bonfire.pot" "$dir/bonfire.po"
 	for f in "$dir"/*.po; do
 		b="$backup/$(basename "$f")"
 		if [ -f "$b" ] && [ "$(msgs "$f")" -le 1 ] && [ "$(msgs "$b")" -gt 1 ]; then
@@ -1989,6 +1993,9 @@ localise-prune:
 			rm -rf "$dir"
 		fi
 	done
+
+	# after the pruning, so the shares only cover the locales that stay
+	just escript_common localise_coverage
 
 @localise-tx-push:
 	tx push
@@ -2085,8 +2092,9 @@ _deploy-config file:
 	just dep-check {{name}}
 	{{ if path_exists("forks/"+name)=="true" { "just escript forks/ $name $args" } else {"just escript deps/$name $name $args"} }}
 
+# Rebuilds when the binary is missing or anything under the project's lib/ or its mix.exs is newer. The deps and build go under _build/escripts/, never into the escript's own folder, because bonfire_common compiles every .ex under its lib/ and would pick up the deps' sources (the binary itself lands next to its mix.exs, which is git-ignored).
 @escript path name *args='':
-	cd {{path}}/{{name}}/ && (stat {{name}} || mix escript.build) 
+	cd {{path}}/{{name}}/ && if [ ! -x {{name}} ] || [ -n "$(find lib mix.exs -newer {{name}})" ]; then export MIX_DEPS_PATH={{justfile_directory()}}/_build/escripts/{{name}}/deps MIX_BUILD_PATH={{justfile_directory()}}/_build/escripts/{{name}}/_build; mix deps.get && mix escript.build; fi
 	{{path}}/{{name}}/{{name}} {{args}}
 
 @dep-check name:

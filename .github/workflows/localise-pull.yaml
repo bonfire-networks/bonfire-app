@@ -20,6 +20,19 @@ jobs:
       - uses: actions/checkout@v7
       - uses: extractions/setup-just@v4
       - uses: ./.github/actions/install-tx
+      # for the coverage escript that `localise-prune` runs: it needs Elixir but not a compiled Bonfire. Same versions as .tool-versions and test.yaml's matrix, so the cache key below matches the one its runs save.
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "29.1.2"
+          elixir-version: "1.20.5"
+      # the escript is reached through `deps/bonfire_common` (at the commit `mix.lock` pins), and `localise-prune` fetches deps for that. Restoring test.yaml's cache makes that fetch near nothing. Restore only: the paths must match the saved ones exactly, so `_build` comes down too though nothing here compiles.
+      - uses: actions/cache/restore@v6
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-otp29.1.2-elixir1.20.5-community-annotate-mix-${{ hashFiles('mix.lock', 'config/**') }}
+          restore-keys: ${{ runner.os }}-otp29.1.2-elixir1.20.5-community-annotate-mix-
       - name: Pull translations
         env:
           TX_TOKEN: ${{ secrets.TX_TOKEN }}

@@ -29,8 +29,8 @@ jobs:
       fail-fast: false
       matrix:
         flavour: ['community'] # 'social', 'coordination'
-        otp: ['29.0.5'] # keep in sync with .tool-versions
-        elixir: ['1.20.3'] # keep in sync with .tool-versions
+        otp: ['29.1.2'] # keep in sync with .tool-versions, and with the cache key in localise-pull.yaml
+        elixir: ['1.20.5'] # keep in sync with .tool-versions, and with the cache key in localise-pull.yaml
         with_docker: ['easy']
     env:
       FLAVOUR: ${{matrix.flavour}}
@@ -74,8 +74,8 @@ jobs:
         flavour: &flavours ['community'] # 'social', 'coordination'
         # `db-down-migrations` is not a test suite: it's the rollback check, run as its own matrix job so a failing down-migration doesn't show a passing test suite as red (and vice versa)
         test_only: ['backend', 'ui', 'federation-all', 'openid-all', 'masto-api', 'paginator', 'db-down-migrations'] # 'sonix'
-        otp: &otps ['29.0.5'] # keep in sync with .tool-versions
-        elixir: &elixirs ['1.20.3'] # keep in sync with .tool-versions
+        otp: &otps ['29.1.2'] # keep in sync with .tool-versions, and with the cache key in localise-pull.yaml
+        elixir: &elixirs ['1.20.5'] # keep in sync with .tool-versions, and with the cache key in localise-pull.yaml
         with_docker: &with_dockers ['easy']
         # ^ test with latest versions + oldest supported (i.e. versions available in debian stable)
     env: &test_env
