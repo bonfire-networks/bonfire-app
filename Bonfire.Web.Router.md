@@ -29,9 +29,15 @@ Used to serve the GraphiQL API browser
 
 # `browser_accepts`
 
+# `browser_guest`
+
 # `browser_or_cacheable`
 
 # `browser_render`
+
+# `browser_render_common`
+
+# `browser_render_detect`
 
 # `browser_security`
 
