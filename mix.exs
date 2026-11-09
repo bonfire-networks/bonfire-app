@@ -236,7 +236,7 @@ defmodule Bonfire.Umbrella.MixProject do
         },
         {:pseudo_gettext, git: "https://github.com/tmbb/pseudo_gettext", only: :dev},
         {:periscope, "~> 0.4", only: :dev},
-        # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of latest dependency versions
+        # {:changelog, "~> 0.1", only: [:dev, :test], runtime: false}, # retrieve changelogs of dependencies
         # changelog generation
         {:versioce, "~> 2.0.0", only: [:dev, :test]},
         # needed for changelog generation
@@ -290,9 +290,8 @@ defmodule Bonfire.Umbrella.MixProject do
         {:wallaby, "~> 0.30", runtime: false, only: :test},
         #  for phoenix_live_reload/credo compat with archeometer
         {:file_system, "~> 1.0", override: true},
-        # "~> 1.6.7", # version used by archeometer
         {:credo, "~> 1.7.10", only: [:dev, :test], override: true},
-        # NOTE: not compatible with the credo version needed for archeometer
+        # NOTE: not compatible with the credo needed for archeometer
         {:mneme, ">= 0.10.0", only: [:dev, :test]},
         # used in unfurl
         # {:bypass, "~> 2.1", only: :test},
