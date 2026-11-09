@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: past releases
 
-## Bonfire [1.1 (RC1)]
+## Bonfire [1.1 (RC2)]
 
 ### Added
 
@@ -17,12 +17,14 @@ SPDX-License-Identifier: CC0-1.0
   - Moderation across instances: a group's removals, locks, bans and reports reach the instances that follow it, and a moderator acting on a group hosted elsewhere sees the action applied once that group confirms it, or at once with **Apply it here now** [#2269](https://github.com/bonfire-networks/bonfire-app/issues/2269)
   - Moderators can add people from this instance directly, which is how invite-only groups grow, take a post out of a group without deleting it, and archive or restore a group, which other instances follow too; locks, hides and bans are recorded on the group's moderation page [#572](https://github.com/bonfire-networks/bonfire-app/issues/572) [#601](https://github.com/bonfire-networks/bonfire-app/issues/601) [#2353](https://github.com/bonfire-networks/bonfire-app/issues/2353)
   - Making someone a moderator also makes them a member, so they can read the group's posts [#2365](https://github.com/bonfire-networks/bonfire-app/issues/2365)
-  - Moderators can pin posts to the top of a group or topic, shown in a pinned carousel; other apps such as Lemmy show them as featured
+  - Moderators can pin posts to the top of a group or topic, shown in a pinned carousel; other apps such as Lemmy show them as featured [#2424](https://github.com/bonfire-networks/bonfire-app/issues/2424)
   - The groups page has a **Directory** of groups and feed of **Latest updates** showing posts from your groups or from all known groups; it opens on your groups' updates if you're a member of any, or on the directory, and you can choose which in settings
   - Searching the directory finds any public group (not just filtering those on screen), while toggling to **Private only** finds non-public groups you're able to see
   - You can look up federated groups by URL or !name in the groups search 
   - Groups can be marked sensitive, when created or in their settings. Their banner, icon and description are hidden behind a warning until shown, the group page shows a notice before showing the feed, and new posts in the group default to having the content warning on. Groups marked NSFW on Lemmy, PieFed or Mbin arrive marked [#2458](https://github.com/bonfire-networks/bonfire-app/issues/2458)
   - Your groups' latest updates can be shown on your dashboard
+  - Instance admins can have new accounts turn on notifications for a group, next to the existing auto-join option in the group's settings, so new members get the group's new posts in their notifications (thanks Mentaal and @mayel)
+  - **View options** on a group's discussions and on the Recent discussions feed: show threads or every post, and order them by recent activity, newest first, or most replies, boosts or likes. The choice lasts for the visit, like a thread's view options (thanks Mentaal and @mayel)
   - 📖 See the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md)
 
 - ✨ Rebuilt notifications, see the [Notifications guide](user_guides/notifications.md) [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo):
@@ -79,11 +81,12 @@ SPDX-License-Identifier: CC0-1.0
 - 🚀 Fetching a post again from its server now keeps the newer copy, and a post deleted on its server is deleted here too (thanks @mayel)
 - 📝 The federation guide documents object integrity proofs and inbox forwarding, with interop results (thanks @mayel)
 - 👷 Better syntax highlighting in code blocks [#1205](https://github.com/bonfire-networks/bonfire-app/issues/1205) (thanks @mayel)
-- 📝 Deployment docs, including installing with Co-op Cloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [PR #2267](https://github.com/bonfire-networks/bonfire-app/pull/2267) (thanks @mayel and @jeppebundsgaard)
+- 📝 Deployment docs, including installing with Co-op Cloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [PR #2267](https://github.com/bonfire-networks/bonfire-app/pull/2267) [PR #2266](https://github.com/bonfire-networks/bonfire-app/pull/2266), and the dev setup guide no longer gives the wrong advice about yarn [#843](https://github.com/bonfire-networks/bonfire-app/issues/843) (thanks @mayel, @jeppebundsgaard and @lawik)
 - 📝 Updated the [Notifications guide](user_guides/notifications.md), and new guides for [Groups](user_guides/groups.md) and [Running a Group](user_guides/group-moderation.md) (thanks @mayel)
 - 📝 Revived the nix devShell [PR #2332](https://github.com/bonfire-networks/bonfire-app/pull/2332) (thanks @merutam)
 - 🌐 Improved localisation coverage throughout the app (thank you translators!)
 - ✨ Upload an instance icon, with a sharp version for high-resolution screens [`6a8db47`](https://github.com/bonfire-networks/bonfire_files/commit/6a8db47dac1040465f21d50ebb4db052ba8ece2d) [`bbe5e3f`](https://github.com/bonfire-networks/bonfire_ui_me/commit/bbe5e3ffb9d0cec77faa4db99be08193fc73f4e9) (thanks @ivanminutillo)
+- ✨ Distributions (flavours) can have their own name, version and maker [#2469](https://github.com/bonfire-networks/bonfire-app/issues/2469) (thanks @cranioisthinking and @mayel)
 
 ### Fixed
 
@@ -118,6 +121,25 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Copy link now copies the canonical ActivityPub URL of a post, profile or group, so it can be looked up from other fediverse apps (thanks @mayel)
 - 🐛 The "System" theme works without choosing both a light and a dark theme first (thanks @mayel and @xplosionmind)
 - 🐛 Posts keep their formatting: Enter starts a paragraph and Shift+Enter a line break, and pasted line breaks, lists, code blocks and quotes come out as written; titles and content warnings are now sanitised too [#2348](https://github.com/bonfire-networks/bonfire-app/issues/2348) [`acafd88`](https://github.com/bonfire-networks/bonfire_social/commit/acafd88f5a150cef7767a6b65839b7bcb2d40ecf) [`be137e7`](https://github.com/bonfire-networks/bonfire_editor_milkdown/commit/be137e7b42a6122bf5d440b6481a5a2d6abc235a) (thanks @ivanminutillo)
+- 🔒 With federation turned off for the instance, or by a person for themselves, their inboxes refuse incoming activities instead of quietly processing them [#754](https://github.com/bonfire-networks/bonfire-app/issues/754) (thanks @mayel)
+- 🔒 People who are undiscoverable are not listed to guests on a shared circle's page or embed [#1088](https://github.com/bonfire-networks/bonfire-app/issues/1088) (thanks @mayel)
+- 🐛 Tuning values saved in the admin settings no longer revert, and are applied again after a restart [#2256](https://github.com/bonfire-networks/bonfire-app/issues/2256) (thanks @btfreeorg and @mayel)
+- 🐛 Accounts suspended on Mastodon are hidden here, and come back if the suspension is lifted [#837](https://github.com/bonfire-networks/bonfire-app/issues/837) (thanks @mayel)
+- 🐛 Accepting a quote from someone on Mastodon now shows it as accepted there, and declining one sends a refusal Mastodon understands; tested with mastodon.social [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) (thanks @btfreeorg, Mentaal and @mayel)
+- 🐛 Signing up: the page that asks people signing in with ORCID for their email no longer crashes, login and confirmation links are no longer used up by email scanners (eg in Outlook) and a failed link says why, invites for "2 weeks" last 14 days, and the About page explains how to join this instance and links to its sign-up page [#2415](https://github.com/bonfire-networks/bonfire-app/issues/2415) [#2408](https://github.com/bonfire-networks/bonfire-app/issues/2408) [#2477](https://github.com/bonfire-networks/bonfire-app/issues/2477) (thanks @ccamara, Jacobin and @mayel)
+- 🐛 Flags reach moderators even on an instance with no admin [#1176](https://github.com/bonfire-networks/bonfire-app/issues/1176) (thanks @mayel)
+- 🐛 Deleting a post no longer removes the link preview from other posts that link to the same page (thanks @mayel)
+- 🐛 "Quiet public" posts from other servers stay out of the instance-wide feeds [#1557](https://github.com/bonfire-networks/bonfire-app/issues/1557) (thanks @mayel)
+- 🐛 Notifications show when the like, boost or reply happened, not the age of the post it's about [#2219](https://github.com/bonfire-networks/bonfire-app/issues/2219) (thanks @btfreeorg and @mayel)
+- 🐛 A push notification about a new follower opens the follower's profile [#2260](https://github.com/bonfire-networks/bonfire-app/issues/2260) (thanks @ivanminutillo and @mayel)
+- 🐛 Likes of posts and comments from Lemmy now reach Lemmy [#2503](https://github.com/bonfire-networks/bonfire-app/issues/2503) (thanks @sleeping-miyagi and @mayel)
+- 🐛 Avatars: SVG images are refused for avatars and banners, as Mastodon can't show them [#2475](https://github.com/bonfire-networks/bonfire-app/issues/2475); bot accounts from Lemmy keep their icons [#2489](https://github.com/bonfire-networks/bonfire-app/issues/2489); and profile updates from accounts with no display name are no longer lost [#1546](https://github.com/bonfire-networks/bonfire-app/issues/1546) (thanks @xplosionmind, @sleeping-miyagi, @ivanminutillo and @mayel)
+- 🐛 Interacting from your own fediverse account (remote follow, reply or like) works with Mastodon again using Telling comment embeds, and an unknown address shows an error on the form instead of offering to download a page on phones [#2273](https://github.com/bonfire-networks/bonfire-app/issues/2273) [#2259](https://github.com/bonfire-networks/bonfire-app/issues/2259) (thanks @wakest, @ccamara and @mayel)
+- 🐛 Fixed scheduling posts [#2470](https://github.com/bonfire-networks/bonfire-app/issues/2470) (thanks @ccamara and @mayel)
+- 🐛 Fixed exporting an account to migrate it [#2463](https://github.com/bonfire-networks/bonfire-app/issues/2463) (thanks @btfreeorg and @mayel)
+- 🌐 More of the interface can be translated, including the logged-out start page and login errors (thanks Mentaal and @mayel)
+- 🐛 Following a PeerTube account shows its videos [#1715](https://github.com/bonfire-networks/bonfire-app/issues/1715) [#2070](https://github.com/bonfire-networks/bonfire-app/issues/2070) (thanks @ozonedGH, @btfreeorg, @ivanminutillo and @mayel)
+- 🐛 Images and other media in publications show in feeds again [#1230](https://github.com/bonfire-networks/bonfire-app/issues/1230) (thanks @mayel)
 
 
 ## Bonfire [1.0.7 (2026-08-30)]
