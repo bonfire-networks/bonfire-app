@@ -413,6 +413,7 @@ defmodule Bonfire.Umbrella.MixProject do
     elixir: ">= #{System.get_env("ELIXIR_VERSION", "1.13.4")}",
     flavour: flavour,
     default_flavour: default_flavour,
+    # relative to the bonfire_ui_common dep, see `docs/0`
     logo: "assets/static/images/bonfire-icon.png",
     guides:
       [
@@ -583,7 +584,8 @@ defmodule Bonfire.Umbrella.MixProject do
       # The first page to display from the docs
       main: "readme",
       output: "docs/exdoc",
-      logo: config()[:logo],
+      # through the dep rather than the app's `assets` symlink, which a build restored in CI does not have
+      logo: Path.join(Mixer.dep_path("bonfire_ui_common"), config()[:logo]),
       source_url_pattern: &Mixer.source_url_pattern/2,
       extras: Mixer.extra_guide_paths(config()),
       source_beam: Mixer.docs_beam_paths(config()),
