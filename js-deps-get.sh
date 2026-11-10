@@ -7,7 +7,23 @@ DEPS=${1}
 TOOL=yarn
 
 # Each extension declares the yarn it wants via `packageManager` in its assets/package.json, and corepack is what honours that pin, fetching the declared version on demand. So install corepack rather than yarn: `npm -g install yarn` still resolves to 1.22.x, which is never what we want.
-command -v corepack >/dev/null 2>&1 || npm -g install corepack || echo "corepack is required to install JS deps!"
+missing_js_tooling() {
+	echo ""
+	echo "=================================================================="
+	echo "ERROR: $1"
+	echo ""
+	echo "Bonfire needs a recent Node.js/npm which provides Yarn via corepack to install the JS deps of its extensions. Install them with one of:"
+	echo "  - If you have mise: run 'mise install' in the bonfire-app directory (installs the Node.js version pinned in .tool-versions)"
+	echo "  - Follow Yarn's guide: https://yarnpkg.com/getting-started/install"
+	echo "Then run the same command again."
+	echo "=================================================================="
+	echo ""
+	exit 1
+}
+
+command -v npm >/dev/null 2>&1 || missing_js_tooling "Node.js / npm is not installed, or not on your PATH."
+command -v corepack >/dev/null 2>&1 || npm -g install corepack || echo "Could not install corepack with 'npm -g install corepack'."
+command -v corepack >/dev/null 2>&1 || missing_js_tooling "corepack is not installed, and installing it with npm failed (see the npm output above)."
 corepack enable 2>/dev/null || true
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 
@@ -96,6 +112,7 @@ if [ -n "$PARALLEL" ]; then
 fi
 
 if [ -n "$FAILED" ]; then
-	echo "FAILED to run '$2' for:$FAILED"
+	if [ -z "$2" ]; then ACTION="install JS deps"; else ACTION="run '$2'"; fi
+	echo "ERROR: could not $ACTION for:$FAILED (see the output above for each one)"
 	exit 1
 fi

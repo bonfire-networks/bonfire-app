@@ -76,7 +76,7 @@ The easy way consist in using bare-metal elixir, and docker-managed tooling, dat
 
 #### Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
-  - [yarn](https://yarnpkg.com)
+  - A recent [node.js / npm](https://nodejs.org) which provides Yarn via corepack: run `mise install`, or follow [Yarn's install guide](https://yarnpkg.com/getting-started/install)
   - Recent versions of Docker & [docker-compose](https://docs.docker.com/compose/install/)
 
 - Make sure you've set the env to indicate your choice
@@ -112,8 +112,7 @@ You may also want to put this in the appropriate place in your system so your ch
 
 - Dependencies:
   - Recent versions of [Elixir](https://elixir-lang.org/install.html) (1.15+) and OTP/erlang (25+)
-  <!-- - Recent versions of [Rust](https://www.rust-lang.org/tools/install) and Cargo -->
-  - [yarn](https://yarnpkg.com)
+  - A recent [node.js / npm](https://nodejs.org) which provides Yarn via corepack: run `mise install`, or follow [Yarn's install guide](https://yarnpkg.com/getting-started/install)
   - Postgres 12+ (or preferably 17+) with [Postgis](https://postgis.net/install/) extension
   - [Meili Search](https://docs.meilisearch.com/learn/getting_started/installation.html) (optional)
 
@@ -196,6 +195,8 @@ just setup-dev
 
 This command will take a while to complete. Soon we will streamiline the setup process to be more lightway, bear with us for the moment.
 
+If it ends with an `error: Recipe ... failed` line, see [Troubleshooting](#troubleshooting) before running `just dev`.
+
 You should now be able to run the app with:
 
 ```
@@ -264,6 +265,19 @@ By default, the `justfile` requires symlinks, which can be enabled with the help
 See the [pull request adding WSL support](https://github.com/bonfire-networks/bonfire-app/pull/111) for details about usage without symlinks.
 
 ## Troubleshooting
+
+### `Bonfire.RuntimeConfig.config/0 is undefined` when running `just dev`
+
+`just setup-dev` did not finish, so it did not copy the flavour's files into `lib/` (check that `lib/bonfire/` exists). Run `just setup-dev` again and fix the first error it shows. A common cause is a JS deps error: see the next section.
+
+### JS deps errors: `Node.js / npm is not installed`, `corepack is not installed`, or `'yarn' is yarn 1.x here`
+
+`just setup-dev` installs the JS deps of extensions with Yarn, which corepack provides. Each extension pins its Yarn version in its `package.json`, and corepack uses that version.
+
+- If Node.js, npm or corepack is missing: install Node.js with `mise install` in the bonfire-app directory, or follow [Yarn's install guide](https://yarnpkg.com/getting-started/install).
+- If it says `yarn` is version 1.x: an old global Yarn 1 (for example from your OS packages or `npm -g install yarn`) comes before corepack's `yarn` on your PATH. Run `which -a yarn` to find it, remove it (for example `npm -g uninstall yarn` or `sudo apt remove yarnpkg`), then run `corepack enable`.
+
+Then run `just setup-dev` again.
 
 ### EACCES Permissions Error
 
