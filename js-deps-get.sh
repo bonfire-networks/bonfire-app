@@ -87,6 +87,16 @@ FAILED=""
 
 for dep in $DEPS ; do
 
+	# iconify_ex only installs @iconify/json (every icon set, ~450 MB zipped), which is only read at compile time for icons that are not yet in bonfire_ui_common's committed icons.css. The download alone can exhaust a small machine's memory or disk, so WITH_ICON_SETS=0 skips it for anyone not adding new icons.
+	if [ "$dep" = "iconify_ex" ] && [ -z "$2" ]; then
+		case "${WITH_ICON_SETS:-}" in
+			0|false|no)
+				echo "Skipping JS deps of 'iconify_ex' (the icon sets, ~450 MB) because WITH_ICON_SETS=$WITH_ICON_SETS: new icons will show as a fallback icon until you install them."
+				continue
+				;;
+		esac
+	fi
+
 	# first match wins, mirroring how the Elixir side resolves: a local clone takes precedence over the fetched dep. Running both would build the same bundle twice and reported the second, unbuilt copy as a failure
 	if cd "extensions/$dep/assets" 2>/dev/null ; then
 		echo "Install JS deps from extension 'extensions/$dep' with args '$2'"
