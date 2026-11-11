@@ -47,7 +47,10 @@ runs:
         sudo apt update
     - name: Install system deps
       shell: bash
-      run: sudo apt install git tar file make build-essential docker-compose-plugin && sudo snap install --edge just --classic
+      # run: sudo apt install git tar file make build-essential docker-compose-plugin && sudo snap install --edge just --classic
+      run: sudo apt install git tar file make build-essential docker-compose-plugin
+    # from GitHub releases rather than snap, so a Snap Store outage does not fail every job
+    - uses: extractions/setup-just@v4
     - uses: erlef/setup-beam@v1
       with:
         otp-version: ${{ inputs.otp }}

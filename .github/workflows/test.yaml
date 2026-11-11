@@ -145,7 +145,8 @@ jobs:
   # Pushes the source strings the `ui` suite annotated to Transifex and opens a PR with them. always(): failing tests still annotate the pages they reached.
   localise_push:
     needs: [check_file_changed, test]
-    if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' && github.ref == 'refs/heads/main' }}
+    # only when the tests ran (passed or failed): if `prepare` failed they were skipped and uploaded nothing
+    if: ${{ always() && needs.check_file_changed.outputs.changed == 'true' && github.ref == 'refs/heads/main' && contains(fromJSON('["success","failure"]'), needs.test.result) }}
     permissions:
       contents: write
       pull-requests: write
