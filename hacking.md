@@ -270,12 +270,13 @@ See the [pull request adding WSL support](https://github.com/bonfire-networks/bo
 
 `just setup-dev` did not finish, so it did not copy the flavour's files into `lib/` (check that `lib/bonfire/` exists). Run `just setup-dev` again and fix the first error it shows. A common cause is a JS deps error: see the next section.
 
-### JS deps errors: `Node.js / npm is not installed`, `corepack is not installed`, or `'yarn' is yarn 1.x here`
+### JS deps errors: `Node.js / npm is not installed`, `corepack is not installed`, `'yarn' is yarn 1.x here`, or `Killed`
 
 `just setup-dev` installs the JS deps of extensions with Yarn, which corepack provides. Each extension pins its Yarn version in its `package.json`, and corepack uses that version.
 
 - If Node.js, npm or corepack is missing: install Node.js with `mise install` in the bonfire-app directory, or follow [Yarn's install guide](https://yarnpkg.com/getting-started/install).
 - If it says `yarn` is version 1.x: an old global Yarn 1 (for example from your OS packages or `npm -g install yarn`) comes before corepack's `yarn` on your PATH. Run `which -a yarn` to find it, remove it (for example `npm -g uninstall yarn` or `sudo apt remove yarnpkg`), then run `corepack enable`.
+- If it says `Killed` while installing `iconify_ex`: your machine ran out of memory downloading the icon sets (about 450 MB). Add `WITH_ICON_SETS=0` to your `.env` to skip them. The UI's existing icons still work, but a new icon shows as a fallback icon until you remove that line and run `just js-ext-deps`.
 
 Then run `just setup-dev` again.
 
