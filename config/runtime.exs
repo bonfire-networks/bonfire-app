@@ -18,6 +18,26 @@ no? = ~w(false no none 0)
 # flavour = System.get_env("FLAVOUR", "classic")
 host = System.get_env("HOSTNAME", "localhost")
 server_port = String.to_integer(System.get_env("SERVER_PORT", "4000"))
+
+# the address the web server listens on, eg. 127.0.0.1 behind a reverse proxy, or :: on hosts with only IPv6. When unset, Bandit and Cowboy listen on all IPv4 addresses.
+server_ip =
+  case String.trim(System.get_env("SERVER_IP", "")) do
+    "" ->
+      nil
+
+    ip ->
+      case :inet.parse_address(String.to_charlist(ip)) do
+        {:ok, address} ->
+          address
+
+        {:error, _} ->
+          IO.warn("SERVER_IP=#{ip} is not an IP address, listening on all IPv4 addresses instead")
+          nil
+      end
+  end
+
+listen_ip_option = if server_ip, do: [ip: server_ip], else: []
+
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
 test_instance? = System.get_env("TEST_INSTANCE") in yes?
 federate? = test_instance? or System.get_env("FEDERATE") in yes?
@@ -97,6 +117,7 @@ end
 
 phx_server = System.get_env("PHX_SERVER")
 plug_server = System.get_env("PLUG_SERVER")
+
 # Bandit is the default. Cowboy is only available when PLUG_SERVER was also cowboy or cowboy_socket at build time, which compiles it in and sets its options in config.exs. Any other value switches back to Bandit.
 want_cowboy? = plug_server in ["cowboy", "cowboy_socket"]
 cowboy_compiled? = Code.ensure_loaded?(Plug.Cowboy)
@@ -132,24 +153,21 @@ http_options =
       ]
 
     use_cowboy? ->
-      [
-        # only bind the app to localhost when serving behind a proxy
-        # ip: (if public_port != server_port, do: {127, 0, 0, 1}),
-        port: server_port,
-        compress: phx_compress?,
-        transport_options: [
-          socket_opts: [:inet6]
+      listen_ip_option ++
+        [
+          port: server_port,
+          compress: phx_compress?
         ]
-      ]
 
     true ->
       # for bandit
-      [
-        port: server_port,
-        http_options: [
-          compress: phx_compress?
-        ]
-      ] ++
+      listen_ip_option ++
+        [
+          port: server_port,
+          http_options: [
+            compress: phx_compress?
+          ]
+        ] ++
         if(config_env() == :dev,
           do: [http_1_options: [max_requests: 1]],
           else: []
