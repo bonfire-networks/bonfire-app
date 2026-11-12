@@ -48,6 +48,7 @@ SPDX-License-Identifier: CC0-1.0
 - ✨ International handles, supporting unicode usernames (for remote users, and optionally for creating local ones) and domain names (thanks @mayel)
 - 🔒 Posts and activities are now signed with object integrity proofs (FEP-8b32), and proofs on what arrives are checked, so a post passed on by a group or another server can be trusted by its author's own signature. Groups pass on their members' activities unchanged, so those proofs still verify. Tested with Mastodon, Mitra and Fedify (thanks @mayel)
 - ✨ Admins can let specific hosts through the protection against requests to internal addresses, with the `ssrf_allow_hosts` setting [`d6f5f27`](https://github.com/bonfire-networks/bonfire-app/commit/d6f5f274ecfe797d8ea94701fe0fe750b448dd8c) (thanks @mayel)
+- ✨ Admins can delete a user's data, after confirming their identity, choosing to delete only that profile or the whole account (which says how many profiles go with it) along with all their data [#1357](https://github.com/bonfire-networks/bonfire-app/issues/1357) (thanks @mayel)
 
 ### Changed
 
@@ -59,7 +60,7 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 Redesigned the dashboard's "Getting started" widget [`4da1c52`](https://github.com/bonfire-networks/bonfire_ui_common/commit/4da1c52201f1ca909b6ffdca62383eb08fbdf1a1) (thanks @ivanminutillo)
 - 💅 Reworked feed controls, with separate controls for what a feed includes and how it's ordered, and filtering by people, hashtags, instances and media from the feed filters editor; extensions can add their own filters [#2325](https://github.com/bonfire-networks/bonfire-app/issues/2325) [`bd8947c`](https://github.com/bonfire-networks/bonfire_ui_social/commit/bd8947c729de2cd1bae6176a07ddb7f566b7da6f) (thanks @ivanminutillo and @mayel)
 - 💅 All post actions now sit inline in the "more actions" menu, without an "advanced" button (thanks @ivanminutillo)
-- 💅 Poll UI improvements (thanks @ivanminutillo)
+- 💅 Poll UI improvements, and they load vote counts only when you press "See results", and closed polls' results are cached. Guests get a "Vote" button that leads to voting from their own fediverse account (thanks @ivanminutillo and @mayel)
 - 🔒 Follows and likes are now only sent to the person concerned, not to all your followers, and cancelling a pending follow request to someone on another instance now tells their server [`f26dde6`](https://github.com/bonfire-networks/bonfire_social_graph/commit/f26dde65101af4a8a1029049e58913a57fc3c732) (thanks @ivanminutillo)
 - 🚀 Improvements to search (thanks @mayel and @ivanminutillo):
   - The **Posts** tab is now **Content** and shows more content types 
@@ -87,6 +88,10 @@ SPDX-License-Identifier: CC0-1.0
 - 🌐 Improved localisation coverage throughout the app (thank you translators!)
 - ✨ Upload an instance icon, with a sharp version for high-resolution screens [`6a8db47`](https://github.com/bonfire-networks/bonfire_files/commit/6a8db47dac1040465f21d50ebb4db052ba8ece2d) [`bbe5e3f`](https://github.com/bonfire-networks/bonfire_ui_me/commit/bbe5e3ffb9d0cec77faa4db99be08193fc73f4e9) (thanks @ivanminutillo)
 - ✨ Distributions (flavours) can have their own name, version and maker [#2469](https://github.com/bonfire-networks/bonfire-app/issues/2469) (thanks @cranioisthinking and @mayel)
+- 💅 Guests can read deeply nested replies: "more replies" opens the reply's own page with its replies [#1281](https://github.com/bonfire-networks/bonfire-app/issues/1281) (thanks @mayel)
+- 💅 Dashboard poll widgets show no vote counts, and leave out ended polls and ones you voted on. Refreshing "Polls closing soon" explains that the list updates on reload [#2278](https://github.com/bonfire-networks/bonfire-app/issues/2278) [#2243](https://github.com/bonfire-networks/bonfire-app/issues/2243) (thanks @ccamara, @wakest and @mayel)
+- 💅 The Spotlight widget hides itself when nothing is pinned [#2059](https://github.com/bonfire-networks/bonfire-app/issues/2059) (thanks @ccamara and @mayel)
+- 💅 A scheduled post says "Scheduled for <date>" instead of linking to a page that doesn't exist yet, and doesn't reach feeds or notifications before its time [#2486](https://github.com/bonfire-networks/bonfire-app/issues/2486) (thanks @ccamara and @mayel)
 
 ### Fixed
 
@@ -139,7 +144,9 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Fixed exporting an account to migrate it [#2463](https://github.com/bonfire-networks/bonfire-app/issues/2463) (thanks @btfreeorg and @mayel)
 - 🌐 More of the interface can be translated, including the logged-out start page and login errors (thanks Mentaal and @mayel)
 - 🐛 Following a PeerTube account shows its videos [#1715](https://github.com/bonfire-networks/bonfire-app/issues/1715) [#2070](https://github.com/bonfire-networks/bonfire-app/issues/2070) (thanks @ozonedGH, @btfreeorg, @ivanminutillo and @mayel)
-- 🐛 Images and other media in publications show in feeds again [#1230](https://github.com/bonfire-networks/bonfire-app/issues/1230) (thanks @mayel)
+- 🐛 Adding a Pixelfed (or any) external account no longer crashes on a pasted link, and a handle that can't be found says "Couldn't find a remote profile with that name". Linked accounts such as ORCID link to their own page, not to Bonfire [#2244](https://github.com/bonfire-networks/bonfire-app/issues/2244) [#2079](https://github.com/bonfire-networks/bonfire-app/issues/2079) (thanks @wakest and @mayel)
+- 🐛 Interacting from your own fediverse account: the field is labelled "Your fediverse username" and asks for the server too, and the comment embed's button reads "Reply" [#2274](https://github.com/bonfire-networks/bonfire-app/issues/2274) [#2300](https://github.com/bonfire-networks/bonfire-app/issues/2300) (thanks @wakest, @ccamara and @mayel)
+- 🐛 On a flagged person who's already blocked, "Take action" offers "Block or unblock <name>" [#1627](https://github.com/bonfire-networks/bonfire-app/issues/1627) (thanks @jonpincus and @mayel)
 
 
 ## Bonfire [1.0.7 (2026-08-30)]
