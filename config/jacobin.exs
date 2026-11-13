@@ -117,13 +117,8 @@ config :bonfire_ui_social, Bonfire.UI.Social.RestrictedContentLive,
   cta_label: "Upgrade",
   cta_url: "https://jacobin.de/abo"
 
-# Getting-started checklist shown to new users in the sidebar widget.
-# Each entry is a key from
-# `Bonfire.UI.Social.WidgetGettingStartedLive.actions_registry/0`; the copy
-# and completion detectors live there (in code) so they stay translatable.
-# Instance-specific URLs are passed here. Manual completion (`Mark done`) is
-# always available, so steps without an auto-detector still work.
-config :bonfire_ui_social, Bonfire.UI.Social.WidgetGettingStartedLive,
+# Which getting-started steps the sidebar widget offers, and in what order. Each key is declared by the extension whose feature it is about, along with its copy and its completion detector, so this only chooses between them and passes in what only an instance knows. Manual completion (`Mark done`) is always available, so a step with no detector still works.
+config :bonfire_ui_common, Bonfire.UI.Common.WidgetGettingStartedLive,
   actions: [:profile, :first_post, :first_follow, :read_coc, :wishes],
   code_of_conduct_path: "/conduct",
   wishes_url: "https://heyform-mglx.srv1627781.hstgr.cloud/form/7JpSZJ6H"

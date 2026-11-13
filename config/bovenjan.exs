@@ -33,3 +33,6 @@ config :bonfire_social, Bonfire.Social.Answers, modularity: :disabled
 # `notifications` comes after the steps that give somebody something to be notified about. Its action is the card that asks this browser for permission rather than a link anywhere, and the step goes once notifications reach them on any device.
 config :bonfire_ui_common, Bonfire.UI.Common.WidgetGettingStartedLive,
   actions: [:profile, :read_rules, :notifications, :first_follow, :first_post]
+
+# Widgets in the dashboard sidebar, beyond the ones it always offers. The feedback widget shows once an admin sets a form link, or a group or topic to post in, in instance settings.
+config :bonfire, Bonfire.Web.Views.DashboardLive, widgets: [sidebar: [:wishes]]

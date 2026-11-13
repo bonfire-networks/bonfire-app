@@ -1136,6 +1136,33 @@ config :bonfire_articles, Article,
        unquote_splicing(common.([:direct_replies]))
      end)
 
+config :bonfire_gatherings, Bonfire.Gatherings.Event,
+  code:
+    (quote do
+       # mixins
+       unquote_splicing(
+         common.([
+           :post_content,
+           :created,
+           :caretaker,
+           :peered,
+           :replied,
+           :tree,
+           :activity,
+           :language,
+           :sensitive,
+           :extra_info
+         ])
+       )
+
+       # multimixins
+       unquote_splicing(common.([:controlled, :tags, :media, :feed_publishes]))
+
+       # when and where: reusable mixins from other extensions
+       has_one(:time_span, Bonfire.Data.Time.TimeSpan, foreign_key: :id)
+       has_one(:primary_geolocation, Bonfire.Geolocate.PrimaryGeolocation, foreign_key: :id)
+     end)
+
 config :bonfire_data_social, PostContent,
   code:
     (quote do
