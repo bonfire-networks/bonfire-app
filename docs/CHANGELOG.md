@@ -92,6 +92,7 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 Dashboard poll widgets show no vote counts, and leave out ended polls and ones you voted on. Refreshing "Polls closing soon" explains that the list updates on reload [#2278](https://github.com/bonfire-networks/bonfire-app/issues/2278) [#2243](https://github.com/bonfire-networks/bonfire-app/issues/2243) (thanks @ccamara, @wakest and @mayel)
 - 💅 The Spotlight widget hides itself when nothing is pinned [#2059](https://github.com/bonfire-networks/bonfire-app/issues/2059) (thanks @ccamara and @mayel)
 - 💅 A scheduled post says "Scheduled for <date>" instead of linking to a page that doesn't exist yet, and doesn't reach feeds or notifications before its time [#2486](https://github.com/bonfire-networks/bonfire-app/issues/2486) (thanks @ccamara and @mayel)
+- 💅 Composer improvements: it opens ready to type, can be minimised, has a clearer audience picker, and works better in the mobile app (PWA), including offline (thanks @ivanminutillo)
 
 ### Fixed
 
