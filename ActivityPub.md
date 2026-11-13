@@ -1,8 +1,36 @@
-# ActivityPub
+# ActivityPub for Elixir
 
-ActivityPub Library for elixir.
+An Elixir library that enables a Phoenix app to federate with the fediverse over [ActivityPub](https://www.w3.org/TR/activitypub/). It is the federation layer used by [Bonfire](https://bonfirenetworks.org) and [kazarma](https://kazar.ma/), and it is built to be used by other apps too.
 
-**WORK IN PROGRESS, TESTING FEDERATION WITH DIFFERENT IMPLEMENTATIONS IS UNDERWAY**
+Getting federation right means implementing ActivityPub, ActivityStreams, and many more specs, including signatures, discovery, fetching, delivery and retries. This library does that work, so your app's users can follow and be followed, post, reply, boost and react across servers. It doesn't dictate your app's data model. Incoming activities are normalised and temporarily stored as ActivityStreams JSON objects, and handed to your app through an adapter module. Outgoing ones are queued and delivered to each recipient's inbox. Your app decides what an activity means for its own users, posts and follows.
+
+## Status
+
+It runs in production on every Bonfire instance. The API is still evolving but in a backwards-compatible way.
+
+## What it does
+
+- Serves actors, objects and collections as ActivityStreams JSON, with the ActivityPub server-to-server inbox and outbox. 
+- The client-to-server (C2S) API is available too.
+- Finds and is found through WebFinger, so `@user@your.host` works from other servers.
+- Signs what it sends with HTTP signatures (RFC 9421 or draft-cavage, whichever the receiving server uses) and Data Integrity proofs (FEP-8b32, `eddsa-jcs-2022`).
+- Checks what it receives, with HTTP signatures (RFC 9421 or draft-cavage), Linked Data signatures (`RsaSignature2017`, the ones Mastodon emits) and Data Integrity proofs (FEP-8b32, `eddsa-jcs-2022` and `mldsa44-jcs-2024`, with keys from the actor's `assertionMethod`, FEP-521a).
+- Fetches remote actors and objects, including the objects nested in an activity, and caches them.
+- Delivers and receives through [Oban](https://hexdocs.pm/oban) queues, retries failed deliveries, and tracks which instances are unreachable.
+- Enforces moderation at the instance level with MRF policies: rejecting or limiting instances, removing media, and filtering keywords.
+
+It needs Elixir 1.20.2 or later, an Ecto repo and Oban.
+
+## Related libraries
+
+- [nodeinfo](https://github.com/bonfire-networks/nodeinfo): serves instance information with the [NodeInfo](https://nodeinfo.diaspora.software) standard, which other servers read to learn what software an instance runs (not a dependency: add it alongside)
+- [http_signatures](https://github.com/bonfire-networks/http_signatures): signs and checks HTTP signatures, used by this library (a fork of Akkoma's)
+
+And for an example of how to integrate this library's adapter into an app, you can look at [Bonfire's adapter](https://github.com/bonfire-networks/bonfire_federate_activitypub).
+
+## Credits and licence
+
+Parts of the code come from [Akkoma](https://akkoma.social). Licensed under the GNU AGPLv3 (see `LICENCE`).
 
 ## Installation
 
@@ -11,12 +39,11 @@ ActivityPub Library for elixir.
 ```
 defp deps do
   [...]
-  {:activity_pub, git: "https://github.com/bonfire-networks/activity_pub.git", branch: "stable"} # branch can "stable", or "develop" for the bleeding edge
+  {:activity_pub, git: "https://github.com/bonfire-networks/activity_pub.git", branch: "stable"} # branch can be "stable", or "develop" for the bleeding edge
 end
 ```
 
-2. Create an adapter module. To start, one created at
-   `lib/my_app/adapter.ex` might look like
+2. Create an adapter module. To start, one created at `lib/my_app/adapter.ex` might look like this:
 
 ```elixir
 defmodule MyApp.Adapter do
@@ -28,29 +55,11 @@ defmodule MyApp.Adapter do
 end
 ```
 
-Note that, due to the defined `@behavior`, Elixir will warn you that
-the required functions
+Thanks to the `@behaviour`, Elixir warns you about each callback of `ActivityPub.Federator.Adapter` you have not implemented yet, such as `base_url/0`, `get_actor_by_id/1`, `get_actor_by_username/1` and `handle_activity/1`. Your app still starts. 
 
-  * `base_url/0`
-  * `get_actor_by_id/1`
-  * `get_actor_by_username/1`
-  * `get_follower_local_ids/1`
-  * `get_following_local_ids/1`
-  * `get_redirect_url/1`
-  * `handle_activity/1`
-  * `maybe_create_remote_actor/1`
-  * `maybe_publish_object/2`
-  * `update_local_actor/2`
-  * `update_remote_actor/1`
+The behaviour module documents every callback, and which ones are optional. These callbacks are how the library reads your actors and objects, and how it hands incoming activities to your app. 
 
-have not yet been implemented though you will be able to start your
-app. Defining these allows `ActivityPub` to handle ActivityPub HTTP
-and database calls and operations. An example of an implemented
-adaptor can be found
-[here](https://github.com/bonfire-networks/bonfire_federate_activitypub/tree/main/lib/adapter
-"Link to file hosted on GitHub").
-
-Then set it in config
+Then set it in config:
 
 ```
 config :activity_pub, :adapter, MyApp.Adapter
@@ -66,7 +75,7 @@ config :activity_pub, :repo, MyApp.Repo
 
 5. Inject AP routes to your router by adding `use ActivityPub.Web.Router` to your app's router module
 
-6. Copy the default AP config to your app's confix.exs
+6. Copy the default AP config to your app's `config.exs`
 
 ```
 config :activity_pub, :mrf_simple,
@@ -100,7 +109,7 @@ config :activity_pub, :http,
 
 7. Change the hostname value in the instance config block to your instance's hostname 
 
-8. If you don't already have Oban set up, follow the [Oban installation intructions](https://hexdocs.pm/oban/installation.html#content) and add the AP queues:
+8. If you don't already have Oban set up, follow the [Oban installation instructions](https://hexdocs.pm/oban/installation.html#content) and add the AP queues:
 
 ```
 config :my_app, Oban, queues: [federator_incoming: 50, federator_outgoing: 50, remote_fetcher: 20]
