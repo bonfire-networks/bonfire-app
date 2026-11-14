@@ -43,12 +43,20 @@ SPDX-License-Identifier: CC0-1.0
 - 🚧 Confirm your identity before sensitive actions (sudo mode), starting with deleting your account [#2281](https://github.com/bonfire-networks/bonfire-app/issues/2281) (thanks @ivanminutillo and @mayel)
 - ✨ The app can optionally use a YugabyteDB database (thanks @mayel)
 - ✨ Communities define their own vocabulary (names and text) for widget titles (thanks @mayel)
+- ✨ A Feedback widget asks people what they want of the instance. Its button opens a feedback form, or, with no form, the composer to post in a group or topic the admins pick. Admins set its title, text, button and form address in the instance settings, and the "Getting started" checklist's wishes step uses the same ones (thanks @mayel)
 - ✨ A "Message the moderators" button to reach the instance's moderators, on the moderators widget, the guest homepage and the About page, and messages and mentions of the instance's federation account reach all its moderators (thanks @mayel)
 - ✨ Show your password while creating an account [#2346](https://github.com/bonfire-networks/bonfire-app/issues/2346) (thanks @sarahsquirrel and @ivanminutillo)
 - ✨ International handles, supporting unicode usernames (for remote users, and optionally for creating local ones) and domain names (thanks @mayel)
 - 🔒 Posts and activities are now signed with object integrity proofs (FEP-8b32), and proofs on what arrives are checked, so a post passed on by a group or another server can be trusted by its author's own signature. Groups pass on their members' activities unchanged, so those proofs still verify. Tested with Mastodon, Mitra and Fedify (thanks @mayel)
 - ✨ Admins can let specific hosts through the protection against requests to internal addresses, with the `ssrf_allow_hosts` setting [`d6f5f27`](https://github.com/bonfire-networks/bonfire-app/commit/d6f5f274ecfe797d8ea94701fe0fe750b448dd8c) (thanks @mayel)
 - ✨ Admins can delete a user's data, after confirming their identity, choosing to delete only that profile or the whole account (which says how many profiles go with it) along with all their data [#1357](https://github.com/bonfire-networks/bonfire-app/issues/1357) (thanks @mayel)
+- ✨ Import a whole account archive (a zip file) from another Bonfire instance or other apps like Mastodon. After uploading it, you see what it holds and how much of each (content, likes, bookmarks, follows, circles, blocks, profile), and can choose what to import (thanks @mayel):
+  - Media like images in your posts come from the archive, so they're kept even when your old server is gone
+  - Your old bio, location, avatar and banner fill in what your profile here doesn't have yet, without overwriting anything
+  - Boosts come in only if you tick "Also import boosts"
+  - Posts that only you could see on your old account (a private mention to nobody, or a message to someone whose account is gone) come in visible only to you
+  - Your imported posts are listed in your outbox, so other servers can find them, without being sent to anyone again
+  - Posts still come in when your old server is gone or doesn't answer, credited to your old account, and posts this instance already had are imported too
 
 ### Changed
 
@@ -142,7 +150,8 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Avatars: SVG images are refused for avatars and banners, as Mastodon can't show them [#2475](https://github.com/bonfire-networks/bonfire-app/issues/2475); bot accounts from Lemmy keep their icons [#2489](https://github.com/bonfire-networks/bonfire-app/issues/2489); and profile updates from accounts with no display name are no longer lost [#1546](https://github.com/bonfire-networks/bonfire-app/issues/1546) (thanks @xplosionmind, @sleeping-miyagi, @ivanminutillo and @mayel)
 - 🐛 Interacting from your own fediverse account (remote follow, reply or like) works with Mastodon again using Telling comment embeds, and an unknown address shows an error on the form instead of offering to download a page on phones [#2273](https://github.com/bonfire-networks/bonfire-app/issues/2273) [#2259](https://github.com/bonfire-networks/bonfire-app/issues/2259) (thanks @wakest, @ccamara and @mayel)
 - 🐛 Fixed scheduling posts [#2470](https://github.com/bonfire-networks/bonfire-app/issues/2470) (thanks @ccamara and @mayel)
-- 🐛 Fixed exporting an account to migrate it [#2463](https://github.com/bonfire-networks/bonfire-app/issues/2463) (thanks @btfreeorg and @mayel)
+- 🐛 Fixed exporting an account to migrate it [#2463](https://github.com/bonfire-networks/bonfire-app/issues/2463), and the export page no longer fails to open for accounts with two or more aliases (thanks @btfreeorg and @mayel)
+- 🐛 Private posts from other servers that are addressed only to people this instance doesn't know are no longer dropped (thanks @mayel)
 - 🌐 More of the interface can be translated, including the logged-out start page and login errors (thanks Mentaal and @mayel)
 - 🐛 Following a PeerTube account shows its videos [#1715](https://github.com/bonfire-networks/bonfire-app/issues/1715) [#2070](https://github.com/bonfire-networks/bonfire-app/issues/2070) (thanks @ozonedGH, @btfreeorg, @ivanminutillo and @mayel)
 - 🐛 Adding a Pixelfed (or any) external account no longer crashes on a pasted link, and a handle that can't be found says "Couldn't find a remote profile with that name". Linked accounts such as ORCID link to their own page, not to Bonfire [#2244](https://github.com/bonfire-networks/bonfire-app/issues/2244) [#2079](https://github.com/bonfire-networks/bonfire-app/issues/2079) (thanks @wakest and @mayel)
