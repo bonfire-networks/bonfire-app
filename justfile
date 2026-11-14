@@ -1994,8 +1994,12 @@ localise-prune:
 		fi
 	done
 
-	# after the pruning, so the shares only cover the locales that stay
-	just escript_common localise_coverage
+	# after the pruning, so the shares only cover the locales that stay. Not in CI: the escript needs bonfire_common's mix tasks, and the pull job has no Elixir or deps.
+	if [ -z "${CI:-}" ]; then
+		just escript_common localise_coverage
+	else
+		echo "Skipping localise_coverage in CI"
+	fi
 
 @localise-tx-push:
 	tx push
