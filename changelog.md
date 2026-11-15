@@ -25,10 +25,13 @@ SPDX-License-Identifier: CC0-1.0
   - Your groups' latest updates can be shown on your dashboard
   - Instance admins can have new accounts turn on notifications for a group, next to the existing auto-join option in the group's settings, so new members get the group's new posts in their notifications (thanks Mentaal and @mayel)
   - **View options** on a group's discussions and on the Recent discussions feed: show threads or every post, and order them by recent activity, newest first, or most replies, boosts or likes. The choice lasts for the visit, like a thread's view options (thanks Mentaal and @mayel)
+  - Following a group, turning its bell on, or joining it offers its sub-topics too, so you can follow or be notified about some or all of them in one step; unfollowing or turning the bell off offers to stop them too. Following or a bell covers only what you explicitly ask: a group's own posts, not those in its sub-topics
+  - The sidebar lists the groups you pinned: while it's open, a new post moves its group to the top with a dot (or a topic under it, with the group expanded), and adds a followed group you haven't pinned, with a button to pin it
   - 📖 See the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md)
 
 - ✨ Rebuilt notifications, see the [Notifications guide](user_guides/notifications.md) [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo):
-  - A bell on a person, a group or a discussion: **Notify me about new posts** from someone or a group, or **Notify me about replies** on a discussion, even a single branch of one. It's off until you press it, and following or joining never turns it on
+  - A bell on a person, a group, a topic or a discussion: **Notify me about new posts** from someone, a group or a topic, or **Notify me about replies** on a discussion, even a single branch of one. It's off until you press it, and following or joining never turns it on. A group's bell doesn't cover its sub-topics, and a post notifies you once even if you rang both
+  - A group on another instance sharing a post you published in it doesn't notify you about your own post
   - For each kind of notification, choose whether it shows in your notifications, whether it's pushed, and whether it's emailed: off, in the digest, or instantly
   - Email notifications: kinds set to instant arrive as they happen, and the rest go into one digest per account, daily, weekly or monthly, with a section per profile
   - Push notifications to browsers and mobile apps, on every device where you turned them on

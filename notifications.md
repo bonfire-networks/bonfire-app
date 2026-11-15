@@ -23,10 +23,12 @@ Notifications are separate for each of your profiles: switch profiles to see eac
 
 Use the bell to hear about new things, beyond what concerns you directly:
 
-- On a person or a group, **Notify me about new posts**.
+- On a person, a group or a topic, **Notify me about new posts**.
 - On a discussion, **Notify me about replies**, even for a single branch of a long thread.
 
 It stays off until you press it: following someone or joining a group doesn't turn it on. Press it again (**Stop notifying me**) to stop.
+
+A bell covers only what you explicitly press it on. A group's bell doesn't cover posts in its sub-topics, so press the bell on each topic you want to hear about. 
 
 ## Choosing what you hear about, and how
 

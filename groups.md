@@ -34,6 +34,8 @@ You can follow a group without joining it. Following puts the group's public pos
 
 To stop seeing a group's posts in your home feed without leaving it, unfollow it: you stay a member, and can still read and post on its page. For a group on another instance, though, its new posts reach your instance only while someone here follows it, so after you unfollow, its page here may not show its latest posts. To be notified of each new post in a group, press the bell on its page.
 
+Following and the bell each cover only what you explicitly use them on. Following a group puts things posted directly in the group in your feed, not those in its sub-topics, and a bell on a group doesn't notify you of posts in its sub-topics. If you follow a group or press its bell, both also when you join, and the group has known sub-topics, Bonfire then lists them so you can pick which ones to follow or be notified about too, with a toggle to select all or none. Unfollowing a group or turning its bell off lists the topics you follow or have the bell on, so you can stop those too. 
+
 ## Inside a group
 
 - **The header** shows the group's name, description, address and how many members it has. Your status shows there too: **Joined** or **Moderator**.
@@ -97,7 +99,7 @@ See [Remote Interactions](./remote-interactions.md) for following and joining fr
 
 A group is the space: it has members, moderators, rules and its own settings for who can find, join, read and post. Topics live inside a group and keep its conversations apart, so a reading circle and a planning thread don't end up in one stream. A topic follows its group's access rules.
 
-You can follow a whole group or a single topic, so new posts reach your feed without you checking every group page.
+You can follow a group or a single topic, so new posts reach your feed without you checking every group page. Following covers only what you explicitly follow: a group's own posts, not those in its sub-topics.
 
 ### Doesn't the fediverse already have groups?
 
