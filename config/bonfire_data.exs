@@ -1220,6 +1220,8 @@ config :bonfire_data_social, Replied,
        has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id, references: :id)
        has_many(:thread_replies, unquote(Replied), foreign_key: :thread_id, references: :id)
        has_one(:thread_post, unquote(Post), foreign_key: :id, references: :thread_id)
+       # the thread's title, read straight off the root's `Named` with no boundary check on the root: anyone who can read a reply may see it, like an email subject
+       has_one(:thread_named, unquote(Named), foreign_key: :id, references: :thread_id)
 
        has_one(:thread_post_content, unquote(PostContent),
          foreign_key: :id,
@@ -1259,6 +1261,10 @@ config :bonfire_data_social, Profile,
        # multimixins - shouldn't be here really
        unquote_splicing(common.([:controlled]))
      end)
+
+# the Media columns a profile points at, which `Bonfire.Files.Media.referenced_elsewhere?/2` checks before a Media row is deleted
+config :bonfire_files, Media,
+  referenced_by: [{Bonfire.Data.Social.Profile, [:icon_id, :image_id]}]
 
 ######### other extensions
 
