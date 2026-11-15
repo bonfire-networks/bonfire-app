@@ -325,6 +325,7 @@ dev-profile-iex profile:
 	just docker-compose --profile $profile exec web iex --sname extra --remsh localenv@127.0.0.1
 
 dev-federate:
+	just dep-clean bonfire
 	FEDERATE=yes HOT_CODE_RELOAD=0 HOSTNAME=`just local-tunnel-hostname` PUBLIC_PORT=443 just _dev
 
 # Run two federated dev instances (for testing federation locally without tunnels)
