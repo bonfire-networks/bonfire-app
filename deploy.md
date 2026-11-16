@@ -148,6 +148,7 @@ You can edit the Caddy, Sonic and Postgres configs that it copies to `config/dep
 
 4. Edit `config/prod/.env`. Set at least `HOSTNAME` and the `MAIL_*` keys (see [prepare the config](#preparing-the-config-in-env)). Also:
    - If you set `PUBLIC_PORT=443`, also set `PROXY_CADDYFILE_PATH=./config/deploy/Caddyfile2-https`.
+   - If visitors reach the instance over https on a port other than 443, set `PUBLIC_SCHEME=https`. The default is `https` when `PUBLIC_PORT` is 443, otherwise `http`. With `https`, the session cookie is only sent over https.
    - To add or remove the Caddy proxy later, add or remove `proxy` in `COMPOSE_PROFILES`.
 
 5. Download the images: `docker compose pull`
@@ -895,6 +896,17 @@ The app stores uploads in `data/uploads/` inside its working directory (`/opt/bo
 - Caddy: [config/templates/Caddyfile2-https](../config/templates/Caddyfile2-https) is written for the Docker setup. Copy it to `/etc/caddy/Caddyfile`, then replace `:443` with your domain (so that Caddy gets a certificate for it), `web:4000` with `127.0.0.1:4000`, and `/frontend/` with the app's working directory.
 - Apache: copy [config/templates/apache.conf](../config/templates/apache.conf) to `/etc/httpd/conf.d/bonfire.conf` (RHEL), or to `/etc/apache2/sites-available/bonfire.conf` and run `a2ensite bonfire` (Debian). Change `ServerName`, the certificate and log paths, and the uploads `Alias` and `<Directory>` paths, which must point to `data/uploads/` inside the app's working directory. It needs the `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, `headers` and `ssl` modules. This is a `<VirtualHost>` block, so it needs admin access. It doesn't work in a `.htaccess` file, because `.htaccess` doesn't allow `Alias` or `ProxyPass`.
 
+
+## Block outgoing traffic to private networks
+
+The app fetches URLs that users and remote servers give it (link previews, federation, media). It refuses to fetch private addresses, but that check cannot stop DNS rebinding: a name that points to a public address when the app checks it, and to a private one when the app connects. To avoid that, also block outgoing traffic from the app's host or container at the network level (firewall, `iptables`/`nftables` rules, or your cloud's egress rules):
+
+- `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` (private networks)
+- `127.0.0.0/8` and `::1` (loopback), except what the app itself needs, such as its database and search services
+- `169.254.0.0/16` (link-local, which includes the cloud metadata address `169.254.169.254`)
+- `fc00::/7` (IPv6 private networks)
+
+At boot, the app tries a connection to `169.254.169.254:80` and logs a warning if it succeeds. To turn this check off, set `enabled: false` under `config :bonfire_common, Bonfire.Common.HTTP.MetadataEndpointCheck`.
 
 ## Notes on running the app
 

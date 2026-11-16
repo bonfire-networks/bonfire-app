@@ -98,11 +98,11 @@ A post with no audience, or one that isn't a post audience, gets the group's def
 | Preset ID | Membership | Visibility | Participation | Default post vis |
 |-----------|-----------|------------|---------------|-----------------|
 | `open_network` | `open` | `global` | `anyone` | `public` |
-| `public_local_community` | `local:members` | `nonfederated` | `local:contributors` | `nonfederated` |
-| `announcement_channel` | `invite_only` | `nonfederated` | `moderators` | `nonfederated` |
+| `local_community` | `local:members` | `nonfederated` | `local:contributors` | `local` |
+| `announcement_channel` | `invite_only` | `global` | `moderators` | `public` |
 | `private_club` | `on_request` | `local:preview` | `group_members` | `members:private` |
 
-`open_network` is the public/federated preset, and the only one that currently federates. The other three are local to this instance.
+`open_network` and `announcement_channel` federate. `local_community` and `private_club` stay on this instance. 
 
 `public_local_community` and `announcement_channel` used to name a `*:preview` visibility while their descriptions promised content anyone could read, which is the contradiction that `preview` is named to prevent: a preview slug withholds `:read` from non-members. `private_club` is the one that wants it, and it pairs it with `group_members` participation. Restricting who may POST is the participation dimension's job in all three.
 
@@ -118,7 +118,7 @@ A Layer 2 toggle is an override on a preset that enacts one or more Layer 3 dime
 
 | Key | Toggles | Writes to | Locked by |
 |-----|---------|-----------|-----------|
-| `federate` | Group reachable from other instances | `visibility` **and** `default_content_visibility` scope, at the same role | all presets (only `open_network` federates today, and it can't be turned off there) |
+| `federate` | Group reachable from other instances | `visibility` **and** `default_content_visibility` scope, at the same role | all presets (`open_network` and `announcement_channel` federate, and the toggle is locked on both) |
 | `joins_need_approval` | Moderator reviews each join request | `membership` | none |
 | `nonmembers_may_post` | People who have not joined can post | `participation` | `announcement_channel`, `private_club` |
 

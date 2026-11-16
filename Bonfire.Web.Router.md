@@ -73,6 +73,10 @@ Callback invoked by Plug on every request.
 
 Used to serve GraphQL API queries
 
+# `graphql_schema`
+
+Used to serve the schema (SDL), which is only for signed-in users unless public introspection is on
+
 # `guest_only`
 
 # `host_meta`
@@ -125,6 +129,8 @@ with fallback to default options provided in the plug call.
 # `require_authenticated_user`
 
 # `require_confirmed`
+
+# `require_masto_scope`
 
 # `safe_protect_from_forgery`
 
