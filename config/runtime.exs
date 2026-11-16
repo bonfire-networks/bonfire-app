@@ -313,7 +313,19 @@ config :bonfire, :finch_pools, finch_pools
 
 if config_env() != :test or federate? do
   config :tesla, :adapter, {Tesla.Adapter.Finch, name: Bonfire.Finch, pools: finch_pools}
+
+  # link unfurling stops reading a page at its size limit (`config :unfurl, max_body_bytes`, 10 MB by default), which `Tesla.Adapter.Finch` cannot do
+  config :tesla, Unfurl.Fetcher,
+    adapter: {Bonfire.Common.HTTP.CappedFinch, name: Bonfire.Finch, pools: finch_pools}
 end
+
+# the most of a response body that our HTTP clients read before giving up (fetching remote posts, link previews, media by URL), in bytes
+http_max_body_bytes =
+  String.to_integer(System.get_env("HTTP_MAX_BODY_BYTES", "#{10 * 1024 * 1024}"))
+
+config :bonfire_common, :http, max_body_bytes: http_max_body_bytes
+config :activity_pub, :http, max_body_bytes: http_max_body_bytes
+config :unfurl, max_body_bytes: http_max_body_bytes
 
 oban_notifier =
   case System.get_env("OBAN_NOTIFIER", "postgres") do
