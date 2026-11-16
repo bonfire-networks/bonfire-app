@@ -34,5 +34,5 @@ config :bonfire_social, Bonfire.Social.Answers, modularity: :disabled
 config :bonfire_ui_common, Bonfire.UI.Common.WidgetGettingStartedLive,
   actions: [:profile, :read_rules, :notifications, :first_follow, :first_post]
 
-# Widgets in the dashboard sidebar, beyond the ones it always offers. The feedback widget shows once an admin sets a form link, or a group or topic to post in, in instance settings.
-config :bonfire, Bonfire.Web.Views.DashboardLive, widgets: [sidebar: [:wishes]]
+# Widgets on every page, in the right sidebar. The feedback widget shows once an admin sets a form link, or a group or topic to post in, in instance settings.
+config :bonfire_ui_common, Bonfire.UI.Common.LayoutLive, widgets: [layout: [:wishes]]
