@@ -8,3 +8,6 @@ config :bonfire_social, Bonfire.Social.FeedFilters,
     media_types: Bonfire.Social.FeedFilters.AtomOrStringList,
     exclude_media_types: Bonfire.Social.FeedFilters.AtomOrStringList
   ]
+
+# the library's `%URI{}` uploads are fetched through `Bonfire.Common.HTTP` (private and loopback hosts refused on every hop, body size capped) instead of its default `:httpc` fetch
+config :entrepot, :uri_fetcher, {Bonfire.Files, :fetch_body}

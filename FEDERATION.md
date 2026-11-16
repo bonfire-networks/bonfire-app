@@ -74,49 +74,76 @@ Bonfire aims for broad compatibility with major ActivityPub implementations. It 
 
 Bonfire implements and/or experiments with several [Fediverse Enhancement Proposals (FEPs)][4], including:
 
-- [FEP-044f][7] (Quote Posts)
-- [TBD][15] (Interaction Policy)
-- [FEP-1b12][15] (Group federation)
-- [FEP-844e][fep-844e] (Capability discovery)
-- [FEP-8b32][fep-8b32] (Object Integrity Proofs, see [below](#object-integrity-proofs-fep-8b32))
-- [FEP-521a][21] (Representing actor's public keys)
+- [FEP-044f - Quote posts][7]
+- [FEP-e232 - Object links][e232]: used for the `Link` tag of a quote.
+- [FEP-1b12 - Group federation][fep-1b12]: see [Groups and topics](#groups-and-topics-fep-1b12).
+- [FEP-9b2b - Concept relationships for federated classification][fep-9b2b]: a draft. Topics use its `broader` and `inScheme`.
+- [FEP-844e - Capability discovery][fep-844e]
+- [FEP-8b32 - Object integrity proofs][fep-8b32]: see [Object integrity proofs](#object-integrity-proofs-fep-8b32).
+- [FEP-521a - Representing actor's public keys][21]
+- [FEP-fe34 - Origin-based security model][45]
+- [FEP-5feb - Search indexing consent for actors][22]: through `indexable` and `discoverable`.
+- [FEP-2677 - Identifying the application actor][40]
+- [FEP-d556 - Server-level actor discovery using WebFinger][41]
+- [FEP-8a8e - A common approach to using the Event object type][42]
+- [FEP-8967 - Generating link previews for attached links][28]: incoming only.
+- [FEP-07d7 - Handling `web+ap` URLs][07d7]
+- [FEP-67ff - FEDERATION.md][39]: this file.
+
+Partial support (incoming only, or only some of the proposal):
+- [FEP-171b - Conversation containers][fep-171b]: Bonfire reads an `Add` of an activity into a conversation, as Hubzilla and Streams send, but sends none.
+- [FEP-400e - Publicly appendable collections][fep-400e]: `Add`/`Remove` to our collections are accepted from their owner and fanned out to followers. From remote groups, `Add`/`Remove` on the moderators, `narrower` and `featured` collections are applied, others such as Smithereen walls not handled yet.
+- [FEP-ae97 - Client-side activity signing][ae97]: Bonfire accepts client keys listed in an actor's `assertionMethod`.
+- [FEP-9967 - Polls][44]: `Question` objects are handled, but conformity to the FEP is not confirmed.
 
 Partial support or conformity to-be-confirmed (help needed!):
-- [FEP-f1d5][16], [FEP-eb22][17], and/or [FEP-0151][18] (NodeInfo)
-- [FEP-2277][19] (ActivityPub core types)
-- [FEP-4adb][20] (Derefencing identifiers through webfinger)
-- [FEP-fe34][45] (Origin-based security model)
-- [FEP-5feb][22] (Search indexing consent for actors)
-- [FEP-268d][23] (Search consent signals for objects)
-- [FEP-d8c2][24] (OAuth 2.0 profile for the ActivityPub API)
-- [FEP-7628][25], [FEP-73cd][26], and/or [FEP-e965][27] (Move actor)
-- [FEP-8967][28] (Generating link previews for attached links)
-- [FEP-c0e0][29] (Emoji reactions)
-- [FEP-9098][30] (Custom emojis)
-- [FEP-f228][31] (Backfilling conversations)
-- [FEP-a974][32] (All Actor types should be followable)
-- [FEP-1311][33] (Media attachments)
-- [FEP-b2b8][34] (Long-form text)
-- [FEP-76ea][35] (Conversation threads)
-- [FEP-7458][36] (Using the replies collection)
-- [FEP-c16b][37] (Formatting MFM functions)
-- [FEP-eb48][38] (Hashtags)
+- [FEP-f1d5][16], [FEP-eb22][17] and/or [FEP-0151][18] - NodeInfo
+- [FEP-2277 - ActivityPub core types][19]
+- [FEP-4adb - Dereferencing identifiers through WebFinger][20]
+- [FEP-268d - Search consent signals for objects][23]
+- [FEP-d8c2 - OAuth 2.0 profile for the ActivityPub API][24]
+- [FEP-7628][25], [FEP-73cd][26] and/or [FEP-e965][27] - Move actor
+- [FEP-c0e0 - Emoji reactions][29]: incoming only.
+- [FEP-9098 - Custom emojis][30]
+- [FEP-f228 - Backfilling conversations][31]
+- [FEP-a974 - All actor types should be followable][32]
+- [FEP-1311 - Media attachments][33]
+- [FEP-b2b8 - Long-form text][34]
+- [FEP-76ea - Conversation threads][35]
+- [FEP-7458 - Using the replies collection][36]
+- [FEP-c16b - Formatting MFM functions][37]
+- [FEP-eb48 - Hashtags][38]
 
 Work-in-progress, planned, or exploring (suggestions/feedback welcome!):
-- [FEP-67ff][39] (FEDERATION.md)
-- [FEP-2677][40] (Identifying the Application Actor)
-- [FEP-d556][41] (Server-level Actor Discovery using WebFinger)
-- [FEP-8a8e][42] (A common approach to using the Event object type)
-- [FEP-efda][43] (Followable objects)
-- [FEP-9967][44] (Polls)
-- [FEP-0499][46] (Delivering to multiple inboxes with a multibox endpoints)
-- [FEP-6fcd][47] (Account export container format)
-- [FEP-3264][48] (Federated work coordination)
-- [FEP-c5a1][49] (Todos)
+- [FEP-efda - Followable objects][43]
+- [FEP-0499 - Delivering to multiple inboxes with a multibox endpoint][46]
+- [FEP-6fcd - Account export container format][47]
+- [FEP-3264 - Federated work coordination][48]
+- [FEP-c5a1 - Todos][49]
 
 Support for additional FEPs and experimental features not listed here may be implemented and enabled by extensions.
 
-> For more on Bonfire's federation rules and extension points, see [Bonfire ActivityPub Implementation Docs][9].
+### Other specifications and RFCs
+
+Bonfire also implements these RFCs and extensions from other projects:
+
+- [RFC 9421 - HTTP Message Signatures][rfc9421]: both ways, including its `Accept-Signature` header. See [HTTP Signatures](#7-http-signatures--secure-fetch).
+- [draft-cavage HTTP Signatures][10]: both ways.
+- [RFC 3230 - `Digest`][rfc3230] and [RFC 9530 - `Content-Digest`][rfc9530]: checked on incoming requests.
+- [RFC 7033 - WebFinger][2]: both ways.
+- [RFC 6415 - `host-meta`][rfc6415]: served.
+- [RFC 8288 - Web Linking][rfc8288]: when a fetch returns HTML, Bonfire follows an `application/activity+json` alternate in the `Link` header or the page, and its Mastodon-compatible API paginates with `Link` headers. Bonfire's own HTML pages don't offer an ActivityPub alternate yet.
+- [RFC 8414 - OAuth authorization server metadata][rfc8414]: served at `/.well-known/oauth-authorization-server`.
+- [RFC 8785 - JSON Canonicalization Scheme][rfc8785] and [RFC 8032 - Ed25519][rfc8032]: for [object integrity proofs](#object-integrity-proofs-fep-8b32).
+- [RFC 3339 - Dates][rfc3339]: outgoing dates always carry a timezone.
+- [GoToSocial interaction policies][15]: `interactionPolicy`, both ways. See [Interaction Policies](#interaction-policies).
+- Group extensions from Lemmy (`postingRestrictedToMods`, `Lock`), Mobilizon (`openness`), Smithereen and litepub (`capabilities.acceptsJoins`): see [Groups and topics](#groups-and-topics-fep-1b12).
+- Quote conventions of Misskey (`_misskey_quote`), Fedibird (`quoteUri`) and Akkoma (`quoteUrl`): read on incoming posts.
+- PeerTube's `commentsEnabled`: both ways.
+- Mastodon's `featured`, `discoverable`, `indexable` and `alsoKnownAs`: both ways.
+- MLS over ActivityPub (`keyPackages`, `mls:messages`): advertised on actors.
+
+> For more on Bonfire's federation rules and extension points, see the [Bonfire documentation](https://docs.bonfirenetworks.org).
 
 ## 3. Actor & Object Model
 
@@ -127,7 +154,7 @@ Bonfire uses the [ActivityStreams](#activitystreams) data model for representing
 Bonfire supports the following ActivityStreams actor types:
 
 - **Person**: Represents a user account or individual.
-- **Group**: Represents a group, category, or collective identity.
+- **Group**: Represents a group, category, or collective identity (see [Groups and topics](#groups-and-topics-fep-1b12)).
 - **Service**: Used for bots or automated accounts.
 - (Other types may be supported by extensions.)
 
@@ -371,7 +398,7 @@ What is forwarded:
 - A reply (a `Create` whose object has `inReplyTo`) with a post by one of our users anywhere up its reply chain, and an `Update` or `Delete` of such a reply.
 - Only when it is public or unlisted, is not ours, and was accepted by us.
 - Only when it is signed by its author with an LD signature or an [FEP-8b32][fep-8b32] proof, and that signature verifies. A receiver cannot tell a forward from a forgery by our word alone, so an unsigned reply is not forwarded, even though a receiver could refetch it.
-- Not when a group we host relays it already ([FEP-1b12][15]): its followers get it through the group's `Announce`.
+- Not when a group we host relays it already ([FEP-1b12][fep-1b12], see [Groups and topics](#groups-and-topics-fep-1b12)): its followers get it through the group's `Announce`.
 - An activity we have already seen is not forwarded again.
 
 To whom: 
@@ -396,6 +423,128 @@ To follow a remote user or resource, Bonfire:
 - **Profile federation:** Profile updates, follows, and blocks are federated as `Update`, `Follow`, `Block`, etc., activities.
 
 > For more details on the federation pipeline and extension points, see [Bonfire ActivityPub Implementation Docs][9].
+
+### Groups and topics (FEP-1b12)
+
+Bonfire groups federate as `Group` actors following [FEP-1b12][fep-1b12]. Authors address posts to the group, and the group relays them to its followers with an `Announce`. Topics federate as groups inside a group. Bonfire federates only the groups whose visibility lets the fediverse see them.
+
+#### Group actor
+
+Besides the usual actor fields, a group declares:
+
+- `attributedTo`: the moderators collection (as Lemmy does). Left out when the group's visibility shows its moderators only to members.
+- `members`: the members collection, and `memberCount`. A group where anyone may join and outsiders may read lists its members to anyone. Any other group lists them only to its own members and moderators, and gives everyone else the count.
+- `postingRestrictedToMods`: `true` when only moderators may post.
+- `manuallyApprovesFollowers`: `true` when joins are reviewed.
+- `discoverable`: `false` for an unlisted group.
+- `sensitive`: `true` when the whole group (and possibly its contents) should be hidden behind a content warning.
+- `openness` with `open`, `moderated` (joins reviewed) or `invite_only` (as Mobilizon does) and `capabilities.acceptsJoins: true` (as Smithereen does). They describe joining, where `manuallyApprovesFollowers` technically describes following.
+- `preferredUsername` as the bare name, with no `!` or `&` prefix.
+- `narrower`: the collection of the topics and subgroups of the group that the fediverse may see.
+- `broader`: for a subgroup, the group it is in ([FEP-9b2b][fep-9b2b]).
+- `featured`: the collection of posts pinned in the group.
+- `discoverable` and `indexable`: whether the group may be listed and searched ([FEP-5feb][22]).
+- `generator`: the instance's service actor, with `implements` listing ActivityPub, RFC 9421 and FEP-8b32 ([FEP-844e][fep-844e]).
+- `assertionMethod`: an Ed25519 `Multikey` that others use to check the group's proofs ([FEP-521a][21]).
+
+The context of the group defines the extra terms under the namespaces of the projects they come from: `lemmy:` (`postingRestrictedToMods`), `mz:` (`openness`), `litepub:` (`capabilities`, `acceptsJoins`) and SKOS (`broader`, `narrower`, `inScheme`).
+
+An instance that requires HTTP signatures from other servers serves the group actor to anyone, but answers an unsigned fetch of its `members`, `narrower`, `featured` and moderators collections and of its outbox with `401`. A server must sign its fetches to read them.
+
+A topic declares `inScheme: "https://w3id.org/fep/9b2b#Topic"`, `broader` set to its parent group, and its parent group's `members` collection, since that group's members are the ones who may take part. It has no `openness` or `acceptsJoins`, because people follow a topic and don't join it (membership depends on the parent group). It keeps `type: "Group"`, so Lemmy and other FEP-1b12 software can follow it, where FEP-9b2b asks for `Category`.
+
+The [Bonfire Networks group](https://bonfire.cafe/group/Bonfire_Networks) on bonfire.cafe, without its `@context`, keys and endpoints:
+
+```json
+{
+  "type": "Group",
+  "id": "https://bonfire.cafe/pub/group/01M6H0RX5SGPA9Q41FD34MZPRE",
+  "preferredUsername": "Bonfire_Networks",
+  "name": "Bonfire Networks",
+  "inbox": "https://bonfire.cafe/pub/group/01M6H0RX5SGPA9Q41FD34MZPRE/inbox",
+  "outbox": "https://bonfire.cafe/pub/group/01M6H0RX5SGPA9Q41FD34MZPRE/outbox",
+  "followers": "https://bonfire.cafe/pub/group/01M6H0RX5SGPA9Q41FD34MZPRE/followers",
+  "attributedTo": "https://bonfire.cafe/pub/collections/moderators/01M6H0RX5SGPA9Q41FD34MZPRE",
+  "members": "https://bonfire.cafe/pub/collections/members/01M6H0RX5SGPA9Q41FD34MZPRE",
+  "memberCount": 33,
+  "narrower": "https://bonfire.cafe/pub/collections/narrower/01M6H0RX5SGPA9Q41FD34MZPRE",
+  "featured": "https://bonfire.cafe/pub/collections/featured/01M6H0RX5SGPA9Q41FD34MZPRE",
+  "openness": "open",
+  "capabilities": { "acceptsJoins": true },
+  "manuallyApprovesFollowers": false,
+  "postingRestrictedToMods": false,
+  "discoverable": true,
+  "indexable": true,
+  "sensitive": false
+}
+```
+
+#### Membership
+
+- A `Follow` from someone who neither follows nor belongs to a group that anyone may join makes them a follower and a member (since Lemmy, Mastodon and others send `Follow` to join). From an existing member it only adds the follow. From an existing follower it changes nothing. A group that reviews joins files a join request instead, and an `invite_only` group, such as an announcement channel, only gains a follower.
+- A `Join` makes someone a member (as Mobilizon does). Bonfire also treats them as a group follower, so a member who joined with `Join` also gets sent the group's posts. It sends no `Accept(Follow)` for this, since the member never sent a `Follow`.
+- `Leave` ends membership, but Bonfire keeps them as a follower if they previously also sent a `Follow`, so they can keep following without being a member.
+- `Undo(Follow)` removes what that `Follow` created. If the `Follow` made them a member (as a join from Lemmy or a follow from Mastodon does) the `Undo` ends the membership too. If they were already a member, it only removes the follow (Bonfire links each `Follow` to what it created, so it doesn't have to guess). For an older follow with no link, the `Undo` removes the follow and keeps the membership.
+- A group that reviews joins manually answers with `Accept` once a moderator approves. An `invite_only` group answers nothing.
+- Joining a remote group from Bonfire sends both `Follow` and `Join` (but leaving and unfollowing are then two separate user actions).
+
+#### Posting into a group
+
+A post in a group carries an `audience` set to the group's ID, on both the activity and the object (Lemmy reads it on the object, and Friendica puts it only on the activity). `audience` is a single string, never an array (since Lemmy rejects an array). Bonfire also puts the group in `cc` (because Lemmy files posts by their addressing).
+
+Bonfire sends a post to a group hosted elsewhere only when the post's visibility matches the group's, meaning a public post to a public group, or a non-public post to a group whose content isn't public, meaning one that declares `openness: "invite_only"` and doesn't declare `manuallyApprovesFollowers: false` (because PieFed re-announces anything addressed to a community as public, and Lemmy refuses mismatches). A post that doesn't match carries no `audience` and doesn't put the group in `cc`.
+
+A titled post that starts a thread in a group goes out as a `Page` with its title as `name`. A reply or untitled post (and a titled post outside a group) go out as a `Note`. Incoming, a `Page` becomes a titled post, or a media item when it is a link or carries an image flagged as the cover.
+
+When a post arrives from another server, Bonfire checks `audience`, `to` and `cc` on both the activity and the object, and if they list any groups hosted on this instance, it adds the post to each one it finds (if the author is allowed to post there). If none is named and the post is a reply, it goes in the group of the post it replies to.
+
+#### Relaying
+
+When a group relays a post, it sends two `Announce` activities (each with a distinct ID):
+
+- `Announce{Create{Note}}` (or `Announce{Create{Page}}` etc) with the `Create` embedded and its object embedded as well, `to: [Public]`, `cc: [<group>/followers]` (this is the FEP-1b12 shape that Lemmy, PieFed and NodeBB send, and the only one Lemmy accepts). 
+- `Announce{<object id>}` with `to: [Public, <group>/followers]` (Akkoma, the Misskey family and GoToSocial take this one, and Lemmy refuses it, while Mastodon handles either by refetching.)
+
+A top-level group's boost has no `cc`, so it only goes to the group's followers, as Lemmy's does. A topic or subgroup, meaning an actor with `broader`, also addresses the post's author in `cc`. Without that, a member on another server who follows the group but not the topic would never get the post back filed under the topic.
+
+A group also sends and `Announce` for `Update`, `Delete`, `Like`, `Lock` and `Block` activities about posts in it, and the `Undo` of the last three. 
+
+A group signs its own `Announce` with an object integrity proof ([FEP-8b32][fep-8b32]) and passes on the author's activity exactly as it arrived, so the author's proof or signature still verifies for whoever receives it (see [Object integrity proofs](#object-integrity-proofs-fep-8b32)).
+
+Incoming, Bonfire accepts both styles, as well as a bare object ID inside the `Announce`. A post whose `audience` names the announcing group is filed in Bonfire's copy of that group (if the author is allowed to post there). A relayed activity counts as the member's only when the member's proof or signature holds, and a proof whose `domain` names the relaying group is accepted.
+
+Some software relays by adding the activity to a conversation or wall collection instead of announcing it. Bonfire reads an `Add` of an activity into a conversation ([FEP-171b][fep-171b], sent by Hubzilla and Streams), and files the post in the group. It sends none. For [FEP-400e][fep-400e] (sent by Smithereen), Bonfire applies an `Add` or `Remove` only to collections it owns, and for a remote group it applies the collections it understands to its own data: moderators, topics, members and pins. It keeps no copy of other remote collections yet, such as a Smithereen wall.
+
+Posts in a group carry an `interactionPolicy` ([GoToSocial interaction policies][15]) derived from the post's boundary, like any other post. The group actor doesn't declare a policy of its own yet. It will soon, following [Permissions within a group](https://swicg.github.io/groups/#group-permissions) in the SWICG groups draft: an `interactionPolicy` on the group actor that covers the group itself and what it announces, with a post's own policy taking precedence. A quote of a group's post uses the [FEP-044f][7] request and `QuoteAuthorization` flow described in [Interaction Policies](#interaction-policies).
+
+#### Topics
+
+A group lists its sub-groups/topics in its `narrower` collection. When Bonfire discovers a remote group or receives an `Update`, and when someone follows or joins it, Bonfire reads that collection (at most once an hour by default) and creates the topics it finds under the group. A new topic also arrives as an `Add` to the `narrower` collection.
+
+#### Moderation
+
+- A moderator removing a post sends a `Delete` with the reason as `summary` and `audience` set to the group (as Lemmy does). Bonfire reads the `summary` on incoming removals too.
+- Locking a thread sends `Lock`, and unlocking sends `Undo(Lock)`.
+- Bonfire accepts a moderation activity from a moderator listed in the group's `attributedTo`, or from an actor on the group's own server ([FEP-fe34][45] origin rules).
+- A ban sends `Block` with `target` set to the group, plus `audience` and a `summary`. A moderator's ban on a group hosted elsewhere stays pending until that group announces it back, unless the moderator chooses to apply it at once.
+- A group hosted by Bonfire sends an `Add` or `Remove` on its moderators collection when it promotes or demotes a moderator, and announces it. Incoming `Add` and `Remove` on a remote group's moderators collection update Bonfire's copy. Bonfire doesn't send these to a group hosted elsewhere yet, so only that group's own server can change its moderators or name.
+- Archiving a group sends a `Delete` of the group's actor to its followers on other servers, and restoring it sends an `Undo` of that `Delete`. Deleting a group for good sends a `Delete` too.
+
+#### What federates, by visibility
+
+| Group visibility | Actor served | Posts federate |
+|---|---|---|
+| Public (federated) | yes | public posts |
+| Unlisted (federated) | yes with `discoverable: false` | public posts |
+| Local / instance only | no, a fetch is refused | no |
+| Members only | no | no |
+
+Switching federation on for a group changes both its visibility and the default visibility of its new posts. Otherwise peers would see the group but none of its posts. Posts made before the switch keep the visibility they had, so they don't federate.
+
+#### Known gaps
+
+- A person's account can `Move` to another server, but a group can't yet, so members/followers of a group have to join/follow its new actor themselves for now.
+- Lemmy 1.0 (not yet released) reads `manuallyApprovesFollowers: true` as a private community and refuses public posts in it, so it may refuse public posts coming from Bonfire into a Lemmy group that reviews joins.
 
 ## 6. WebFinger Integration
 
@@ -570,7 +719,13 @@ Bonfire advertises its signature capabilities via [FEP-844e][fep-844e]:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/844e"
+    {
+      "implements": {
+        "@id": "https://w3id.org/fep/844e#implements",
+        "@type": "@id",
+        "@container": "@set"
+      }
+    }
   ],
   "id": "https://social.example/actors/1",
   "type": "Person",
@@ -579,7 +734,8 @@ Bonfire advertises its signature capabilities via [FEP-844e][fep-844e]:
     "id": "https://social.example/actors/service_actor",
     "implements": [
       {"href": "https://www.w3.org/TR/activitypub/"},
-      {"href": "https://datatracker.ietf.org/doc/html/rfc9421"}
+      {"href": "https://datatracker.ietf.org/doc/html/rfc9421"},
+      {"href": "https://w3id.org/fep/8b32"}
     ]
   }
 }
@@ -590,13 +746,20 @@ Bonfire advertises its signature capabilities via [FEP-844e][fep-844e]:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/844e"
+    {
+      "implements": {
+        "@id": "https://w3id.org/fep/844e#implements",
+        "@type": "@id",
+        "@container": "@set"
+      }
+    }
   ],
   "type": "Application",
   "id": "https://social.example/actors/service_actor",
   "implements": [
     {"href": "https://www.w3.org/TR/activitypub/"},
-    {"href": "https://datatracker.ietf.org/doc/html/rfc9421"}
+    {"href": "https://datatracker.ietf.org/doc/html/rfc9421"},
+    {"href": "https://w3id.org/fep/8b32"}
   ]
 }
 ```
@@ -646,7 +809,7 @@ The `keyId` in the signature header should match the `id` of the `publicKey` obj
 
 ### Object integrity proofs (FEP-8b32)
 
-Bonfire signs the activities it sends, and checks the proofs on the ones it receives, following [FEP-8b32][fep-8b32] with the `eddsa-jcs-2022` cryptosuite (JSON canonicalised per RFC 8785, signed with Ed25519).
+Bonfire signs the activities it sends, and checks the proofs on the ones it receives, following [FEP-8b32][fep-8b32] with the `eddsa-jcs-2022` cryptosuite (JSON canonicalised per RFC 8785, signed with Ed25519). Bonfire signs only with `eddsa-jcs-2022`. It also checks proofs made with `mldsa44-jcs-2024` (ML-DSA-44) when the Erlang/OpenSSL build of the instance supports it, and treats such a proof as unverifiable otherwise.
 
 Outgoing:
 
@@ -740,7 +903,10 @@ All block types are enforced at the boundaries level and affect both incoming an
 
 ### Moderation Activities
 
-Bonfire does not send `Block` activities for S2S federation, but does apply incoming blocks as appropriate. Moderation is mostly handled through Bonfire's boundaries functionality, and the `Flag` activity for reporting, which are processed as moderation reports and placed in instance moderators' queue.
+Bonfire sends a `Block` in two cases:
+
+- A Bonfire block has two parts: ghosting stops the blocked person seeing the user, and silencing stops the user seeing them. When a user ghosts a remote person and chooses to "tell other instances too", the ghost goes out as a `Block`. A silence stays local, like a mute on Mastodon. 
+- A group moderator banning someone sends a `Block` with the group as `target` (see [Moderation](#moderation) under groups). It applies incoming blocks as appropriate. Moderation is mostly handled through Bonfire's boundaries functionality, and the `Flag` activity for reporting, which are processed as moderation reports and placed in instance moderators' queue.
 
 #### Account Migration
 
@@ -756,7 +922,7 @@ Bonfire supports account migration using the `Move` activity, and the `alsoKnown
 
 ## 10. Circles, Boundaries & Interaction Policies
 
-Bonfire provides advanced privacy and interaction controls, supporting both standard ActivityPub audience fields and newer proposals like [FEP-044f][7] for interaction policies.
+Bonfire provides advanced privacy and interaction controls, supporting both standard ActivityPub audience fields and the `interactionPolicy` vocabulary of [GoToSocial][15], plus [FEP-044f][7] for quote posts.
 
 ### Circles and Boundaries
 
@@ -767,17 +933,17 @@ Bonfire provides advanced privacy and interaction controls, supporting both stan
 
 ### Interaction Policies 
 
-- Bonfire supports [FEP-044f][7] and related proposals for fine-grained interaction control.
+- Bonfire supports the `interactionPolicy` vocabulary defined by [GoToSocial][15] (not an FEP) for fine-grained interaction control. [FEP-044f][7] covers only quote posts.
 - Posts and objects can include an `interactionPolicy` property, specifying who can like, reply, announce, or quote.
+- Incoming policies become per-verb grants and denials on the object's boundary. Outgoing policies are read from the post's boundary. Posts in groups work the same way (but the group actor declares no policy of its own just yet).
 - Sub-policies include `canLike`, `canReply`, `canAnnounce`, and `canQuote`, each with `automaticApproval` and optionally `manualApproval` fields.
 - Bonfire includes `interactionPolicy` [15] on outgoing posts when appropriate. This property is intended as an FYI for remote instances, so they can disable or hide actions in their UI (and avoid users enacting interactions that will not be properly federated to their intended recipients but could still seen by users of their own instance). 
 - Bonfire will always enforce these policies, e.g. if a remote instance does not support or respect `interactionPolicy`, Bonfire will still reject any incoming interaction (reply, like, announce, etc) that violates the policy.
 
 ### Approval Flows
 
-- Both automatic and manual approval flows are supported for local and remote users.
-- When a remote user attempts an interaction that requires manual approval, Bonfire federates a pending request and responds with `Accept` or `Reject` activities as appropriate, following [FEP-044f][7].
-- The `approvedBy` property is used to indicate explicit approval by the post author, and Bonfire supports both auto-accept and manual approval flows.
+- Only quoting has an approval flow, following [FEP-044f][7]. A quote request is a `QuoteRequest` activity. The author answers with `Accept` (which carries a `QuoteAuthorization` the quoting post links to) or `Reject`, for local and remote users.
+- Likes, replies and boosts have no request and approval flow. Bonfire checks them against the post's policy when they arrive, and rejects the ones the policy doesn't allow. It doesn't yet send or read approval objects for them (such as GoToSocial's `approvedBy`).
 
 ### Interop Notes
 
@@ -785,7 +951,7 @@ Bonfire provides advanced privacy and interaction controls, supporting both stan
 - Bonfire will respect incoming `interactionPolicy` properties from remote posts, enforcing restrictions locally.
 - Audience enforcement is always based on both addressing fields and interaction policies.
 
-> For more details, see [Bonfire ActivityPub Implementation Docs][9] and [15].
+> For more details, see the [Bonfire documentation][9] and the [GoToSocial interaction policies][15].
 
 ## 11. Testing & Debugging
 
@@ -967,13 +1133,13 @@ An ActivityStreams object type representing a long-form post. [12]
 [5]: https://docs.akkoma.dev/stable/development/ap_extensions/ "Akkoma ActivityPub Docs"
 [7]: https://w3id.org/fep/044f "FEP-044f: Consent-respecting Quote Posts"  
 [8]: https://docs.gotosocial.org/en/latest/federation/ "GoToSocial Federation Docs"  
-[9]: https://docs.bonfirenetworks.org/TODO "Bonfire ActivityPub Implementation Docs"  
+[9]: https://docs.bonfirenetworks.org/readme.html "Bonfire documentation"  
 [10]: https://datatracker.ietf.org/doc/html/draft-cavage-http-signatures "HTTP Signatures RFC"  
 [11]: https://www.w3.org/TR/activitystreams-core/ "ActivityStreams 2.0 Core Syntax"  
 [12]: https://www.w3.org/TR/activitystreams-vocabulary/ "ActivityStreams 2.0 Vocabulary"
 [13]: https://www.valueflo.ws "ValueFlows: a vocabulary for the distributed economic networks of the next economy, to coordinate the creation, distribution, and exchange of economic resources"
 [14]: https://www.w3.org/TR/activitypub/#shared-inbox-delivery "Shared Inbox Delivery in ActivityPub"
-[15]: https://docs.gotosocial.org/en/latest/federation/interaction_policy/ "Interaction Policy as defined by GoToSocial"
+[15]: https://docs.gotosocial.org/en/latest/federation/interaction_policy/ "GoToSocial interaction policies"
 [16]: https://w3id.org/fep/f1d5 "FEP-f1d5: NodeInfo in Fediverse Software"
 [17]: https://w3id.org/fep/eb22 "FEP-eb22: Supported ActivityStreams types with NodeInfo"
 [18]: https://w3id.org/fep/0151 "FEP-0151: NodeInfo in Fediverse Software (2025 edition)"
@@ -1009,8 +1175,23 @@ An ActivityStreams object type representing a long-form post. [12]
 [48]: https://w3id.org/fep/3264 "FEP-3264: Federated work coordination"
 [49]: https://w3id.org/fep/c5a1 "FEP-c5a1: Todos"
 [rfc9421]: https://www.rfc-editor.org/rfc/rfc9421 "RFC 9421: HTTP Message Signatures"
+[rfc3230]: https://www.rfc-editor.org/rfc/rfc3230 "RFC 3230: Instance Digests in HTTP"
+[rfc9530]: https://www.rfc-editor.org/rfc/rfc9530 "RFC 9530: Digest Fields"
+[rfc6415]: https://www.rfc-editor.org/rfc/rfc6415 "RFC 6415: Web Host Metadata"
+[rfc8288]: https://www.rfc-editor.org/rfc/rfc8288 "RFC 8288: Web Linking"
+[rfc8414]: https://www.rfc-editor.org/rfc/rfc8414 "RFC 8414: OAuth 2.0 Authorization Server Metadata"
+[rfc8785]: https://www.rfc-editor.org/rfc/rfc8785 "RFC 8785: JSON Canonicalization Scheme"
+[rfc8032]: https://www.rfc-editor.org/rfc/rfc8032 "RFC 8032: Edwards-Curve Digital Signature Algorithm"
+[rfc3339]: https://www.rfc-editor.org/rfc/rfc3339 "RFC 3339: Date and Time on the Internet"
+[e232]: https://w3id.org/fep/e232 "FEP-e232: Object Links"
+[07d7]: https://w3id.org/fep/07d7 "FEP-07d7: Handling external ActivityPub URIs"
+[ae97]: https://w3id.org/fep/ae97 "FEP-ae97: Client-side activity signing"
+[fep-171b]: https://w3id.org/fep/171b "FEP-171b: Conversation Containers"
+[fep-400e]: https://w3id.org/fep/400e "FEP-400e: Publicly-appendable ActivityPub collections"
 [ld-sig]: https://web-payments.org/vocabs/security#linkedDataSignature2015 "Linked Data Signatures"
 [fep-844e]: https://w3id.org/fep/844e "FEP-844e: Generator-based format discovery"
 [fep-8b32]: https://w3id.org/fep/8b32 "FEP-8b32: Object Integrity Proofs"
+[fep-1b12]: https://w3id.org/fep/1b12 "FEP-1b12: Group federation"
+[fep-9b2b]: https://w3id.org/fep/9b2b "FEP-9b2b: Concept Relationships of ActivityPub objects for Federated Classification (draft)"
 [ap-forwarding]: https://www.w3.org/TR/activitypub/#inbox-forwarding "ActivityPub §7.1.2: Forwarding from Inbox"
 [swicg-sig]: https://swicg.github.io/activitypub-http-signature/ "SWICG ActivityPub HTTP Signature"

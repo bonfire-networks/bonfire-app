@@ -39,6 +39,8 @@ server_ip =
 listen_ip_option = if server_ip, do: [ip: server_ip], else: []
 
 public_port = String.to_integer(System.get_env("PUBLIC_PORT", "4000"))
+# the scheme visitors use, so the session cookie is only sent over https when it is
+public_scheme = System.get_env("PUBLIC_SCHEME", if(public_port == 443, do: "https", else: "http"))
 test_instance? = System.get_env("TEST_INSTANCE") in yes?
 federate? = test_instance? or System.get_env("FEDERATE") in yes?
 
@@ -63,23 +65,30 @@ EnvSecrets.env_or_file("DATABASE_URL") || EnvSecrets.env_or_file("CLOUDRON_POSTG
 Bonfire.Common.Config.LoadExtensionsConfig.load_configs([Bonfire.RuntimeConfig])
 ##
 
+# in prod a missing secret always raises (builds only compile, which never evaluates this file); in dev and test a placeholder is accepted under CI or MIX_QUIET
+secret_fallback =
+  if config_env() == :prod, do: nil, else: System.get_env("MIX_QUIET") || System.get_env("CI")
+
 secret_key_base =
-  EnvSecrets.env_or_file("SECRET_KEY_BASE") || System.get_env("MIX_QUIET") ||
-    System.get_env("CI") ||
+  # EnvSecrets.env_or_file("SECRET_KEY_BASE") || System.get_env("MIX_QUIET") ||
+  #   System.get_env("CI") ||
+  EnvSecrets.env_or_file("SECRET_KEY_BASE") || secret_fallback ||
     raise """
     environment variable SECRET_KEY_BASE is missing.
     You can generate one by calling: mix phx.gen.secret
     """
 
 signing_salt =
-  EnvSecrets.env_or_file("SIGNING_SALT") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
+  # EnvSecrets.env_or_file("SIGNING_SALT") || System.get_env("MIX_QUIET") || System.get_env("CI") ||
+  EnvSecrets.env_or_file("SIGNING_SALT") || secret_fallback ||
     raise """
     environment variable SIGNING_SALT is missing.
     """
 
 encryption_salt =
-  EnvSecrets.env_or_file("ENCRYPTION_SALT") || System.get_env("MIX_QUIET") ||
-    System.get_env("CI") ||
+  # EnvSecrets.env_or_file("ENCRYPTION_SALT") || System.get_env("MIX_QUIET") ||
+  #   System.get_env("CI") ||
+  EnvSecrets.env_or_file("ENCRYPTION_SALT") || secret_fallback ||
     raise """
     environment variable ENCRYPTION_SALT is missing.
     """
@@ -187,7 +196,8 @@ config :bonfire, Bonfire.Web.Endpoint,
       (config_env() != :test or test_instance? or phx_server in yes?),
   url: [
     host: host,
-    port: public_port
+    port: public_port,
+    scheme: public_scheme
   ],
   check_origin: hosts,
   # check_origin: false,

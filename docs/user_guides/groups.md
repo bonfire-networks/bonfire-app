@@ -126,16 +126,20 @@ A Bonfire group keeps what forums do well: clear topics, community rules and mod
 
 ### Do groups federate?
 
-It depends on how the group was set up:
+It depends on the group's setting:
 
-| Preset | Federates |
+| Setting | Federates |
 |---|---|
-| **Open network** | Yes: anyone on the fediverse can find, follow, join and post |
-| **Announcement channel** | Yes: anyone can follow and interact; only moderators post |
-| **Local community** | No: stays on this instance |
-| **Private club** | No: stays on this instance |
+| **Open network** | Yes. Anyone on the fediverse can find, follow, join and post |
+| **Announcement channel** | Yes. Anyone can follow and reply, only moderators post |
+| **Local community** | No, it stays on this instance |
+| **Private club** | No, it stays on this instance |
 
-Private groups don't federate yet. Sharing members-only posts safely between instances needs agreement on how it works, which we're working on with the [W3C groups task force](https://github.com/swicg/groups/issues).
+When a group federates, other instances get its name, description, moderators, who may join and post, and its public posts with their replies. 
+
+Private groups can't yet federate, and members-only posts can only exist in groups that stay on this instance. Sharing them safely between instances needs agreement on how it works, which we're working on with the [W3C groups task force](https://github.com/swicg/groups/issues).
+
+For the technical details, see [Groups and topics](../../FEDERATION.md#groups-and-topics-fep-1b12) in the federation guide.
 
 ### Can people on Mastodon take part?
 
@@ -146,6 +150,49 @@ Some things look different on Mastodon: a post with a title shows as its title a
 ### Can I join a group on another instance?
 
 Yes, with Lemmy communities and groups on other Bonfire instances. See [Groups from other instances](#groups-from-other-instances).
+
+### Which apps work with Bonfire groups?
+
+Here's the known interop story so far, please help with testing and updating this table:
+
+| App | Join their groups from Bonfire | Their users join Bonfire groups | Their group posts reach Bonfire | Bonfire posts reach their groups | Moderation |
+|---|---|---|---|---|---|
+| Other Bonfire instance | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Lemmy | ✓ | ✓ | ✓ | ✓ | ◐ |
+| PieFed | ✓ | ? | ◐ | ? | ? |
+| Mbin | ✓ | ? | ◐ | ✓ | ? |
+| NodeBB | ✓ | ? | ◐ | ◐ | ? |
+| FediGroups | ◐ | – | ◐ | ◐ | – |
+| Mastodon | – | ✓ | ✓ | ✓ | – |
+| Mitra | – | ✓ | ✓ | ✓ | – |
+| Akkoma | – | ✓ | ◐ | ? | – |
+| Misskey family | – | ◐ | ◐ | ? | – |
+| GoToSocial | – | ? | ◐ | ◐ | – |
+| Mobilizon | ◐ | ◐ | ✗ | ? | ? |
+| PeerTube | ◐ | – | ◐ | – | – |
+| Friendica | ◐ | ? | ✓ | ? | ? |
+| Hubzilla | ? | ? | ◐ | ? | ? |
+| Smithereen | ? | ? | ✗ | ? | ? |
+
+- ✓ tested with live servers. 
+- ◐ checked against APIs or code, needs testing with live servers. 
+- ✗ not supported yet. 
+- ? not tested. 
+- – not applicable, e.g. the other app doesn't do this.
+
+Known gaps:
+
+- On Mastodon and similar apps, people post in a group by mentioning it. A post with a title shows there as just the title and a link, and edits to a post don't show.
+- A Bonfire group's moderators and name/metadata can only be changed on its own instance.
+- Lemmy 0.x seems to not answer the first join request from an instance it hasn't seen before, so Bonfire sends it again a few minutes later.
+- Lemmy 1.0 (not released yet) seems like it will treat a group that reviews joins as private. For now Bonfire users won't be able to post into a Lemmy private community, and Lemmy 1.0 may refuse public posts from a Bonfire group that reviews joins.
+- Mbin doesn't pass a group post back to the author's own instance, so Bonfire puts the post in the group feed without waiting.
+- While NodeBB accepts posts from Bonfire, it seems to file a post in a category only if an admin has set that category to follow the author. 
+- If you follow a Bonfire group from Akkoma or Sharkey, its posts may not show up in your timeline (needs further testing).
+- Mobilizon shares its groups' posts and events through an instance account rather than the group, which Bonfire doesn't read yet.
+- PeerTube channels show in Bonfire as topics, which people can reply in but not post into. 
+- A Friendica group only takes posts from its contacts.
+- Smithereen posts sit on the group's wall, which Bonfire doesn't read yet.
 
 ### Are private groups end-to-end encrypted?
 
