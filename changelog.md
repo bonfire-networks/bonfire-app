@@ -46,6 +46,7 @@ SPDX-License-Identifier: CC0-1.0
 - 🚧 Confirm your identity before sensitive actions (sudo mode), starting with deleting your account [#2281](https://github.com/bonfire-networks/bonfire-app/issues/2281) (thanks @ivanminutillo and @mayel)
 - ✨ The app can optionally use a YugabyteDB database (thanks @mayel)
 - ✨ Communities define their own vocabulary (names and text) for widget titles (thanks @mayel)
+- ✨ PWA: Push notification permission prompt (thanks @ivanminutillo)
 - ✨ A Feedback widget asks people what they want of the instance. Its button opens a feedback form, or, with no form, the composer to post in a group or topic the admins pick. Admins set its title, text, button and form address in the instance settings, and the "Getting started" checklist's wishes step uses the same ones (thanks @mayel)
 - ✨ A "Message the moderators" button to reach the instance's moderators, on the moderators widget, the guest homepage and the About page, and messages and mentions of the instance's federation account reach all its moderators (thanks @mayel)
 - ✨ Show your password while creating an account [#2346](https://github.com/bonfire-networks/bonfire-app/issues/2346) (thanks @sarahsquirrel and @ivanminutillo)
@@ -60,9 +61,14 @@ SPDX-License-Identifier: CC0-1.0
   - Posts that only you could see on your old account (a private mention to nobody, or a message to someone whose account is gone) come in visible only to you
   - Your imported posts are listed in your outbox, so other servers can find them, without being sent to anyone again
   - Posts still come in when your old server is gone or doesn't answer, credited to your old account, and posts this instance already had are imported too
+- ✨ A groups carousel widget, and the guest homepage shows groups as compact cards with a Join button (thanks @ivanminutillo)
+- ✨ Share a post from its "more actions" menu: on phones it opens the system share sheet, elsewhere it copies the link (thanks @ivanminutillo)
 
 ### Changed
-
+- 💅 Mobile app (PWA): menus open as bottom sheets, the status bar takes the theme's colour, feed tabs stay pinned and hide as you scroll, the instance icon fits Android home screens, and replies in the composer show the post they answer, with close and minimise buttons (thanks @ivanminutillo)
+- 💅 Composer: with the phone keyboard open, the header shrinks to one line, leaving more room to type (thanks @ivanminutillo)
+- 💅 Mobile: side drawers have larger, evenly spaced rows, and less empty space above page headers (thanks @ivanminutillo)
+- 💅 Composer (Milkdown): better syncing, works better in the mobile app, and markdown fixes (thanks @ivanminutillo)
 - 💅 Better UI and UX for groups and topics: new group and topic headers and navigation, posting to a topic from the group composer, a group sidebar with follow and notification options, and a confirmation before leaving a group [#2351](https://github.com/bonfire-networks/bonfire-app/issues/2351) [#2389](https://github.com/bonfire-networks/bonfire-app/issues/2389) (thanks @sarahsquirrel and @ivanminutillo)
 - 🔒 Other servers' requests must now be signed by default, except to look up public profiles, so servers that don't sign them, such as Lemmy, can still find people here; an ActivityPub request to the home page leads to the instance's actor (thanks @mayel)
 - 💅 Redesigned guest homepage, about page and login [#2390](https://github.com/bonfire-networks/bonfire-app/issues/2390) (thanks @ivanminutillo)
@@ -104,9 +110,15 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 The Spotlight widget hides itself when nothing is pinned [#2059](https://github.com/bonfire-networks/bonfire-app/issues/2059) (thanks @ccamara and @mayel)
 - 💅 A scheduled post says "Scheduled for <date>" instead of linking to a page that doesn't exist yet, and doesn't reach feeds or notifications before its time [#2486](https://github.com/bonfire-networks/bonfire-app/issues/2486) (thanks @ccamara and @mayel)
 - 💅 Composer improvements: it opens ready to type, can be minimised, has a clearer audience picker, and works better in the mobile app (PWA), including offline (thanks @ivanminutillo)
+- 💅 Members see a compact group header, which expands to the full one (thanks @ivanminutillo)
+- 💅 Group creation redesigned: presets listed with full descriptions, advanced permissions in tabs with circle chips, and a "Modified" tag on a preset you fine-tuned (thanks @ivanminutillo)
+- 💅 A group's member list has one "Manage" menu per person, with Remove first (thanks @ivanminutillo)
 
 ### Fixed
-
+- 🐛 The dashboard opens on your default feed instead of always on Following (thanks @ivanminutillo)
+- 🐛 The "Install app" banner no longer blocks taps on the page around it (thanks @ivanminutillo)
+- 🐛 Links typed inside brackets, eg `[text](url)`, now become links (thanks @ivanminutillo)
+- 🐛 Topic feeds redirect correctly; topic placeholder fix (thanks @ivanminutillo)
 - 🐛 Fixed signing in to third-party apps: returning after giving consent, silent sign-in, and error redirects to apps whose callback address has parameters [`f6e8c77`](https://github.com/bonfire-networks/bonfire_open_id/commit/f6e8c77f256521fa5d96d592e5f5f59e0e89bdb5) (thanks @ivanminutillo)
 - 🐛 Alt texts federating again [#2241](https://github.com/bonfire-networks/bonfire-app/issues/2241) (thanks @ivanminutillo and @mayel)
 - 🐛 Fixed timelines loading forever after a websocket issue [#2435](https://github.com/bonfire-networks/bonfire-app/issues/2435) (thanks @DeadSuperHero)
@@ -126,6 +138,7 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Fixed guest sign-in bouncing back to the same page, and signing in to an account with no profile chosen (eg after a password reset) now leads to picking one [`782ebf0`](https://github.com/bonfire-networks/bonfire_ui_common/commit/782ebf0389a2410c89f5f61027012994805bb062) [`2468453`](https://github.com/bonfire-networks/bonfire_ui_me/commit/2468453e13ae0206d88bd925e0dfb994cccceac1) (thanks @ivanminutillo)
 - 🐛 Pinning a group to your sidebar no longer appears as an activity in feeds [`85be75c`](https://github.com/bonfire-networks/bonfire_social/commit/85be75c917cc36e17ef14e9e95b633e8a25a4b50) (thanks @ivanminutillo)
 - 🐛 Fixed YouTube link previews [`8b922d0`](https://github.com/bonfire-networks/bonfire_files/commit/8b922d0e85b0365a596e3c0e40462d8f0a91020d) (thanks @ivanminutillo)
+- 🐛 Read more comes back after expanding a collapsed reply branch (thanks @ivanminutillo)
 - 🐛 Database tuning is no longer overwritten when deploying [`3b1a009`](https://github.com/bonfire-networks/bonfire-app/commit/3b1a00992a80ba61f28f4423c0cc9911f21f364c) (thanks @mayel)
 - 🐛 Groups mirrored from other instances before late August show as groups again, not as topics or missing pages; deleting a group now archives it; and auto-join no longer adds people from other instances (thanks @mayel)
 - 🐛 Tapping a notification about a reply opens the whole discussion, with the reply shown once, instead of the reply twice without the post it answers [#2258](https://github.com/bonfire-networks/bonfire-app/issues/2258) (thanks @mayel and @ivanminutillo)
@@ -160,7 +173,10 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Adding a Pixelfed (or any) external account no longer crashes on a pasted link, and a handle that can't be found says "Couldn't find a remote profile with that name". Linked accounts such as ORCID link to their own page, not to Bonfire [#2244](https://github.com/bonfire-networks/bonfire-app/issues/2244) [#2079](https://github.com/bonfire-networks/bonfire-app/issues/2079) (thanks @wakest and @mayel)
 - 🐛 Interacting from your own fediverse account: the field is labelled "Your fediverse username" and asks for the server too, and the comment embed's button reads "Reply" [#2274](https://github.com/bonfire-networks/bonfire-app/issues/2274) [#2300](https://github.com/bonfire-networks/bonfire-app/issues/2300) (thanks @wakest, @ccamara and @mayel)
 - 🐛 On a flagged person who's already blocked, "Take action" offers "Block or unblock <name>" [#1627](https://github.com/bonfire-networks/bonfire-app/issues/1627) (thanks @jonpincus and @mayel)
-
+- 🐛 Composer: A reply now sends the reset only once (thanks @ivanminutillo)
+- 🐛 After a lost connection, the feed comes back at the post you were reading, instead of empty or at the top (thanks @ivanminutillo)
+- 🐛 The mobile app no longer freezes for 5–10 seconds and reloads when the connection drops quietly; it reconnects on its own and shows Offline meanwhile (thanks @ivanminutillo)
+- 🐛 You can't send a post while offline (thanks @ivanminutillo)
 
 ## Bonfire [1.0.7 (2026-08-30)]
 
