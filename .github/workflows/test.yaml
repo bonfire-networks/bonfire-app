@@ -83,7 +83,7 @@ jobs:
     steps:
     - id: list
       run: |
-        list=$(jq -cn '{"backend": 2, "ui": 4, "federation-lib": 1, "federation-integration": 1, "federation-dance": 1, "openid-all": 1, "masto-api": 1, "paginator": 1, "db-down-migrations": 1}
+        list=$(jq -cn '{"backend": 3, "ui": 4, "federation-lib": 1, "federation-integration": 2, "federation-dance": 1, "openid-all": 1, "masto-api": 1, "paginator": 1, "db-down-migrations": 1}
           | [to_entries[] | .key as $suite | .value as $n | range(1; $n + 1) | {suite: $suite, partition: ., partitions: $n}]') # 'sonix'
         echo "list=$list" >> "$GITHUB_OUTPUT"
 
