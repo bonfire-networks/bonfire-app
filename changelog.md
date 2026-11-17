@@ -21,12 +21,16 @@ SPDX-License-Identifier: CC0-1.0
   - The groups page has a **Directory** of groups and feed of **Latest updates** showing posts from your groups or from all known groups; it opens on your groups' updates if you're a member of any, or on the directory, and you can choose which in settings
   - Searching the directory finds any public group (not just filtering those on screen), while toggling to **Private only** finds non-public groups you're able to see
   - You can look up federated groups by URL or !name in the groups search 
+  - A group's or topic's header shows its full fediverse address, which you can copy as `name@instance`, `!name@instance` (for Lemmy and others), `@name@instance` (for Mastodon and others) or as a link. The form you pick is remembered, and the address then shows in that form
   - Groups can be marked sensitive, when created or in their settings. Their banner, icon and description are hidden behind a warning until shown, the group page shows a notice before showing the feed, and new posts in the group default to having the content warning on. Groups marked NSFW on Lemmy, PieFed or Mbin arrive marked [#2458](https://github.com/bonfire-networks/bonfire-app/issues/2458)
   - Your groups' latest updates can be shown on your dashboard
   - Instance admins can have new accounts turn on notifications for a group, next to the existing auto-join option in the group's settings, so new members get the group's new posts in their notifications (thanks Mentaal and @mayel)
-  - **View options** on a group's discussions and on the Recent discussions feed: show threads or every post, and order them by recent activity, newest first, or most replies, boosts or likes. The choice lasts for the visit, like a thread's view options (thanks Mentaal and @mayel)
+  - A group's discussions, and the Recent discussions feed, have two tabs. **Discussions** shows each thread once. **Latest updates** shows every post as it arrives. Each tab has a menu to change the order:
+    - threads can be sorted by latest reply, newest thread, or most replies, boosts or likes
+    - posts can be sorted by newest first, or by most replies, boosts or likes
+    - the order you pick stays until you leave the page, as in a thread's view options (thanks Mentaal and @mayel)
   - Following a group, turning its bell on, or joining it offers its sub-topics too, so you can follow or be notified about some or all of them in one step; unfollowing or turning the bell off offers to stop them too. Following or a bell covers only what you explicitly ask: a group's own posts, not those in its sub-topics
-  - The sidebar lists the groups you pinned: while it's open, a new post moves its group to the top with a dot (or a topic under it, with the group expanded), and adds a followed group you haven't pinned, with a button to pin it
+  - The sidebar lists the groups you pinned: while it's open, a new post moves its group to the top with a dot (or a topic under it, with the group expanded), except your own posts, and adds a followed group you haven't pinned, with a button to pin it
   - 📖 See the [Groups guide](user_guides/groups.md) and the [Running a Group guide](user_guides/group-moderation.md)
 
 - ✨ Rebuilt notifications, see the [Notifications guide](user_guides/notifications.md) [#2314](https://github.com/bonfire-networks/bonfire-app/issues/2314) (thanks @mayel and @ivanminutillo):
@@ -40,20 +44,25 @@ SPDX-License-Identifier: CC0-1.0
   - 📖 See the [Notifications guide](user_guides/notifications.md)
 
 - ✨ Replies to your posts from people on other servers now reach your followers on other servers too, as do edits and deletions of those replies (inbox forwarding). Only replies signed by their author are passed on, exactly as received, so their followers can trust them. Tested with Mastodon, Mitra and Fedify (thanks @mayel)
-- ✨ Admins can restrict signups to allowed email domains or SSO providers [#2324](https://github.com/bonfire-networks/bonfire-app/issues/2324) (thanks @mayel)
+- ✨ Admins can restrict signups to allowed email domains or SSO providers, or turn off passwords so people sign in with an emailed link by default instead. Signing up then asks for no password, though people can still set one. [#2324](https://github.com/bonfire-networks/bonfire-app/issues/2324) (thanks @mayel)
 - ✨ When silencing, ghosting or blocking someone, choose whether to also unfollow them and send a Block to their server [#2310](https://github.com/bonfire-networks/bonfire-app/issues/2310) (thanks @mayel)
 - ✨ Keyword filters now have two lists, for you and for the whole instance: **Hide completely**, where a matching post is gone as if it were deleted, and **Hide behind a warning**, where it shows closed behind a content warning which you can still open. A keyword can be moved from one list to the other with one click. If the instance moderators set a warning keyword list for the instance, posts from other servers are accepted but marked sensitive, and local posts are published with a content warning added. [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @mayel)
 - 🚧 Confirm your identity before sensitive actions (sudo mode), starting with deleting your account [#2281](https://github.com/bonfire-networks/bonfire-app/issues/2281) (thanks @ivanminutillo and @mayel)
 - ✨ The app can optionally use a YugabyteDB database (thanks @mayel)
 - ✨ Communities define their own vocabulary (names and text) for widget titles (thanks @mayel)
+- ✨ Reword the "Top discussions" and "Trending" blocks: pick a built-in wording (like "Hot discussions" or "What is buzzing"), or choose **Custom…** and write your own title, empty message and "View all" label, in Preferences → Behaviours, for yourself or for the whole instance (admins). Instances can also add their own wordings in config (thanks @mayel)
+- ✨ A group's rules show the instance's community rules under a fold. In a group's rules settings, the instance's rules show as already ticked and can't be unticked (thanks @mayel)
+- ✨ Community rules can be put in order, by dragging or with up/down buttons: categories, the sections in each, and the rules in each section. A group starts from the instance's order and can change its own without touching the instance's. Rules now show under their category headings. The code of conduct page shows the rules beside it. (thanks @mayel)
 - ✨ PWA: Push notification permission prompt (thanks @ivanminutillo)
-- ✨ A Feedback widget asks people what they want of the instance. Its button opens a feedback form, or, with no form, the composer to post in a group or topic the admins pick. Admins set its title, text, button and form address in the instance settings, and the "Getting started" checklist's wishes step uses the same ones (thanks @mayel)
-- ✨ A "Message the moderators" button to reach the instance's moderators, on the moderators widget, the guest homepage and the About page, and messages and mentions of the instance's federation account reach all its moderators (thanks @mayel)
+- ✨ A Feedback widget to ask people what they want of the instance (or flavour). Its button opens a feedback form, or, with no form, the composer to post in a group or topic the admins pick. Admins set its title, text, button and form address in the instance settings, and the "Getting started" checklist's wishes step uses the same ones, and an instance can show it on every page (thanks @mayel)
+- ✨ Admins can choose whether the dashboard's content widgets (top discussions, recent articles, polls closing soon and the spotlight) show posts from everywhere or only from this instance, in the instance settings (thanks @mayel)
+- ✨ A "Message the moderators" button to reach the instance's moderators, on the moderators widget, the guest homepage and the About page, and messages and mentions of the instance's federation account reach all its moderators. (thanks @mayel)
 - ✨ Show your password while creating an account [#2346](https://github.com/bonfire-networks/bonfire-app/issues/2346) (thanks @sarahsquirrel and @ivanminutillo)
 - ✨ International handles, supporting unicode usernames (for remote users, and optionally for creating local ones) and domain names (thanks @mayel)
 - 🔒 Posts and activities are now signed with object integrity proofs (FEP-8b32), and proofs on what arrives are checked, so a post passed on by a group or another server can be trusted by its author's own signature. Groups pass on their members' activities unchanged, so those proofs still verify. Tested with Mastodon, Mitra and Fedify (thanks @mayel)
 - ✨ Admins can let specific hosts through the protection against requests to internal addresses, with the `ssrf_allow_hosts` setting [`d6f5f27`](https://github.com/bonfire-networks/bonfire-app/commit/d6f5f274ecfe797d8ea94701fe0fe750b448dd8c) (thanks @mayel)
 - ✨ Admins can delete a user's data, after confirming their identity, choosing to delete only that profile or the whole account (which says how many profiles go with it) along with all their data [#1357](https://github.com/bonfire-networks/bonfire-app/issues/1357) (thanks @mayel)
+- ✨ Apps can find out how to register with this instance: when it is an SSO provider, its OAuth server metadata gives the `app_registration_endpoint` (as Mastodon does), and WebFinger gives its OpenID issuer (thanks @mayel)
 - ✨ Import a whole account archive (a zip file) from another Bonfire instance or other apps like Mastodon. After uploading it, you see what it holds and how much of each (content, likes, bookmarks, follows, circles, blocks, profile), and can choose what to import (thanks @mayel):
   - Media like images in your posts come from the archive, so they're kept even when your old server is gone
   - Your old bio, location, avatar and banner fill in what your profile here doesn't have yet, without overwriting anything
@@ -65,12 +74,12 @@ SPDX-License-Identifier: CC0-1.0
 - ✨ Share a post from its "more actions" menu: on phones it opens the system share sheet, elsewhere it copies the link (thanks @ivanminutillo)
 
 ### Changed
+- 🔒 Other servers' ActivityPub requests must now be signed by default, except to look up public profiles, so servers that don't sign them, such as Lemmy, can still find people here; an ActivityPub request to the home page leads to the instance's actor. Signed requests for pages of a collection (eg a group's topics or an outbox) and for a link that redirects (eg a post's `/post/<id>` address) are now accepted (thanks @mayel)
 - 💅 Mobile app (PWA): menus open as bottom sheets, the status bar takes the theme's colour, feed tabs stay pinned and hide as you scroll, the instance icon fits Android home screens, and replies in the composer show the post they answer, with close and minimise buttons (thanks @ivanminutillo)
 - 💅 Composer: with the phone keyboard open, the header shrinks to one line, leaving more room to type (thanks @ivanminutillo)
 - 💅 Mobile: side drawers have larger, evenly spaced rows, and less empty space above page headers (thanks @ivanminutillo)
 - 💅 Composer (Milkdown): better syncing, works better in the mobile app, and markdown fixes (thanks @ivanminutillo)
 - 💅 Better UI and UX for groups and topics: new group and topic headers and navigation, posting to a topic from the group composer, a group sidebar with follow and notification options, and a confirmation before leaving a group [#2351](https://github.com/bonfire-networks/bonfire-app/issues/2351) [#2389](https://github.com/bonfire-networks/bonfire-app/issues/2389) (thanks @sarahsquirrel and @ivanminutillo)
-- 🔒 Other servers' requests must now be signed by default, except to look up public profiles, so servers that don't sign them, such as Lemmy, can still find people here; an ActivityPub request to the home page leads to the instance's actor (thanks @mayel)
 - 💅 Redesigned guest homepage, about page and login [#2390](https://github.com/bonfire-networks/bonfire-app/issues/2390) (thanks @ivanminutillo)
 - 💅 Configure the dashboard widgets to display, including a feed [`b88f1fc`](https://github.com/bonfire-networks/bonfire_ui_me/commit/b88f1fcf8be850cc4496f5ce3b0040b8a208b563) (thanks @ivanminutillo)
 - 💅 Dashboard widgets redesigned, including a carousel for top discussions and a community rules widget [#2397](https://github.com/bonfire-networks/bonfire-app/issues/2397) (thanks @ivanminutillo)
@@ -86,6 +95,7 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 The Stream look is now the default, and the typographic one stays available in settings (thanks @ivanminutillo)
 - 💅 Hovering a profile shows a preview card, and on a phone tapping opens it as a bottom sheet [#2455](https://github.com/bonfire-networks/bonfire-app/issues/2455) (thanks @ivanminutillo)
 - 💅 A "Show new activities" button loads posts that arrived since you opened a feed, and they load on their own when you're at the top (thanks @ivanminutillo)
+- 💅 With infinite scroll on hybrid, "Show older activities" waits for a click instead of loading on scroll, the same as "Load more"
 - 💅 Join requests: **Pending** lets you withdraw your request, and moderators get a compact row to approve or decline (thanks @ivanminutillo)
 - 💅 Group discovery: **Joined** lists the groups you're a member of, "Start a discussion in [group]" opens the composer with the group's audience, and the title field shows by default when posting in a group (thanks @ivanminutillo)
 - 🔒 Keyword filters match whole words of the text people see: `spam` no longer hides "spammer", a `*` catches longer words (`spam*`, `*spam*`), links and markup are ignored, and capital letters and look-alike characters (`C00L` for `cool`) count as the same. A match is handled wherever a post shows, including quotes, the post a reply answers, threads and posts arriving live, and it's not pushed or emailed to you. Posts from other servers with a word you hide completely don't reach you, and a local post with one of the instance's words to hide stays visible only to its author [#1001](https://github.com/bonfire-networks/bonfire-app/issues/1001) (thanks @mayel)
@@ -97,10 +107,10 @@ SPDX-License-Identifier: CC0-1.0
 - 🚀 Deploys: more system tuning, and a database healthcheck (thanks @mayel)
 - 📝 Mastodon API improvements (thanks @ivanminutillo)
 - 🚀 Fetching a post again from its server now keeps the newer copy, and a post deleted on its server is deleted here too (thanks @mayel)
-- 📝 The federation guide documents object integrity proofs and inbox forwarding, with interop results (thanks @mayel)
+- 📝 The [federation guide](../FEDERATION.md) documents how groups and topics federate, object integrity proofs and inbox forwarding, and lists the FEPs and other specifications Bonfire supports (thanks @mayel)
 - 👷 Better syntax highlighting in code blocks [#1205](https://github.com/bonfire-networks/bonfire-app/issues/1205) (thanks @mayel)
 - 📝 Deployment docs, including installing with Co-op Cloud [#1512](https://github.com/bonfire-networks/bonfire-app/issues/1512) [PR #2267](https://github.com/bonfire-networks/bonfire-app/pull/2267) [PR #2266](https://github.com/bonfire-networks/bonfire-app/pull/2266), and the dev setup guide no longer gives the wrong advice about yarn [#843](https://github.com/bonfire-networks/bonfire-app/issues/843) (thanks @mayel, @jeppebundsgaard and @lawik)
-- 📝 Updated the [Notifications guide](user_guides/notifications.md), and new guides for [Groups](user_guides/groups.md) and [Running a Group](user_guides/group-moderation.md) (thanks @mayel)
+- 📝 Updated the [Notifications guide](user_guides/notifications.md), and new guides for [Groups](user_guides/groups.md), including which fediverse apps work with Bonfire groups, and [Running a Group](user_guides/group-moderation.md) (thanks @mayel)
 - 📝 Revived the nix devShell [PR #2332](https://github.com/bonfire-networks/bonfire-app/pull/2332) (thanks @merutam)
 - 🌐 Improved localisation coverage throughout the app (thank you translators!)
 - ✨ Upload an instance icon, with a sharp version for high-resolution screens [`6a8db47`](https://github.com/bonfire-networks/bonfire_files/commit/6a8db47dac1040465f21d50ebb4db052ba8ece2d) [`bbe5e3f`](https://github.com/bonfire-networks/bonfire_ui_me/commit/bbe5e3ffb9d0cec77faa4db99be08193fc73f4e9) (thanks @ivanminutillo)
@@ -115,6 +125,8 @@ SPDX-License-Identifier: CC0-1.0
 - 💅 A group's member list has one "Manage" menu per person, with Remove first (thanks @ivanminutillo)
 
 ### Fixed
+- 🐛 Composer: typing after the @mention that a reply starts with, or after a restored draft, no longer loses the space before your text (thanks @mayel)
+- 🐛 Federation: hashtag and mention links in posts from other servers are recognised even with a trailing slash or tracking parameters (eg. `?utm_source=`), so they link to the hashtag or profile here (thanks @mayel)
 - 🐛 The dashboard opens on your default feed instead of always on Following (thanks @ivanminutillo)
 - 🐛 The "Install app" banner no longer blocks taps on the page around it (thanks @ivanminutillo)
 - 🐛 Links typed inside brackets, eg `[text](url)`, now become links (thanks @ivanminutillo)
@@ -144,25 +156,32 @@ SPDX-License-Identifier: CC0-1.0
 - 🐛 Tapping a notification about a reply opens the whole discussion, with the reply shown once, instead of the reply twice without the post it answers [#2258](https://github.com/bonfire-networks/bonfire-app/issues/2258) (thanks @mayel and @ivanminutillo)
 - 🐛 The notifications page no longer times out for people in many circles (thanks @mayel)
 - 🐛 Videos, images and documents from other servers keep the date they were published, not the date they reached you [#2457](https://github.com/bonfire-networks/bonfire-app/issues/2457) (thanks @mayel)
+- 🐛 Federation: relative links in a post's content (eg. to a hashtag) now lead to the same place on every instance, for posts sent and received; before, they pointed to a different page depending on where they were shown (thanks @ccamara and @mayel)
 - 🐛 PeerTube videos no longer pile up duplicate copies each time they get views [#2433](https://github.com/bonfire-networks/bonfire-app/issues/2433) (thanks @mayel)
 - 🐛 Federation now works with servers whose TLS 1.3 handshake was refused (eg those running h2o): the request is retried with a compatible handshake, and the server is remembered [`6d6fd75`](https://github.com/bonfire-networks/activity_pub/commit/6d6fd75f4706f273f13a330338373bbad1904ad9) [`b9c9924`](https://github.com/bonfire-networks/bonfire_federate_activitypub/commit/b9c9924079c20b7c7c283e6c154f104a23f66254) (thanks @mayel)
 - 🔒 Replies now carry their author's own boundaries, so people they ghosted or silenced don't see them, and their authors can edit them, including comments in groups from other servers (thanks @mayel)
 - 🐛 Followers-only posts from other servers now properly reach their author's followers here (thanks @mayel)
 - 🐛 Copy link now copies the canonical ActivityPub URL of a post, profile or group, so it can be looked up from other fediverse apps (thanks @mayel)
 - 🐛 The "System" theme works without choosing both a light and a dark theme first (thanks @mayel and @xplosionmind)
+- 🐛 Translating a post hidden by your keyword filters no longer shows its original text (thanks @mayel)
 - 🐛 Posts keep their formatting: Enter starts a paragraph and Shift+Enter a line break, and pasted line breaks, lists, code blocks and quotes come out as written; titles and content warnings are now sanitised too [#2348](https://github.com/bonfire-networks/bonfire-app/issues/2348) [`acafd88`](https://github.com/bonfire-networks/bonfire_social/commit/acafd88f5a150cef7767a6b65839b7bcb2d40ecf) [`be137e7`](https://github.com/bonfire-networks/bonfire_editor_milkdown/commit/be137e7b42a6122bf5d440b6481a5a2d6abc235a) (thanks @ivanminutillo)
 - 🔒 With federation turned off for the instance, or by a person for themselves, their inboxes refuse incoming activities instead of quietly processing them [#754](https://github.com/bonfire-networks/bonfire-app/issues/754) (thanks @mayel)
 - 🔒 People who are undiscoverable are not listed to guests on a shared circle's page or embed [#1088](https://github.com/bonfire-networks/bonfire-app/issues/1088) (thanks @mayel)
+- 🔒 A quoted post only shows in the quote to people who can read it, and you can't ask to quote a post you can't read (thanks Mentaal and @mayel)
 - 🐛 Tuning values saved in the admin settings no longer revert, and are applied again after a restart [#2256](https://github.com/bonfire-networks/bonfire-app/issues/2256) (thanks @btfreeorg and @mayel)
 - 🐛 Accounts suspended on Mastodon are hidden here, and come back if the suspension is lifted [#837](https://github.com/bonfire-networks/bonfire-app/issues/837) (thanks @mayel)
 - 🐛 Accepting a quote from someone on Mastodon now shows it as accepted there, and declining one sends a refusal Mastodon understands; tested with mastodon.social [#1803](https://github.com/bonfire-networks/bonfire-app/issues/1803) (thanks @btfreeorg, Mentaal and @mayel)
 - 🐛 Signing up: the page that asks people signing in with ORCID for their email no longer crashes, login and confirmation links are no longer used up by email scanners (eg in Outlook) and a failed link says why, invites for "2 weeks" last 14 days, and the About page explains how to join this instance and links to its sign-up page [#2415](https://github.com/bonfire-networks/bonfire-app/issues/2415) [#2408](https://github.com/bonfire-networks/bonfire-app/issues/2408) [#2477](https://github.com/bonfire-networks/bonfire-app/issues/2477) (thanks @ccamara, Jacobin and @mayel)
 - 🐛 Flags reach moderators even on an instance with no admin [#1176](https://github.com/bonfire-networks/bonfire-app/issues/1176) (thanks @mayel)
-- 🐛 Deleting a post no longer removes the link preview from other posts that link to the same page (thanks @mayel)
+- 🐛 Deleting a post no longer removes the link preview from other posts that link to the same page [#831](https://github.com/bonfire-networks/bonfire-app/issues/831) (thanks @mayel)
 - 🐛 "Quiet public" posts from other servers stay out of the instance-wide feeds [#1557](https://github.com/bonfire-networks/bonfire-app/issues/1557) (thanks @mayel)
 - 🐛 Notifications show when the like, boost or reply happened, not the age of the post it's about [#2219](https://github.com/bonfire-networks/bonfire-app/issues/2219) (thanks @btfreeorg and @mayel)
 - 🐛 A push notification about a new follower opens the follower's profile [#2260](https://github.com/bonfire-networks/bonfire-app/issues/2260) (thanks @ivanminutillo and @mayel)
 - 🐛 Likes of posts and comments from Lemmy now reach Lemmy [#2503](https://github.com/bonfire-networks/bonfire-app/issues/2503) (thanks @sleeping-miyagi and @mayel)
+- 🐛 Following accounts on Owncast, Gancio, PeerTube or Pixelfed no longer stays stuck at "Requesting" when their server's acceptance doesn't match the follow request exactly [#1732](https://github.com/bonfire-networks/bonfire-app/issues/1732) (thanks @ivanminutillo and @mayel)
+- 🐛 Background jobs no longer pile up retrying activities that were already received, such as PeerTube's view-count updates [#2257](https://github.com/bonfire-networks/bonfire-app/issues/2257) [#2490](https://github.com/bonfire-networks/bonfire-app/issues/2490) (thanks @btfreeorg, @MarekBenjamin and @mayel)
+- 🔒 Deleting a profile reaches the servers of the people they followed as well as their followers [#1429](https://github.com/bonfire-networks/bonfire-app/issues/1429) (thanks @mayel)
+- 🔒 With allowlist-only federation, a remote account from a server that isn't on the list can no longer be added to a circle [#2242](https://github.com/bonfire-networks/bonfire-app/issues/2242) (thanks @wakest and @mayel)
 - 🐛 Avatars: SVG images are refused for avatars and banners, as Mastodon can't show them [#2475](https://github.com/bonfire-networks/bonfire-app/issues/2475); bot accounts from Lemmy keep their icons [#2489](https://github.com/bonfire-networks/bonfire-app/issues/2489); and profile updates from accounts with no display name are no longer lost [#1546](https://github.com/bonfire-networks/bonfire-app/issues/1546) (thanks @xplosionmind, @sleeping-miyagi, @ivanminutillo and @mayel)
 - 🐛 Interacting from your own fediverse account (remote follow, reply or like) works with Mastodon again using Telling comment embeds, and an unknown address shows an error on the form instead of offering to download a page on phones [#2273](https://github.com/bonfire-networks/bonfire-app/issues/2273) [#2259](https://github.com/bonfire-networks/bonfire-app/issues/2259) (thanks @wakest, @ccamara and @mayel)
 - 🐛 Fixed scheduling posts [#2470](https://github.com/bonfire-networks/bonfire-app/issues/2470) (thanks @ccamara and @mayel)
@@ -171,12 +190,15 @@ SPDX-License-Identifier: CC0-1.0
 - 🌐 More of the interface can be translated, including the logged-out start page and login errors (thanks Mentaal and @mayel)
 - 🐛 Following a PeerTube account shows its videos [#1715](https://github.com/bonfire-networks/bonfire-app/issues/1715) [#2070](https://github.com/bonfire-networks/bonfire-app/issues/2070) (thanks @ozonedGH, @btfreeorg, @ivanminutillo and @mayel)
 - 🐛 Adding a Pixelfed (or any) external account no longer crashes on a pasted link, and a handle that can't be found says "Couldn't find a remote profile with that name". Linked accounts such as ORCID link to their own page, not to Bonfire [#2244](https://github.com/bonfire-networks/bonfire-app/issues/2244) [#2079](https://github.com/bonfire-networks/bonfire-app/issues/2079) (thanks @wakest and @mayel)
-- 🐛 Interacting from your own fediverse account: the field is labelled "Your fediverse username" and asks for the server too, and the comment embed's button reads "Reply" [#2274](https://github.com/bonfire-networks/bonfire-app/issues/2274) [#2300](https://github.com/bonfire-networks/bonfire-app/issues/2300) (thanks @wakest, @ccamara and @mayel)
+- 🐛 Interacting from your own fediverse account: the field is labelled "Your fediverse username" and asks for the server too [#2274](https://github.com/bonfire-networks/bonfire-app/issues/2274) [#2300](https://github.com/bonfire-networks/bonfire-app/issues/2300) (thanks @wakest, @ccamara and @mayel)
 - 🐛 On a flagged person who's already blocked, "Take action" offers "Block or unblock <name>" [#1627](https://github.com/bonfire-networks/bonfire-app/issues/1627) (thanks @jonpincus and @mayel)
+- 🐛 Dashboard and homepage widgets hide posts and people you've blocked or silenced (thanks damon_ and @mayel)
 - 🐛 Composer: A reply now sends the reset only once (thanks @ivanminutillo)
 - 🐛 After a lost connection, the feed comes back at the post you were reading, instead of empty or at the top (thanks @ivanminutillo)
 - 🐛 The mobile app no longer freezes for 5–10 seconds and reloads when the connection drops quietly; it reconnects on its own and shows Offline meanwhile (thanks @ivanminutillo)
 - 🐛 You can't send a post while offline (thanks @ivanminutillo)
+- 🐛 Posts in the dashboard feed load fully when they load together with a widget's posts (such as trending), instead of erroring on their "Copy link" menu (thanks @mayel)
+- 🔒 Deleting a profile disconnects it from every device using it at once. Deleting an account logs it out on every device (thanks @mayel)
 
 ## Bonfire [1.0.7 (2026-08-30)]
 
