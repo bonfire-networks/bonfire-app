@@ -1249,7 +1249,7 @@ with-lock name +cmd:
 # One run at a time: every session and agent shares the test database and `_build`, so a second run waits for the first (see `with-lock`)
 test_run *args='': services
 	@echo "Testing with {{args}}..."
-	@just with-lock test-run env MIX_ENV=test TEST_UI_ASYNC=no just mix test `just test_minimum_excludes` {{args}}
+	@just with-lock test-run env MIX_ENV=test TEST_UI_ASYNC=no just mix test `just test_minimum_excludes` $( [ "${TEST_PARTITIONS:-1}" -gt 1 ] && echo "--partitions $TEST_PARTITIONS" ) {{args}}
 
 test-backend path='' *args='': services
 	MIX_TEST_ONLY=backend just test_run `just test_convert_path {{path}}` --exclude ui --exclude federation --exclude ap_lib `just test_default_excludes` {{args}}
@@ -1403,7 +1403,7 @@ test-federation-integration *args=federation_others_excludes: services _test-dan
 
 # dance DB reset is now periodic, not per-run (per-test `clean_slate` + `reset_caches` handle intra-run isolation); run `just test-federation-dance-reset` (or `just _test-db-dance-reset`) periodically / after an interrupted run
 test-federation-dance *args=ap_ext: services _test-dance-positions
-	ENABLE_RATE_LIMIT=no TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance
+	ENABLE_RATE_LIMIT=no TEST_INSTANCE=yes HOSTNAME=localhost PUBLIC_PORT=4000 just test_run {{args}} --only test_instance --exclude rate_limit
 	just _test-dance-positions
 
 # The dance with the second instance on an internationalized domain (bücher.localhost, as its A-label), to check federation with IDN hosts. Needs this line in /etc/hosts once: 127.0.0.1 xn--bcher-kva.localhost
