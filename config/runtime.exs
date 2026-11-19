@@ -344,6 +344,10 @@ oban_stage_interval = System.get_env("OBAN_STAGE_INTERVAL_MS", "30000") |> Strin
 # average ms a producer waits before fetching more jobs after a trigger; jitter applies (0-2x actual)
 oban_dispatch_cooldown = System.get_env("OBAN_DISPATCH_COOLDOWN_MS", "5") |> String.to_integer()
 
+# jobs still executing after this many minutes are rescued and may run twice, so set it above your longest job
+oban_rescue_after =
+  to_timeout(minute: String.to_integer(System.get_env("OBAN_RESCUE_AFTER_MINUTES", "60")))
+
 # Set OBAN_TESTING=inline to run jobs synchronously on insert (useful for e2e tests — makes federation between servers effectively instant so tests don't need to poll and wait).
 # Set to "manual" to disable automatic job execution entirely (useful for unit tests).
 oban_testing =
@@ -386,7 +390,7 @@ config :bonfire, Oban,
     # delete job history after 6 hours
     {Oban.Plugins.Pruner, max_age: 60 * 60 * 6},
     # rescue orphaned jobs
-    {Oban.Plugins.Lifeline, rescue_after: :timer.minutes(60)},
+    {Oban.Plugins.Lifeline, rescue_after: oban_rescue_after},
     {Oban.Plugins.Cron,
      crontab:
        [
