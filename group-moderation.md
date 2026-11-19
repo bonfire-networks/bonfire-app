@@ -37,6 +37,10 @@ Moderators see a **Manage** button and a **Moderator** label in the group's head
 
 Changing who can join or post applies from then on.
 
+After you save the access settings of a group that has topics, Bonfire asks whether to apply the new settings to its topics too. Every topic starts ticked. Untick the ones that should keep their current settings, then press **Apply**. A topic only copies its group's settings when someone creates it, so a topic you leave unticked keeps the settings it had.
+
+If members of a group see a locked page when they open one of its topics, save the group's access settings again and apply them to its topics.
+
 ## Join requests
 
 When someone asks to join, the request appears in your notifications and in **Moderation**.
@@ -96,7 +100,7 @@ For instance-wide moderation, see [Moderator Tools](./moderator-tools.md).
 
 ## Topics
 
-Moderators create topics with **New topic** at the end of the topic chips, and can rename, archive or delete a topic from its settings. A topic follows its group's access rules: a topic in a private group is private too.
+Moderators create topics with **New topic** at the end of the topic chips, and can rename, archive or delete a topic from its settings. A topic follows its group's access rules: a topic in a private group is private too. When you change the group's access settings, you choose which of its topics get the new settings (see [Group settings](#group-settings)).
 
 ## Archiving
 
