@@ -210,7 +210,7 @@ To report a post in a group, use **Flag** from the post's menu: it goes to the g
 
 ### Who runs a group?
 
-Its moderators. Whoever creates a group becomes its first moderator and can make others moderators. Instance admins can also add new users to a group automatically and pin groups to everyone's sidebar. See [Running a Group](./group-moderation.md).
+Its moderators. Whoever creates a group becomes its first moderator and can make others moderators. The admins of the instance that hosts the group can also manage it, and the instance's rules apply in it too. Instance admins can also add new users to a group automatically and pin groups to everyone's sidebar. See [Running a Group](./group-moderation.md).
 
 ### Can people see which groups I'm in?
 

@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.40.4">
-    <meta name="project" content="Bonfire v1.1.1-community-beta.1">
+    <meta name="generator" content="ExDoc v0.40.5">
+    <meta name="project" content="Bonfire v1.1.1-community-beta.2">
 
 
-    <title>Mastodon-Compatible Groups & Topics API — Bonfire v1.1.1-community-beta.1</title>
+    <title>Mastodon-Compatible Groups & Topics API — Bonfire v1.1.1-community-beta.2</title>
 
     <link rel="stylesheet" href="dist/html-elixir-RXHHCTJW.css" />
 
     <script defer src="dist/sidebar_items-6617310B.js"></script>
     <script defer src="docs_config.js"></script>
-    <script defer src="dist/html-MI33G4N7.js"></script>
+    <script defer src="dist/html-LBCGAQQV.js"></script>
 
   </head>
   <body>
@@ -41,7 +41,7 @@
 Bonfire
         </a>
         <div class="sidebar-projectVersion" translate="no">
-          v1.1.1-community-beta.1
+          v1.1.1-community-beta.2
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@ Fields already present on <code class="inline">Account</code> are not duplicated
   &quot;parent_group_id&quot;: null,
   &quot;parent_group&quot;: null,
   &quot;sub_groups&quot;: []
-}</code></pre><table><thead><tr><th style="text-align: left;">Field</th><th style="text-align: left;">Type</th><th style="text-align: left;">Always present</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">type</code></td><td style="text-align: left;"><code class="inline">&quot;group&quot; (default) | &quot;topic&quot; | &quot;label&quot;</code></td><td style="text-align: left;">yes</td><td style="text-align: left;">Maps to <code class="inline">Bonfire.Classify.Category.type</code></td></tr><tr><td style="text-align: left;"><code class="inline">join_mode</code></td><td style="text-align: left;"><code class="inline">&quot;free&quot; | &quot;request&quot; | &quot;invite&quot;</code></td><td style="text-align: left;">yes</td><td style="text-align: left;">How new members join. Also reflected on <code class="inline">Account.locked</code> (<code class="inline">locked: true</code> when not <code class="inline">&quot;free&quot;</code>)</td></tr><tr><td style="text-align: left;"><code class="inline">members_count</code></td><td style="text-align: left;">integer</td><td style="text-align: left;">yes</td><td style="text-align: left;">Number of members. Distinct from <code class="inline">Account.followers_count</code> when follow/membership are decoupled</td></tr><tr><td style="text-align: left;"><code class="inline">is_disabled</code></td><td style="text-align: left;">boolean</td><td style="text-align: left;">yes</td><td style="text-align: left;">Whether the group has been soft-disabled. Maps to <code class="inline">Category.is_disabled</code></td></tr><tr><td style="text-align: left;"><code class="inline">extra_info</code></td><td style="text-align: left;">object | null</td><td style="text-align: left;">yes</td><td style="text-align: left;">Freeform JSON metadata. Maps to <code class="inline">Category</code> <code class="inline">ExtraInfo</code> mixin</td></tr><tr><td style="text-align: left;"><code class="inline">parent_group_id</code></td><td style="text-align: left;">string | null</td><td style="text-align: left;">yes</td><td style="text-align: left;">ULID of the parent category. Always present without requiring a depth param</td></tr><tr><td style="text-align: left;"><code class="inline">parent_group</code></td><td style="text-align: left;">Account | null</td><td style="text-align: left;">conditional</td><td style="text-align: left;">Full parent Account with its own <code class="inline">group</code> field. Only populated when <code class="inline">?parent_depth &gt;= 1</code></td></tr><tr><td style="text-align: left;"><code class="inline">sub_groups</code></td><td style="text-align: left;">Array\&lt;Account&gt;</td><td style="text-align: left;">conditional</td><td style="text-align: left;">Direct child Accounts, each with their own <code class="inline">group</code> field. Only populated when <code class="inline">?sub_depth &gt;= 1</code>. Empty array otherwise</td></tr></tbody></table><h3 id="example-full-account-with-group-extension" class="section-heading"><a href="#example-full-account-with-group-extension" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example — full Account with <code class="inline">group</code> extension</span></h3><pre><code class="json">{
+}</code></pre><table><thead><tr><th style="text-align: left;">Field</th><th style="text-align: left;">Type</th><th style="text-align: left;">Always present</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">type</code></td><td style="text-align: left;"><code class="inline">&quot;group&quot; (default) | &quot;topic&quot; | &quot;label&quot;</code></td><td style="text-align: left;">yes</td><td style="text-align: left;">Maps to <code class="inline">Bonfire.Classify.Category.type</code></td></tr><tr><td style="text-align: left;"><code class="inline">join_mode</code></td><td style="text-align: left;"><code class="inline">&quot;free&quot; | &quot;request&quot; | &quot;invite&quot;</code></td><td style="text-align: left;">yes</td><td style="text-align: left;">How new members join. Also reflected on <code class="inline">Account.locked</code> (<code class="inline">locked: true</code> when not <code class="inline">&quot;free&quot;</code>)</td></tr><tr><td style="text-align: left;"><code class="inline">members_count</code></td><td style="text-align: left;">integer</td><td style="text-align: left;">yes</td><td style="text-align: left;">Number of members. Distinct from <code class="inline">Account.followers_count</code> when follow/membership are decoupled</td></tr><tr><td style="text-align: left;"><code class="inline">is_disabled</code></td><td style="text-align: left;">boolean</td><td style="text-align: left;">yes</td><td style="text-align: left;">Whether the group has been soft-disabled. Maps to <code class="inline">Category.is_disabled</code></td></tr><tr><td style="text-align: left;"><code class="inline">extra_info</code></td><td style="text-align: left;">object | null</td><td style="text-align: left;">yes</td><td style="text-align: left;">Freeform JSON metadata. Maps to <code class="inline">Category ExtraInfo</code> mixin</td></tr><tr><td style="text-align: left;"><code class="inline">parent_group_id</code></td><td style="text-align: left;">string | null</td><td style="text-align: left;">yes</td><td style="text-align: left;">ULID of the parent category. Always present without requiring a depth param</td></tr><tr><td style="text-align: left;"><code class="inline">parent_group</code></td><td style="text-align: left;">Account | null</td><td style="text-align: left;">conditional</td><td style="text-align: left;">Full parent Account with its own <code class="inline">group</code> field. Only populated when <code class="inline">?parent_depth &gt;= 1</code></td></tr><tr><td style="text-align: left;"><code class="inline">sub_groups</code></td><td style="text-align: left;">Array\&lt;Account&gt;</td><td style="text-align: left;">conditional</td><td style="text-align: left;">Direct child Accounts, each with their own <code class="inline">group</code> field. Only populated when <code class="inline">?sub_depth &gt;= 1</code>. Empty array otherwise</td></tr></tbody></table><h3 id="example-full-account-with-group-extension" class="section-heading"><a href="#example-full-account-with-group-extension" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a><span class="text">Example — full Account with <code class="inline">group</code> extension</span></h3><pre><code class="json">{
   &quot;id&quot;: &quot;01JPXYZ...&quot;,
   &quot;username&quot;: &quot;cooking&quot;,
   &quot;acct&quot;: &quot;cooking@social.example&quot;,
@@ -332,7 +332,7 @@ Hosting guide
 
         <p class="built-using">
           Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.4) for the
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.40.5) for the
 
             <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 
