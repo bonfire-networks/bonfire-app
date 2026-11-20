@@ -116,7 +116,9 @@ If you moderate a group that lives on another instance, your actions take effect
 
 ## For instance admins
 
-Instance admins can bring groups to everyone on the instance. You don't need to moderate a group to do this.
+Instance admins have authority over the groups their instance hosts, the same way the instance's rules apply in them. They can open the settings of any group hosted here, even when they are not a member, which lets them fix a group whose own moderators are locked out. A notice at the top of the settings tells them they are managing the group as an instance admin. Admins of another instance have no such access to a group hosted here.
+
+Instance admins can also bring groups to everyone on the instance. You don't need to moderate a group to do this.
 
 ### Add new users to a group automatically
 
