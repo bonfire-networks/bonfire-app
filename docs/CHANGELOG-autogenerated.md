@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Removed
 - ⚰️ Delete caret_icons_browser_test.exs [`334cfb4`](https://github.com/bonfire-networks/bonfire_ui_common/commit/334cfb4d3e291c3af9651e1fd526ec6a59a973bc) (thanks @ivanminutillo)
 
+### Added
+- ✅ test [`4005603`](https://github.com/bonfire-networks/bonfire_federate_activitypub/commit/40056030a4a71153345132f48476d26776b0cbee) (thanks @mayel)
+
 ### Changed
 - 📝 composer [`5512748`](https://github.com/bonfire-networks/bonfire_poll/commit/5512748948d3623576c44b39ef964ad100f512d9), [`9a1a16c`](https://github.com/bonfire-networks/bonfire_ui_social/commit/9a1a16c89c97be0af3deaea1e368078e6ee7b919) (thanks @ivanminutillo)
 - 📝 composer sync [`fcada5b`](https://github.com/bonfire-networks/bonfire_ui_common/commit/fcada5b14e1c556649aa8cfe0c9d0a8095def153) (thanks @ivanminutillo)
