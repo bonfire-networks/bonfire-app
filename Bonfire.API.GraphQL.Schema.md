@@ -1,5 +1,5 @@
 # `Bonfire.API.GraphQL.Schema`
-[🔗](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/api/graphql/graphql_schema.ex#L367)
+[🔗](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/api/graphql/graphql_schema.ex#L375)
 
 Root GraphQL Schema.
 Only active if the `Bonfire.API.GraphQL` extension is present.
