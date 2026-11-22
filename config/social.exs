@@ -31,6 +31,8 @@ config :bonfire, :ui,
     :bonfire,
     :bonfire_ui_common,
     :bonfire_ui_social,
+    # the events page (where the extension is installed)
+    :bonfire_gatherings,
     :bonfire_ui_reactions,
     :bonfire_ui_messages,
     :bonfire_open_science,
