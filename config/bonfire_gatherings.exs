@@ -1,7 +1,11 @@
 import Config
 
 # The FEP-8a8e values split as Lauti splits its lists (and FEP-2fa1 its schemes): what kind of event it is (a `#Form`, Lauti's "categories") is a topic, in the chip bar; what it is about (a `#Topic`, Lauti's "topics") is a label, beside it. Flavours can move values between the two.
-config :bonfire_gatherings, Bonfire.Gatherings.Events,  
+config :bonfire_gatherings, Bonfire.Gatherings.Events,
+  # the most hits a search of the events page takes from each search index
+  search_limit: 100,
+  # how long after an event ends it leaves the search index (`Bonfire.Gatherings.Workers.UnindexEnded`, daily)
+  unindex_ended_after: to_timeout(day: 30),
   categories_nesting: %{
     "ARTS" => ["THEATRE", "COMEDY", "FILM_MEDIA",     "PHOTOGRAPHY", "CRAFTS", "MUSIC", "PERFORMING_VISUAL_ARTS"],
     "COMMUNITY" => ["MOVEMENTS_POLITICS", "DIY_MAKER_SPACES", "NETWORKING", "BOOK_CLUBS", "GAMES"],

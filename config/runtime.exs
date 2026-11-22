@@ -413,6 +413,12 @@ config :bonfire, Oban,
          else
            IO.puts("Open science extension is not enabled")
            []
+         end ++
+         if Bonfire.Common.Extend.extension_enabled?(:bonfire_gatherings) do
+           # events that ended long ago leave the search index
+           [{"@daily", Bonfire.Gatherings.Workers.UnindexEnded, max_attempts: 1}]
+         else
+           []
          end}
     # ++
     # if Bonfire.Common.Extend.module_enabled?(Bonfire.Social.TrendingLinksCacheWorker) do
