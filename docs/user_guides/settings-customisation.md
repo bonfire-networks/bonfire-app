@@ -55,8 +55,10 @@ Access your preferences from the sidebar or navigation menu under **Preferences*
 
 - **Enable federation:** Control whether your profile and content are federated.
 - **Who can reach me by direct message:** Limit who can send you DMs.
-- **Discoverability:** Control whether your profile is discoverable in search engines and directories.
-- **Search indexing:** Allow your content to appear in search engines and the fediverse.
+- **Discoverability:** When off, your profile page asks search engines not to index it, other fediverse apps are told your profile is not discoverable, and your profile is left out of public search results on this instance.
+- **Search indexing:** When off, your profile page and the pages of your posts ask search engines not to index them, and other fediverse apps are told your profile and posts are not indexable.
+
+Search engines that respect the `noindex` tag follow these settings. Bonfire doesn't serve a `robots.txt`, so instance admins who want to block crawlers more widely can add one at their reverse proxy. Admins set the defaults for new users under Settings > Instance > Safety Defaults.
 
 ### Curated & Trending Topics
 

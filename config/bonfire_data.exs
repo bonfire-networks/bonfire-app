@@ -533,6 +533,8 @@ config :needle, Pointer,
        has_one(:message, unquote(Message), foreign_key: :id)
        has_one(:category, unquote(Category), foreign_key: :id)
        has_one(:geolocation, unquote(Geolocation), foreign_key: :id)
+       # when things happen (eg. events), so a feed sorted by it loads the start date with the object, for its pagination cursor
+       has_one(:time_span, Bonfire.Data.Time.TimeSpan, foreign_key: :id)
 
        # optional shared-user mixin (User-only), declared here too so heterogeneous preloads that include `:shared_user` (e.g. formatting a batch of actors for outgoing federation) don't raise an ArgumentError on non-User pointers and get silently dropped
        has_one(:shared_user, Bonfire.Data.SharedUser, foreign_key: :id)
@@ -1220,6 +1222,7 @@ config :bonfire_data_social, Replied,
        has_many(:direct_replies, unquote(Replied), foreign_key: :reply_to_id, references: :id)
        has_many(:thread_replies, unquote(Replied), foreign_key: :thread_id, references: :id)
        has_one(:thread_post, unquote(Post), foreign_key: :id, references: :thread_id)
+
        # the thread's title, read straight off the root's `Named` with no boundary check on the root: anyone who can read a reply may see it, like an email subject
        has_one(:thread_named, unquote(Named), foreign_key: :id, references: :thread_id)
 

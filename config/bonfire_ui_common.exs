@@ -9,6 +9,42 @@ config :bonfire_ui_common,
 
 config :phoenix, :json_library, Jason
 
+# The icons the icon picker offers, in three lists (shown in this order). Read at compile time by `Bonfire.UI.Common.IconPickerLive`, which also builds the CSS of each icon then: after changing a list, recompile bonfire_ui_common.
+config :bonfire_ui_common, Bonfire.UI.Common.IconPickerLive,
+  # what a category of events can have as its icon: the ones the FEP-8a8e categories start with, then others that read well for a place, a cause, a subject or a mood. All Phosphor "fill", as the rest of the icons in use.
+  category_icons: ~w(
+    ph:music-notes-fill ph:palette-fill ph:fork-knife-fill ph:confetti-fill ph:users-three-fill
+    ph:users-fill ph:megaphone-fill ph:soccer-ball-fill ph:graduation-cap-fill ph:flask-fill
+    ph:film-slate-fill ph:mask-happy-fill ph:ticket-fill ph:game-controller-fill ph:handshake-fill
+    ph:briefcase-fill ph:hand-heart-fill ph:leaf-fill ph:flower-lotus-fill ph:mountains-fill
+    ph:baby-fill ph:translate-fill ph:rainbow-fill ph:hands-clapping-fill ph:scissors-fill
+    ph:sparkle-fill ph:wrench-fill ph:hammer-fill ph:t-shirt-fill ph:camera-fill ph:books-fill
+    ph:smiley-fill ph:paw-print-fill ph:yin-yang-fill ph:car-fill
+  ),
+  more_icons: ~w(
+    ph:globe-fill ph:compass-fill ph:map-pin-fill ph:house-fill ph:acorn-fill ph:campfire-fill ph:planet-fill
+    ph:rocket-launch-fill ph:microscope-fill
+    ph:heart-fill ph:pulse-fill ph:timer-fill ph:hand-fill
+    ph:chart-bar-fill ph:chart-line-fill ph:trend-up-fill ph:kanban-fill ph:target-fill ph:bookmark-fill
+    ph:book-fill ph:newspaper-fill ph:quotes-fill
+    ph:note-fill ph:paint-brush-fill ph:image-fill ph:rss-fill
+    ph:users-four-fill ph:chats-circle-fill ph:calendar-blank-fill ph:clock-fill ph:flag-fill
+    ph:shield-fill ph:shield-check-fill ph:seal-check-fill ph:siren-fill
+    ph:hash-fill ph:at-fill ph:folder-fill ph:push-pin-fill
+    ph:ghost-fill ph:fire-fill ph:smiley-wink-fill
+  ),
+  # more for a topic, group or label, by theme: nature and weather, food, places, arts and media, tech, society, identity and labels. The weight is as compiled, and the viewer's icon style setting remaps them where a variant exists.
+  themed_icons: ~w(
+    ph:cat-fill ph:moon ph:moon-stars ph:sun ph:sun-horizon ph:wind ph:drop ph:lightning
+    ph:coffee-duotone ph:cooking-pot-bold ph:carrot-bold
+    ph:buildings ph:globe-hemisphere-west
+    ph:book-open ph:pen-nib ph:puzzle-piece ph:chats ph:images-duotone ph:video-duotone
+    ph:broadcast-duotone ph:waveform-duotone
+    ph:code ph:desktop ph:device-mobile ph:cpu-duotone ph:hard-drives ph:circles-three ph:lightbulb
+    ph:scales-duotone ph:gift-duotone ph:hand-waving ph:heartbeat-duotone
+    ph:identification-card-duotone ph:user-circle ph:tag-fill
+  )
+
 cwd = File.cwd!()
 
 dep_path = Path.join([cwd, "extensions", "bonfire_ui_common"])
