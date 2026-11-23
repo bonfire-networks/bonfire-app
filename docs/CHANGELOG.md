@@ -7,6 +7,24 @@ SPDX-License-Identifier: CC0-1.0
 
 # Changelog: past releases
 
+## Unreleased
+
+### Added
+
+- ✨ Admins choose and order the widgets shown on the guest homepage and members' dashboards, in a new **Widgets** page in the instance settings, with a tab for each (thanks @mayel)
+- ✨ Members choose and order the widgets on their own dashboard the same way, in their settings, and their choices beat the instance's. 
+- ✨ A custom text widget: admins write a title and markdown text, and add it to the dashboard or the guest homepage (thanks @mayel and Mentaal.nl)
+- ✨ A welcome widget that shows the instance's welcome text on the dashboard (thanks @mayel)
+- ✨ Admins choose who can see who moderates the instance: everyone, signed-in people only, or nobody. It applies wherever moderators are listed: the guest homepage, the About page and widgets. People can still message the moderators either way [#2573](https://github.com/bonfire-networks/bonfire-app/issues/2573) (thanks @mayel)
+
+### Changed
+
+- 💅 The latest activity feed is a widget, so it can be moved or removed on the dashboard, and admins can remove the recent activity from the guest homepage [#2573](https://github.com/bonfire-networks/bonfire-app/issues/2573) (thanks @mayel)
+- 💅 The guest homepage's sections (introduction, moderators, instance facts, community links, rules, spotlight, groups and recent activity) are now widgets, so admins can reorder or remove them. The Spotlight and public groups toggles moved from the About settings to the Widgets page (thanks @mayel)
+
+### Fixed
+
+
 ## Bonfire [1.1 (2026-11-18)]
 
 ### Added

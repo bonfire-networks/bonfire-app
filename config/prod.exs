@@ -32,4 +32,4 @@ config :live_view_native_stylesheet,
   pretty: false
 
 # temporarily disable the following  
-config :bonfire_ui_social, Bonfire.UI.Social.WidgetFeedLive, modularity: :disabled
+config :bonfire_ui_social, Bonfire.UI.Social.WidgetFeedControlsLive, modularity: :disabled

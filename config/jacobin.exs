@@ -122,3 +122,10 @@ config :bonfire_ui_common, Bonfire.UI.Common.WidgetGettingStartedLive,
   actions: [:profile, :first_post, :first_follow, :read_coc, :wishes],
   code_of_conduct_path: "/conduct",
   wishes_url: "https://heyform-mglx.srv1627781.hstgr.cloud/form/7JpSZJ6H"
+
+# The dashboard's main-area widgets, in default order: ids of widgets in `Bonfire.UI.Common.Widgets.registry/0`. Instances set their own defaults and people their own choice in dashboard settings.
+config :bonfire, Bonfire.Web.Views.DashboardLive,
+  widgets: [
+    main: [:welcome, :instance_pinned, :trending_discussions, :polls_closing_soon, :suggested_profiles],
+    sidebar: [:getting_started, :wishes, :recent_articles, :community_rules]
+  ]

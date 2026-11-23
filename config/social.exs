@@ -43,3 +43,10 @@ config :bonfire, :ui,
 config :bonfire_valueflows_api_schema, modularity: :disabled
 
 # config :bonfire_notify, modularity: :disabled
+
+# The dashboard's main-area widgets, in default order: ids of widgets in `Bonfire.UI.Common.Widgets.registry/0`. Instances set their own defaults and people their own choice in dashboard settings.
+config :bonfire, Bonfire.Web.Views.DashboardLive,
+  widgets: [
+    main: [:welcome, :instance_pinned, :trending_discussions, :polls_closing_soon, :suggested_profiles],
+    sidebar: [:community_links, :wishes, :popular_topics, :trending_links, :community_rules, :mods, :recent_users]
+  ]

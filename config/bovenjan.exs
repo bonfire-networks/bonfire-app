@@ -36,3 +36,9 @@ config :bonfire_ui_common, Bonfire.UI.Common.WidgetGettingStartedLive,
 
 # Widgets on every page, in the right sidebar. The feedback widget shows once an admin sets a form link, or a group or topic to post in, in instance settings.
 config :bonfire_ui_common, Bonfire.UI.Common.LayoutLive, widgets: [layout: [:wishes]]
+
+# The dashboard's main-area widgets, in default order: ids of widgets in `Bonfire.UI.Common.Widgets.registry/0`. Instances set their own defaults and people their own choice in dashboard settings.
+config :bonfire, Bonfire.Web.Views.DashboardLive,
+  widgets: [
+    main: [:welcome, :instance_pinned, :trending_discussions, :polls_closing_soon, :suggested_profiles]
+  ]

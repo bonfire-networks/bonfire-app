@@ -322,3 +322,25 @@ locales =
     else: ["en", "fr", "fr_FR", "es", "it", "af"]
 
 config :bonfire_common, Bonfire.Common.Localise.Cldr, locales: locales
+
+# The dashboard's main-area and sidebar widgets, in default order: ids of widgets in `Bonfire.UI.Common.Widgets.registry/0`. Instances set their own defaults and people their own choice in dashboard settings. Each flavour sets its own lists, as this one is every flavour's base.
+config :bonfire, Bonfire.Web.Views.DashboardLive,
+  widgets: [
+    main: [:welcome, :popular_discussions],
+    sidebar: [:community_links, :popular_topics, :trending_links, :community_rules, :mods, :recent_users]
+  ]
+
+# The homepage's widgets for visitors, in default order, which admins change in instance settings (Widgets › Homepage).
+config :bonfire, Bonfire.Web.Views.HomeLive,
+  widgets: [
+    main: [
+      :intro,
+      :mods,
+      :instance_facts,
+      :community_links,
+      :community_rules,
+      :instance_pinned,
+      :groups,
+      :feed
+    ]
+  ]
