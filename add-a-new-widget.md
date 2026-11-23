@@ -50,6 +50,79 @@ Widgets are wrapped in a [WidgetBlockLive](https://github.com/bonfire-networks/b
 
 ```
 
+### Declare the widget
+
+Declare the widget so the dashboard and the guest homepage can offer it, and admins and users can turn it on in their widget settings:
+
+```elixir
+defmodule Bonfire.Geolocate.WidgetForecastLive do
+  use Bonfire.UI.Common.Web, :stateless_component
+
+  declare_widget(l("Weather"), id: :forecast, current_user_required: true)
+
+  prop location, :string, default: nil
+end
+```
+
+`declare_widget/2` takes these options, all optional:
+
+- `id`: the atom that settings and flavour config refer to the widget by. By default it comes from the module name: `WidgetForecastLive` gives `:forecast`.
+- `width`: where the widget can go. `:wide` fits a main area only, eg. a carousel. `:narrow` fits a sidebar only, eg. a compact list. By default a widget fits either, so leave `width` out unless it only works in one. A widget that fits either sits in exactly one area of a page, which a person can change in their settings.
+- `current_user_required`: `true` when the widget only makes sense for someone signed in. It's then never offered on the guest homepage, or to guests anywhere.
+- `embeddable`: whether it can be embedded on other sites. By default, a widget is embeddable when guests can see it.
+- `props`: the props it gets wherever it's placed, eg. `[limit: 5]`.
+- `icon` and `description`: shown in the widget settings.
+
+All declared widgets, plus the ones admins write themselves, are listed by `Bonfire.UI.Common.Widgets.registry/0`.
+
+A widget should render inside `WidgetBlockLive`, and wrap plain content (text, a button) in an element with `data-role="widget-body"`, so it takes the same gutter as its title wherever it's placed. A widget that renders nothing is hidden, with no empty gap left behind. When the same widget should look different in a main area and a sidebar (eg. cards on the homepage, a compact list in a sidebar), use its `showing_within` prop, which is `:main` or `:sidebar`.
+
+## Widgets in places
+
+A place is a part of a page that shows a list of widgets: the dashboard's main area (`{Bonfire.Web.Views.DashboardLive, :main}`) and sidebar (`{Bonfire.Web.Views.DashboardLive, :sidebar}`), and the guest homepage (`{Bonfire.Web.Views.HomeLive, :main}`). A page renders its place with `Bonfire.UI.Common.Widgets.for_place(place, current_user)`, and its settings with `Bonfire.UI.Common.PlaceWidgetsSettingsLive`.
+
+What a place shows is decided in layers, each overriding the one before:
+
+1. The flavour's config gives the default list, in order.
+2. Admins change it for their instance in instance settings, Widgets: the "Dashboard (members)" and "Homepage (visitors)" tabs.
+3. Each person changes their own dashboard in their dashboard settings.
+
+### In a flavour
+
+A flavour sets each place's default widgets in its config, by id:
+
+```elixir
+config :bonfire, Bonfire.Web.Views.DashboardLive,
+  widgets: [
+    main: [:welcome, :instance_pinned, :trending_discussions, :polls_closing_soon],
+    sidebar: [:community_links, :community_rules, :mods]
+  ]
+
+config :bonfire, Bonfire.Web.Views.HomeLive,
+  widgets: [main: [:intro, :mods, :community_links, :instance_pinned, :groups]]
+```
+
+`ember.exs` is every flavour's base config, and the flavour's own config is loaded after it. A list in the flavour's config replaces ember's list; it isn't merged with it. So to add one widget to ember's list, repeat the whole list with it added.
+
+- **Choose and order:** list the widget ids you want, in the order you want them.
+- **Areas:** the keys you list (`main`, `sidebar`) are the page's areas, and a widget sits in one of them. A widget goes where you list it, or if you don't list it, in the first area its `width` allows. A page with no `sidebar` key has no sidebar widgets.
+- **Change a widget's props:** list it as `{id, props}`, eg. `{:trending_discussions, [limit: 3]}`. These are merged over the props it was declared with.
+- **Leave a widget out:** don't list it. It's still offered in the settings, switched off, so an admin or a person can turn it on.
+- **Disable a widget completely:** disable its module, or its whole extension, with the usual modularity config, eg. `config :bonfire_geolocate, Bonfire.Geolocate.WidgetForecastLive, modularity: :disabled`. It's then never offered in any place or setting.
+- **Add a widget:** declare it in its extension (see above), then list its id.
+
+A widget can also be on by default for some places or people beyond its flavour's list, by defining `included_by_default?(place, current_user)`. For example, the feed widget (`Bonfire.UI.Social.WidgetFeedLive`) is on in the dashboard for people who chose the old feed-only dashboard.
+
+Flavours set their own lists rather than overriding the `DashboardLive` or `HomeLive` templates. The pages' templates are ember's, and a flavour only overrides a template for what config can't express.
+
+### What's not a place yet
+
+The page sidebars (profiles, feeds, events, threads...) are still set in code, with the `sidebar_widgets` assign shown below. They will become places too.
+
+On every page with a right sidebar, a flavour can also show the feedback widget with `config :bonfire_ui_common, Bonfire.UI.Common.LayoutLive, widgets: [layout: [:wishes]]`, and an admin can hide it with `[Bonfire.UI.Common.LayoutLive, :include, :wishes]`. Only `:wishes` works there for now.
+
+### Showing a widget in a page's sidebar
+
 To see our widget, we need to include it in a page. Widgets are included in our right sidebar and are defined within a prop called `sidebar_widgets`, which is a list that includes guest and user lists (respectively, the widgets to show when the user is visiting a page while not logged in or when the user is logged in).
 
 We'll include our widget in the logged list, specifying it is in the secondary widget section. The final look of our `sidebar_widget` prop looks like this:
