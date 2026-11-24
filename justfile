@@ -1294,7 +1294,7 @@ test-sonix *args='':
 test-paginator *args='': (test-fork "paginator" args)
 
 test_default_excludes:
-	@echo "--exclude live_federation --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude integration `just test_minimum_excludes`"
+	@echo "--exclude live_federation --exclude live_fasp --exclude test_instance --exclude masto_api --exclude masto_api_coverage --exclude integration `just test_minimum_excludes`"
 
 test_minimum_excludes:
 	@echo "--exclude todo --exclude skip --exclude fixme --exclude benchmark --exclude explain"
@@ -1457,6 +1457,14 @@ _test-dance-positions:
 	# TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
 	# replaced: it ran outside the `test-run` lock, so it could wipe `_build/test/lib/bonfire/` while another run compiled or tested (the "router_reverse.ex missing" compile flake)
 	just with-lock test-run env TEST_INSTANCE=yes MIX_ENV=test just mix deps.clean bonfire --build
+
+# Live interop of bonfire_fasp (client role) with fasp_ruby's debug_fasp, which has to be running already with RAILS_ENV=test. Needs FASP_LIVE_URL (eg. http://localhost:3100) and FASP_LIVE_RUNNER (a command prefix that runs a Ruby snippet in debug_fasp, see the moduledoc of extensions/bonfire_fasp/test/live/debug_fasp_test.exs). FEDERATE=yes makes the test env use the real HTTP adapter instead of Tesla.Mock.
+test-fasp-live *args='extensions/bonfire_fasp/test/live': services
+	#!/usr/bin/env bash
+	set -euo pipefail
+	: "${FASP_LIVE_URL:?set FASP_LIVE_URL to the debug_fasp URL, eg. http://localhost:3100}"
+	: "${FASP_LIVE_RUNNER:?set FASP_LIVE_RUNNER, see extensions/bonfire_fasp/test/live/debug_fasp_test.exs}"
+	FEDERATE=yes just test_run {{args}} --only live_fasp
 
 # Run rate limit tests (requires a running server on port 4000)
 test-rate-limit *args='': services 

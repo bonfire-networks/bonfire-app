@@ -86,7 +86,7 @@ Bonfire implements and/or experiments with several [Fediverse Enhancement Propos
 - [FEP-2677 - Identifying the application actor][40]
 - [FEP-d556 - Server-level actor discovery using WebFinger][41]
 - [FEP-8a8e - A common approach to using the Event object type][42]
-- [FEP-8967 - Generating link previews for attached links][28]: incoming only.
+- [FEP-8967 - Generating link previews for attached links][28]: a post's link previews go out as `Link` attachments with a `name` and a `preview` (title, description, image, author), whose `type` is `Video` or `Audio` when the link has a player, else `Page`. Incoming, a `Link`'s details are read from its `preview` or, failing that, its own `name`, `summary` and `image`. A link with no details, or whose `preview` is a `Video` or `Audio`, is fetched for its own preview, so a player always comes from its provider.
 - [FEP-07d7 - Handling `web+ap` URLs][07d7]
 - [FEP-67ff - FEDERATION.md][39]: this file.
 
