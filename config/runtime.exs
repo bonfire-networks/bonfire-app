@@ -419,6 +419,12 @@ config :bonfire, Oban,
            [{"@daily", Bonfire.Gatherings.Workers.UnindexEnded, max_attempts: 1}]
          else
            []
+         end ++
+         if Bonfire.Common.Extend.extension_enabled?(:bonfire_wordpress) do
+           # posts gone from an imported WordPress site are hidden, checked as often as `[:bonfire_wordpress, :removal_check_every]` says (a day by default)
+           [{"@hourly", Bonfire.WordPress.RemovalCheck, max_attempts: 1}]
+         else
+           []
          end}
     # ++
     # if Bonfire.Common.Extend.module_enabled?(Bonfire.Social.TrendingLinksCacheWorker) do
