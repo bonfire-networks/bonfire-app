@@ -709,7 +709,9 @@ The last piece to be able to access your instance from the Internet is a reverse
                  (list "alias /var/lib/bonfire/uploads/;"
                        "index  index.html index.htm;"
                        ;; uploads (e.g. SVG) are served from the instance's origin, so stop any script in them from running if opened directly
-                       "add_header Content-Security-Policy \"sandbox; default-src 'none'; style-src 'unsafe-inline'\" always;"))))))))))
+                       "add_header Content-Security-Policy \"sandbox; default-src 'none'; style-src 'unsafe-inline'\" always;"
+                       ;; let web clients on other origins read media (`crossorigin` images)
+                       "add_header Access-Control-Allow-Origin \"*\" always;"))))))))))
 ```
 
 <!-- tabs-close -->
@@ -725,6 +727,7 @@ The app needs these environment variables to be configured in order to work.
 - `MAIL_BACKEND`, `MAIL_DOMAIN` and `MAIL_KEY` and related keys to configure transactional email, for example set `MAIL_BACKEND=mailgun` and sign up at [Mailgun](https://www.mailgun.com/) and then configure the domain name and key (you may also need to set `MAIL_BASE_URI` if your domain is not setup in EU, as the default `MAIL_BASE_URI` is set as `https://api.eu.mailgun.net/v3`). Many other services and approaches (including SMTP) are available, see [the configuration docs](Bonfire.Mailer.html).
   - If you use `MAIL_BACKEND=smtp`, set `MAIL_SERVER`, `MAIL_USER` and `MAIL_PASSWORD` (plus optionally `MAIL_PORT` and `MAIL_SSL`) instead of `MAIL_KEY`. Do **not** set both `MAIL_KEY` and `MAIL_PASSWORD`: `MAIL_KEY` takes precedence, so a leftover `MAIL_KEY` from a previous API-based backend will be sent as your SMTP password and authentication will fail (eg. `535 5.7.8`). Remove `MAIL_KEY` from the environment and redeploy so the runtime config is reloaded.
 - `UPLOADS_S3_BUCKET` and the related API key and secret for uploads. See `config/runtime.exs` for extra variables available to set if you're not using the default service and region (which is [Scaleway](https://www.scaleway.com/en/object-storage/) Paris).
+  - The bucket needs a CORS rule that allows `GET` from any origin (`*`): `/files/redir/` redirects media to the bucket, and web Mastodon clients (eg. Phanpy, Elk) load avatars and attachments as `crossorigin` images, which a browser blocks without that header.
 
 ### Secret keys for which you should put random secrets. 
 You can run `just secrets` to generate some for you.
@@ -894,7 +897,7 @@ The app stores uploads in `data/uploads/` inside its working directory (`/opt/bo
 
 The proxy tells the app the visitor's address in forwarded headers (`X-Forwarded-For` and the like), which rate limits and logs use. The app believes these headers only when the connection comes from a trusted proxy: by default, one on the same machine (loopback) or on a private network. If your proxy has a public address (for example Cloudflare, or a separate load balancer), set `TRUSTED_PROXIES` to a comma-separated list of the CIDR blocks of the proxies, such as `TRUSTED_PROXIES=203.0.113.0/24,2001:db8::/32`. Without it, every visitor looks like the proxy and shares one rate limit. Do not list addresses that are not your proxies, because anyone connecting from a listed address can then choose the address the app sees. Publish the app's port only to the proxy (for example `127.0.0.1:4000`), not to the Internet.
 
-- nginx: [config/templates/nginx.conf](../config/templates/nginx.conf) has only the `location` blocks. Put them in a `server` block with your `server_name`, `listen 443 ssl` and certificate lines, for example in `/etc/nginx/conf.d/bonfire.conf`. Change `root priv/static` to the absolute path of the static files: `lib/bonfire-<version>/priv/static` inside the release directory. The version in this path changes when you upgrade. Also change the `alias` in the uploads block to the absolute path of `data/uploads/` in the app's working directory.
+- nginx: [config/templates/nginx.conf](../config/templates/nginx.conf) has only the `location` blocks. Put them in a `server` block with your `server_name`, `listen 443 ssl` and certificate lines, for example in `/etc/nginx/conf.d/bonfire.conf`. Change both `root priv/static` lines (the `/images/` and `/` blocks) to the absolute path of the static files: `lib/bonfire-<version>/priv/static` inside the release directory. The version in this path changes when you upgrade. Also change the `alias` in the uploads block to the absolute path of `data/uploads/` in the app's working directory.
 - Caddy: [config/templates/Caddyfile2-https](../config/templates/Caddyfile2-https) is written for the Docker setup. Copy it to `/etc/caddy/Caddyfile`, then replace `:443` with your domain (so that Caddy gets a certificate for it), `web:4000` with `127.0.0.1:4000`, and `/frontend/` with the app's working directory.
 - Apache: copy [config/templates/apache.conf](../config/templates/apache.conf) to `/etc/httpd/conf.d/bonfire.conf` (RHEL), or to `/etc/apache2/sites-available/bonfire.conf` and run `a2ensite bonfire` (Debian). Change `ServerName`, the certificate and log paths, and the uploads `Alias` and `<Directory>` paths, which must point to `data/uploads/` inside the app's working directory. It needs the `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, `headers` and `ssl` modules. This is a `<VirtualHost>` block, so it needs admin access. It doesn't work in a `.htaccess` file, because `.htaccess` doesn't allow `Alias` or `ProxyPass`.
 
