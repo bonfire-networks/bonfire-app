@@ -2,6 +2,8 @@
 
 The Telling puts a Bonfire discussion under any page of your website: a blog post, an article, a documentation page. Readers can comment with an account on your Bonfire instance, or reply from their own account on any fediverse server. Each page's discussion is a thread on your instance, so it federates like any other post.
 
+Your website can also show some of your instance's widgets, such as a circle's members or the Spotlight: see [Widgets on your website](./embedded-widgets.md).
+
 ## On your instance
 
 Whoever runs your Bonfire instance sets these once.
