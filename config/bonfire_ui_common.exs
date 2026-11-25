@@ -72,6 +72,8 @@ config :bonfire, :ui,
     instance_theme_light: "light",
     instance_icon: "/images/bonfire-icon.png",
     instance_image: "/images/bonfires.png",
+    # show the banner in the top left corner instead of the icon
+    banner_as_icon: false,
     instance_tagline: "Yet another federated digital space",
     instance_description: "This is a bonfire demo instance for testing purposes",
     instance_welcome: [
