@@ -183,7 +183,8 @@ config :surface, :components, [
   {Bonfire.UI.Common.LinkLive, propagate_context_to_slots: true},
   {Bonfire.UI.Common.LogoLinkLive, propagate_context_to_slots: false},
   {Bonfire.UI.Social.Activity.LinkToActivityLive, propagate_context_to_slots: true},
-  {Bonfire.UI.Common.TabsLive, propagate_context_to_slots: true}
+  {Bonfire.UI.Common.TabsLive, propagate_context_to_slots: true},
+  {Bonfire.UI.Social.FeedLive, propagate_context_to_slots: true}
 ]
 
 # variants_prefix: "s-"

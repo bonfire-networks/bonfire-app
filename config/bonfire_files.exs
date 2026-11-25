@@ -6,7 +6,9 @@ import Config
 config :bonfire_social, Bonfire.Social.FeedFilters,
   field: [
     media_types: Bonfire.Social.FeedFilters.AtomOrStringList,
-    exclude_media_types: Bonfire.Social.FeedFilters.AtomOrStringList
+    exclude_media_types: Bonfire.Social.FeedFilters.AtomOrStringList,
+    # only media with a file of ours (an upload, or an imported file with its storage), not a link preview or an embed
+    media_has_file: :boolean
   ]
 
 # the library's `%URI{}` uploads are fetched through `Bonfire.Common.HTTP` (private and loopback hosts refused on every hop, body size capped) instead of its default `:httpc` fetch
