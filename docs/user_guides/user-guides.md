@@ -40,6 +40,7 @@ Welcome to the Bonfire user documentation! These guides are designed to help you
 
 - [Remote Interactions and the Fediverse](./remote-interactions.md)
 - [Comments on your website (the Telling)](./embedded-comments.md)
+- [Widgets on your website](./embedded-widgets.md)
 - [Bonfire Extensions/Plugins](./extensions.md)
 - [Running Your Own Instance](./running-your-own.md)
 - [Moderator Tools](./moderator-tools.md)
