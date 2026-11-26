@@ -1,6 +1,8 @@
 # `Bonfire.Web.Endpoint`
 [🔗](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/endpoint.ex#L1)
 
+# `api_errors_as_json`
+
 # `broadcast`
 
 # `broadcast!`

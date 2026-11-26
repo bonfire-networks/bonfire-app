@@ -1,6 +1,8 @@
 # `Bonfire.Web.FakeRemoteEndpoint`
 [🔗](https://github.com/bonfire-networks/bonfire-app/blob/main/lib/bonfire/web/fake_remote_endpoint.ex#L1)
 
+# `api_errors_as_json`
+
 # `broadcast`
 
 # `broadcast!`
