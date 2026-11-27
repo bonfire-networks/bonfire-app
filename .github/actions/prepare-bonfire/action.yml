@@ -48,7 +48,10 @@ runs:
     - name: Install system deps
       shell: bash
       # run: sudo apt install git tar file make build-essential docker-compose-plugin && sudo snap install --edge just --classic
-      run: sudo apt install git tar file make build-essential docker-compose-plugin
+      # the runtime deps, media tools included (so uploads are not refused for want of an image resize tool), come from the script the Debian release uses, so there is one list; it uses `sudo` itself when not root
+      run: |
+        sh ./deps-debian.sh
+        sudo apt-get install -q -y make build-essential docker-compose-plugin
     # from GitHub releases rather than snap, so a Snap Store outage does not fail every job
     - uses: extractions/setup-just@v4
     - uses: erlef/setup-beam@v1
