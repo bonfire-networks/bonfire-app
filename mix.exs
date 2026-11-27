@@ -163,9 +163,10 @@ defmodule Bonfire.Umbrella.MixProject do
     )
 
   # :rustler is needed at compile time to build Rust NIFs from source (rather than using precompiled binaries).
-  # It's always available in dev/test, plus in prod when a local NIF build is forced — either all NIFs (RUSTLER_BUILD_ALL, e.g. arm builds) or a subset like `decent` (DECENT_BUILD, the forked PGP NIF).
+  # It's always available in dev/test, plus in prod when a local NIF build is forced — either all NIFs (RUSTLER_BUILD_ALL, e.g. arm builds) or a subset like `decent` (DECENT_BUILD, the forked PGP NIF) or `svg_sanitizer` (SVG_SANITIZER_BUILD, no precompiled musl binary).
   rustler_force_build? =
-    System.get_env("RUSTLER_BUILD_ALL") in yes? or System.get_env("DECENT_BUILD") in yes?
+    System.get_env("RUSTLER_BUILD_ALL") in yes? or System.get_env("DECENT_BUILD") in yes? or
+      System.get_env("SVG_SANITIZER_BUILD") in yes?
 
   rustler_envs = if(rustler_force_build?, do: [:prod, :dev, :test], else: [:dev, :test])
 
@@ -209,6 +210,9 @@ defmodule Bonfire.Umbrella.MixProject do
         ## password hashing - builtin vs nif
         {:pbkdf2_elixir, "~> 2.0", only: [:dev, :test]},
         {:argon2_elixir, "~> 4.0", only: [:prod]},
+
+        ## SVG sanitising (a precompiled Linux NIF around Cloudflare's svg-hush): prod only, so dev machines (macOS) never build it. Without it SVG uploads are stored as they are in dev and refused in test and prod (see `Bonfire.Files.MediaEdit.sanitize_svg/0`). To also have it in test, change `only: [:prod]` to `only: [:test, :prod]`.
+        {:svg_sanitizer, "~> 0.2", only: [:prod]},
 
         ## dev conveniences
         {

@@ -24,7 +24,10 @@ COPY --link deps-alpine-build.sh ./
 RUN chmod +x ./*.sh
 RUN sh deps-alpine-build.sh
 
-# RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev 
+# svg_sanitizer only ships precompiled NIFs for glibc, so build it from source on Alpine (musl)
+ENV SVG_SANITIZER_BUILD=1
+
+# RUN apk --update add tar curl git rust cargo npm yarn bash make gcc libc-dev openssl-dev
 
 ENV HOME=/opt/app/ TERM=xterm MIX_ENV=prod FLAVOUR_PATH=./ WITH_AI=$WITH_AI WITH_IMAGE_VIX=$WITH_IMAGE_VIX WITH_API_GRAPHQL=$WITH_API_GRAPHQL RUSTLER_BUILD_ALL=$RUSTLER_BUILD_ALL
 # XLA_BUILD=true

@@ -125,5 +125,11 @@ config :bonfire_files, Bonfire.Files,
   # the kinds a page's Open Graph type also says, when its JSON-LD says none
   link_kinds_open_graph: [book: ["book"], profile: ["profile"]]
 
+# the width and height (in pixels) a custom emoji is shrunk to fit within (it is never enlarged)
+config :bonfire_files, Bonfire.Files.EmojiUploader, max_size: 128
+
+# the longest each tool that looks for a location in an upload (`exiftool`, `ffprobe`...) may run before it is stopped and the next step of the chain takes over
+config :bonfire_files, Bonfire.Files.LocationMetadata, tool_timeout: to_timeout(second: 10)
+
 # the library's `%URI{}` uploads are fetched through `Bonfire.Common.HTTP` (private and loopback hosts refused on every hop, body size capped) instead of its default `:httpc` fetch
 config :entrepot, :uri_fetcher, {Bonfire.Files, :fetch_body}
